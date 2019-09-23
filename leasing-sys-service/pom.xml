@@ -9,7 +9,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>leasing-cloud</groupId>
     <artifactId>leasing-sys-service</artifactId>
 
 
