@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>leasing-cloud</groupId>
+    <artifactId>leasing-cloud</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>leasing-common-service</module>
+        <module>leasing-calculate-service</module>
+        <module>leasing-common-service</module>
+        <module>leasing-project-service</module>
+        <module>leasing-custom-service</module>
+    </modules>
+
+
+</project>
