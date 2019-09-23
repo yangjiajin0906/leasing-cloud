@@ -2,6 +2,7 @@ package com.leasing.calculate.controller;
 
 import com.leasing.common.api.feign.calculate.CalculatorTest;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,8 +14,8 @@ public class CalculatorTestController implements CalculatorTest {
 
     @Override
     @RequestMapping(value = "/testFeign")
-    public String TestFeign() {
-        return "Test my fiegn interface";
+    public String TestFeign(@RequestParam("str") String str) {
+        return "Test my fiegn interface "+ str;
     }
 
 
