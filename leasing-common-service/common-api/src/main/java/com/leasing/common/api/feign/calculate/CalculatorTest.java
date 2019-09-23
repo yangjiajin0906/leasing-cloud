@@ -10,5 +10,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface CalculatorTest {
 
     @RequestMapping(value = "/testFeign")
-    String TestFeign(@RequestParam("str") String str);
+    String TestFeign(@RequestParam(value = "str", required = false) String str);
 }

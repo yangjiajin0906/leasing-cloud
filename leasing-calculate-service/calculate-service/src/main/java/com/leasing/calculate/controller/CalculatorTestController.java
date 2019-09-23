@@ -14,7 +14,7 @@ public class CalculatorTestController implements CalculatorTest {
 
     @Override
     @RequestMapping(value = "/testFeign")
-    public String TestFeign(@RequestParam("str") String str) {
+    public String TestFeign(String str) {
         return "Test my fiegn interface "+ str;
     }
 
