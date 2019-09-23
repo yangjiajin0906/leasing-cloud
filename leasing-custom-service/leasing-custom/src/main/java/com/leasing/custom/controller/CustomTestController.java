@@ -17,6 +17,6 @@ public class CustomTestController {
     FeignCalculatorTest feignCalculatorTest;
     @RequestMapping(value = "/test")
     public String CustomTest(){
-        return feignCalculatorTest.TestFeign();
+        return feignCalculatorTest.TestFeign(" this is feignTest");
     }
 }
