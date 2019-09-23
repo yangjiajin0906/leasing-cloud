@@ -12,8 +12,8 @@
         <module>leasing-common-service</module>
         <module>leasing-calculate-service</module>
         <module>leasing-common-service</module>
-        <module>leasing-project-service</module>
         <module>leasing-custom-service</module>
+        <module>leasing-rentearly-service</module>
     </modules>
 
 
