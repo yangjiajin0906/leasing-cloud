@@ -14,7 +14,6 @@
         <module>leasing-common-service</module>
         <module>leasing-rentearly-service</module>
         <module>leasing-customer-service</module>
-        <module>leasing-menu-service</module>
     </modules>
 
     <properties>
