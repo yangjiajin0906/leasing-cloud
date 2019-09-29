@@ -6,6 +6,10 @@ spring:
              discovery:
                   enabled: true
                   serviceId: leasing-config-server
+#zuul:
+#  routes:
+#    leasing-customer-service: /customer-service/**
+
 eureka:
   port:
     8800
