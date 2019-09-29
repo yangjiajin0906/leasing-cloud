@@ -1,5 +1,5 @@
 server:
-  port: 8810
+  port: 8088
 spring:
   application:
     name: leasing-gateway-service
@@ -17,6 +17,14 @@ spring:
         uri: lb://leasing-custom-service
         predicates:
         - Path=/leasing/custom/**
+      - id: customer-service
+        uri: lb://leasing-customer-service
+        predicates:
+        - Path=/leasing/customer/**
+      - id: menu-service
+        uri: lb://leasing-menu-service
+        predicates:
+        - Path=/leasing/menu/**
 eureka:
   port:
     8800
