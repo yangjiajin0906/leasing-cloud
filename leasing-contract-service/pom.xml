@@ -2,22 +2,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>leasing-cloud</artifactId>
+        <groupId>leasing-cloud</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>leasing-cloud</groupId>
-    <artifactId>leasing-cloud</artifactId>
+    <artifactId>leasing-contract-service</artifactId>
+
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>leasing-common-service</module>
-        <module>leasing-calculate-service</module>
-        <module>leasing-common-service</module>
-        <module>leasing-rentearly-service</module>
-        <module>leasing-customer-service</module>
-        <module>leasing-contract-service</module>
+        <module>contract-api</module>
+        <module>contract-data</module>
+        <module>contract-service</module>
     </modules>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
+
+
 </project>
