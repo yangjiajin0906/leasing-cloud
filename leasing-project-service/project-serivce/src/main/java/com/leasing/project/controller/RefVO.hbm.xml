@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="gbu.vo.sm.refvo.OrgRefVO" table="sm_org" batch-size="100">
+        <id name="pk" type="string" column="pk_org"/>
+        <property name="code" type="string" column="org_code"/>
+        <property name="name" type="string" column="org_name"/>
+        <property name="shortName" type="string" column="short_name"/>
+    </class>
+    <class name="gbu.vo.sm.refvo.BilltypeRefVO" table="eprk_billtype">
+        <id name="pk" type="string" column="pk_billtype"/>
+        <property name="code" type="string" column="table_name"/>
+        <property name="name" type="string" column="bill_name"/>
+    </class>
+
+    <class name="gbu.vo.foundation.ref.Pub_blobRefVO" table="eprk_pub_blob" batch-size="20" >
+        <id name="pk" type="string" column="pk_pub_blob"/>
+        <property name="code" type="string" column="source_table"/>
+        <property name="name" type="string" column="file_name"/>
+        <property name="pk_object_id" type="string" column="pk_object_id"/>
+    </class>
+    <class name="gbu.vo.sm.refvo.UserRefVO" table="sm_user_view" batch-size="50">
+        <id name="pk" type="string" column="pk_user"/>
+        <property name="code" type="string" column="user_code"/>
+        <property name="name" type="string" column="user_name"/>
+        <property name="user_role" type="short" column="user_role"/>
+        <property name="psnname" type="string" column="psnname"/>
+        <property name="psndeptname" type="string" column="deptname"/>
+        <many-to-one name="pk_deptdoc" class="nc.vo.eprk.refvo.DeptTreeRefVO" column="pk_deptdoc" lazy="false" optimistic-lock="false" />
+        <many-to-one name="pk_org" class="gbu.vo.sm.refvo.OrgRefVO" column="pk_org" lazy="false" optimistic-lock="false" />
+        <property name="pk_userde_user" type="string" column="pk_userde_user"/>
+        <property name="pk_userde_code" type="string" column="pk_userde_code"/>
+        <property name="pk_userde_name" type="string" column="pk_userde_name"/>
+        <!-- add wjj 20160815 发生消息通知-->
+        <property name="cuserid" type="string" column="cuserid"/>
+        <!-- add end-->
+    </class>
+	<class name="gbu.vo.sm.refvo.ConSettleUserRef" table="sm_user_view" batch-size="50">
+        <id name="pk" type="string" column="pk_user"/>
+        <property name="code" type="string" column="user_code"/>
+        <property name="name" type="string" column="user_name"/>
+        <property name="user_role" type="string" column="user_role"/>
+        <property name="psnname" type="string" column="psnname"/>
+        <property name="deptname" type="string" column="deptname"/>
+    </class>
+	<class name="nc.vo.eprk.refvo.IndustryRefVO" table="eprk_industry">
+		<id name="pk" type="string" column="pk_industry" />
+		<property name="pk_super" type="string" column="pk_super" />
+		<property name="code" type="string" column="code" />
+		<property name="name" type="string" column="name" />
+	</class>
+
+	<class name="nc.vo.eprk.refvo.Identity_typeRefVO" table="eprk_identity_type">
+		<id name="pk" type="string" column="pk_identity_type" />
+		<property name="code" type="string" column="identity_code" />
+		<property name="name" type="string" column="identity_name" />
+	</class>
+	<class name="nc.vo.eprk.refvo.ManagerRefVO" table="eprk_manager">
+		<id name="pk" type="string" column="pk_manager" />
+		<property name="code" type="string" column="code" />
+		<property name="name" type="string" column="name" />
+		<property name="manager_type" type="short" column="manager_type" />
+	</class>
+	<class name="nc.vo.eprk.refvo.BusinesstypeRefVO" table="eprk_businesstype">
+		<id name="pk" type="string" column="pk_businesstype" />
+		<property name="code" type="string" column="code" />
+		<property name="table_name" type="string" column="table_name" />
+		<property name="name" type="string" column="business_name" />
+		<property name="vo_name" type="string" column="vo_name" />
+		<property name="key_field" type="string" column="key_field" />
+	</class>
+	<class name="nc.vo.eprk.refvo.TradeOperateRefVO" table="eprk_trade_operate">
+		<id name="pk" type="string" column="pk_trade_operate" />
+		<property name="code" type="string" column="operate_code" unique="false" optimistic-lock="true" lazy="false" generated="never" />
+		<property name="name" type="string" column="operate_name" unique="false" optimistic-lock="true" lazy="false" generated="never" />
+	</class>
+    <class name="gbu.vo.workflow.WorkflowDefineRefVO" table="wf_workflow_define">
+        <id name="pk" type="string" column="pk_workflow_define" />
+        <property name="code" type="string" column="flow_id" unique="false" optimistic-lock="true" lazy="false" generated="never" />
+        <property name="name" type="string" column="flow_name" unique="false" optimistic-lock="true" lazy="false" generated="never" />
+    </class>
+    <class name="gbu.vo.bd.ref.ParmsRefVO" table="yls_parameter" batch-size="100">
+        <id name="pk" type="string" column="pk_parameter" />
+        <property name="code" type="string" column="param_code" />
+        <property name="name" type="string" column="param_name" />
+        <property name="param_value" type="string" column="param_value" />
+        <property name="param_type" type="integer" column="param_type" />
+        <property name="parent_parameter" type="string" column="parent_parameter"   />
+    </class>
+    <class name="nc.vo.eprk.refvo.DeptTreeRefVO" table="bd_deptdoc">
+        <id name="pk" type="string" column="pk_deptdoc" />
+        <property name="code" type="string" column="pk_corp" />
+        <property name="name" type="string" column="deptname" />
+    </class>
+    <class name="gbu.vo.bd.ref.TreeMenuRefVO" table="yls_tree_menu">
+        <id name="pk" type="string" column="pk_tree_menu" />
+        <property name="code" type="string" column="menu_code" />
+        <property name="name" type="string" column="menu_name" />
+        <property name="pk_father" type="string" column="pk_father" />
+        <property name="ui_name" type="string" column="ui_name" />
+        <property name="main_class" type="string" column="main_class" />
+        <property name="main_ui" type="integer" column="main_ui" />
+        <property name="if_more" type="yes_no" column="if_more"/>
+        <property name="pk_foreign" type="string" column="pk_foreign"/>
+        <property name="order_num" type="string" column="order_num" />
+    </class>
+    <!--部门-->
+    <class name="gbu.vo.sm.refvo.DeptdocRefVO" table="bd_deptdoc" batch-size="50">
+        <id name="pk" type="string" column="pk_deptdoc" />
+        <property name="code" type="string" column="deptcode" />
+        <property name="name" type="string" column="deptname" />
+    </class>
+    <!-- 单据定义(按钮) -->
+    <class name="gbu.vo.sm.refvo.ButtondefRefVO" table="yls_buttondef">
+        <id name="pk" type="string" column="pk_buttondef"/>
+        <property name="code" type="string" column="id"/>
+        <property name="name" type="string" column="text"/>
+    </class>
+    <!-- 单据定义(字段属性) -->
+    <class name="gbu.vo.sm.refvo.FielddefRefVO" table="yls_fielddef">
+        <id name="pk" type="string" column="pk_fielddef"/>
+        <property name="code" type="string" column="field"/>
+        <property name="name" type="string" column="label"/>
+        <property name="new_name" type="string" column="new_label"/>
+        <property name="scope" type="string" column="scope"/>
+        <property name="allownull" type="short" column="allownull"/>
+        <property name="editable" type="short" column="editable"/>
+        <property name="scope_new" type="string" column="scope_new"/>
+        <property name="allownull_new" type="short" column="allownull_new"/>
+        <property name="editable_new" type="short" column="editable_new"/>
+        <property name="default_value" type="string" column="default_value"/>
+        <property name="datatype" type="string" column="datatype"/>
+        <property name="component" type="short" column="component"/>
+    </class>
+    <!-- 单据定义(列表单据定义参照) -->
+    <class name="gbu.vo.bd.ref.TableDefRefVO" table="(select t.pk_billdef_set, t.pk_tabledef, t.name, t.new_name new_name, 
+                                                               t.order_num order_num_main
+                                                        from yls_tabledef t
+                                                        order by t.pk_billdef_set, t.order_num)">
+        <id name="pk" type="string" column="pk_tabledef"/>
+        <property name="code" type="string" column="name"/>
+        <property name="name" type="string" column="new_name"/>
+        <property name="pk_parent" type="string" column="pk_billdef_set"/>
+    </class>
+    <!-- 单据定义(字段属性单据定义参照) -->
+    <class name="gbu.vo.bd.ref.FieldTreeDefRefVO" table="(select distinct f.pk_billdef_set, f.clazz name, f.order_num code, f.order_num pk
+                                                          from yls_fielddef f 
+                                                          order by f.order_num)">
+        <id name="pk" type="string" column="pk"/>
+        <property name="code" type="string" column="code"/>
+        <property name="name" type="string" column="name"/>
+        <property name="pk_parent" type="string" column="pk_billdef_set"/>
+    </class>
+    <class name="nc.vo.lease.refvo.AccessNormParamRefVO" table="yls_accessnorm_param">
+    	<id name="pk" type="string" column="pk_accessnorm_param" />
+    	<property name="code" type="string" column="param_code"/>
+    	<property name="name" type="string" column="param_name"/>        
+    	<property name="param_property" type="short" column="param_property"/>
+    	<property name="standard_value" type="string" column="standard_value"/>
+    	<property name="real_value" type="string" column="real_value"/>
+    	<property name="vdef1" type="string" column="vdef1"/>
+    	<property name="vdef2" type="string" column="vdef2"/>
+    	<property name="vdef3" type="string" column="vdef3"/>
+    	<property name="vdef4" type="string" column="vdef4"/>
+    	<property name="vdef5" type="string" column="vdef5"/>
+    </class>
+    <class name="nc.vo.lease.refvo.AccessNormTemplateRefVO" table="yls_accessnorm_template">
+    	<id name="pk" type="string" column="pk_accessnorm_template" />
+    	<property name="code" type="string" column="template_code"/>
+    	<property name="name" type="string" column="template_name"/>
+    	<property name="class_foundation" type="short" column="class_foundation"/>
+    	<property name="class_details" type="string" column="class_details"/>
+    	<property name="start_date" type="string" column="start_date"/>
+    	<property name="end_date" type="string" column="end_date"/>
+    	<property name="status" type="short" column="status"/>
+    </class>
+</hibernate-mapping>
