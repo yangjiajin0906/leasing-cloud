@@ -1,11 +1,21 @@
 package com.leasing.calculate.vo;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
+import org.hibernate.annotations.Where;
+import org.hibernate.type.TimestampType;
+import org.springframework.data.annotation.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+import javax.persistence.Version;
+import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -15,12 +25,13 @@ import java.util.Set;
  * @author:Yjj@yonyou.com
  * @description:
  **/
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name="yls_lease_calculator")
-public class CalculatorVO {
+public class CalculatorVO implements Serializable {
     /**
      * 主键
      */
@@ -28,6 +39,7 @@ public class CalculatorVO {
     //@GeneratedValue(strategy= GenerationType.IDENTITY)//主键生成策略
     //@Column(name="pk_lease_calculator")//数据库字段名
     public String pk_lease_calculator;
+
     /**
      * 关联编号
      */
@@ -49,7 +61,9 @@ public class CalculatorVO {
     /**
      * 限额方案
      */
-    //public LimitPlanRefVO pk_limit_plan;
+    @ManyToOne()
+    @JoinColumn(name = "pk_limit_plan", referencedColumnName = "pk_limit_plan")
+    public LimitPlanRefVO pk_limit_plan;
 
     /**
      * 计息金额计算方式
@@ -58,17 +72,12 @@ public class CalculatorVO {
 
 
     /**
-     * 合同编号
-     */
-    //public ContractRefVO pk_contract;
-
-    /**
      * 投放日期
      */
     public String plan_date_loan;
 
     /**
-     * 实际投放日期，用于处理起租变更对于已付款的投放金额投放日期
+     * 实际投放日期，用于处理起租变更对于已付款的投放金额投放日期 null
      */
     //public String fact_plan_date_loan;
 
@@ -282,7 +291,7 @@ public class CalculatorVO {
     public String memo;
 
     /**
-     * 计算比例基数(运行参数中取值)
+     * 计算比例基数(运行参数中取值) null
      */
     //public Short cal_ratio_base;
 
@@ -399,7 +408,9 @@ public class CalculatorVO {
     /**
      * 在建期利率生效日期
      */
-    //public InterrateRefVO pk_interrate_c;
+    @ManyToOne()
+    @JoinColumn(name = "pk_interrate_c", referencedColumnName = "pk_interrate")
+    public InterrateRefVO pk_interrate_c;
 
     /**
      * 建设期利息处理方式
@@ -537,7 +548,9 @@ public class CalculatorVO {
     /**
      * 利率生效日期
      */
-    //public InterrateRefVO pk_interrate;
+    @ManyToOne()
+    @JoinColumn(name = "pk_interrate", referencedColumnName = "pk_interrate")
+    public InterrateRefVO pk_interrate;
 
 
     /**
@@ -602,7 +615,9 @@ public class CalculatorVO {
     /**
      * 保证金年利率生效日期
      */
-    //public InterrateRefVO pk_interrate_depos;
+    @ManyToOne()
+    @JoinColumn(name = "pk_interrate_depos", referencedColumnName = "pk_interrate")
+    public InterrateRefVO pk_interrate_depos;
 
     /**
      * 保证金浮动比例
@@ -760,7 +775,9 @@ public class CalculatorVO {
     /**
      * 授权人主键
      */
-    //public UserRefVO pk_grantor;
+    @ManyToOne()
+    @JoinColumn(name = "pk_grantor", referencedColumnName = "pk_user")
+    public UserRefVO pk_grantor;
 
     /**
      * 授权日期
@@ -777,50 +794,81 @@ public class CalculatorVO {
     /**
      * 机构
      */
-    //public OrgRefVO pk_org;
+    @ManyToOne()
+    @JoinColumn(name = "pk_org", referencedColumnName = "pk_org")
+    public OrgRefVO pk_org;
 
     /**
      * 部门
      */
-    //public DeptdocRefVO  pk_dept;
+    @ManyToOne()
+    @JoinColumn(name = "pk_dept", referencedColumnName = "pk_deptdoc")
+    public DeptdocRefVO  pk_dept;
     /**
      * 投放计划（子表）
      */
-    //public Set lease_loan_plan;
+//    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "source_bill")
+//    @JsonManagedReference  //少的一方管理映射，将在测试结果中看出
+//    @OrderBy("plan_date_loan asc")
+
+    @Transient
+    public List<LeaseLoanPlanVO> lease_loan_plan;
     /**
      * 规则设置（子表）
      */
-//    public Set lease_rule;
+//    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "pk_lease_calculator" )
+//    @JsonManagedReference  //少的一方管理映射，将在测试结果中看出
+
+    @Transient
+    public List<LeaseRulePVO> lease_rule;
 //    /**
 //     * 风险金计划（子表）
 //     */
-//    public Set inout_plan_deposit;
+
+    @Transient
+    public List<InoutPlanPVO>  inout_plan_deposit;
     /**
      * 服务费收入（子表） --展现
      */
-    //public Set inout_plan_srvin;
+
+    @Transient
+    public List<InoutPlanPVO>  inout_plan_srvin;
     /**
      * 服务费支出（子表） --展现
      */
-    //public Set inout_plan_srvot;
+
+    @Transient
+    public List<InoutPlanPVO>  inout_plan_srvot;
     /**
      * 其他收支计划（子表） --展现
      */
-    //public Set inout_plan_other;
+
+    @Transient
+    public List<InoutPlanPVO>  inout_plan_other;
     /**
      * 租金计划表（子表） --展现
      */
-    //public Set inout_plan;
+
+    @Transient
+    public List<InoutPlanPVO>  inout_plan;
 
     /**
      * 收支计划（子表）市场  --存储
      */
-    //public Set inout_plan_market;
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval=true,fetch = FetchType.LAZY)
+    @JoinColumn(name="source_bill")
+    @JsonManagedReference  //少的一方管理映射，将在测试结果中看出
+    @Where(clause="rent_type = 1")
+    @OrderBy("plan_date asc")
+    //@Transient
+    public List<InoutPlanPVO> inout_plan_market = new ArrayList<InoutPlanPVO>();
 
     /**
      * 本次投放之前的租金计划表
      */
-    //public List inout_plan_beforeLoan;
+
+    @Transient
+    public List<InoutPlanPVO>  inout_plan_beforeLoan;
 
 
 
@@ -855,7 +903,9 @@ public class CalculatorVO {
     /**
      * 合同信息
      */
-    //public ContractRefVO pk_contract;
+    @ManyToOne()
+    @JoinColumn(name = "pk_contract", referencedColumnName = "pk_contract")
+    public ContractRefVO pk_contract;
 
 
     /**
@@ -958,7 +1008,9 @@ public class CalculatorVO {
     /**
      * 报价客户
      */
-    //public CustomerRefVO pk_customer;
+    @ManyToOne()
+    @JoinColumn(name = "pk_customer", referencedColumnName = "pk_customer")
+    public CustomerRefVO pk_customer;
 
     /**
      * 年化利率方式
@@ -1038,7 +1090,9 @@ public class CalculatorVO {
     /**
      * 特殊期利率生效日期
      */
-    //public InterrateRefVO pk_special_interrate;
+    @ManyToOne()
+    @JoinColumn(name = "pk_special_interrate", referencedColumnName = "pk_interrate")
+    public InterrateRefVO pk_special_interrate;
 
     /**
      * 客户实际期初金额占比
@@ -1048,6 +1102,9 @@ public class CalculatorVO {
     /**
      * 是否固定收租日
      */
-    //public Short if_fixday;
+
+    //--------假数据分割线--------------
+
+    public String ts;
 
 }

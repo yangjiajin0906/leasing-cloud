@@ -49,7 +49,12 @@
 			<artifactId>lombok</artifactId>
 			<version>1.16.10</version>
 		</dependency>
-
+		<!-- 时间格式转换 -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.3</version>
+		</dependency>
 		<!--ojdbc赖代码包-->
 		<dependency>
 			<groupId>com.oracle</groupId>
