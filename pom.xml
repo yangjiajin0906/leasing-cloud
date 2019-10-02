@@ -15,6 +15,7 @@
         <module>leasing-rentearly-service</module>
         <module>leasing-sys-service</module>
         <module>leasing-customer-service</module>
+        <module>leasing-contract-service</module>
     </modules>
 
     <properties>
