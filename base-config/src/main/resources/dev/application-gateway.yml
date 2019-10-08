@@ -21,6 +21,14 @@ spring:
         uri: lb://leasing-contract-service
         predicates:
         - Path=/leasing/contract/**
+      - id: customer-service
+        uri: lb://leasing-customer-service
+        predicates:
+        - Path=/leasing/customer/**
+      - id: menu-service
+        uri: lb://leasing-menu-service
+        predicates:
+        - Path=/leasing/menu/**
 eureka:
   port:
     8800
