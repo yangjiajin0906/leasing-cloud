@@ -1,4 +1,4 @@
-package  com.leasing.common.service.impl;
+package com.leasing.common.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.leasing.common.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
