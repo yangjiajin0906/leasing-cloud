@@ -16,5 +16,4 @@ public class SysServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(SysServiceApplication.class, args);
     }
-
 }
