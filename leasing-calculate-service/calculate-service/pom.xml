@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.leasing.calculate</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>calculate-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>calculate-service</name>
 	<description>calculate service for server</description>
