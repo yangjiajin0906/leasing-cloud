@@ -90,6 +90,28 @@ public class contractController{
         System.out.println("更改业务对象实体数据");
     }
 
+    @RequestMapping(value="/testcopy")
+    public void TestCopy(){
+        StringBuffer print=new StringBuffer("");
+        ContractVO contractVO =contractService.findbyContractPk("8888");
+        ContractVO newvo = (ContractVO) contractVO.clone();
+        ContractVO newvo1 = (ContractVO) contractVO.cloneWithoutProperties(new String[]{"code"});
+        ContractVO newvo2 = (ContractVO) contractVO.cloneWithProperties(new String[]{"pk","code"});
+        String modal[] = newvo.getAttributeNames();
+        for(int i =0;i<modal.length;i++){
+            Object k = newvo.getAttributeValue(modal[i]);
+            print.append(k+",");
+        }
+        System.out.println("获取属性对象值打印:"+print);
+        System.out.println("整体复制对象打印:"+newvo.toString());
+        System.out.println("未改变时equals的值:"+newvo.equals(contractVO));
+        System.out.println("忽略部分复制对象打印:"+newvo1.toString());
+        System.out.println("选择部分复制对象打印:"+newvo2.toString());
+        newvo.setAttributeValue("code","2224");
+        System.out.println("改变对象属性值后打印:"+newvo.toString());
+        System.out.println("改变属性值后equals的值:"+newvo.equals(contractVO));
+    }
+
 
     @RequestMapping(value="/redisadd")
     public void TestContractsave(){

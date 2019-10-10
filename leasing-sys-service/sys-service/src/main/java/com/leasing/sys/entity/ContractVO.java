@@ -1,6 +1,7 @@
 package com.leasing.sys.entity;
 
 import com.leasing.common.entity.StringModalType;
+import com.leasing.common.entity.base.BaseBusiEntity;
 
 import javax.persistence.*;
 import java.text.ParseException;
@@ -15,12 +16,16 @@ import java.util.Date;
  **/
 @Entity
 @Table(name = "yls_test_user")
-public class ContractVO{
+public class ContractVO extends BaseBusiEntity {
 //    @Id
 //    private String pk_contract;
 //    private String pk_initial;
 //    private String cont_code;
 //    private String cont_name;
+
+    public String getTableName() {
+            return"yls_test_user";
+    };
 
     @Id
     private String pk;
@@ -94,14 +99,13 @@ public class ContractVO{
         this.version = version;
     }
 
-    //    @Override
-//    public String toString() {
-//        final StringBuffer sb = new StringBuffer("ContractVO{");
-//        sb.append("pk_contract=").append(pk_contract);
-//        sb.append(", pk_initial='").append(pk_initial).append('\'');
-//        sb.append(", cont_code=").append(cont_code);
-//        sb.append(", cont_name=").append(cont_name);
-//        sb.append('}');
-//        return sb.toString();
-//    }
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("ContractVO{");
+        sb.append("pk=").append(pk);
+        sb.append(", name='").append(name).append('\'');
+        sb.append(", code=").append(code);
+        sb.append(", content=").append(content);
+        sb.append('}');
+        return sb.toString();
+    }
 }

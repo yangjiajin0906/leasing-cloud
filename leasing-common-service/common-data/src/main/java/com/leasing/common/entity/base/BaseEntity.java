@@ -11,14 +11,14 @@ import java.io.Serializable;
  **/
 public abstract class BaseEntity implements Serializable {
 
-    //时间戳
-    @Version
-    private String ts;
-    //主键
-    private String pk;
-
-
-    public abstract String getPk();
-    public abstract void setPk(String pk);
+//    //时间戳
+//    @Version
+//    private String ts;
+//    //主键
+//    private String pk;
+//
+//
+//    public abstract String getPk();
+//    public abstract void setPk(String pk);
 
 }
