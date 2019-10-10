@@ -17,10 +17,10 @@ spring:
         uri: lb://leasing-custom-service
         predicates:
         - Path=/leasing/custom/**
-      - id: contract-service
-        uri: lb://leasing-contract-service
+      - id: sys-service
+        uri: lb://leasing-sys-service
         predicates:
-        - Path=/leasing/contract/**
+        - Path=/leasing/sys/**
       - id: customer-service
         uri: lb://leasing-customer-service
         predicates:

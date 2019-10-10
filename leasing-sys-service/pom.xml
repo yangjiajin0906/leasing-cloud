@@ -12,6 +12,7 @@
     <artifactId>leasing-sys-service</artifactId>
     <packaging>pom</packaging>
     <modules>
+        <module>sys-service</module>
         <module>sys-api</module>
         <module>sys-data</module>
     </modules>

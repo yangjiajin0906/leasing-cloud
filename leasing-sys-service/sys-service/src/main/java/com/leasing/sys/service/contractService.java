@@ -1,5 +1,5 @@
-package com.leasing.contract.service;
-import com.leasing.contract.entity.ContractVO;
+package com.leasing.sys.service;
+import com.leasing.sys.entity.ContractVO;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +10,7 @@ public interface contractService{
 
     List<ContractVO> findContractbyCondition();
 
-    void updateContractNamebyCode(String cont_name,String cont_code);
+    void updateContractNamebyCode(String cont_name, String cont_code);
 
     ContractVO findbyContractPk(String pk);
 

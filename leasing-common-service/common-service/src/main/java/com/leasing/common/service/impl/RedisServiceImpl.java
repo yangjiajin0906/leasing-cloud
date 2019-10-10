@@ -1,4 +1,4 @@
-package  com.leasing.common.service.impl;
+package com.leasing.common.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.leasing.common.service.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.concurrent.TimeUnit;
+
 /**
  * @project:leasing-cloud
  * @date:2019/9/27

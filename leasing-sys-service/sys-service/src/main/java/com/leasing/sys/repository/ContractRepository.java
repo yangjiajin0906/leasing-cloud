@@ -1,6 +1,6 @@
-package com.leasing.contract.repository;
+package com.leasing.sys.repository;
 
-import com.leasing.contract.entity.ContractVO;
+import com.leasing.sys.entity.ContractVO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +18,7 @@ public interface ContractRepository extends JpaRepository<ContractVO,String> {
 
     @Query(value ="update yls_contract set cont_name = ? where cont_code =?",nativeQuery = true)
     @Modifying
-    void updateContractNamebyCode(String cont_name,String cont_code);
+    void updateContractNamebyCode(String cont_name, String cont_code);
 
     @Query(value = "select * from yls_test_user w where w.pk = ?1",nativeQuery = true)
     ContractVO findbyContractPk(String pk);

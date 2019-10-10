@@ -1,8 +1,9 @@
-package com.leasing.contract.service.impl;
+package com.leasing.sys.service.impl;
 
-import com.leasing.contract.entity.ContractVO;
-import com.leasing.contract.repository.ContractRepository;
-import com.leasing.contract.service.contractService;
+import com.leasing.common.service.RedisService;
+import com.leasing.sys.entity.ContractVO;
+import com.leasing.sys.repository.ContractRepository;
+import com.leasing.sys.service.contractService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,6 +26,9 @@ public class contractServiceimpl implements contractService {
      */
     @Resource
     ContractRepository contractRepository;
+
+    @Resource
+    RedisService redisService;
 
     @Override
     public ContractVO findContractbyCode(String cont_code){

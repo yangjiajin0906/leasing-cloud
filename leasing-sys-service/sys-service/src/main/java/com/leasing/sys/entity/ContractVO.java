@@ -1,10 +1,6 @@
-package com.leasing.contract.entity;
+package com.leasing.sys.entity;
 
 import com.leasing.common.entity.StringModalType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.text.ParseException;
@@ -18,12 +14,8 @@ import java.util.Date;
  * @description:
  **/
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "yls_test_user")
-@EntityListeners(AuditingEntityListener.class)
-public class ContractVO extends Auditable<String>{
+public class ContractVO{
 //    @Id
 //    private String pk_contract;
 //    private String pk_initial;
@@ -57,6 +49,50 @@ public class ContractVO extends Auditable<String>{
         content = formatter.format(new Date());
     }
 
+    public String getPk() {
+        return pk;
+    }
+
+    public void setPk(String pk) {
+        this.pk = pk;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public ContractVO() {
+
+    }
+
+
+    public ContractVO(String pk, String name, String code, String content, StringModalType version) {
+        this.pk = pk;
+        this.name = name;
+        this.code = code;
+        this.content = content;
+        this.version = version;
+    }
 
     //    @Override
 //    public String toString() {
