@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.concurrent.TimeUnit;
-
 /**
  * @project:leasing-cloud
  * @date:2019/9/27
