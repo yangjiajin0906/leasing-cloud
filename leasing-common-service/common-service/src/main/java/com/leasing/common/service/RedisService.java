@@ -7,13 +7,13 @@ public interface RedisService {
      * 除 获取与赋值外  添加一些Util工具接口
      */
     //缓存置入
-    <T> boolean set(String key , T value,long timeout);
+    <T> boolean set(String key, T value, long timeout);
 
     //缓存获取
-    <T> T get(String key,Class<T> clazz);
+    <T> T get(String key, Class<T> clazz);
 
     //指定缓存失效时间
-    public boolean expire(String key,long time);
+    public boolean expire(String key, long time);
 
     //获取缓存过期时间 返回0代表永久有效
     public long getExpire(String key);

@@ -17,6 +17,11 @@ spring:
 
   jpa:
     show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 #    jpa:
 #      properties:
 #        hibernate:
@@ -37,3 +42,10 @@ eureka:
     fetch-registry: true
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${eureka.port}/eureka/
+logging:
+  pattern:
+    console: '%d -%msg%n'
+  path: E:/logs/customer.log
+  level:
+#    root: info
+    org.hibernate.type.descriptor.sql.BascBinder: trace

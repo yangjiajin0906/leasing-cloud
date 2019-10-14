@@ -17,7 +17,7 @@ import org.springframework.data.jpa.domain.Specification;
 public abstract class BaseQuery<T> {
 
     // start from 0
-    protected int pageIndex = 0;
+    protected int pageIndex = 1;
     protected int pageSize = 50;
 
 
@@ -30,12 +30,12 @@ public abstract class BaseQuery<T> {
 
     //JPA分页查询类
     public Pageable toPageable() {
-        return PageRequest.of(pageIndex, pageSize);
+        return PageRequest.of(pageIndex - 1, pageSize);
     }
 
     //JPA分页查询类,带排序条件
     public Pageable toPageable(Sort sort) {
-        return PageRequest.of(pageIndex, pageSize, sort);
+        return PageRequest.of(pageIndex - 1, pageSize, sort);
     }
 
     //动态查询and连接
