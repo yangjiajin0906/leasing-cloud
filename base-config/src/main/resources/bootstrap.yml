@@ -9,7 +9,7 @@ spring:
     config:
       server:
         native:
-          search-locations: classpath:/dev
+          search-locations: classpath:/dev,classpath:/common
 eureka:
   port:
     8800
