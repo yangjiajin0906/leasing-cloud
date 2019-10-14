@@ -1,11 +1,6 @@
 package com.leasing.calculate.service;
-import com.leasing.calculate.vo.CalculatorVO;
-import org.springframework.data.jpa.repository.Lock;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
+import com.leasing.calculate.entity.CalculatorVO;
 
-import javax.persistence.LockModeType;
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**

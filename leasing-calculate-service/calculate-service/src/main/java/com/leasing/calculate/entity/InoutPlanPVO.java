@@ -1,4 +1,4 @@
-package com.leasing.calculate.vo;
+package com.leasing.calculate.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;

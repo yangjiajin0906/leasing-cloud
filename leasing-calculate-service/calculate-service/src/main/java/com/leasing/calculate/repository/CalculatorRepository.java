@@ -1,6 +1,6 @@
 package com.leasing.calculate.repository;
 
-import com.leasing.calculate.vo.CalculatorVO;
+import com.leasing.calculate.entity.CalculatorVO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

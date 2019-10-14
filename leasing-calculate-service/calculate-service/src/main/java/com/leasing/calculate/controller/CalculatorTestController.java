@@ -1,16 +1,15 @@
 package com.leasing.calculate.controller;
 
+import com.leasing.calculate.entity.CalculatorVO;
+import com.leasing.calculate.entity.InoutPlanPVO;
 import com.leasing.calculate.service.CalculateService;
-import com.leasing.calculate.vo.*;
 import com.leasing.common.api.feign.calculate.CalculatorTest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -62,7 +61,7 @@ public class CalculatorTestController implements CalculatorTest {
     }
 
     @RequestMapping(value = "/save")
-    public String save(CalculatorVO vo) {
+    public CalculatorVO save(CalculatorVO vo) {
         CalculatorVO vo01 = calculateService.findById("0001AA10000000053TK5");
         vo.setPk_lease_calculator("0001MG00000000036YJJ");
         vo.setQuot_code(vo01.getQuot_code());
@@ -87,7 +86,8 @@ public class CalculatorTestController implements CalculatorTest {
         vo.setInout_plan_market(arrayList);
 
         calculateService.save(vo);
-        return "1";
+
+        return vo;
     }
 
     @RequestMapping(value = "/update")

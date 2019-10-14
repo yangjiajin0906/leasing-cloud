@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.leasing.calculate</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>calculate-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>calculate-service</name>
 	<description>calculate service for server</description>
@@ -67,6 +67,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		<!--ognl赖代码包-->
+		<dependency>
+			<groupId>ognl</groupId>
+			<artifactId>ognl</artifactId>
+			<version>3.0.8</version>
+		</dependency>
 
         <!--本地依赖代码包-->
 		<dependency>
@@ -82,6 +88,11 @@
         <dependency>
             <groupId>leasing-cloud</groupId>
             <artifactId>common-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>leasing-cloud</groupId>
+            <artifactId>calculate-api</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <!--本地依赖代码包-->
