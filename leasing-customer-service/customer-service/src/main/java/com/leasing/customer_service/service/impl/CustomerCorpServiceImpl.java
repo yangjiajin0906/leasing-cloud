@@ -3,14 +3,12 @@ package com.leasing.customer_service.service.impl;
 import com.leasing.customer_service.pojo.CustomerCorpVO;
 import com.leasing.customer_service.repository.CustomerCorpRepository;
 import com.leasing.customer_service.service.CustomerCorpService;
-import com.leasing.customer_service.service.CustomerService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,7 +27,7 @@ public class CustomerCorpServiceImpl implements CustomerCorpService {
     @Override
     public Map<String, Object> queryForGrid(CustomerCorpVO vo) {
         Sort sort = new Sort(Sort.Direction.DESC, "operateTime");
-        Page<CustomerCorpVO> vos = corpRepository.findAll(vo.toSpec(), vo.toPageable(sort));
+        Page<CustomerCorpVO> vos = corpRepository.findAll(vo.toSpec(), vo.toPageable());
 
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("rows", vos.getContent());

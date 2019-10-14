@@ -1,4 +1,4 @@
-package com.leasing.customer_service.pojo;
+package com.leasing.customer_service.pojo.ref;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,12 +21,12 @@ import javax.persistence.Table;
 public class ParmsRefVO {
 
     @Id
-    @Column (name = "pk_parameter")
+    @Column (name = "pkParameter")
     private String pk;
 
-    @Column(name = "param_name")
+    @Column(name = "paramName")
     private String name;
 
-    @Column(name = "param_code")
+    @Column(name = "paramCode")
     private String code;
 }

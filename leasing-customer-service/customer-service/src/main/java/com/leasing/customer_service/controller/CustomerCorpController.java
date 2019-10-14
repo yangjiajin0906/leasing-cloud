@@ -3,15 +3,12 @@ package com.leasing.customer_service.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.leasing.common_service.utils.Result;
 import com.leasing.customer_service.pojo.CustomerCorpVO;
-import com.leasing.customer_service.pojo.CustomerVO;
 import com.leasing.customer_service.service.CustomerCorpService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @project:leasing-cloud
