@@ -1,6 +1,7 @@
 package com.leasing.common.entity.foundation;
 
-import com.leasing.common.entity.base.BaseBusiEntity;
+import com.leasing.common.entity.base.BaseEntity;
+import com.leasing.common.entity.base.BusinessEntity;
 
 import javax.persistence.*;
 
@@ -12,7 +13,7 @@ import javax.persistence.*;
  **/
 @Entity
 @Table(name="bd_psndoc")
-public class PsndocVO extends BaseBusiEntity {
+public class PsndocVO extends BaseEntity {
 
     @Id
     private String pkPsndoc;
