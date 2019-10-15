@@ -1,11 +1,10 @@
 package com.leasing.common.entity.foundation;
 
-import com.leasing.common.entity.base.BaseBusiEntity;
+import com.leasing.common.entity.base.BaseEntity;
+import com.leasing.common.entity.base.BusinessEntity;
+import org.springframework.data.annotation.ReadOnlyProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @project:leasing-cloud
@@ -15,52 +14,53 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name="sm_user_view")
-public class UserVO extends BaseBusiEntity {
+public class UserVO extends BaseEntity {
 
-    private String pk_user;
-    private String user_name;
-    private String user_code;
+    @Id
+    private String pkUser;
+    private String userName;
+    private String userCode;
     private String password;
-    private String begin_date;
-    private String end_date;
-    private Boolean locked_tag;
-    private Boolean login_tag;
+    private String beginDate;
+    private String endDate;
+    private Boolean lockedTag;
+    private Boolean loginTag;
     private String memo;
     @ManyToOne
-    @JoinColumn(name="pk_org")
-    private OrgVO pk_org;
-    private Boolean is_admin;
-    private Short user_role;
-    private String tel_no;
+    @JoinColumn(name="pkOrg")
+    private OrgVO pkOrg;
+    private Boolean isAdmin;
+    private Short userRole;
+    private String telNo;
     private String psnname;
-    private String psndeptname;
+    private String deptname;
 
     public String getTableName() {
         return "sm_user_view";
     }
 
-    public String getPk_user() {
-        return pk_user;
+    public String getPkUser() {
+        return pkUser;
     }
 
-    public void setPk_user(String pk_user) {
-        this.pk_user = pk_user;
+    public void setPkUser(String pkUser) {
+        this.pkUser = pkUser;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getUser_code() {
-        return user_code;
+    public String getUserCode() {
+        return userCode;
     }
 
-    public void setUser_code(String user_code) {
-        this.user_code = user_code;
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 
     public String getPassword() {
@@ -71,36 +71,36 @@ public class UserVO extends BaseBusiEntity {
         this.password = password;
     }
 
-    public String getBegin_date() {
-        return begin_date;
+    public String getBeginDate() {
+        return beginDate;
     }
 
-    public void setBegin_date(String begin_date) {
-        this.begin_date = begin_date;
+    public void setBeginDate(String beginDate) {
+        this.beginDate = beginDate;
     }
 
-    public String getEnd_date() {
-        return end_date;
+    public String getEndDate() {
+        return endDate;
     }
 
-    public void setEnd_date(String end_date) {
-        this.end_date = end_date;
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
     }
 
-    public Boolean getLocked_tag() {
-        return locked_tag;
+    public Boolean getLockedTag() {
+        return lockedTag;
     }
 
-    public void setLocked_tag(Boolean locked_tag) {
-        this.locked_tag = locked_tag;
+    public void setLockedTag(Boolean lockedTag) {
+        this.lockedTag = lockedTag;
     }
 
-    public Boolean getLogin_tag() {
-        return login_tag;
+    public Boolean getLoginTag() {
+        return loginTag;
     }
 
-    public void setLogin_tag(Boolean login_tag) {
-        this.login_tag = login_tag;
+    public void setLoginTag(Boolean loginTag) {
+        this.loginTag = loginTag;
     }
 
     public String getMemo() {
@@ -111,36 +111,36 @@ public class UserVO extends BaseBusiEntity {
         this.memo = memo;
     }
 
-    public OrgVO getPk_org() {
-        return pk_org;
+    public OrgVO getPkOrg() {
+        return pkOrg;
     }
 
-    public void setPk_org(OrgVO pk_org) {
-        this.pk_org = pk_org;
+    public void setPkOrg(OrgVO pkOrg) {
+        this.pkOrg = pkOrg;
     }
 
-    public Boolean getIs_admin() {
-        return is_admin;
+    public Boolean getAdmin() {
+        return isAdmin;
     }
 
-    public void setIs_admin(Boolean is_admin) {
-        this.is_admin = is_admin;
+    public void setAdmin(Boolean admin) {
+        isAdmin = admin;
     }
 
-    public Short getUser_role() {
-        return user_role;
+    public Short getUserRole() {
+        return userRole;
     }
 
-    public void setUser_role(Short user_role) {
-        this.user_role = user_role;
+    public void setUserRole(Short userRole) {
+        this.userRole = userRole;
     }
 
-    public String getTel_no() {
-        return tel_no;
+    public String getTelNo() {
+        return telNo;
     }
 
-    public void setTel_no(String tel_no) {
-        this.tel_no = tel_no;
+    public void setTelNo(String telNo) {
+        this.telNo = telNo;
     }
 
     public String getPsnname() {
@@ -151,21 +151,21 @@ public class UserVO extends BaseBusiEntity {
         this.psnname = psnname;
     }
 
-    public String getPsndeptname() {
-        return psndeptname;
+    public String getDeptname() {
+        return deptname;
     }
 
-    public void setPsndeptname(String psndeptname) {
-        this.psndeptname = psndeptname;
+    public void setDeptname(String deptname) {
+        this.deptname = deptname;
     }
 
+    @Override
     public String getPk() {
-        return pk_user;
+        return pkUser;
     }
 
+    @Override
     public void setPk(String pk) {
-        this.pk_user = pk;
+        this.pkUser = pk;
     }
-
-
 }

@@ -1,6 +1,7 @@
 package com.leasing.common.entity.foundation;
 
-import com.leasing.common.entity.base.BaseBusiEntity;
+import com.leasing.common.entity.base.BaseEntity;
+import com.leasing.common.entity.base.BusinessEntity;
 
 import javax.persistence.*;
 
@@ -12,24 +13,22 @@ import javax.persistence.*;
  **/
 @Entity
 @Table(name="sm_org")
-public class OrgVO extends BaseBusiEntity {
+public class OrgVO extends BaseEntity {
 
     @Id
-    private String pk_org;
+    private String pkOrg;
     private String orgCode;
     private String shortName;
     private String orgName;
     @ManyToOne()
-    @JoinColumn(name = "parent_pk")
+    @JoinColumn(name = "parentPk")
     private OrgVO parentPk;
     private String foundDate;
     private Short datastatus;
-    @JoinColumn(name = "pk_user")
-    private UserVO pkOperator;
     private String operateDate;
     private String operateTime;
-    private Boolean loginTag;
-    private Boolean lockedTag;
+    private String loginTag;
+    private String lockedTag;
     private Short orgLevel;
     private Short orgStatus;
     private String oneLevelOrg;
@@ -37,23 +36,23 @@ public class OrgVO extends BaseBusiEntity {
 
 
     public String getPk() {
-        return pk_org;
+        return pkOrg;
     }
 
     public void setPk(String pk) {
-        this.pk_org = pk;
+        this.pkOrg = pk;
+    }
+
+    public String getPkOrg() {
+        return pkOrg;
+    }
+
+    public void setPkOrg(String pkOrg) {
+        this.pkOrg = pkOrg;
     }
 
     public String getTableName() {
         return "sm_org";
-    }
-
-    public String getPk_org() {
-        return pk_org;
-    }
-
-    public void setPk_org(String pk_org) {
-        this.pk_org = pk_org;
     }
 
     public String getOrgCode() {
@@ -104,14 +103,6 @@ public class OrgVO extends BaseBusiEntity {
         this.datastatus = datastatus;
     }
 
-    public UserVO getPkOperator() {
-        return pkOperator;
-    }
-
-    public void setPkOperator(UserVO pkOperator) {
-        this.pkOperator = pkOperator;
-    }
-
     public String getOperateDate() {
         return operateDate;
     }
@@ -128,19 +119,19 @@ public class OrgVO extends BaseBusiEntity {
         this.operateTime = operateTime;
     }
 
-    public Boolean getLoginTag() {
+    public String getLoginTag() {
         return loginTag;
     }
 
-    public void setLoginTag(Boolean loginTag) {
+    public void setLoginTag(String loginTag) {
         this.loginTag = loginTag;
     }
 
-    public Boolean getLockedTag() {
+    public String getLockedTag() {
         return lockedTag;
     }
 
-    public void setLockedTag(Boolean lockedTag) {
+    public void setLockedTag(String lockedTag) {
         this.lockedTag = lockedTag;
     }
 

@@ -1,10 +1,9 @@
 package com.leasing.common.entity.foundation;
 
-import com.leasing.common.entity.base.BaseBusiEntity;
+import com.leasing.common.entity.base.BaseEntity;
+import com.leasing.common.entity.base.BusinessEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @project:leasing-cloud
@@ -14,11 +13,11 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name="bd_deptdoc")
-public class DeptVO extends BaseBusiEntity {
+public class DeptVO extends BaseEntity {
 
     @Id
+    @GeneratedValue
     private String pkDeptdoc;
-
     private String pkCorp;
     private String deptcode;
     private String deptname;
@@ -26,12 +25,6 @@ public class DeptVO extends BaseBusiEntity {
     private String pkPsndoc;
     //部门分管领导
     private String pkPsndoc3;
-
-
-    public String getTableName() {
-        return "bd_deptdoc";
-    }
-
 
 
     public String getPk() {

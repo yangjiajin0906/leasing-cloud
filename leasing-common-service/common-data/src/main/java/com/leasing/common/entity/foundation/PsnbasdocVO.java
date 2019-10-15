@@ -1,6 +1,7 @@
 package com.leasing.common.entity.foundation;
 
-import com.leasing.common.entity.base.BaseBusiEntity;
+import com.leasing.common.entity.base.BaseEntity;
+import com.leasing.common.entity.base.BusinessEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name="bd_psnbasdoc")
-public class PsnbasdocVO extends BaseBusiEntity{
+public class PsnbasdocVO extends BaseEntity {
 
     /** 人员基本档案主键 */
     @Id

@@ -1,4 +1,4 @@
-package com.leasing.common.entity.sys;
+package com.leasing.common.entity.sys.web;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

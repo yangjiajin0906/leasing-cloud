@@ -1,8 +1,24 @@
 server:
-      port: 8870
+      port: 8880
 spring:
   application:
     name: leasing-sys-service
+  data:
+    mongodb:
+      uri: mongodb://192.168.249.87:27017/jic-sys-config
+      password:
+      username:
+  datasource:
+    url: jdbc:oracle:thin:@192.168.249.87:1521:ncdb
+    username: ztnc
+    password: ztnc
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+  jpa:
+    properties:
+      hibernate:
+        dialect : org.hibernate.dialect.Oracle10gDialect
+    show-sql: true
+    mapping-resources:
 
 eureka:
   port:
