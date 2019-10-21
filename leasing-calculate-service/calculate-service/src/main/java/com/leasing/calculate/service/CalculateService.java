@@ -1,26 +1,57 @@
 package com.leasing.calculate.service;
-import com.leasing.calculate.entity.CalculatorVO;
+import com.leasing.calculate.vo.CalculatorVO;
+import com.leasing.calculate.dto.CalculatorDTO;
+import com.leasing.common.base.repository.support.Pagination;
 
 import java.util.List;
 
 /**
- * Created by lvcn on 2019-9-19.
- */
+ * @project:leasing-cloud
+ * @date:2019/9/23
+ * @author:Yjj@yonyou.comlist
+ * @description:
+ **/
 public interface CalculateService {
+    /**
+     * 保存方法
+     * @param vo
+     * @return
+     */
+    CalculatorVO save(CalculatorVO vo);
 
-    public void save(CalculatorVO vo);
+    /**
+     * 删除方法
+     * @param vo
+     */
+    void delete(CalculatorVO vo);
 
-    public List<CalculatorVO> query();
+    /**
+     * 更新方法
+     * @param vo
+     */
+    CalculatorVO update(CalculatorVO vo);
 
-    public List<CalculatorVO> findAll();
+    /**
+     * 查询单个实体类（包含子表）
+     * @return
+     */
+    CalculatorVO findOne(String pk);
 
-    public CalculatorVO findById(String id);
+    /**
+     * 分页查询
+     * @return
+     */
+    List<CalculatorVO> pageQuery(CalculatorVO vo, Pagination pagination);
 
-    public void update(CalculatorVO vo);
+    CalculatorDTO findByIsSql(String pkLeaseCalculator);
 
-    public void deleteById(String id);
+    CalculatorDTO findByPkLeaseCalculator(String pkLeaseCalculator, Class<CalculatorDTO> type);
 
-    public  List<CalculatorVO> findLike(String name);
+    List<CalculatorVO> findListTest(String pk);
 
-    public List<CalculatorVO> findByTs(String ts);
+    List<CalculatorVO> findListTest1(String pk);
+
+    List<CalculatorVO> findListTest2(String pk);
+
+    List<CalculatorVO> findListTest3(String pk);
 }
