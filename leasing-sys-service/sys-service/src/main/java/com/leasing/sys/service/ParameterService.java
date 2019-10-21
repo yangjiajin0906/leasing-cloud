@@ -1,7 +1,8 @@
 package com.leasing.sys.service;
 
-import com.leasing.common.entity.sys.common.ParameterVO;
-import com.leasing.common.repository.support.Pagination;
+import com.leasing.common.base.repository.support.Pagination;
+import com.leasing.sys.dao.dos.ParameterDO;
+
 
 import java.util.List;
 
@@ -18,31 +19,36 @@ public interface ParameterService {
      * @param vo
      * @return
      */
-    ParameterVO save(ParameterVO vo);
+    ParameterDO save(ParameterDO vo);
 
     /**
      * 删除方法
      * @param vo
      */
-    void delete(ParameterVO vo);
+    void delete(ParameterDO vo);
 
     /**
      * 更新方法
      * @param vo
      */
-    ParameterVO update(ParameterVO vo);
+    ParameterDO update(ParameterDO vo);
 
     /**
      * 查询单个实体类（包含子表）
      * @return
      */
-    ParameterVO findOne(String pk);
+    ParameterDO findOne(String pk);
 
     /**
      * 分页查询
      * @return
      */
-    List<ParameterVO> pageQuery(ParameterVO vo, Pagination pagination);
+    List<ParameterDO> pageQuery(ParameterDO vo, Pagination pagination);
+
+    List findtotal();
+
+
+    Object test1();
 
 
 
