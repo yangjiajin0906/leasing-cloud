@@ -15,6 +15,9 @@
         <module>leasing-rentearly-service</module>
         <module>leasing-sys-service</module>
         <module>leasing-customer-service</module>
+        <module>base-eureka</module>
+        <module>base-config</module>
+        <module>base-gateway</module>
     </modules>
 
     <properties>

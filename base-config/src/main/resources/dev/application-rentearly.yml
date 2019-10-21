@@ -1,0 +1,36 @@
+server:
+  port: 9090
+spring:
+  application:
+    name: leasing-rentearly-service
+  data:
+    mongodb:
+      uri: mongodb://192.168.249.87:27017/jic-sys-config
+  datasource:
+    url: jdbc:oracle:thin:@192.168.249.87:1521:ncdb
+    username: ztnc
+    password: ztnc
+    driver-class-name: oracle.jdbc.OracleDriver
+    autoconfigure: org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+    type: com.alibaba.druid.pool.DruidDataSource
+    maxActive: 20
+    initialSize: 5
+    minIdle: 5
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    database: oracle
+    hibernate:
+      enable_lazy_load_no_trans: true
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
