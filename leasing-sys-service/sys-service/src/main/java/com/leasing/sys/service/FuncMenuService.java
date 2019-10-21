@@ -14,4 +14,6 @@ public interface FuncMenuService {
     List<FuncMenuVO> getAllMenu();
     List<FuncMenuVO> getMenuByRole();
     List<FuncMenuVO> getMenuByUser();
+
+
 }
