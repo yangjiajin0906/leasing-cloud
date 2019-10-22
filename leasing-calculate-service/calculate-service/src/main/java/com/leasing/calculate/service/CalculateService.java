@@ -1,4 +1,5 @@
 package com.leasing.calculate.service;
+import com.leasing.calculate.dos.CalculatorDO;
 import com.leasing.calculate.vo.CalculatorVO;
 import com.leasing.calculate.dto.CalculatorDTO;
 import com.leasing.common.base.repository.support.Pagination;
@@ -17,19 +18,19 @@ public interface CalculateService {
      * @param vo
      * @return
      */
-    CalculatorVO save(CalculatorVO vo);
+    CalculatorDO save(CalculatorDO vo);
 
     /**
      * 删除方法
      * @param vo
      */
-    void delete(CalculatorVO vo);
+    void delete(CalculatorDO vo);
 
     /**
      * 更新方法
      * @param vo
      */
-    CalculatorVO update(CalculatorVO vo);
+    CalculatorDO update(CalculatorDO vo);
 
     /**
      * 查询单个实体类（包含子表）
@@ -41,17 +42,12 @@ public interface CalculateService {
      * 分页查询
      * @return
      */
-    List<CalculatorVO> pageQuery(CalculatorVO vo, Pagination pagination);
+    List<CalculatorVO> pageQuery(Pagination pagination, CalculatorDO vo);
 
     CalculatorDTO findByIsSql(String pkLeaseCalculator);
 
     CalculatorDTO findByPkLeaseCalculator(String pkLeaseCalculator, Class<CalculatorDTO> type);
 
-    List<CalculatorVO> findListTest(String pk);
-
     List<CalculatorVO> findListTest1(String pk);
 
-    List<CalculatorVO> findListTest2(String pk);
-
-    List<CalculatorVO> findListTest3(String pk);
 }

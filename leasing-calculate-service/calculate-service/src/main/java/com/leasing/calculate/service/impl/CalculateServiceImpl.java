@@ -1,5 +1,6 @@
 package com.leasing.calculate.service.impl;
 
+import com.leasing.calculate.dos.CalculatorDO;
 import com.leasing.calculate.vo.CalculatorVO;
 import com.leasing.calculate.repository.CalculatorRepository;
 import com.leasing.calculate.service.CalculateService;
@@ -24,28 +25,28 @@ public class CalculateServiceImpl implements CalculateService {
     CalculatorRepository calculatorRepository;
 
     @Override
-    public CalculatorVO save(CalculatorVO vo) {
-        return null;
+    public List<CalculatorVO> pageQuery(Pagination pagination, CalculatorDO vo) {
+        return calculatorRepository.pageQuery("");
     }
 
     @Override
-    public void delete(CalculatorVO vo) {
-
+    public CalculatorDO save(CalculatorDO vo) {
+        return calculatorRepository.save(vo);
     }
 
     @Override
-    public CalculatorVO update(CalculatorVO vo) {
+    public void delete(CalculatorDO vo) {
+        calculatorRepository.delete(vo);
+    }
+
+    @Override
+    public CalculatorDO update(CalculatorDO vo) {
         return calculatorRepository.saveAndFlush(vo);
     }
 
     @Override
     public CalculatorVO findOne(String pk) {
-        return calculatorRepository.findOne(pk);
-    }
-
-    @Override
-    public List<CalculatorVO> pageQuery(CalculatorVO vo, Pagination pagination) {
-        return null;
+        return calculatorRepository.findByPk(pk);
     }
 
     @Override
@@ -59,22 +60,8 @@ public class CalculateServiceImpl implements CalculateService {
     }
 
     @Override
-    public List<CalculatorVO> findListTest(String pk) {
-        return calculatorRepository.findListTest(pk);
-    }
-
-    @Override
     public List<CalculatorVO> findListTest1(String pk) {
-        return calculatorRepository.findListTest1(pk);
+        return calculatorRepository.pageQuery(pk);
     }
 
-    @Override
-    public List<CalculatorVO> findListTest2(String pk) {
-        return calculatorRepository.findListTest2(pk);
-    }
-
-    @Override
-    public List<CalculatorVO> findListTest3(String pk) {
-        return calculatorRepository.findListTest3(pk);
-    }
 }

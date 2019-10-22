@@ -1,5 +1,6 @@
 package com.leasing.calculate.repository;
 
+import com.leasing.calculate.dos.CalculatorDO;
 import com.leasing.calculate.dto.CalculatorDTO;
 import com.leasing.calculate.vo.CalculatorVO;
 import com.leasing.common.base.repository.BaseRepository;
@@ -14,7 +15,7 @@ import java.util.List;
  * @description:
  **/
 @Transactional
-public interface CalculatorRepository extends BaseRepository<CalculatorVO,String> {
+public interface CalculatorRepository extends BaseRepository<CalculatorDO,String> {
 
     //自定义sql
     @Query(value = "select new com.leasing.calculate.dto.CalculatorDTO(l.pkLeaseCalculator as pkLeaseCalculator, u.pkUser as quot_code, u.userName as quot_name ) \n" +
@@ -23,29 +24,30 @@ public interface CalculatorRepository extends BaseRepository<CalculatorVO,String
             "and l.pkLeaseCalculator = ?1")
     CalculatorDTO findByIsSql(String pkLeaseCalculator);
 
+    //动态类投影
     CalculatorDTO findByPkLeaseCalculator(String pkLeaseCalculator, Class<CalculatorDTO> type);
 
-    @Query(value = "select b from CalculatorVO b " +
-            " left join LimitPlanRefVO m on b.pkLimitPlan = m.pkLimitPlan " +
-            " where b.pkLeaseCalculator = ?1 ")
-    List<CalculatorVO> findListTest(String pk);
-
+    //解决n+1问题
     @Query(value = "select c from CalculatorVO c " +
             " left join fetch c.pkLimitPlan l" +
             " left join fetch c.pkDept d" +
             " left join fetch c.pkChecker u" +
             " left join fetch c.pkOrg o" +
             " where c.pkLeaseCalculator = ?1 ")
-    List<CalculatorVO> findListTest1(String pk);
+    List<CalculatorVO> pageQuery(String pk);
 
-    @Query(value = "select b from CalculatorVO b " +
-            " left join fetch LimitPlanRefVO m on b.pkLimitPlan = m.pkLimitPlan " +
-            " where b.pkLeaseCalculator = ?1 ")
-    List<CalculatorVO> findListTest2(String pk);
+    //解决n+1问题
+    @Query(value = "select c from CalculatorVO c " +
+            " left join fetch c.pkLimitPlan l" +
+            " left join fetch c.pkDept d" +
+            " left join fetch c.pkChecker u" +
+            " left join fetch c.pkGrantor pg" +
+            " left join fetch c.pkOrg o" +
+            " left join fetch c.pkInterrate i" +
+            " left join fetch c.pkInterrateDepos pid" +
+            " left join fetch c.pkSpecialInterrate psi" +
+            " where c.pkLeaseCalculator = ?1 ")
+    CalculatorVO findByPk(String pk);
 
-    @Query(value = "select b,m.limitName from CalculatorVO b " +
-            " left join fetch b.pkLimitPlan m " +
-            " where b.pkLeaseCalculator = ?1 ")
-    List<CalculatorVO> findListTest3(String pk);
 
 }

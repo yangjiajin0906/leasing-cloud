@@ -25,7 +25,7 @@ public class CalculateServiceApplicationTests {
 
 	@Test
 	public void findOne() {
-		CalculatorVO vo = calculateService.findOne("0001MG00000000036YJJ");
+		CalculatorVO vo = calculateService.findOne("0001MG00000000038284");
 		System.out.println(vo);
 	}
 
@@ -43,19 +43,13 @@ public class CalculateServiceApplicationTests {
 		System.out.println(vo);
 	}
 
-	@Test
-	public void updateC(){
-		CalculatorVO vo = calculateService.findOne("0001MG00000000038284");
-		vo.setQuotName("yjj佳木斯电信-手机终端租赁");
-		//vo.setPkLimitPlan(true);
-		calculateService.update(vo);
-	}
-
-	@Test
-	public void findListTest(){
-		List<CalculatorVO> list = calculateService.findListTest("0001MG00000000036YJJ");
-		System.out.println(list);
-	}
+//	@Test
+//	public void updateC(){
+//		CalculatorVO vo = calculateService.findOne("0001MG00000000038284");
+//		vo.setQuotName("yjj佳木斯电信-手机终端租赁");
+//		//vo.setPkLimitPlan(true);
+//		calculateService.update(vo);
+//	}
 
 	@Test
 	public void findListTest1(){
@@ -63,16 +57,5 @@ public class CalculateServiceApplicationTests {
 		System.out.println(list);
 	}
 
-	@Test
-	public void findListTest2(){
-		List<CalculatorVO> list = calculateService.findListTest2("0001MG00000000036YJJ");
-		System.out.println(list);
-	}
-
-	@Test
-	public void findListTest3(){
-		List<CalculatorVO> list = calculateService.findListTest3("0001MG00000000036YJJ");
-		System.out.println(list);
-	}
 
 }

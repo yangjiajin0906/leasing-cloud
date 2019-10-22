@@ -14,7 +14,7 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name="yls_limit_plan")
-public class LimitPlanRefVO extends BaseVO {
+public class LimitPlanRefDTO extends BaseVO {
 
     @Id
     public String pkLimitPlan;
@@ -31,7 +31,7 @@ public class LimitPlanRefVO extends BaseVO {
      */
     public String memo;
 
-    public LimitPlanRefVO (){
+    public LimitPlanRefDTO(){
 
     }
 
