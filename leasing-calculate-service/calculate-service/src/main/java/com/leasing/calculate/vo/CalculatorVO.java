@@ -1,276 +1,258 @@
 package com.leasing.calculate.vo;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.*;
-import org.hibernate.annotations.Where;
-import org.hibernate.type.TimestampType;
-import org.springframework.data.annotation.*;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.leasing.calculate.dos.InoutPlanPDO;
+import com.leasing.calculate.dos.LeaseLoanPlanDO;
+import com.leasing.calculate.dos.LeaseRulePDO;
+import com.leasing.calculate.dto.IRRConvertParamDTO;
+import com.leasing.calculate.dto.InterrateRefDTO;
+import com.leasing.calculate.dto.LimitPlanRefDTO;
+import com.leasing.common.base.entity.BaseBusinessVO;
+import com.leasing.common.vo.foundation.UserVO;
 
 import javax.persistence.*;
-import javax.persistence.Id;
-import javax.persistence.Transient;
-import javax.persistence.Version;
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
- * @project:leasing-cloud 报价VO
+ * @project:leasing-cloud
  * @date:2019/9/23
  * @author:Yjj@yonyou.com
- * @description:
+ * @description: 报价VO
  **/
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Entity
 @Table(name="yls_lease_calculator")
-public class CalculatorVO implements Serializable {
+public class CalculatorVO extends BaseBusinessVO {
+
     /**
      * 主键
      */
-    @Id    //主键id
-    //@GeneratedValue(strategy= GenerationType.IDENTITY)//主键生成策略
-    //@Column(name="pk_lease_calculator")//数据库字段名
-    public String pk_lease_calculator;
+    @Id
+    public String pkLeaseCalculator;
 
     /**
      * 关联编号
      */
-    public String pk_initial;
-
+    public String pkInitial;
 
     /**
      * 测算方案编号
      */
-    public String quot_code;
-
+    public String quotCode;
 
     /**
      * 测算方案名称
      */
-    public String quot_name;
-
+    public String quotName;
 
     /**
      * 限额方案
      */
     @ManyToOne()
-    @JoinColumn(name = "pk_limit_plan", referencedColumnName = "pk_limit_plan")
-    public LimitPlanRefVO pk_limit_plan;
+    @JoinColumn(name = "pkLimitPlan")
+    public LimitPlanRefDTO pkLimitPlan;
 
     /**
      * 计息金额计算方式
      */
-    public Short calinterest_amount_style;
+    public Short calinterestAmountStyle;
 
 
     /**
      * 投放日期
      */
-    public String plan_date_loan;
+    public String planDateLoan;
 
     /**
      * 实际投放日期，用于处理起租变更对于已付款的投放金额投放日期 null
      */
-    //public String fact_plan_date_loan;
-
+    @Transient
+    public String factPlanDateLoan;
 
     /**
      * 币种
      */
-    //public CurrtypeRefVO pk_currtype;
-
-
-
+//    @ManyToOne()
+//    @JoinColumn(name = "pkCurrtype")
+//    public CurrtypeRefVO pkCurrtype;
 
     /**
      * 汇率
      */
-    public BigDecimal pk_exchg_rate;
+    public BigDecimal pkExchgRate;
 
 
     /**
      * 起租日
      */
-    public String lease_commencement_date;
+    public String leaseCommencementDate;
 
 
     /**
      * 租赁方式
      */
-    public Short lease_method;
+    public Short leaseMethod;
 
 
     /**
      * 设备总金额
      */
-    public BigDecimal total_amount_equipment;
+    public BigDecimal totalAmountEquipment;
 
 
     /**
      * 首付款比例
      */
-    public BigDecimal down_payment_ratio;
+    public BigDecimal downPaymentRatio;
 
 
     /**
      * 首付款金额
      */
-    public BigDecimal down_payment;
+    public BigDecimal downPayment;
 
 
     /**
      * 商业折扣
      */
-    public BigDecimal trade_discount;
+    public BigDecimal tradeDiscount;
 
 
     /**
      * 计划投放金额
      */
-    public BigDecimal plan_cash_loan;
+    public BigDecimal planCashLoan;
 
 
     /**
      * 实际投放金额
      */
-    public BigDecimal fact_cash_loan;
+    public BigDecimal factCashLoan;
 
 
     /**
      * 名义货价（留购价）
      */
-    public BigDecimal nominal_price;
+    public BigDecimal nominalPrice;
 
 
     /**
      * 资产余值
      */
-    public BigDecimal assets_margin;
+    public BigDecimal assetsMargin;
 
 
     /**
      * 保证金比例
      */
-    public BigDecimal deposit_ratio;
+    public BigDecimal depositRatio;
 
 
     /**
      * 保证金金额
      */
-    public BigDecimal deposit_cash;
+    public BigDecimal depositCash;
 
 
     /**
      * 保证金收取方式
      */
-    public Short deposit_method;
+    public Short depositMethod;
 
 
     /**
      * 服务费收入方式
      */
-    public Short srvfee_method_in;
+    public Short srvfeeMethodIn;
 
 
     /**
      * 服务费收入基数
      */
-    public Short srvfee_base;
+    public Short srvfeeBase;
 
 
     /**
      * 服务费收入比例
      */
-    public BigDecimal srvfee_ratio_in;
+    public BigDecimal srvfeeRatioIn;
 
 
     /**
      * 每期服务费收入金额
      */
-    public BigDecimal srvfee_cash_in_ft;
+    public BigDecimal srvfeeCashInFt;
 
 
     /**
      * 服务费收入税率
      */
-    public Short srvfee_taxrate_in;
+    public Short srvfeeTaxrateIn;
 
 
     /**
      * 服务费收入总金额
      */
-    public BigDecimal srvfee_cash_in;
+    public BigDecimal srvfeeCashIn;
 
 
     /**
      * 服务费支出方式
      */
-    public Short srvfee_method_out;
+    public Short srvfeeMethodOut;
 
 
     /**
      * 服务费支出基数
      */
-    //public Short srvfee_base_out;
+    @Transient
+    public Short srvfeeBaseOut;
 
 
     /**
      * 服务费支出比例
      */
-    public BigDecimal srvfee_ratio_out;
+    public BigDecimal srvfeeRatioOut;
 
     /**
      * 每期服务费支出金额
      */
-    public BigDecimal srvfee_cash_out_ft;
+    public BigDecimal srvfeeCashOutFt;
 
     /**
      * 服务费支出总金额
      */
-    public BigDecimal srvfee_cash_out;
+    public BigDecimal srvfeeCashOut;
 
     /**
      * 首期服务费支出时间
      */
-    public String srvfee_date_out_ft;
-
+    public String srvfeeDateOutFt;
 
     /**
      * 服务费支出税率
      */
-    public Short srvfee_taxrate_out;
-
+    public Short srvfeeTaxrateOut;
 
     /**
      * 厂商保证金比例
      */
-    public BigDecimal vendor_deposit_ratio;
-
+    public BigDecimal vendorDepositRatio;
 
     /**
      * 厂商保证金金额
      */
-    public BigDecimal vendor_deposit_cash;
-
+    public BigDecimal vendorDepositCash;
 
     /**
      * 净融资额
      */
-    public BigDecimal net_finance_cash;
-
+    public BigDecimal netFinanceCash;
 
     /**
      * 净融资比例
      */
-    public BigDecimal net_finance_ratio;
+    public BigDecimal netFinanceRatio;
 
 
     /**
@@ -278,12 +260,10 @@ public class CalculatorVO implements Serializable {
      */
     public Short if4basic;
 
-
     /**
      * 收税模式
      */
-    public Short tax_mode;
-
+    public Short taxMode;
 
     /**
      * 备注
@@ -293,403 +273,376 @@ public class CalculatorVO implements Serializable {
     /**
      * 计算比例基数(运行参数中取值) null
      */
-    //public Short cal_ratio_base;
+    @Transient
+    public Short calRatioBase;
 
     /**
      * 租金表类型
      */
-    public Short rent_table_type;
+    public Short rentTableType;
 
 
     /**
      * 补差利息处理方式
      */
-    public Short reverse_interest_method;
+    public Short reverseInterestMethod;
 
 
     /**
      * 延迟期（日）
      */
-    public Integer delay_period;
+    public Integer delayPeriod;
 
 
     /**
      * 宽限期（月）
      */
-    public Integer grace_period;
+    public Integer gracePeriod;
 
 
     /**
      * 特殊期类别
      */
-    public Short special_type;
-
+    public Short specialType;
 
     /**
      * 远期支付期限
      */
-    public Integer limit_t;
-
+    @Transient
+    public Integer limitT;
 
     /**
      * 远期支付频率
      */
-    public Short time_pay_period;
-
+    public Short timePayPeriod;
 
     /**
      * 远期支付金额
      */
-    public BigDecimal time_pay_cash;
+    public BigDecimal timePayCash;
 
     /**
      * 远期支付日期
      */
-    public String time_pay_date;
+    public String timePayDate;
 
     /**
      * 远期是否收首付款
      */
-    public Short if_down_payment_t;
+    @Transient
+    public Short ifDownPaymentT;
 
     /**
      * 在建期还本金额
      */
-    public BigDecimal repayment_corpus_cash_c;
-
+    @Transient
+    public BigDecimal repaymentCorpusCashC;
 
     /**
      * 在建期期限
      */
-    public Integer limit_c;
-
+    @Transient
+    public Integer limitC;
 
     /**
      * 在建期支付频率
      */
-    public Short lease_period_c;
-
+    @Transient
+    public Short leasePeriodC;
 
     /**
      * 在建期还本周期
      */
-    public Short repayment_corpus_period_c;
+    @Transient
+    public Short repaymentCorpusPeriodC;
 
     /**
      * 在建期利率档次
      */
-    public Short interrate_level_c;
+    @Transient
+    public Short interrateLevelC;
 
     /**
      * 在建期基准利率
      */
-    public BigDecimal interrate_c;
+    @Transient
+    public BigDecimal interrateC;
 
     /**
      * 在建期利率浮动值
      */
-    public BigDecimal float_value_c;
+    @Transient
+    public BigDecimal floatValueC;
 
     /**
      * 在建期利率
      */
-    public BigDecimal final_rate_c;
+    @Transient
+    public BigDecimal finalRateC;
 
     /**
      * 在建期利率类型
      */
-    public Short interrate_type_c;
+    @Transient
+    public Short interrateTypeC;
 
     /**
      * 在建期利率浮动方式
      */
-    public Short float_method_c;
+    @Transient
+    public Short floatMethodC;
 
     /**
      * 在建期利率生效日期
      */
-    @ManyToOne()
-    @JoinColumn(name = "pk_interrate_c", referencedColumnName = "pk_interrate")
-    public InterrateRefVO pk_interrate_c;
+//    @ManyToOne()
+//    @JoinColumn(name = "pkInterrateC")
+//    public InterrateRefDTO pkInterrateC;
 
     /**
      * 建设期利息处理方式
      */
-    public Short interest_method_c;
-
+    @Transient
+    public Short interestMethodC;
 
     /**
      * 预计转经营期日期
      */
-    public String plan2operating_date;
-
+    public String plan2operatingDate;
 
     /**
      * 计划收租日
      */
-    public Short plan_lease_date;
-
+    public Short planLeaseDate;
 
     /**
      * 租赁期限（月）
      */
-    public Integer lease_times;
-
+    public Integer leaseTimes;
 
     /**
      * 收租规则周期
      */
-    public Short lease_period_rule;
-
+    public Short leasePeriodRule;
 
     /**
      * 特殊算法设置
      */
-    public Short cal_method_spec;
-
+    public Short calMethodSpec;
 
     /**
      * 先付后付标志
      */
-    public Short prepay_or_not;
-
+    public Short prepayOrNot;
 
     /**
      * 是否指定首期收租日
      */
-    public Short has_first_lease_date;
-
+    public Short hasFirstLeaseDate;
 
     /**
      * 首期收租日期
      */
-    public String first_lease_date;
-
+    public String firstLeaseDate;
 
     /**
      * 项目预计到期日
      */
-    public String final_date;
+    public String finalDate;
 
     /**
      * 最后一期提前天数
      */
-    public Integer last_term_days;
+    public Integer lastTermDays;
 
     /**
      * 租金表调整对象
      */
-    public Short lease_adjust_type;
+    public Short leaseAdjustType;
 
     /**
      * 支付频率
      */
-    public Short lease_freq;
+    public Short leaseFreq;
 
     /**
      * 计算方式
      */
-    public Short lease_cal_method;
-
+    public Short leaseCalMethod;
 
     /**
      * 提前间隔（月）
      */
-    public Integer interval_in_advance;
-
+    public Integer intervalInAdvance;
 
     /**
      * 总投放金额的计息方式
      */
-    public Short interest_method_total_loan;
+    public Short interestMethodTotalLoan;
 
     /**
      * 年计算天数
      */
-    public Short year_days;
-
+    public Short yearDays;
 
     /**
      * IRR年计算天数
      */
-    public Short year_days_irr;
-
+    public Short yearDaysIrr;
 
     /**
      * 现金流年计算天数
      */
-    public Short year_days_flow;
-
+    public Short yearDaysFlow;
 
     /**
      * 计算精度
      */
-    public Short cal_digit;
-
+    public Short calDigit;
 
     /**
      * 利率类型
      */
-    public Short interrate_type;
-
+    public Short interrateType;
 
     /**
      * 固定利率（平息率）
      */
-    public BigDecimal fixed_interrate;
-
+    public BigDecimal fixedInterrate;
 
     /**
      * 利率浮动方式
      */
-    public Short float_method;
-
+    public Short floatMethod;
 
     /**
      * 利率生效日期
      */
     @ManyToOne()
-    @JoinColumn(name = "pk_interrate", referencedColumnName = "pk_interrate")
-    public InterrateRefVO pk_interrate;
-
+    @JoinColumn(name = "pkInterrate")
+    public InterrateRefDTO pkInterrate;
 
     /**
      * 利率档次
      */
-    public Short interrate_level;
-
+    public Short interrateLevel;
 
     /**
      * 基准利率
      */
     public BigDecimal interrate;
 
-
     /**
      * 利率浮动值
      */
-    public BigDecimal float_value;
-
+    public BigDecimal floatValue;
 
     /**
      * 租息年利率
      */
-    public BigDecimal final_rate;
-
+    public BigDecimal finalRate;
 
     /**
      * 保证金退回方式
      */
-    public Short return_method_depos;
-
+    public Short returnMethodDepos;
 
     /**
      * 保证金是否计息
      */
-    public Short if_interest_depos;
-
+    public Short ifInterestDepos;
 
     /**
      * 保证金年利率类型
      */
-    public Short interrate_type_depos;
-
+    public Short interrateTypeDepos;
 
     /**
      * 保证金年利率档次
      */
-    public Short interrate_level_depos;
-
+    public Short interrateLevelDepos;
 
     /**
      * 保证金基准年利率
      */
-    public BigDecimal interrate_depos;
-
+    public BigDecimal interrateDepos;
 
     /**
      * 保证金浮动方式
      */
-    public Short float_method_depos;
+    public Short floatMethodDepos;
 
     /**
      * 保证金年利率生效日期
      */
     @ManyToOne()
-    @JoinColumn(name = "pk_interrate_depos", referencedColumnName = "pk_interrate")
-    public InterrateRefVO pk_interrate_depos;
+    @JoinColumn(name = "pkInterrateDepos")
+    public InterrateRefDTO pkInterrateDepos;
 
     /**
      * 保证金浮动比例
      */
-    public BigDecimal float_value_depos;
-
+    public BigDecimal floatValueDepos;
 
     /**
      * 保证金利率
      */
-    public BigDecimal final_rate_depos;
-
+    public BigDecimal finalRateDepos;
 
     /**
      * 保证金收取说明
      */
-    public String memo_depos;
+    public String memoDepos;
 
     /**
      * 利息计算方式
      */
-    public Short interrest_method;
+    public Short interrestMethod;
 
     /**
      * 日复利每期所占比例
      */
-    public BigDecimal radio_hyear;
+    public BigDecimal radioHyear;
 
     /**
      * 最后一期计算规则
      */
-    public Short last_term_rule;
+    public Short lastTermRule;
 
     /**
      * 市场IRR
      */
-    public BigDecimal commercial_irr;
-
+    public BigDecimal commercialIrr;
 
     /**
      * 增值税下IRR
      */
-    public BigDecimal vat_irr;
-
+    public BigDecimal vatIrr;
 
     /**
      * 会计IRR
      */
-    public BigDecimal finance_irr;
+    public BigDecimal financeIrr;
 
     /**
      * 会计去税IRR
      */
-    public BigDecimal finance_notax_irr;
-
+    public BigDecimal financeNotaxIrr;
 
     /**
      * 租金IRR
      */
-    public BigDecimal rent_irr;
-
+    public BigDecimal rentIrr;
 
     /**
      * 项目IRR
      */
-    public BigDecimal project_irr;
-
+    public BigDecimal projectIrr;
 
     /**
      * 项目去税IRR
      */
-    public BigDecimal project_notax_irr;
+    public BigDecimal projectNotaxIrr;
 
     /**
      * add by jiaoshy 2017-10-09  咨询费合同
@@ -697,40 +650,41 @@ public class CalculatorVO implements Serializable {
     /**
      * 不含咨询费市场IRR
      */
-    public BigDecimal project_irr_consult;
-
+    public BigDecimal projectIrrConsult;
 
     /**
      * 不含咨询费市场去税IRR
      */
-    public BigDecimal project_notax_irr_consult;
+    public BigDecimal projectNotaxIrrConsult;
     /* add end*/
 
     /**
      * 手续费分配IRR
      */
-    public BigDecimal fee_distr_irr;
+    public BigDecimal feeDistrIrr;
 
     /**
      * IRR倒算对象
      */
-    //public Short irr_object;
+    @Transient
+    public Short irrObject;
 
     /**
      * IRR倒算期望IRR
      */
-    //public BigDecimal expect_nominal_irr;
+    @Transient
+    public BigDecimal expectNominalIrr;
 
     /**
      * 项目平息率
      */
-    //public BigDecimal project_average_interrate;
+    @Transient
+    public BigDecimal projectAverageInterrate;
 
     /**
      * 本金是否开票
      */
-    public Short if_corpus_tickets;
-
+    public Short ifCorpusTickets;
 
     /**
      * 单据状态
@@ -739,669 +693,658 @@ public class CalculatorVO implements Serializable {
 
 
     /**
-     * 操作员主键
-     */
-    //public UserRefVO pk_operator;
-
-    /**
      * 操作日期
      */
-    public String operate_date;
-
+    public String operateDate;
 
     /**
      * 操作时间
      */
-    public String operate_time;
-
+    public String operateTime;
 
     /**
      * 复核员主键
      */
-    //public UserRefVO pk_checker;
+    @ManyToOne()
+    @JoinColumn(name = "pkChecker")
+    public UserVO pkChecker;
 
     /**
      * 复核日期
      */
-    public String check_date;
-
+    public String checkDate;
 
     /**
      * 复核时间
      */
-    public String check_time;
-
+    public String checkTime;
 
     /**
      * 授权人主键
      */
     @ManyToOne()
-    @JoinColumn(name = "pk_grantor", referencedColumnName = "pk_user")
-    public UserRefVO pk_grantor;
+    @JoinColumn(name = "pkGrantor")
+    public UserVO pkGrantor;
 
     /**
      * 授权日期
      */
-    public String grant_date;
-
+    public String grantDate;
 
     /**
      * 授权时间
      */
-    public String grant_time;
+    public String grantTime;
 
-
-    /**
-     * 机构
-     */
-    @ManyToOne()
-    @JoinColumn(name = "pk_org", referencedColumnName = "pk_org")
-    public OrgRefVO pk_org;
-
-    /**
-     * 部门
-     */
-    @ManyToOne()
-    @JoinColumn(name = "pk_dept", referencedColumnName = "pk_deptdoc")
-    public DeptdocRefVO  pk_dept;
     /**
      * 投放计划（子表）
      */
-//    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "source_bill")
-//    @JsonManagedReference  //少的一方管理映射，将在测试结果中看出
-//    @OrderBy("plan_date_loan asc")
-
     @Transient
-    public List<LeaseLoanPlanVO> lease_loan_plan;
+    public List<LeaseLoanPlanDO> leaseLoanPlan;
+
+    /**
+     * 收支计划（子表）市场  --存储
+     */
+    @Transient
+    public List<InoutPlanPDO> inoutPlanMarket;
+
     /**
      * 规则设置（子表）
      */
-//    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "pk_lease_calculator" )
-//    @JsonManagedReference  //少的一方管理映射，将在测试结果中看出
 
     @Transient
-    public List<LeaseRulePVO> lease_rule;
+    public List<LeaseRulePDO> leaseRule;
 //    /**
 //     * 风险金计划（子表）
 //     */
 
     @Transient
-    public List<InoutPlanPVO>  inout_plan_deposit;
+    public List<InoutPlanPDO> inoutPlanDeposit;
     /**
      * 服务费收入（子表） --展现
      */
 
     @Transient
-    public List<InoutPlanPVO>  inout_plan_srvin;
+    public List<InoutPlanPDO> inoutPlanSrvin;
     /**
      * 服务费支出（子表） --展现
      */
 
     @Transient
-    public List<InoutPlanPVO>  inout_plan_srvot;
+    public List<InoutPlanPDO>  inoutPlanSrvot;
     /**
      * 其他收支计划（子表） --展现
      */
 
     @Transient
-    public List<InoutPlanPVO>  inout_plan_other;
+    public List<InoutPlanPDO>  inoutPlanOther;
     /**
      * 租金计划表（子表） --展现
      */
 
     @Transient
-    public List<InoutPlanPVO>  inout_plan;
-
-    /**
-     * 收支计划（子表）市场  --存储
-     */
-    @OneToMany(cascade = CascadeType.ALL,orphanRemoval=true,fetch = FetchType.LAZY)
-    @JoinColumn(name="source_bill")
-    @JsonManagedReference  //少的一方管理映射，将在测试结果中看出
-    @Where(clause="rent_type = 1")
-    @OrderBy("plan_date asc")
-    //@Transient
-    public List<InoutPlanPVO> inout_plan_market = new ArrayList<InoutPlanPVO>();
+    public List<InoutPlanPDO>  inoutPlan;
 
     /**
      * 本次投放之前的租金计划表
      */
+    @Transient
+    public List<InoutPlanPDO>  inoutPlanBeforeLoan;
 
     @Transient
-    public List<InoutPlanPVO>  inout_plan_beforeLoan;
-
-
-
-    //public IRRConvertParamVO irrParamVO;
+    public IRRConvertParamDTO irrParamVO;
 
     /**
      * 租赁合同IRR
      */
-    public BigDecimal contract_irr;
+    public BigDecimal contractIrr;
 
     /**
      * 审计IRR
      */
-    public BigDecimal audit_irr;
+    public BigDecimal auditIrr;
 
     /**
      * 承租人IRR
      */
-    public BigDecimal lessee_irr;
+    public BigDecimal lesseeIrr;
 
     /**
      * 首付款是否参与期次排序
      */
-    //public Short first_cash_ifsort;
+    @Transient
+    public Short firstCashIfsort;
 
     /**
      * 来源单据主键
      */
-    //public ProjectInfoRefVO pk_project_info;
-
+    @Transient
+    public String pkProjectInfo;
 
     /**
      * 合同信息
      */
-    @ManyToOne()
-    @JoinColumn(name = "pk_contract", referencedColumnName = "pk_contract")
-    public ContractRefVO pk_contract;
-
-
-    /**
-     * 固定收租日规则
-     */
-    //public FixedChoseRefVO pk_fixed_chose;
-
-//    public FixedChoseRefVO getPk_fixed_chose() {
-//        return pk_fixed_chose;
-//    }
-//    public void setPk_fixed_chose(FixedChoseRefVO pk_fixed_chose) {
-//        this.pk_fixed_chose = pk_fixed_chose;
-//    }
+//    @ManyToOne()
+//    @JoinColumn(name = "pkContract")
+//    public ContractRefVO pkContract;
 
     /**
      * 客户实际期初金额
      */
-    public BigDecimal fact_initial_cash;
+    public BigDecimal factInitialCash;
 
     /**
      * 客户实际期初金额占比
      */
-    //public BigDecimal fact_initial_atio;
+    @Transient
+    public BigDecimal factInitialAtio;
 
     /**
      * 租金合计值
      */
-    public BigDecimal lease_cash_sum;
+    public BigDecimal leaseCashSum;
 
     /**
      * 利息合计值
      */
-    public BigDecimal lease_interest_sum;
-
+    public BigDecimal leaseInterestSum;
 
     /**
      * 测算方案状态
      */
-    public Short quot_status;
-
+    public Short quotStatus;
 
     /**
      * 是否不规则测算
      */
-    //public Boolean if_irregular_cal;
-
+    @Transient
+    public Boolean ifIrregularCal;
 
     /**
      * 报价有效期
      */
-    public Integer quot_valid;
+    public Integer quotValid;
 
     /**
      * 报价有效开始日期
      */
-    public String quot_start_date;
+    public String quotStartDate;
 
     /**
      * 报价有效截止日期
      */
-    public String quot_end_date;
+    public String quotEndDate;
 
     /**
      * 年还款次数
      */
-    public Integer year_times;
+    public Integer yearTimes;
     /**
      * 是否被合同引用
      */
-    public Short if_cont_quote;
+    public Short ifContQuote;
     /**
      * 数据来源单据主键
      */
-    public String data_source_bill;
+    public String dataSourceBill;
     /**
      * 数据来源单据类型
      */
-    public String data_source_billtype;
-
+    public String dataSourceBilltype;
 
     /**
      * 佣金收入
      */
-    public BigDecimal brokerage_in;
-
-    /**聚信用的字段*/
-    /**
-     * 承租人支出
-     */
-//    public BigDecimal customer_out_total = BigDecimal.ZERO;
-//    /**
-//     * 渠道支出
-//     */
-//    public BigDecimal srvfee_out_total = BigDecimal.ZERO;
-//    /**
-//     * 其他收支
-//     */
-//    public BigDecimal other_total = BigDecimal.ZERO;
+    public BigDecimal brokerageIn;
 
     /**
      * 报价客户
      */
-    @ManyToOne()
-    @JoinColumn(name = "pk_customer", referencedColumnName = "pk_customer")
-    public CustomerRefVO pk_customer;
+//    @ManyToOne()
+//    @JoinColumn(name = "pkCustomer")
+//    public CustomerRefVO pkCustomer;
 
     /**
      * 年化利率方式
      */
-    public Short annualized_rate_method;
+    public Short annualizedRateMethod;
 
     /**
      * 年化利率
      */
-    public BigDecimal annualized_rate;
+    public BigDecimal annualizedRate;
 
     /**
      * 其他担保方式
      */
-    public String other_assure_method;
+    public String otherAssureMethod;
 
     /**
      * 风险金起始收取日期
      */
-    public String deposit_start_date;
+    public String depositStartDate;
 
     /**
      * 保证金利息
      */
-    public BigDecimal deposit_interest;
+    public BigDecimal depositInterest;
 
     /**
      * 特殊期限
      */
-    public Integer special_limit;
+    public Integer specialLimit;
 
     /**
      * 特殊期利息支付频率
      */
-    public Short repayment_interest_period;
+    public Short repaymentInterestPeriod;
 
     /**
      * 特殊期还本频率
      */
-    public Short repayment_corpus_period;
+    public Short repaymentCorpusPeriod;
 
     /**
      * 特殊期还本金额
      */
-    public BigDecimal repayment_corpus_cash;
+    public BigDecimal repaymentCorpusCash;
 
     /**
      * 特殊期利率
      */
-    public BigDecimal special_final_rate;
+    public BigDecimal specialFinalRate;
 
     /**
      * 特殊期利率档次
      */
-    public Short special_interrate_level;
+    public Short specialInterrateLevel;
 
     /**
      * 特殊期基准利率
      */
-    public BigDecimal special_interrate;
+    public BigDecimal specialInterrate;
 
     /**
      * 特殊期利率类型
      */
-    public Short special_interrate_type;
+    public Short specialInterrateType;
 
     /**
      * 特殊期利率浮动方式
      */
-    public Short special_float_method;
+    public Short specialFloatMethod;
 
     /**
      * 特殊期利率浮动值
      */
-    public BigDecimal special_float_value;
+    public BigDecimal specialFloatValue;
 
     /**
      * 特殊期利率生效日期
      */
     @ManyToOne()
-    @JoinColumn(name = "pk_special_interrate", referencedColumnName = "pk_interrate")
-    public InterrateRefVO pk_special_interrate;
+    @JoinColumn(name = "pkSpecialInterrate", referencedColumnName = "pkInterrate")
+    public InterrateRefDTO pkSpecialInterrate;
 
     /**
      * 客户实际期初金额占比
      */
-    public BigDecimal fact_initial_ratio;
+    public BigDecimal factInitialRatio;
+
+
+    /**
+     * 算法版本 参照 PubEnumsConstant.cal_merge_event等
+     */
+    @Transient
+    public Short calVersion;
+
+    /**
+     * 会计IRR按最新算法
+     */
+    @Transient
+    public Short financeIrrMethod;
+
+    //by lihongjian @2016/04/25 ADD START 营改增  租赁税率
+    //改为枚举类型
+    public Short rentTaxRate;
 
     /**
      * 是否固定收租日
      */
+    @Transient
+    public Short ifFixday;
 
-    //--------假数据分割线--------------
+    /**
+     * 固定收租日规则
+     */
+    @Transient
+    public String pkFixedChose;
 
-    public String ts;
+    /**
+     * 报价类型(0：租赁；1：保理)
+     */
+    public Short calType;
 
+    @Override
+    public String getPk() {
+        return pkLeaseCalculator;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkLeaseCalculator = pk;
+    }
+
+    public String getPkLeaseCalculator() {
+        return pkLeaseCalculator;
+    }
+
+    public void setPkLeaseCalculator(String pkLeaseCalculator) {
+        this.pkLeaseCalculator = pkLeaseCalculator;
+    }
+
+    public String getPkInitial() {
+        return pkInitial;
+    }
+
+    public void setPkInitial(String pkInitial) {
+        this.pkInitial = pkInitial;
+    }
 
-    public String getPk_lease_calculator() {
-        return pk_lease_calculator;
+    public String getQuotCode() {
+        return quotCode;
     }
 
-    public void setPk_lease_calculator(String pk_lease_calculator) {
-        this.pk_lease_calculator = pk_lease_calculator;
+    public void setQuotCode(String quotCode) {
+        this.quotCode = quotCode;
     }
 
-    public String getPk_initial() {
-        return pk_initial;
+    public String getQuotName() {
+        return quotName;
     }
 
-    public void setPk_initial(String pk_initial) {
-        this.pk_initial = pk_initial;
+    public void setQuotName(String quotName) {
+        this.quotName = quotName;
     }
 
-    public String getQuot_code() {
-        return quot_code;
+    public LimitPlanRefDTO getPkLimitPlan() {
+        return pkLimitPlan;
     }
 
-    public void setQuot_code(String quot_code) {
-        this.quot_code = quot_code;
+    public void setPkLimitPlan(LimitPlanRefDTO pkLimitPlan) {
+        this.pkLimitPlan = pkLimitPlan;
     }
 
-    public String getQuot_name() {
-        return quot_name;
+    public Short getCalinterestAmountStyle() {
+        return calinterestAmountStyle;
     }
 
-    public void setQuot_name(String quot_name) {
-        this.quot_name = quot_name;
+    public void setCalinterestAmountStyle(Short calinterestAmountStyle) {
+        this.calinterestAmountStyle = calinterestAmountStyle;
     }
 
-    public LimitPlanRefVO getPk_limit_plan() {
-        return pk_limit_plan;
+    public String getPlanDateLoan() {
+        return planDateLoan;
     }
 
-    public void setPk_limit_plan(LimitPlanRefVO pk_limit_plan) {
-        this.pk_limit_plan = pk_limit_plan;
+    public void setPlanDateLoan(String planDateLoan) {
+        this.planDateLoan = planDateLoan;
     }
 
-    public Short getCalinterest_amount_style() {
-        return calinterest_amount_style;
+    public String getFactPlanDateLoan() {
+        return factPlanDateLoan;
     }
 
-    public void setCalinterest_amount_style(Short calinterest_amount_style) {
-        this.calinterest_amount_style = calinterest_amount_style;
+    public void setFactPlanDateLoan(String factPlanDateLoan) {
+        this.factPlanDateLoan = factPlanDateLoan;
     }
 
-    public String getPlan_date_loan() {
-        return plan_date_loan;
+    public BigDecimal getPkExchgRate() {
+        return pkExchgRate;
     }
 
-    public void setPlan_date_loan(String plan_date_loan) {
-        this.plan_date_loan = plan_date_loan;
+    public void setPkExchgRate(BigDecimal pkExchgRate) {
+        this.pkExchgRate = pkExchgRate;
     }
 
-    public BigDecimal getPk_exchg_rate() {
-        return pk_exchg_rate;
+    public String getLeaseCommencementDate() {
+        return leaseCommencementDate;
     }
 
-    public void setPk_exchg_rate(BigDecimal pk_exchg_rate) {
-        this.pk_exchg_rate = pk_exchg_rate;
+    public void setLeaseCommencementDate(String leaseCommencementDate) {
+        this.leaseCommencementDate = leaseCommencementDate;
     }
 
-    public String getLease_commencement_date() {
-        return lease_commencement_date;
+    public Short getLeaseMethod() {
+        return leaseMethod;
     }
 
-    public void setLease_commencement_date(String lease_commencement_date) {
-        this.lease_commencement_date = lease_commencement_date;
+    public void setLeaseMethod(Short leaseMethod) {
+        this.leaseMethod = leaseMethod;
     }
 
-    public Short getLease_method() {
-        return lease_method;
+    public BigDecimal getTotalAmountEquipment() {
+        return totalAmountEquipment;
     }
 
-    public void setLease_method(Short lease_method) {
-        this.lease_method = lease_method;
+    public void setTotalAmountEquipment(BigDecimal totalAmountEquipment) {
+        this.totalAmountEquipment = totalAmountEquipment;
     }
 
-    public BigDecimal getTotal_amount_equipment() {
-        return total_amount_equipment;
+    public BigDecimal getDownPaymentRatio() {
+        return downPaymentRatio;
     }
 
-    public void setTotal_amount_equipment(BigDecimal total_amount_equipment) {
-        this.total_amount_equipment = total_amount_equipment;
+    public void setDownPaymentRatio(BigDecimal downPaymentRatio) {
+        this.downPaymentRatio = downPaymentRatio;
     }
 
-    public BigDecimal getDown_payment_ratio() {
-        return down_payment_ratio;
+    public BigDecimal getDownPayment() {
+        return downPayment;
     }
 
-    public void setDown_payment_ratio(BigDecimal down_payment_ratio) {
-        this.down_payment_ratio = down_payment_ratio;
+    public void setDownPayment(BigDecimal downPayment) {
+        this.downPayment = downPayment;
     }
 
-    public BigDecimal getDown_payment() {
-        return down_payment;
+    public BigDecimal getTradeDiscount() {
+        return tradeDiscount;
     }
 
-    public void setDown_payment(BigDecimal down_payment) {
-        this.down_payment = down_payment;
+    public void setTradeDiscount(BigDecimal tradeDiscount) {
+        this.tradeDiscount = tradeDiscount;
     }
 
-    public BigDecimal getTrade_discount() {
-        return trade_discount;
+    public BigDecimal getPlanCashLoan() {
+        return planCashLoan;
     }
 
-    public void setTrade_discount(BigDecimal trade_discount) {
-        this.trade_discount = trade_discount;
+    public void setPlanCashLoan(BigDecimal planCashLoan) {
+        this.planCashLoan = planCashLoan;
     }
 
-    public BigDecimal getPlan_cash_loan() {
-        return plan_cash_loan;
+    public BigDecimal getFactCashLoan() {
+        return factCashLoan;
     }
 
-    public void setPlan_cash_loan(BigDecimal plan_cash_loan) {
-        this.plan_cash_loan = plan_cash_loan;
+    public void setFactCashLoan(BigDecimal factCashLoan) {
+        this.factCashLoan = factCashLoan;
     }
 
-    public BigDecimal getFact_cash_loan() {
-        return fact_cash_loan;
+    public BigDecimal getNominalPrice() {
+        return nominalPrice;
     }
 
-    public void setFact_cash_loan(BigDecimal fact_cash_loan) {
-        this.fact_cash_loan = fact_cash_loan;
+    public void setNominalPrice(BigDecimal nominalPrice) {
+        this.nominalPrice = nominalPrice;
     }
 
-    public BigDecimal getNominal_price() {
-        return nominal_price;
+    public BigDecimal getAssetsMargin() {
+        return assetsMargin;
     }
 
-    public void setNominal_price(BigDecimal nominal_price) {
-        this.nominal_price = nominal_price;
+    public void setAssetsMargin(BigDecimal assetsMargin) {
+        this.assetsMargin = assetsMargin;
     }
 
-    public BigDecimal getAssets_margin() {
-        return assets_margin;
+    public BigDecimal getDepositRatio() {
+        return depositRatio;
     }
 
-    public void setAssets_margin(BigDecimal assets_margin) {
-        this.assets_margin = assets_margin;
+    public void setDepositRatio(BigDecimal depositRatio) {
+        this.depositRatio = depositRatio;
     }
 
-    public BigDecimal getDeposit_ratio() {
-        return deposit_ratio;
+    public BigDecimal getDepositCash() {
+        return depositCash;
     }
 
-    public void setDeposit_ratio(BigDecimal deposit_ratio) {
-        this.deposit_ratio = deposit_ratio;
+    public void setDepositCash(BigDecimal depositCash) {
+        this.depositCash = depositCash;
     }
 
-    public BigDecimal getDeposit_cash() {
-        return deposit_cash;
+    public Short getDepositMethod() {
+        return depositMethod;
     }
 
-    public void setDeposit_cash(BigDecimal deposit_cash) {
-        this.deposit_cash = deposit_cash;
+    public void setDepositMethod(Short depositMethod) {
+        this.depositMethod = depositMethod;
     }
 
-    public Short getDeposit_method() {
-        return deposit_method;
+    public Short getSrvfeeMethodIn() {
+        return srvfeeMethodIn;
     }
 
-    public void setDeposit_method(Short deposit_method) {
-        this.deposit_method = deposit_method;
+    public void setSrvfeeMethodIn(Short srvfeeMethodIn) {
+        this.srvfeeMethodIn = srvfeeMethodIn;
     }
 
-    public Short getSrvfee_method_in() {
-        return srvfee_method_in;
+    public Short getSrvfeeBase() {
+        return srvfeeBase;
     }
 
-    public void setSrvfee_method_in(Short srvfee_method_in) {
-        this.srvfee_method_in = srvfee_method_in;
+    public void setSrvfeeBase(Short srvfeeBase) {
+        this.srvfeeBase = srvfeeBase;
     }
 
-    public Short getSrvfee_base() {
-        return srvfee_base;
+    public BigDecimal getSrvfeeRatioIn() {
+        return srvfeeRatioIn;
     }
 
-    public void setSrvfee_base(Short srvfee_base) {
-        this.srvfee_base = srvfee_base;
+    public void setSrvfeeRatioIn(BigDecimal srvfeeRatioIn) {
+        this.srvfeeRatioIn = srvfeeRatioIn;
     }
 
-    public BigDecimal getSrvfee_ratio_in() {
-        return srvfee_ratio_in;
+    public BigDecimal getSrvfeeCashInFt() {
+        return srvfeeCashInFt;
     }
 
-    public void setSrvfee_ratio_in(BigDecimal srvfee_ratio_in) {
-        this.srvfee_ratio_in = srvfee_ratio_in;
+    public void setSrvfeeCashInFt(BigDecimal srvfeeCashInFt) {
+        this.srvfeeCashInFt = srvfeeCashInFt;
     }
 
-    public BigDecimal getSrvfee_cash_in_ft() {
-        return srvfee_cash_in_ft;
+    public Short getSrvfeeTaxrateIn() {
+        return srvfeeTaxrateIn;
     }
 
-    public void setSrvfee_cash_in_ft(BigDecimal srvfee_cash_in_ft) {
-        this.srvfee_cash_in_ft = srvfee_cash_in_ft;
+    public void setSrvfeeTaxrateIn(Short srvfeeTaxrateIn) {
+        this.srvfeeTaxrateIn = srvfeeTaxrateIn;
     }
 
-    public Short getSrvfee_taxrate_in() {
-        return srvfee_taxrate_in;
+    public BigDecimal getSrvfeeCashIn() {
+        return srvfeeCashIn;
     }
 
-    public void setSrvfee_taxrate_in(Short srvfee_taxrate_in) {
-        this.srvfee_taxrate_in = srvfee_taxrate_in;
+    public void setSrvfeeCashIn(BigDecimal srvfeeCashIn) {
+        this.srvfeeCashIn = srvfeeCashIn;
     }
 
-    public BigDecimal getSrvfee_cash_in() {
-        return srvfee_cash_in;
+    public Short getSrvfeeMethodOut() {
+        return srvfeeMethodOut;
     }
 
-    public void setSrvfee_cash_in(BigDecimal srvfee_cash_in) {
-        this.srvfee_cash_in = srvfee_cash_in;
+    public void setSrvfeeMethodOut(Short srvfeeMethodOut) {
+        this.srvfeeMethodOut = srvfeeMethodOut;
     }
 
-    public Short getSrvfee_method_out() {
-        return srvfee_method_out;
+    public Short getSrvfeeBaseOut() {
+        return srvfeeBaseOut;
     }
 
-    public void setSrvfee_method_out(Short srvfee_method_out) {
-        this.srvfee_method_out = srvfee_method_out;
+    public void setSrvfeeBaseOut(Short srvfeeBaseOut) {
+        this.srvfeeBaseOut = srvfeeBaseOut;
     }
 
-    public BigDecimal getSrvfee_ratio_out() {
-        return srvfee_ratio_out;
+    public BigDecimal getSrvfeeRatioOut() {
+        return srvfeeRatioOut;
     }
 
-    public void setSrvfee_ratio_out(BigDecimal srvfee_ratio_out) {
-        this.srvfee_ratio_out = srvfee_ratio_out;
+    public void setSrvfeeRatioOut(BigDecimal srvfeeRatioOut) {
+        this.srvfeeRatioOut = srvfeeRatioOut;
     }
 
-    public BigDecimal getSrvfee_cash_out_ft() {
-        return srvfee_cash_out_ft;
+    public BigDecimal getSrvfeeCashOutFt() {
+        return srvfeeCashOutFt;
     }
 
-    public void setSrvfee_cash_out_ft(BigDecimal srvfee_cash_out_ft) {
-        this.srvfee_cash_out_ft = srvfee_cash_out_ft;
+    public void setSrvfeeCashOutFt(BigDecimal srvfeeCashOutFt) {
+        this.srvfeeCashOutFt = srvfeeCashOutFt;
     }
 
-    public BigDecimal getSrvfee_cash_out() {
-        return srvfee_cash_out;
+    public BigDecimal getSrvfeeCashOut() {
+        return srvfeeCashOut;
     }
 
-    public void setSrvfee_cash_out(BigDecimal srvfee_cash_out) {
-        this.srvfee_cash_out = srvfee_cash_out;
+    public void setSrvfeeCashOut(BigDecimal srvfeeCashOut) {
+        this.srvfeeCashOut = srvfeeCashOut;
     }
 
-    public String getSrvfee_date_out_ft() {
-        return srvfee_date_out_ft;
+    public String getSrvfeeDateOutFt() {
+        return srvfeeDateOutFt;
     }
 
-    public void setSrvfee_date_out_ft(String srvfee_date_out_ft) {
-        this.srvfee_date_out_ft = srvfee_date_out_ft;
+    public void setSrvfeeDateOutFt(String srvfeeDateOutFt) {
+        this.srvfeeDateOutFt = srvfeeDateOutFt;
     }
 
-    public Short getSrvfee_taxrate_out() {
-        return srvfee_taxrate_out;
+    public Short getSrvfeeTaxrateOut() {
+        return srvfeeTaxrateOut;
     }
 
-    public void setSrvfee_taxrate_out(Short srvfee_taxrate_out) {
-        this.srvfee_taxrate_out = srvfee_taxrate_out;
+    public void setSrvfeeTaxrateOut(Short srvfeeTaxrateOut) {
+        this.srvfeeTaxrateOut = srvfeeTaxrateOut;
     }
 
-    public BigDecimal getVendor_deposit_ratio() {
-        return vendor_deposit_ratio;
+    public BigDecimal getVendorDepositRatio() {
+        return vendorDepositRatio;
     }
 
-    public void setVendor_deposit_ratio(BigDecimal vendor_deposit_ratio) {
-        this.vendor_deposit_ratio = vendor_deposit_ratio;
+    public void setVendorDepositRatio(BigDecimal vendorDepositRatio) {
+        this.vendorDepositRatio = vendorDepositRatio;
     }
 
-    public BigDecimal getVendor_deposit_cash() {
-        return vendor_deposit_cash;
+    public BigDecimal getVendorDepositCash() {
+        return vendorDepositCash;
     }
 
-    public void setVendor_deposit_cash(BigDecimal vendor_deposit_cash) {
-        this.vendor_deposit_cash = vendor_deposit_cash;
+    public void setVendorDepositCash(BigDecimal vendorDepositCash) {
+        this.vendorDepositCash = vendorDepositCash;
     }
 
-    public BigDecimal getNet_finance_cash() {
-        return net_finance_cash;
+    public BigDecimal getNetFinanceCash() {
+        return netFinanceCash;
     }
 
-    public void setNet_finance_cash(BigDecimal net_finance_cash) {
-        this.net_finance_cash = net_finance_cash;
+    public void setNetFinanceCash(BigDecimal netFinanceCash) {
+        this.netFinanceCash = netFinanceCash;
     }
 
-    public BigDecimal getNet_finance_ratio() {
-        return net_finance_ratio;
+    public BigDecimal getNetFinanceRatio() {
+        return netFinanceRatio;
     }
 
-    public void setNet_finance_ratio(BigDecimal net_finance_ratio) {
-        this.net_finance_ratio = net_finance_ratio;
+    public void setNetFinanceRatio(BigDecimal netFinanceRatio) {
+        this.netFinanceRatio = netFinanceRatio;
     }
 
     public Short getIf4basic() {
@@ -1412,12 +1355,12 @@ public class CalculatorVO implements Serializable {
         this.if4basic = if4basic;
     }
 
-    public Short getTax_mode() {
-        return tax_mode;
+    public Short getTaxMode() {
+        return taxMode;
     }
 
-    public void setTax_mode(Short tax_mode) {
-        this.tax_mode = tax_mode;
+    public void setTaxMode(Short taxMode) {
+        this.taxMode = taxMode;
     }
 
     public String getMemo() {
@@ -1428,372 +1371,380 @@ public class CalculatorVO implements Serializable {
         this.memo = memo;
     }
 
-    public Short getRent_table_type() {
-        return rent_table_type;
+    public Short getCalRatioBase() {
+        return calRatioBase;
     }
 
-    public void setRent_table_type(Short rent_table_type) {
-        this.rent_table_type = rent_table_type;
+    public void setCalRatioBase(Short calRatioBase) {
+        this.calRatioBase = calRatioBase;
     }
 
-    public Short getReverse_interest_method() {
-        return reverse_interest_method;
+    public Short getRentTableType() {
+        return rentTableType;
     }
 
-    public void setReverse_interest_method(Short reverse_interest_method) {
-        this.reverse_interest_method = reverse_interest_method;
+    public void setRentTableType(Short rentTableType) {
+        this.rentTableType = rentTableType;
     }
 
-    public Integer getDelay_period() {
-        return delay_period;
+    public Short getReverseInterestMethod() {
+        return reverseInterestMethod;
     }
 
-    public void setDelay_period(Integer delay_period) {
-        this.delay_period = delay_period;
+    public void setReverseInterestMethod(Short reverseInterestMethod) {
+        this.reverseInterestMethod = reverseInterestMethod;
     }
 
-    public Integer getGrace_period() {
-        return grace_period;
+    public Integer getDelayPeriod() {
+        return delayPeriod;
     }
 
-    public void setGrace_period(Integer grace_period) {
-        this.grace_period = grace_period;
+    public void setDelayPeriod(Integer delayPeriod) {
+        this.delayPeriod = delayPeriod;
     }
 
-    public Short getSpecial_type() {
-        return special_type;
+    public Integer getGracePeriod() {
+        return gracePeriod;
     }
 
-    public void setSpecial_type(Short special_type) {
-        this.special_type = special_type;
+    public void setGracePeriod(Integer gracePeriod) {
+        this.gracePeriod = gracePeriod;
     }
 
-    public Integer getLimit_t() {
-        return limit_t;
+    public Short getSpecialType() {
+        return specialType;
     }
 
-    public void setLimit_t(Integer limit_t) {
-        this.limit_t = limit_t;
+    public void setSpecialType(Short specialType) {
+        this.specialType = specialType;
     }
 
-    public Short getTime_pay_period() {
-        return time_pay_period;
+    public Integer getLimitT() {
+        return limitT;
     }
 
-    public void setTime_pay_period(Short time_pay_period) {
-        this.time_pay_period = time_pay_period;
+    public void setLimitT(Integer limitT) {
+        this.limitT = limitT;
     }
 
-    public BigDecimal getTime_pay_cash() {
-        return time_pay_cash;
+    public Short getTimePayPeriod() {
+        return timePayPeriod;
     }
 
-    public void setTime_pay_cash(BigDecimal time_pay_cash) {
-        this.time_pay_cash = time_pay_cash;
+    public void setTimePayPeriod(Short timePayPeriod) {
+        this.timePayPeriod = timePayPeriod;
     }
 
-    public String getTime_pay_date() {
-        return time_pay_date;
+    public BigDecimal getTimePayCash() {
+        return timePayCash;
     }
 
-    public void setTime_pay_date(String time_pay_date) {
-        this.time_pay_date = time_pay_date;
+    public void setTimePayCash(BigDecimal timePayCash) {
+        this.timePayCash = timePayCash;
     }
 
-    public Short getIf_down_payment_t() {
-        return if_down_payment_t;
+    public String getTimePayDate() {
+        return timePayDate;
     }
 
-    public void setIf_down_payment_t(Short if_down_payment_t) {
-        this.if_down_payment_t = if_down_payment_t;
+    public void setTimePayDate(String timePayDate) {
+        this.timePayDate = timePayDate;
     }
 
-    public BigDecimal getRepayment_corpus_cash_c() {
-        return repayment_corpus_cash_c;
+    public Short getIfDownPaymentT() {
+        return ifDownPaymentT;
     }
 
-    public void setRepayment_corpus_cash_c(BigDecimal repayment_corpus_cash_c) {
-        this.repayment_corpus_cash_c = repayment_corpus_cash_c;
+    public void setIfDownPaymentT(Short ifDownPaymentT) {
+        this.ifDownPaymentT = ifDownPaymentT;
     }
 
-    public Integer getLimit_c() {
-        return limit_c;
+    public BigDecimal getRepaymentCorpusCashC() {
+        return repaymentCorpusCashC;
     }
 
-    public void setLimit_c(Integer limit_c) {
-        this.limit_c = limit_c;
+    public void setRepaymentCorpusCashC(BigDecimal repaymentCorpusCashC) {
+        this.repaymentCorpusCashC = repaymentCorpusCashC;
     }
 
-    public Short getLease_period_c() {
-        return lease_period_c;
+    public Integer getLimitC() {
+        return limitC;
     }
 
-    public void setLease_period_c(Short lease_period_c) {
-        this.lease_period_c = lease_period_c;
+    public void setLimitC(Integer limitC) {
+        this.limitC = limitC;
     }
 
-    public Short getRepayment_corpus_period_c() {
-        return repayment_corpus_period_c;
+    public Short getLeasePeriodC() {
+        return leasePeriodC;
     }
 
-    public void setRepayment_corpus_period_c(Short repayment_corpus_period_c) {
-        this.repayment_corpus_period_c = repayment_corpus_period_c;
+    public void setLeasePeriodC(Short leasePeriodC) {
+        this.leasePeriodC = leasePeriodC;
     }
 
-    public Short getInterrate_level_c() {
-        return interrate_level_c;
+    public Short getRepaymentCorpusPeriodC() {
+        return repaymentCorpusPeriodC;
     }
 
-    public void setInterrate_level_c(Short interrate_level_c) {
-        this.interrate_level_c = interrate_level_c;
+    public void setRepaymentCorpusPeriodC(Short repaymentCorpusPeriodC) {
+        this.repaymentCorpusPeriodC = repaymentCorpusPeriodC;
     }
 
-    public BigDecimal getInterrate_c() {
-        return interrate_c;
+    public Short getInterrateLevelC() {
+        return interrateLevelC;
     }
 
-    public void setInterrate_c(BigDecimal interrate_c) {
-        this.interrate_c = interrate_c;
+    public void setInterrateLevelC(Short interrateLevelC) {
+        this.interrateLevelC = interrateLevelC;
     }
 
-    public BigDecimal getFloat_value_c() {
-        return float_value_c;
+    public BigDecimal getInterrateC() {
+        return interrateC;
     }
 
-    public void setFloat_value_c(BigDecimal float_value_c) {
-        this.float_value_c = float_value_c;
+    public void setInterrateC(BigDecimal interrateC) {
+        this.interrateC = interrateC;
     }
 
-    public BigDecimal getFinal_rate_c() {
-        return final_rate_c;
+    public BigDecimal getFloatValueC() {
+        return floatValueC;
     }
 
-    public void setFinal_rate_c(BigDecimal final_rate_c) {
-        this.final_rate_c = final_rate_c;
+    public void setFloatValueC(BigDecimal floatValueC) {
+        this.floatValueC = floatValueC;
     }
 
-    public Short getInterrate_type_c() {
-        return interrate_type_c;
+    public BigDecimal getFinalRateC() {
+        return finalRateC;
     }
 
-    public void setInterrate_type_c(Short interrate_type_c) {
-        this.interrate_type_c = interrate_type_c;
+    public void setFinalRateC(BigDecimal finalRateC) {
+        this.finalRateC = finalRateC;
     }
 
-    public Short getFloat_method_c() {
-        return float_method_c;
+    public Short getInterrateTypeC() {
+        return interrateTypeC;
     }
 
-    public void setFloat_method_c(Short float_method_c) {
-        this.float_method_c = float_method_c;
+    public void setInterrateTypeC(Short interrateTypeC) {
+        this.interrateTypeC = interrateTypeC;
     }
 
-    public InterrateRefVO getPk_interrate_c() {
-        return pk_interrate_c;
+    public Short getFloatMethodC() {
+        return floatMethodC;
     }
 
-    public void setPk_interrate_c(InterrateRefVO pk_interrate_c) {
-        this.pk_interrate_c = pk_interrate_c;
+    public void setFloatMethodC(Short floatMethodC) {
+        this.floatMethodC = floatMethodC;
     }
 
-    public Short getInterest_method_c() {
-        return interest_method_c;
+//    public InterrateRefDTO getPkInterrateC() {
+//        return pkInterrateC;
+//    }
+//
+//    public void setPkInterrateC(InterrateRefDTO pkInterrateC) {
+//        this.pkInterrateC = pkInterrateC;
+//    }
+
+    public Short getInterestMethodC() {
+        return interestMethodC;
     }
 
-    public void setInterest_method_c(Short interest_method_c) {
-        this.interest_method_c = interest_method_c;
+    public void setInterestMethodC(Short interestMethodC) {
+        this.interestMethodC = interestMethodC;
     }
 
-    public String getPlan2operating_date() {
-        return plan2operating_date;
+    public String getPlan2operatingDate() {
+        return plan2operatingDate;
     }
 
-    public void setPlan2operating_date(String plan2operating_date) {
-        this.plan2operating_date = plan2operating_date;
+    public void setPlan2operatingDate(String plan2operatingDate) {
+        this.plan2operatingDate = plan2operatingDate;
     }
 
-    public Short getPlan_lease_date() {
-        return plan_lease_date;
+    public Short getPlanLeaseDate() {
+        return planLeaseDate;
     }
 
-    public void setPlan_lease_date(Short plan_lease_date) {
-        this.plan_lease_date = plan_lease_date;
+    public void setPlanLeaseDate(Short planLeaseDate) {
+        this.planLeaseDate = planLeaseDate;
     }
 
-    public Integer getLease_times() {
-        return lease_times;
+    public Integer getLeaseTimes() {
+        return leaseTimes;
     }
 
-    public void setLease_times(Integer lease_times) {
-        this.lease_times = lease_times;
+    public void setLeaseTimes(Integer leaseTimes) {
+        this.leaseTimes = leaseTimes;
     }
 
-    public Short getLease_period_rule() {
-        return lease_period_rule;
+    public Short getLeasePeriodRule() {
+        return leasePeriodRule;
     }
 
-    public void setLease_period_rule(Short lease_period_rule) {
-        this.lease_period_rule = lease_period_rule;
+    public void setLeasePeriodRule(Short leasePeriodRule) {
+        this.leasePeriodRule = leasePeriodRule;
     }
 
-    public Short getCal_method_spec() {
-        return cal_method_spec;
+    public Short getCalMethodSpec() {
+        return calMethodSpec;
     }
 
-    public void setCal_method_spec(Short cal_method_spec) {
-        this.cal_method_spec = cal_method_spec;
+    public void setCalMethodSpec(Short calMethodSpec) {
+        this.calMethodSpec = calMethodSpec;
     }
 
-    public Short getPrepay_or_not() {
-        return prepay_or_not;
+    public Short getPrepayOrNot() {
+        return prepayOrNot;
     }
 
-    public void setPrepay_or_not(Short prepay_or_not) {
-        this.prepay_or_not = prepay_or_not;
+    public void setPrepayOrNot(Short prepayOrNot) {
+        this.prepayOrNot = prepayOrNot;
     }
 
-    public Short getHas_first_lease_date() {
-        return has_first_lease_date;
+    public Short getHasFirstLeaseDate() {
+        return hasFirstLeaseDate;
     }
 
-    public void setHas_first_lease_date(Short has_first_lease_date) {
-        this.has_first_lease_date = has_first_lease_date;
+    public void setHasFirstLeaseDate(Short hasFirstLeaseDate) {
+        this.hasFirstLeaseDate = hasFirstLeaseDate;
     }
 
-    public String getFirst_lease_date() {
-        return first_lease_date;
+    public String getFirstLeaseDate() {
+        return firstLeaseDate;
     }
 
-    public void setFirst_lease_date(String first_lease_date) {
-        this.first_lease_date = first_lease_date;
+    public void setFirstLeaseDate(String firstLeaseDate) {
+        this.firstLeaseDate = firstLeaseDate;
     }
 
-    public String getFinal_date() {
-        return final_date;
+    public String getFinalDate() {
+        return finalDate;
     }
 
-    public void setFinal_date(String final_date) {
-        this.final_date = final_date;
+    public void setFinalDate(String finalDate) {
+        this.finalDate = finalDate;
     }
 
-    public Integer getLast_term_days() {
-        return last_term_days;
+    public Integer getLastTermDays() {
+        return lastTermDays;
     }
 
-    public void setLast_term_days(Integer last_term_days) {
-        this.last_term_days = last_term_days;
+    public void setLastTermDays(Integer lastTermDays) {
+        this.lastTermDays = lastTermDays;
     }
 
-    public Short getLease_adjust_type() {
-        return lease_adjust_type;
+    public Short getLeaseAdjustType() {
+        return leaseAdjustType;
     }
 
-    public void setLease_adjust_type(Short lease_adjust_type) {
-        this.lease_adjust_type = lease_adjust_type;
+    public void setLeaseAdjustType(Short leaseAdjustType) {
+        this.leaseAdjustType = leaseAdjustType;
     }
 
-    public Short getLease_freq() {
-        return lease_freq;
+    public Short getLeaseFreq() {
+        return leaseFreq;
     }
 
-    public void setLease_freq(Short lease_freq) {
-        this.lease_freq = lease_freq;
+    public void setLeaseFreq(Short leaseFreq) {
+        this.leaseFreq = leaseFreq;
     }
 
-    public Short getLease_cal_method() {
-        return lease_cal_method;
+    public Short getLeaseCalMethod() {
+        return leaseCalMethod;
     }
 
-    public void setLease_cal_method(Short lease_cal_method) {
-        this.lease_cal_method = lease_cal_method;
+    public void setLeaseCalMethod(Short leaseCalMethod) {
+        this.leaseCalMethod = leaseCalMethod;
     }
 
-    public Integer getInterval_in_advance() {
-        return interval_in_advance;
+    public Integer getIntervalInAdvance() {
+        return intervalInAdvance;
     }
 
-    public void setInterval_in_advance(Integer interval_in_advance) {
-        this.interval_in_advance = interval_in_advance;
+    public void setIntervalInAdvance(Integer intervalInAdvance) {
+        this.intervalInAdvance = intervalInAdvance;
     }
 
-    public Short getInterest_method_total_loan() {
-        return interest_method_total_loan;
+    public Short getInterestMethodTotalLoan() {
+        return interestMethodTotalLoan;
     }
 
-    public void setInterest_method_total_loan(Short interest_method_total_loan) {
-        this.interest_method_total_loan = interest_method_total_loan;
+    public void setInterestMethodTotalLoan(Short interestMethodTotalLoan) {
+        this.interestMethodTotalLoan = interestMethodTotalLoan;
     }
 
-    public Short getYear_days() {
-        return year_days;
+    public Short getYearDays() {
+        return yearDays;
     }
 
-    public void setYear_days(Short year_days) {
-        this.year_days = year_days;
+    public void setYearDays(Short yearDays) {
+        this.yearDays = yearDays;
     }
 
-    public Short getYear_days_irr() {
-        return year_days_irr;
+    public Short getYearDaysIrr() {
+        return yearDaysIrr;
     }
 
-    public void setYear_days_irr(Short year_days_irr) {
-        this.year_days_irr = year_days_irr;
+    public void setYearDaysIrr(Short yearDaysIrr) {
+        this.yearDaysIrr = yearDaysIrr;
     }
 
-    public Short getYear_days_flow() {
-        return year_days_flow;
+    public Short getYearDaysFlow() {
+        return yearDaysFlow;
     }
 
-    public void setYear_days_flow(Short year_days_flow) {
-        this.year_days_flow = year_days_flow;
+    public void setYearDaysFlow(Short yearDaysFlow) {
+        this.yearDaysFlow = yearDaysFlow;
     }
 
-    public Short getCal_digit() {
-        return cal_digit;
+    public Short getCalDigit() {
+        return calDigit;
     }
 
-    public void setCal_digit(Short cal_digit) {
-        this.cal_digit = cal_digit;
+    public void setCalDigit(Short calDigit) {
+        this.calDigit = calDigit;
     }
 
-    public Short getInterrate_type() {
-        return interrate_type;
+    public Short getInterrateType() {
+        return interrateType;
     }
 
-    public void setInterrate_type(Short interrate_type) {
-        this.interrate_type = interrate_type;
+    public void setInterrateType(Short interrateType) {
+        this.interrateType = interrateType;
     }
 
-    public BigDecimal getFixed_interrate() {
-        return fixed_interrate;
+    public BigDecimal getFixedInterrate() {
+        return fixedInterrate;
     }
 
-    public void setFixed_interrate(BigDecimal fixed_interrate) {
-        this.fixed_interrate = fixed_interrate;
+    public void setFixedInterrate(BigDecimal fixedInterrate) {
+        this.fixedInterrate = fixedInterrate;
     }
 
-    public Short getFloat_method() {
-        return float_method;
+    public Short getFloatMethod() {
+        return floatMethod;
     }
 
-    public void setFloat_method(Short float_method) {
-        this.float_method = float_method;
+    public void setFloatMethod(Short floatMethod) {
+        this.floatMethod = floatMethod;
     }
 
-    public InterrateRefVO getPk_interrate() {
-        return pk_interrate;
+    public InterrateRefDTO getPkInterrate() {
+        return pkInterrate;
     }
 
-    public void setPk_interrate(InterrateRefVO pk_interrate) {
-        this.pk_interrate = pk_interrate;
+    public void setPkInterrate(InterrateRefDTO pkInterrate) {
+        this.pkInterrate = pkInterrate;
     }
 
-    public Short getInterrate_level() {
-        return interrate_level;
+    public Short getInterrateLevel() {
+        return interrateLevel;
     }
 
-    public void setInterrate_level(Short interrate_level) {
-        this.interrate_level = interrate_level;
+    public void setInterrateLevel(Short interrateLevel) {
+        this.interrateLevel = interrateLevel;
     }
 
     public BigDecimal getInterrate() {
@@ -1804,643 +1755,730 @@ public class CalculatorVO implements Serializable {
         this.interrate = interrate;
     }
 
-    public BigDecimal getFloat_value() {
-        return float_value;
+    public BigDecimal getFloatValue() {
+        return floatValue;
     }
 
-    public void setFloat_value(BigDecimal float_value) {
-        this.float_value = float_value;
+    public void setFloatValue(BigDecimal floatValue) {
+        this.floatValue = floatValue;
     }
 
-    public BigDecimal getFinal_rate() {
-        return final_rate;
+    public BigDecimal getFinalRate() {
+        return finalRate;
     }
 
-    public void setFinal_rate(BigDecimal final_rate) {
-        this.final_rate = final_rate;
+    public void setFinalRate(BigDecimal finalRate) {
+        this.finalRate = finalRate;
     }
 
-    public Short getReturn_method_depos() {
-        return return_method_depos;
+    public Short getReturnMethodDepos() {
+        return returnMethodDepos;
     }
 
-    public void setReturn_method_depos(Short return_method_depos) {
-        this.return_method_depos = return_method_depos;
+    public void setReturnMethodDepos(Short returnMethodDepos) {
+        this.returnMethodDepos = returnMethodDepos;
     }
 
-    public Short getIf_interest_depos() {
-        return if_interest_depos;
+    public Short getIfInterestDepos() {
+        return ifInterestDepos;
     }
 
-    public void setIf_interest_depos(Short if_interest_depos) {
-        this.if_interest_depos = if_interest_depos;
+    public void setIfInterestDepos(Short ifInterestDepos) {
+        this.ifInterestDepos = ifInterestDepos;
     }
 
-    public Short getInterrate_type_depos() {
-        return interrate_type_depos;
+    public Short getInterrateTypeDepos() {
+        return interrateTypeDepos;
     }
 
-    public void setInterrate_type_depos(Short interrate_type_depos) {
-        this.interrate_type_depos = interrate_type_depos;
+    public void setInterrateTypeDepos(Short interrateTypeDepos) {
+        this.interrateTypeDepos = interrateTypeDepos;
     }
 
-    public Short getInterrate_level_depos() {
-        return interrate_level_depos;
+    public Short getInterrateLevelDepos() {
+        return interrateLevelDepos;
     }
 
-    public void setInterrate_level_depos(Short interrate_level_depos) {
-        this.interrate_level_depos = interrate_level_depos;
+    public void setInterrateLevelDepos(Short interrateLevelDepos) {
+        this.interrateLevelDepos = interrateLevelDepos;
     }
 
-    public BigDecimal getInterrate_depos() {
-        return interrate_depos;
+    public BigDecimal getInterrateDepos() {
+        return interrateDepos;
     }
 
-    public void setInterrate_depos(BigDecimal interrate_depos) {
-        this.interrate_depos = interrate_depos;
+    public void setInterrateDepos(BigDecimal interrateDepos) {
+        this.interrateDepos = interrateDepos;
     }
 
-    public Short getFloat_method_depos() {
-        return float_method_depos;
+    public Short getFloatMethodDepos() {
+        return floatMethodDepos;
     }
 
-    public void setFloat_method_depos(Short float_method_depos) {
-        this.float_method_depos = float_method_depos;
+    public void setFloatMethodDepos(Short floatMethodDepos) {
+        this.floatMethodDepos = floatMethodDepos;
     }
 
-    public InterrateRefVO getPk_interrate_depos() {
-        return pk_interrate_depos;
+    public InterrateRefDTO getPkInterrateDepos() {
+        return pkInterrateDepos;
     }
 
-    public void setPk_interrate_depos(InterrateRefVO pk_interrate_depos) {
-        this.pk_interrate_depos = pk_interrate_depos;
+    public void setPkInterrateDepos(InterrateRefDTO pkInterrateDepos) {
+        this.pkInterrateDepos = pkInterrateDepos;
     }
 
-    public BigDecimal getFloat_value_depos() {
-        return float_value_depos;
+    public BigDecimal getFloatValueDepos() {
+        return floatValueDepos;
     }
 
-    public void setFloat_value_depos(BigDecimal float_value_depos) {
-        this.float_value_depos = float_value_depos;
+    public void setFloatValueDepos(BigDecimal floatValueDepos) {
+        this.floatValueDepos = floatValueDepos;
     }
 
-    public BigDecimal getFinal_rate_depos() {
-        return final_rate_depos;
+    public BigDecimal getFinalRateDepos() {
+        return finalRateDepos;
     }
 
-    public void setFinal_rate_depos(BigDecimal final_rate_depos) {
-        this.final_rate_depos = final_rate_depos;
+    public void setFinalRateDepos(BigDecimal finalRateDepos) {
+        this.finalRateDepos = finalRateDepos;
     }
 
-    public String getMemo_depos() {
-        return memo_depos;
+    public String getMemoDepos() {
+        return memoDepos;
     }
 
-    public void setMemo_depos(String memo_depos) {
-        this.memo_depos = memo_depos;
+    public void setMemoDepos(String memoDepos) {
+        this.memoDepos = memoDepos;
     }
 
-    public Short getInterrest_method() {
-        return interrest_method;
+    public Short getInterrestMethod() {
+        return interrestMethod;
     }
 
-    public void setInterrest_method(Short interrest_method) {
-        this.interrest_method = interrest_method;
+    public void setInterrestMethod(Short interrestMethod) {
+        this.interrestMethod = interrestMethod;
     }
 
-    public BigDecimal getRadio_hyear() {
-        return radio_hyear;
+    public BigDecimal getRadioHyear() {
+        return radioHyear;
     }
 
-    public void setRadio_hyear(BigDecimal radio_hyear) {
-        this.radio_hyear = radio_hyear;
+    public void setRadioHyear(BigDecimal radioHyear) {
+        this.radioHyear = radioHyear;
     }
 
-    public Short getLast_term_rule() {
-        return last_term_rule;
+    public Short getLastTermRule() {
+        return lastTermRule;
     }
 
-    public void setLast_term_rule(Short last_term_rule) {
-        this.last_term_rule = last_term_rule;
+    public void setLastTermRule(Short lastTermRule) {
+        this.lastTermRule = lastTermRule;
     }
 
-    public BigDecimal getCommercial_irr() {
-        return commercial_irr;
+    public BigDecimal getCommercialIrr() {
+        return commercialIrr;
     }
 
-    public void setCommercial_irr(BigDecimal commercial_irr) {
-        this.commercial_irr = commercial_irr;
+    public void setCommercialIrr(BigDecimal commercialIrr) {
+        this.commercialIrr = commercialIrr;
     }
 
-    public BigDecimal getVat_irr() {
-        return vat_irr;
+    public BigDecimal getVatIrr() {
+        return vatIrr;
     }
 
-    public void setVat_irr(BigDecimal vat_irr) {
-        this.vat_irr = vat_irr;
+    public void setVatIrr(BigDecimal vatIrr) {
+        this.vatIrr = vatIrr;
     }
 
-    public BigDecimal getFinance_irr() {
-        return finance_irr;
+    public BigDecimal getFinanceIrr() {
+        return financeIrr;
     }
 
-    public void setFinance_irr(BigDecimal finance_irr) {
-        this.finance_irr = finance_irr;
+    public void setFinanceIrr(BigDecimal financeIrr) {
+        this.financeIrr = financeIrr;
     }
 
-    public BigDecimal getFinance_notax_irr() {
-        return finance_notax_irr;
+    public BigDecimal getFinanceNotaxIrr() {
+        return financeNotaxIrr;
     }
 
-    public void setFinance_notax_irr(BigDecimal finance_notax_irr) {
-        this.finance_notax_irr = finance_notax_irr;
+    public void setFinanceNotaxIrr(BigDecimal financeNotaxIrr) {
+        this.financeNotaxIrr = financeNotaxIrr;
     }
 
-    public BigDecimal getRent_irr() {
-        return rent_irr;
+    public BigDecimal getRentIrr() {
+        return rentIrr;
     }
 
-    public void setRent_irr(BigDecimal rent_irr) {
-        this.rent_irr = rent_irr;
+    public void setRentIrr(BigDecimal rentIrr) {
+        this.rentIrr = rentIrr;
     }
 
-    public BigDecimal getProject_irr() {
-        return project_irr;
+    public BigDecimal getProjectIrr() {
+        return projectIrr;
     }
 
-    public void setProject_irr(BigDecimal project_irr) {
-        this.project_irr = project_irr;
+    public void setProjectIrr(BigDecimal projectIrr) {
+        this.projectIrr = projectIrr;
     }
 
-    public BigDecimal getProject_notax_irr() {
-        return project_notax_irr;
+    public BigDecimal getProjectNotaxIrr() {
+        return projectNotaxIrr;
     }
 
-    public void setProject_notax_irr(BigDecimal project_notax_irr) {
-        this.project_notax_irr = project_notax_irr;
+    public void setProjectNotaxIrr(BigDecimal projectNotaxIrr) {
+        this.projectNotaxIrr = projectNotaxIrr;
     }
 
-    public BigDecimal getProject_irr_consult() {
-        return project_irr_consult;
+    public BigDecimal getProjectIrrConsult() {
+        return projectIrrConsult;
     }
 
-    public void setProject_irr_consult(BigDecimal project_irr_consult) {
-        this.project_irr_consult = project_irr_consult;
+    public void setProjectIrrConsult(BigDecimal projectIrrConsult) {
+        this.projectIrrConsult = projectIrrConsult;
     }
 
-    public BigDecimal getProject_notax_irr_consult() {
-        return project_notax_irr_consult;
+    public BigDecimal getProjectNotaxIrrConsult() {
+        return projectNotaxIrrConsult;
     }
 
-    public void setProject_notax_irr_consult(BigDecimal project_notax_irr_consult) {
-        this.project_notax_irr_consult = project_notax_irr_consult;
+    public void setProjectNotaxIrrConsult(BigDecimal projectNotaxIrrConsult) {
+        this.projectNotaxIrrConsult = projectNotaxIrrConsult;
     }
 
-    public BigDecimal getFee_distr_irr() {
-        return fee_distr_irr;
+    public BigDecimal getFeeDistrIrr() {
+        return feeDistrIrr;
     }
 
-    public void setFee_distr_irr(BigDecimal fee_distr_irr) {
-        this.fee_distr_irr = fee_distr_irr;
+    public void setFeeDistrIrr(BigDecimal feeDistrIrr) {
+        this.feeDistrIrr = feeDistrIrr;
     }
 
-    public Short getIf_corpus_tickets() {
-        return if_corpus_tickets;
+    public Short getIrrObject() {
+        return irrObject;
     }
 
-    public void setIf_corpus_tickets(Short if_corpus_tickets) {
-        this.if_corpus_tickets = if_corpus_tickets;
+    public void setIrrObject(Short irrObject) {
+        this.irrObject = irrObject;
     }
 
+    public BigDecimal getExpectNominalIrr() {
+        return expectNominalIrr;
+    }
+
+    public void setExpectNominalIrr(BigDecimal expectNominalIrr) {
+        this.expectNominalIrr = expectNominalIrr;
+    }
+
+    public BigDecimal getProjectAverageInterrate() {
+        return projectAverageInterrate;
+    }
+
+    public void setProjectAverageInterrate(BigDecimal projectAverageInterrate) {
+        this.projectAverageInterrate = projectAverageInterrate;
+    }
+
+    public Short getIfCorpusTickets() {
+        return ifCorpusTickets;
+    }
+
+    public void setIfCorpusTickets(Short ifCorpusTickets) {
+        this.ifCorpusTickets = ifCorpusTickets;
+    }
+
+    @Override
     public Short getBillstatus() {
         return billstatus;
     }
 
+    @Override
     public void setBillstatus(Short billstatus) {
         this.billstatus = billstatus;
     }
 
-    public String getOperate_date() {
-        return operate_date;
+    @Override
+    public String getOperateDate() {
+        return operateDate;
     }
 
-    public void setOperate_date(String operate_date) {
-        this.operate_date = operate_date;
+    @Override
+    public void setOperateDate(String operateDate) {
+        this.operateDate = operateDate;
     }
 
-    public String getOperate_time() {
-        return operate_time;
+    @Override
+    public String getOperateTime() {
+        return operateTime;
     }
 
-    public void setOperate_time(String operate_time) {
-        this.operate_time = operate_time;
+    @Override
+    public void setOperateTime(String operateTime) {
+        this.operateTime = operateTime;
     }
 
-    public String getCheck_date() {
-        return check_date;
+    public UserVO getPkChecker() {
+        return pkChecker;
     }
 
-    public void setCheck_date(String check_date) {
-        this.check_date = check_date;
+    public void setPkChecker(UserVO pkChecker) {
+        this.pkChecker = pkChecker;
     }
 
-    public String getCheck_time() {
-        return check_time;
+    public String getCheckDate() {
+        return checkDate;
     }
 
-    public void setCheck_time(String check_time) {
-        this.check_time = check_time;
+    public void setCheckDate(String checkDate) {
+        this.checkDate = checkDate;
     }
 
-    public UserRefVO getPk_grantor() {
-        return pk_grantor;
+    public String getCheckTime() {
+        return checkTime;
     }
 
-    public void setPk_grantor(UserRefVO pk_grantor) {
-        this.pk_grantor = pk_grantor;
+    public void setCheckTime(String checkTime) {
+        this.checkTime = checkTime;
     }
 
-    public String getGrant_date() {
-        return grant_date;
+    public UserVO getPkGrantor() {
+        return pkGrantor;
     }
 
-    public void setGrant_date(String grant_date) {
-        this.grant_date = grant_date;
+    public void setPkGrantor(UserVO pkGrantor) {
+        this.pkGrantor = pkGrantor;
     }
 
-    public String getGrant_time() {
-        return grant_time;
+    public String getGrantDate() {
+        return grantDate;
     }
 
-    public void setGrant_time(String grant_time) {
-        this.grant_time = grant_time;
+    public void setGrantDate(String grantDate) {
+        this.grantDate = grantDate;
     }
 
-    public OrgRefVO getPk_org() {
-        return pk_org;
+    public String getGrantTime() {
+        return grantTime;
     }
 
-    public void setPk_org(OrgRefVO pk_org) {
-        this.pk_org = pk_org;
+    public void setGrantTime(String grantTime) {
+        this.grantTime = grantTime;
     }
 
-    public DeptdocRefVO getPk_dept() {
-        return pk_dept;
+    public List<LeaseLoanPlanDO> getLeaseLoanPlan() {
+        return leaseLoanPlan;
     }
 
-    public void setPk_dept(DeptdocRefVO pk_dept) {
-        this.pk_dept = pk_dept;
+    public void setLeaseLoanPlan(List<LeaseLoanPlanDO> leaseLoanPlan) {
+        this.leaseLoanPlan = leaseLoanPlan;
     }
 
-    public List<LeaseLoanPlanVO> getLease_loan_plan() {
-        return lease_loan_plan;
+    public List<InoutPlanPDO> getInoutPlanMarket() {
+        return inoutPlanMarket;
     }
 
-    public void setLease_loan_plan(List<LeaseLoanPlanVO> lease_loan_plan) {
-        this.lease_loan_plan = lease_loan_plan;
+    public void setInoutPlanMarket(List<InoutPlanPDO> inoutPlanMarket) {
+        this.inoutPlanMarket = inoutPlanMarket;
     }
 
-    public List<LeaseRulePVO> getLease_rule() {
-        return lease_rule;
+    public List<LeaseRulePDO> getLeaseRule() {
+        return leaseRule;
     }
 
-    public void setLease_rule(List<LeaseRulePVO> lease_rule) {
-        this.lease_rule = lease_rule;
+    public void setLeaseRule(List<LeaseRulePDO> leaseRule) {
+        this.leaseRule = leaseRule;
     }
 
-    public List<InoutPlanPVO> getInout_plan_deposit() {
-        return inout_plan_deposit;
+    public List<InoutPlanPDO> getInoutPlanDeposit() {
+        return inoutPlanDeposit;
     }
 
-    public void setInout_plan_deposit(List<InoutPlanPVO> inout_plan_deposit) {
-        this.inout_plan_deposit = inout_plan_deposit;
+    public void setInoutPlanDeposit(List<InoutPlanPDO> inoutPlanDeposit) {
+        this.inoutPlanDeposit = inoutPlanDeposit;
     }
 
-    public List<InoutPlanPVO> getInout_plan_srvin() {
-        return inout_plan_srvin;
+    public List<InoutPlanPDO> getInoutPlanSrvin() {
+        return inoutPlanSrvin;
     }
 
-    public void setInout_plan_srvin(List<InoutPlanPVO> inout_plan_srvin) {
-        this.inout_plan_srvin = inout_plan_srvin;
+    public void setInoutPlanSrvin(List<InoutPlanPDO> inoutPlanSrvin) {
+        this.inoutPlanSrvin = inoutPlanSrvin;
     }
 
-    public List<InoutPlanPVO> getInout_plan_srvot() {
-        return inout_plan_srvot;
+    public List<InoutPlanPDO> getInoutPlanSrvot() {
+        return inoutPlanSrvot;
     }
 
-    public void setInout_plan_srvot(List<InoutPlanPVO> inout_plan_srvot) {
-        this.inout_plan_srvot = inout_plan_srvot;
+    public void setInoutPlanSrvot(List<InoutPlanPDO> inoutPlanSrvot) {
+        this.inoutPlanSrvot = inoutPlanSrvot;
     }
 
-    public List<InoutPlanPVO> getInout_plan_other() {
-        return inout_plan_other;
+    public List<InoutPlanPDO> getInoutPlanOther() {
+        return inoutPlanOther;
     }
 
-    public void setInout_plan_other(List<InoutPlanPVO> inout_plan_other) {
-        this.inout_plan_other = inout_plan_other;
+    public void setInoutPlanOther(List<InoutPlanPDO> inoutPlanOther) {
+        this.inoutPlanOther = inoutPlanOther;
     }
 
-    public List<InoutPlanPVO> getInout_plan() {
-        return inout_plan;
+    public List<InoutPlanPDO> getInoutPlan() {
+        return inoutPlan;
     }
 
-    public void setInout_plan(List<InoutPlanPVO> inout_plan) {
-        this.inout_plan = inout_plan;
+    public void setInoutPlan(List<InoutPlanPDO> inoutPlan) {
+        this.inoutPlan = inoutPlan;
     }
 
-    public List<InoutPlanPVO> getInout_plan_market() {
-        return inout_plan_market;
+    public List<InoutPlanPDO> getInoutPlanBeforeLoan() {
+        return inoutPlanBeforeLoan;
     }
 
-    public void setInout_plan_market(List<InoutPlanPVO> inout_plan_market) {
-        this.inout_plan_market = inout_plan_market;
+    public void setInoutPlanBeforeLoan(List<InoutPlanPDO> inoutPlanBeforeLoan) {
+        this.inoutPlanBeforeLoan = inoutPlanBeforeLoan;
     }
 
-    public List<InoutPlanPVO> getInout_plan_beforeLoan() {
-        return inout_plan_beforeLoan;
+    public IRRConvertParamDTO getIrrParamVO() {
+        return irrParamVO;
     }
 
-    public void setInout_plan_beforeLoan(List<InoutPlanPVO> inout_plan_beforeLoan) {
-        this.inout_plan_beforeLoan = inout_plan_beforeLoan;
+    public void setIrrParamVO(IRRConvertParamDTO irrParamVO) {
+        this.irrParamVO = irrParamVO;
     }
 
-    public BigDecimal getContract_irr() {
-        return contract_irr;
+    public BigDecimal getContractIrr() {
+        return contractIrr;
     }
 
-    public void setContract_irr(BigDecimal contract_irr) {
-        this.contract_irr = contract_irr;
+    public void setContractIrr(BigDecimal contractIrr) {
+        this.contractIrr = contractIrr;
     }
 
-    public BigDecimal getAudit_irr() {
-        return audit_irr;
+    public BigDecimal getAuditIrr() {
+        return auditIrr;
     }
 
-    public void setAudit_irr(BigDecimal audit_irr) {
-        this.audit_irr = audit_irr;
+    public void setAuditIrr(BigDecimal auditIrr) {
+        this.auditIrr = auditIrr;
     }
 
-    public BigDecimal getLessee_irr() {
-        return lessee_irr;
+    public BigDecimal getLesseeIrr() {
+        return lesseeIrr;
     }
 
-    public void setLessee_irr(BigDecimal lessee_irr) {
-        this.lessee_irr = lessee_irr;
+    public void setLesseeIrr(BigDecimal lesseeIrr) {
+        this.lesseeIrr = lesseeIrr;
     }
 
-    public ContractRefVO getPk_contract() {
-        return pk_contract;
+    public Short getFirstCashIfsort() {
+        return firstCashIfsort;
     }
 
-    public void setPk_contract(ContractRefVO pk_contract) {
-        this.pk_contract = pk_contract;
+    public void setFirstCashIfsort(Short firstCashIfsort) {
+        this.firstCashIfsort = firstCashIfsort;
     }
 
-    public BigDecimal getFact_initial_cash() {
-        return fact_initial_cash;
+    public String getPkProjectInfo() {
+        return pkProjectInfo;
     }
 
-    public void setFact_initial_cash(BigDecimal fact_initial_cash) {
-        this.fact_initial_cash = fact_initial_cash;
+    public void setPkProjectInfo(String pkProjectInfo) {
+        this.pkProjectInfo = pkProjectInfo;
     }
 
-    public BigDecimal getLease_cash_sum() {
-        return lease_cash_sum;
+    public BigDecimal getFactInitialCash() {
+        return factInitialCash;
     }
 
-    public void setLease_cash_sum(BigDecimal lease_cash_sum) {
-        this.lease_cash_sum = lease_cash_sum;
+    public void setFactInitialCash(BigDecimal factInitialCash) {
+        this.factInitialCash = factInitialCash;
     }
 
-    public BigDecimal getLease_interest_sum() {
-        return lease_interest_sum;
+    public BigDecimal getFactInitialAtio() {
+        return factInitialAtio;
     }
 
-    public void setLease_interest_sum(BigDecimal lease_interest_sum) {
-        this.lease_interest_sum = lease_interest_sum;
+    public void setFactInitialAtio(BigDecimal factInitialAtio) {
+        this.factInitialAtio = factInitialAtio;
     }
 
-    public Short getQuot_status() {
-        return quot_status;
+    public BigDecimal getLeaseCashSum() {
+        return leaseCashSum;
     }
 
-    public void setQuot_status(Short quot_status) {
-        this.quot_status = quot_status;
+    public void setLeaseCashSum(BigDecimal leaseCashSum) {
+        this.leaseCashSum = leaseCashSum;
     }
 
-    public Integer getQuot_valid() {
-        return quot_valid;
+    public BigDecimal getLeaseInterestSum() {
+        return leaseInterestSum;
     }
 
-    public void setQuot_valid(Integer quot_valid) {
-        this.quot_valid = quot_valid;
+    public void setLeaseInterestSum(BigDecimal leaseInterestSum) {
+        this.leaseInterestSum = leaseInterestSum;
     }
 
-    public String getQuot_start_date() {
-        return quot_start_date;
+    public Short getQuotStatus() {
+        return quotStatus;
     }
 
-    public void setQuot_start_date(String quot_start_date) {
-        this.quot_start_date = quot_start_date;
+    public void setQuotStatus(Short quotStatus) {
+        this.quotStatus = quotStatus;
     }
 
-    public String getQuot_end_date() {
-        return quot_end_date;
+    public Boolean getIfIrregularCal() {
+        return ifIrregularCal;
     }
 
-    public void setQuot_end_date(String quot_end_date) {
-        this.quot_end_date = quot_end_date;
+    public void setIfIrregularCal(Boolean ifIrregularCal) {
+        this.ifIrregularCal = ifIrregularCal;
     }
 
-    public Integer getYear_times() {
-        return year_times;
+    public Integer getQuotValid() {
+        return quotValid;
     }
 
-    public void setYear_times(Integer year_times) {
-        this.year_times = year_times;
+    public void setQuotValid(Integer quotValid) {
+        this.quotValid = quotValid;
     }
 
-    public Short getIf_cont_quote() {
-        return if_cont_quote;
+    public String getQuotStartDate() {
+        return quotStartDate;
     }
 
-    public void setIf_cont_quote(Short if_cont_quote) {
-        this.if_cont_quote = if_cont_quote;
+    public void setQuotStartDate(String quotStartDate) {
+        this.quotStartDate = quotStartDate;
     }
 
-    public String getData_source_bill() {
-        return data_source_bill;
+    public String getQuotEndDate() {
+        return quotEndDate;
     }
 
-    public void setData_source_bill(String data_source_bill) {
-        this.data_source_bill = data_source_bill;
+    public void setQuotEndDate(String quotEndDate) {
+        this.quotEndDate = quotEndDate;
     }
 
-    public String getData_source_billtype() {
-        return data_source_billtype;
+    public Integer getYearTimes() {
+        return yearTimes;
     }
 
-    public void setData_source_billtype(String data_source_billtype) {
-        this.data_source_billtype = data_source_billtype;
+    public void setYearTimes(Integer yearTimes) {
+        this.yearTimes = yearTimes;
     }
 
-    public BigDecimal getBrokerage_in() {
-        return brokerage_in;
+    public Short getIfContQuote() {
+        return ifContQuote;
     }
 
-    public void setBrokerage_in(BigDecimal brokerage_in) {
-        this.brokerage_in = brokerage_in;
+    public void setIfContQuote(Short ifContQuote) {
+        this.ifContQuote = ifContQuote;
     }
 
-    public CustomerRefVO getPk_customer() {
-        return pk_customer;
+    public String getDataSourceBill() {
+        return dataSourceBill;
     }
 
-    public void setPk_customer(CustomerRefVO pk_customer) {
-        this.pk_customer = pk_customer;
+    public void setDataSourceBill(String dataSourceBill) {
+        this.dataSourceBill = dataSourceBill;
     }
 
-    public Short getAnnualized_rate_method() {
-        return annualized_rate_method;
+    public String getDataSourceBilltype() {
+        return dataSourceBilltype;
     }
 
-    public void setAnnualized_rate_method(Short annualized_rate_method) {
-        this.annualized_rate_method = annualized_rate_method;
+    public void setDataSourceBilltype(String dataSourceBilltype) {
+        this.dataSourceBilltype = dataSourceBilltype;
     }
 
-    public BigDecimal getAnnualized_rate() {
-        return annualized_rate;
+    public BigDecimal getBrokerageIn() {
+        return brokerageIn;
     }
 
-    public void setAnnualized_rate(BigDecimal annualized_rate) {
-        this.annualized_rate = annualized_rate;
+    public void setBrokerageIn(BigDecimal brokerageIn) {
+        this.brokerageIn = brokerageIn;
     }
 
-    public String getOther_assure_method() {
-        return other_assure_method;
+    public Short getAnnualizedRateMethod() {
+        return annualizedRateMethod;
     }
 
-    public void setOther_assure_method(String other_assure_method) {
-        this.other_assure_method = other_assure_method;
+    public void setAnnualizedRateMethod(Short annualizedRateMethod) {
+        this.annualizedRateMethod = annualizedRateMethod;
     }
 
-    public String getDeposit_start_date() {
-        return deposit_start_date;
+    public BigDecimal getAnnualizedRate() {
+        return annualizedRate;
     }
 
-    public void setDeposit_start_date(String deposit_start_date) {
-        this.deposit_start_date = deposit_start_date;
+    public void setAnnualizedRate(BigDecimal annualizedRate) {
+        this.annualizedRate = annualizedRate;
     }
 
-    public BigDecimal getDeposit_interest() {
-        return deposit_interest;
+    public String getOtherAssureMethod() {
+        return otherAssureMethod;
     }
 
-    public void setDeposit_interest(BigDecimal deposit_interest) {
-        this.deposit_interest = deposit_interest;
+    public void setOtherAssureMethod(String otherAssureMethod) {
+        this.otherAssureMethod = otherAssureMethod;
     }
 
-    public Integer getSpecial_limit() {
-        return special_limit;
+    public String getDepositStartDate() {
+        return depositStartDate;
     }
 
-    public void setSpecial_limit(Integer special_limit) {
-        this.special_limit = special_limit;
+    public void setDepositStartDate(String depositStartDate) {
+        this.depositStartDate = depositStartDate;
     }
 
-    public Short getRepayment_interest_period() {
-        return repayment_interest_period;
+    public BigDecimal getDepositInterest() {
+        return depositInterest;
     }
 
-    public void setRepayment_interest_period(Short repayment_interest_period) {
-        this.repayment_interest_period = repayment_interest_period;
+    public void setDepositInterest(BigDecimal depositInterest) {
+        this.depositInterest = depositInterest;
     }
 
-    public Short getRepayment_corpus_period() {
-        return repayment_corpus_period;
+    public Integer getSpecialLimit() {
+        return specialLimit;
     }
 
-    public void setRepayment_corpus_period(Short repayment_corpus_period) {
-        this.repayment_corpus_period = repayment_corpus_period;
+    public void setSpecialLimit(Integer specialLimit) {
+        this.specialLimit = specialLimit;
     }
 
-    public BigDecimal getRepayment_corpus_cash() {
-        return repayment_corpus_cash;
+    public Short getRepaymentInterestPeriod() {
+        return repaymentInterestPeriod;
     }
 
-    public void setRepayment_corpus_cash(BigDecimal repayment_corpus_cash) {
-        this.repayment_corpus_cash = repayment_corpus_cash;
+    public void setRepaymentInterestPeriod(Short repaymentInterestPeriod) {
+        this.repaymentInterestPeriod = repaymentInterestPeriod;
     }
 
-    public BigDecimal getSpecial_final_rate() {
-        return special_final_rate;
+    public Short getRepaymentCorpusPeriod() {
+        return repaymentCorpusPeriod;
     }
 
-    public void setSpecial_final_rate(BigDecimal special_final_rate) {
-        this.special_final_rate = special_final_rate;
+    public void setRepaymentCorpusPeriod(Short repaymentCorpusPeriod) {
+        this.repaymentCorpusPeriod = repaymentCorpusPeriod;
     }
 
-    public Short getSpecial_interrate_level() {
-        return special_interrate_level;
+    public BigDecimal getRepaymentCorpusCash() {
+        return repaymentCorpusCash;
     }
 
-    public void setSpecial_interrate_level(Short special_interrate_level) {
-        this.special_interrate_level = special_interrate_level;
+    public void setRepaymentCorpusCash(BigDecimal repaymentCorpusCash) {
+        this.repaymentCorpusCash = repaymentCorpusCash;
     }
 
-    public BigDecimal getSpecial_interrate() {
-        return special_interrate;
+    public BigDecimal getSpecialFinalRate() {
+        return specialFinalRate;
     }
 
-    public void setSpecial_interrate(BigDecimal special_interrate) {
-        this.special_interrate = special_interrate;
+    public void setSpecialFinalRate(BigDecimal specialFinalRate) {
+        this.specialFinalRate = specialFinalRate;
     }
 
-    public Short getSpecial_interrate_type() {
-        return special_interrate_type;
+    public Short getSpecialInterrateLevel() {
+        return specialInterrateLevel;
     }
 
-    public void setSpecial_interrate_type(Short special_interrate_type) {
-        this.special_interrate_type = special_interrate_type;
+    public void setSpecialInterrateLevel(Short specialInterrateLevel) {
+        this.specialInterrateLevel = specialInterrateLevel;
     }
 
-    public Short getSpecial_float_method() {
-        return special_float_method;
+    public BigDecimal getSpecialInterrate() {
+        return specialInterrate;
     }
 
-    public void setSpecial_float_method(Short special_float_method) {
-        this.special_float_method = special_float_method;
+    public void setSpecialInterrate(BigDecimal specialInterrate) {
+        this.specialInterrate = specialInterrate;
     }
 
-    public BigDecimal getSpecial_float_value() {
-        return special_float_value;
+    public Short getSpecialInterrateType() {
+        return specialInterrateType;
     }
 
-    public void setSpecial_float_value(BigDecimal special_float_value) {
-        this.special_float_value = special_float_value;
+    public void setSpecialInterrateType(Short specialInterrateType) {
+        this.specialInterrateType = specialInterrateType;
     }
 
-    public InterrateRefVO getPk_special_interrate() {
-        return pk_special_interrate;
+    public Short getSpecialFloatMethod() {
+        return specialFloatMethod;
     }
 
-    public void setPk_special_interrate(InterrateRefVO pk_special_interrate) {
-        this.pk_special_interrate = pk_special_interrate;
+    public void setSpecialFloatMethod(Short specialFloatMethod) {
+        this.specialFloatMethod = specialFloatMethod;
     }
 
-    public BigDecimal getFact_initial_ratio() {
-        return fact_initial_ratio;
+    public BigDecimal getSpecialFloatValue() {
+        return specialFloatValue;
     }
 
-    public void setFact_initial_ratio(BigDecimal fact_initial_ratio) {
-        this.fact_initial_ratio = fact_initial_ratio;
+    public void setSpecialFloatValue(BigDecimal specialFloatValue) {
+        this.specialFloatValue = specialFloatValue;
     }
 
-    public String getTs() {
-        return ts;
+    public InterrateRefDTO getPkSpecialInterrate() {
+        return pkSpecialInterrate;
     }
 
-    public void setTs(String ts) {
-        this.ts = ts;
+    public void setPkSpecialInterrate(InterrateRefDTO pkSpecialInterrate) {
+        this.pkSpecialInterrate = pkSpecialInterrate;
     }
+
+    public BigDecimal getFactInitialRatio() {
+        return factInitialRatio;
+    }
+
+    public void setFactInitialRatio(BigDecimal factInitialRatio) {
+        this.factInitialRatio = factInitialRatio;
+    }
+
+    public Short getCalVersion() {
+        return calVersion;
+    }
+
+    public void setCalVersion(Short calVersion) {
+        this.calVersion = calVersion;
+    }
+
+    public Short getFinanceIrrMethod() {
+        return financeIrrMethod;
+    }
+
+    public void setFinanceIrrMethod(Short financeIrrMethod) {
+        this.financeIrrMethod = financeIrrMethod;
+    }
+
+    public Short getRentTaxRate() {
+        return rentTaxRate;
+    }
+
+    public void setRentTaxRate(Short rentTaxRate) {
+        this.rentTaxRate = rentTaxRate;
+    }
+
+    public Short getIfFixday() {
+        return ifFixday;
+    }
+
+    public void setIfFixday(Short ifFixday) {
+        this.ifFixday = ifFixday;
+    }
+
+    public String getPkFixedChose() {
+        return pkFixedChose;
+    }
+
+    public void setPkFixedChose(String pkFixedChose) {
+        this.pkFixedChose = pkFixedChose;
+    }
+
+    public Short getCalType() {
+        return calType;
+    }
+
+    public void setCalType(Short calType) {
+        this.calType = calType;
+    }
+
 }

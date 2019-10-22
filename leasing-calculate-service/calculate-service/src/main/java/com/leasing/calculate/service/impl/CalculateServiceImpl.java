@@ -1,70 +1,67 @@
 package com.leasing.calculate.service.impl;
 
+import com.leasing.calculate.dos.CalculatorDO;
+import com.leasing.calculate.vo.CalculatorVO;
 import com.leasing.calculate.repository.CalculatorRepository;
 import com.leasing.calculate.service.CalculateService;
-import com.leasing.calculate.vo.CalculatorVO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import com.leasing.calculate.dto.CalculatorDTO;
+
+import com.leasing.common.base.repository.support.Pagination;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * Created by lvcn on 2019-9-19.
- */
-@Service("calculateService")
+ * @project:leasing-cloud
+ * @date:2019/9/23
+ * @author:Yjj@yonyou.comlist
+ * @description:
+ **/
+@Service("calculate.CalculateServiceImpl")
 public class CalculateServiceImpl implements CalculateService {
 
     @Resource
     CalculatorRepository calculatorRepository;
 
     @Override
-    public void save(CalculatorVO vo) {
-        calculatorRepository.save(vo);
+    public List<CalculatorVO> pageQuery(Pagination pagination, CalculatorDO vo) {
+        return calculatorRepository.pageQuery("");
     }
 
     @Override
-    public List<CalculatorVO> query() {
-        int pageIndex = 1;// 前台传过来的当前页
-        int pageSize = 100;// 每页需要的记录数
-        /**
-         * 不带排序写法: Pageable pageable = new PageRequest(pageIndex, pageSize);
-         */
-        Sort.Order order = new Sort.Order(Sort.Direction.DESC, "ts");
-        Sort sort = new Sort(order);
-        Pageable pageable = new PageRequest(pageIndex - 1, pageSize, sort);
-        Page<CalculatorVO> page = calculatorRepository.findAll(pageable);
-        List<CalculatorVO> list = page.getContent();
-        return list;
+    public CalculatorDO save(CalculatorDO vo) {
+        return calculatorRepository.save(vo);
     }
 
     @Override
-    public List<CalculatorVO> findAll(){ return calculatorRepository.findAll(); }
-
-    @Override
-    public CalculatorVO findById(String id){ return calculatorRepository.findById(id).get(); };
-
-    @Override
-    public void update(CalculatorVO vo) {
-        calculatorRepository.saveAndFlush(vo);
+    public void delete(CalculatorDO vo) {
+        calculatorRepository.delete(vo);
     }
 
     @Override
-    public void deleteById(String id) {
-        calculatorRepository.deleteById(id);
+    public CalculatorDO update(CalculatorDO vo) {
+        return calculatorRepository.saveAndFlush(vo);
     }
 
     @Override
-    public List<CalculatorVO> findLike(String name) {
-        return calculatorRepository.findLike(name);
+    public CalculatorVO findOne(String pk) {
+        return calculatorRepository.findByPk(pk);
     }
 
     @Override
-    public List<CalculatorVO> findByTs(String ts) {
-        return calculatorRepository.findByTs(ts);
+    public CalculatorDTO findByIsSql(String pkLeaseCalculator) {
+        return calculatorRepository.findByIsSql(pkLeaseCalculator);
     }
+
+    @Override
+    public CalculatorDTO findByPkLeaseCalculator(String pkLeaseCalculator, Class<CalculatorDTO> type) {
+        return calculatorRepository.findByPkLeaseCalculator(pkLeaseCalculator,CalculatorDTO.class);
+    }
+
+    @Override
+    public List<CalculatorVO> findListTest1(String pk) {
+        return calculatorRepository.pageQuery(pk);
+    }
+
 }

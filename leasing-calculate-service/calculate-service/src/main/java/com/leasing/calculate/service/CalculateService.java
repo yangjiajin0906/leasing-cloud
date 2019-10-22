@@ -1,31 +1,53 @@
 package com.leasing.calculate.service;
+import com.leasing.calculate.dos.CalculatorDO;
 import com.leasing.calculate.vo.CalculatorVO;
-import org.springframework.data.jpa.repository.Lock;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
+import com.leasing.calculate.dto.CalculatorDTO;
+import com.leasing.common.base.repository.support.Pagination;
 
-import javax.persistence.LockModeType;
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * Created by lvcn on 2019-9-19.
- */
+ * @project:leasing-cloud
+ * @date:2019/9/23
+ * @author:Yjj@yonyou.comlist
+ * @description:
+ **/
 public interface CalculateService {
+    /**
+     * 保存方法
+     * @param vo
+     * @return
+     */
+    CalculatorDO save(CalculatorDO vo);
 
-    public void save(CalculatorVO vo);
+    /**
+     * 删除方法
+     * @param vo
+     */
+    void delete(CalculatorDO vo);
 
-    public List<CalculatorVO> query();
+    /**
+     * 更新方法
+     * @param vo
+     */
+    CalculatorDO update(CalculatorDO vo);
 
-    public List<CalculatorVO> findAll();
+    /**
+     * 查询单个实体类（包含子表）
+     * @return
+     */
+    CalculatorVO findOne(String pk);
 
-    public CalculatorVO findById(String id);
+    /**
+     * 分页查询
+     * @return
+     */
+    List<CalculatorVO> pageQuery(Pagination pagination, CalculatorDO vo);
 
-    public void update(CalculatorVO vo);
+    CalculatorDTO findByIsSql(String pkLeaseCalculator);
 
-    public void deleteById(String id);
+    CalculatorDTO findByPkLeaseCalculator(String pkLeaseCalculator, Class<CalculatorDTO> type);
 
-    public  List<CalculatorVO> findLike(String name);
+    List<CalculatorVO> findListTest1(String pk);
 
-    public List<CalculatorVO> findByTs(String ts);
 }
