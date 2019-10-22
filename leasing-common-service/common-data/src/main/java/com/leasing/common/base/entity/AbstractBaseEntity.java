@@ -212,7 +212,7 @@ public abstract class AbstractBaseEntity implements Serializable,Cloneable{
      * @return
      */
     @Override
-    protected Object clone(){
+    public Object clone(){
         AbstractBaseEntity vo = null;
         try {
             vo = this.getClass().newInstance();

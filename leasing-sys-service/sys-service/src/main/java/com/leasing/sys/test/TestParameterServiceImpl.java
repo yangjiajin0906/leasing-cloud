@@ -1,11 +1,8 @@
-package com.leasing.sys.service.impl;
+package com.leasing.sys.test;
 
 import com.leasing.common.base.repository.support.Pagination;
 
 import com.leasing.sys.dao.dos.ParameterDO;
-import com.leasing.sys.dao.repository.OrgRepository;
-import com.leasing.sys.dao.repository.ParameterRepository;
-import com.leasing.sys.service.ParameterService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,13 +17,10 @@ import java.util.List;
  * @description:
  **/
 @Service(value = "sys.ParameterServiceImpl")
-public class ParameterServiceImpl implements ParameterService {
+public class TestParameterServiceImpl implements TestParameterService {
 
     @Resource
-    ParameterRepository parameterRepository;
-
-    @Resource
-    OrgRepository orgRepository;
+    TestParameterRepository parameterRepository;
 
 
     @Override
@@ -70,7 +64,9 @@ public class ParameterServiceImpl implements ParameterService {
     public Object test1() {
         String pk = "0001AA10000000059Q9H";
         ParameterDO parameterDO = parameterRepository.findOne(pk);
-//        parameterDO.setMemo(new Date().toString());
+        ParameterDO newDO = (ParameterDO)parameterDO.clone();
+        newDO.setMemo(new Date().toString());
+        parameterDO.setMemo(new Date().toString());
 //        parameterRepository.save(parameterDO);
         int i = parameterRepository.updateMemo(new Date().toString(),pk,parameterDO.getTs());
         System.out.println("更新了" + i + "条数据");

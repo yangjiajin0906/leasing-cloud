@@ -1,4 +1,4 @@
-package com.leasing.sys.service;
+package com.leasing.sys.test;
 
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.sys.dao.dos.ParameterDO;
@@ -12,7 +12,7 @@ import java.util.List;
  * @author:lvcna@yonyou.com
  * @description:
  **/
-public interface ParameterService {
+public interface TestParameterService {
 
     /**
      * 保存方法

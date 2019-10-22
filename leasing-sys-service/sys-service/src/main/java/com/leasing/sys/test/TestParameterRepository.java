@@ -1,5 +1,6 @@
-package com.leasing.sys.dao.repository;
+package com.leasing.sys.test;
 
+import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.base.repository.BaseRepository;
 import com.leasing.common.base.repository.support.StringModalType;
 import com.leasing.sys.dao.dos.ParameterDO;
@@ -17,7 +18,7 @@ import java.util.List;
  * @author:lvcna@yonyou.com
  * @description:
  **/
-public interface ParameterRepository extends BaseRepository<ParameterDO,String> {
+public interface TestParameterRepository extends BaseRepository<ParameterDO,ParameterVO,BaseQuery,String> {
 
 
 
@@ -71,4 +72,15 @@ public interface ParameterRepository extends BaseRepository<ParameterDO,String> 
     @Modifying
     @Query(value = "update ParameterDO d set d.memo = :memo where d.pkParameter = :pk and d.ts = :ts")
     int updateMemo(@Param("memo") String memo,@Param("pk") String pk,@Param("ts") StringModalType ts);
+
+    @Query(value = " select b from ParameterDO b " +
+            " left join ParamTypeDO m on b.pkParamType = m.pkParamType " +
+            " where m.paramCode = ?1 ")
+    List<ParameterDO> findTest8(String pk);
+
+    @Query(value = "select * from yls_parameter b ",nativeQuery = true)
+    List findTest9(String pk);
+
+
+
 }

@@ -19,4 +19,5 @@ public interface FuncMenuRepository extends MongoRepository<FuncMenuVO,Long> {
 
     List<FuncMenuVO> findByName(String name);
 
+
 }
