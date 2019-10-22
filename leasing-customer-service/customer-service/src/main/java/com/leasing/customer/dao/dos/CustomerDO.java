@@ -1,23 +1,21 @@
-package com.leasing.customer_service.pojo;
+package com.leasing.customer.dao.dos;
 
-import com.leasing.customer_service.pojo.ref.OrgRefVO;
-import com.leasing.customer_service.utils.BaseQuery;
-import com.leasing.customer_service.utils.MatchType;
-import com.leasing.customer_service.utils.QueryCondition;
-import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import com.leasing.common.base.entity.BaseBusinessDO;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @project:leasing-cloud
  * @date:2019-09-24
  * @author:zhangzhhn@yonyou.com
- * @description:
+ * @description: 单位客户与个人客户公共
  **/
 @Entity
 @Table(name = "yls_customer")
-public class CustomerVO extends BaseQuery<CustomerVO> implements Serializable {
+public class CustomerDO extends BaseBusinessDO {
 
     /**
      * 客户主键
@@ -34,52 +32,40 @@ public class CustomerVO extends BaseQuery<CustomerVO> implements Serializable {
     /**
      * 客户类别
      */
-    @QueryCondition(func = MatchType.equal)
+
     public Short customerType;
 
 
     /**
      * 客户编号
      */
-    @QueryCondition(func = MatchType.equal)
     public String customerCode;
 
 
     /**
      * 客户名称
      */
-    @QueryCondition(func = MatchType.like)
     public String customerName;
-
 
     /**
      * 客户英文名
      */
     public String customerEngName;
 
-
     /**
      * 证件类型
      */
     public Short identityType;
-
 
     /**
      * 证件号码
      */
     public String identityNo;
 
-
-
-//    /**
-//     * 客户经理
-//     */
-//    public UserRefVO pkPrjManager;
-//
-//    /**
-//     * 部门名称
-//     */
-//    public DeptdocRefVO pkDept;
+    /**
+     * 客户经理
+     */
+    public String pkPrjManager;
 
     /**
      * 客户状态
@@ -102,15 +88,9 @@ public class CustomerVO extends BaseQuery<CustomerVO> implements Serializable {
     public Short alteraStatus;
 
     /**
-     * 单据状态
-     */
-    public Short billstatus;
-
-
-    /**
      * 最新变更人
      */
-//    public UserRefVO pkOperatorLst;
+    public String pkOperatorLst;
 
 
     /**
@@ -123,13 +103,6 @@ public class CustomerVO extends BaseQuery<CustomerVO> implements Serializable {
      * 最新变更时间
      */
     public String operateTimeLst;
-
-
-
-    /**
-     * 记账人
-     */
-//    public UserRefVO pkOperator;
 
     /**
      * 记账日期
@@ -146,7 +119,7 @@ public class CustomerVO extends BaseQuery<CustomerVO> implements Serializable {
     /**
      * 复核人
      */
-//    public UserRefVO pkChecker;
+    public String pkChecker;
 
     /**
      * 复核日期
@@ -163,7 +136,7 @@ public class CustomerVO extends BaseQuery<CustomerVO> implements Serializable {
     /**
      * 授权人
      */
-//    public UserRefVO pkGrantor;
+    public String pkGrantor;
 
     /**
      * 授权日期
@@ -180,15 +153,6 @@ public class CustomerVO extends BaseQuery<CustomerVO> implements Serializable {
      * 生效日期
      */
     public String effectiveDate;
-
-
-    /**
-     * 机构
-     */
-
-    @ManyToOne
-    @JoinColumn(name = "pkOrg", referencedColumnName = "pkOrg")
-    public OrgRefVO pkOrg;
 
     /**
      * 机构信用代码”   用于征信接口    ADD by jiaoshy   2017-04-05
@@ -282,6 +246,14 @@ public class CustomerVO extends BaseQuery<CustomerVO> implements Serializable {
         this.identityNo = identityNo;
     }
 
+    public String getPkPrjManager() {
+        return pkPrjManager;
+    }
+
+    public void setPkPrjManager(String pkPrjManager) {
+        this.pkPrjManager = pkPrjManager;
+    }
+
     public Short getCustomerStatus() {
         return customerStatus;
     }
@@ -314,12 +286,12 @@ public class CustomerVO extends BaseQuery<CustomerVO> implements Serializable {
         this.alteraStatus = alteraStatus;
     }
 
-    public Short getBillstatus() {
-        return billstatus;
+    public String getPkOperatorLst() {
+        return pkOperatorLst;
     }
 
-    public void setBillstatus(Short billstatus) {
-        this.billstatus = billstatus;
+    public void setPkOperatorLst(String pkOperatorLst) {
+        this.pkOperatorLst = pkOperatorLst;
     }
 
     public String getOperateDateLst() {
@@ -338,6 +310,14 @@ public class CustomerVO extends BaseQuery<CustomerVO> implements Serializable {
         this.operateTimeLst = operateTimeLst;
     }
 
+    public String getPkChecker() {
+        return pkChecker;
+    }
+
+    public void setPkChecker(String pkChecker) {
+        this.pkChecker = pkChecker;
+    }
+
     public String getOperateDate() {
         return operateDate;
     }
@@ -352,6 +332,14 @@ public class CustomerVO extends BaseQuery<CustomerVO> implements Serializable {
 
     public void setOperateTime(String operateTime) {
         this.operateTime = operateTime;
+    }
+
+    public String getPkGrantor() {
+        return pkGrantor;
+    }
+
+    public void setPkGrantor(String pkGrantor) {
+        this.pkGrantor = pkGrantor;
     }
 
     public String getCheckDate() {
@@ -392,14 +380,6 @@ public class CustomerVO extends BaseQuery<CustomerVO> implements Serializable {
 
     public void setEffectiveDate(String effectiveDate) {
         this.effectiveDate = effectiveDate;
-    }
-
-    public OrgRefVO getPkOrg() {
-        return pkOrg;
-    }
-
-    public void setPkOrg(OrgRefVO pkOrg) {
-        this.pkOrg = pkOrg;
     }
 
     public String getOrgCreditCode() {
@@ -443,7 +423,12 @@ public class CustomerVO extends BaseQuery<CustomerVO> implements Serializable {
     }
 
     @Override
-    public Specification<CustomerVO> toSpec() {
-        return super.toSpecWithAnd();
+    public String getPk() {
+        return this.pkCustomer;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkCustomer = pk;
     }
 }
