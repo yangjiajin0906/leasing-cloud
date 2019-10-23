@@ -1,7 +1,6 @@
 package com.leasing.sys.entity.vo;
 
 import com.leasing.common.base.entity.BaseBusinessVO;
-import com.leasing.common.ref.base.OrgrefVO;
 
 import javax.persistence.*;
 import java.util.List;
