@@ -1,5 +1,6 @@
 package com.leasing.customer.service;
 
+import com.leasing.common.base.web.ResResult;
 import com.leasing.customer.dao.vo.CustomerCorpAllVO;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Map;
 public interface CustomerCorpService {
 
 
+    ResResult delete(String pkCustomer);
     /**
      * 根据客户主键查询客户详情
      *
@@ -45,4 +47,19 @@ public interface CustomerCorpService {
      * @param pkCustomer 客户新主键
      */
     void updateBillStatus(String billstatus, String pkCustomer);
+
+
+    /**
+     * 校验客户名称是否重复
+     * @param customerName 客户名称
+     * @return com.leasing.common.base.web.ResResult
+     */
+    ResResult validateCustomerName(String customerName);
+
+    /**
+     * 根据查询客户证件号码是否重复
+     * @param identityNo 客户证件号
+     * @return com.leasing.common.base.web.ResResult
+     */
+    ResResult validateIdentityNo(String identityNo);
 }
