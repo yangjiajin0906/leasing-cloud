@@ -2,8 +2,12 @@ package com.leasing.calculate.service;
 import com.leasing.calculate.dos.CalculatorDO;
 import com.leasing.calculate.vo.CalculatorVO;
 import com.leasing.calculate.dto.CalculatorDTO;
+import com.leasing.calculate.vo.queryVO.CalculatorQueryVO;
+import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.base.repository.support.Pagination;
+import org.springframework.data.domain.Sort;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -42,7 +46,58 @@ public interface CalculateService {
      * 分页查询
      * @return
      */
-    List<CalculatorVO> pageQuery(Pagination pagination, CalculatorDO vo);
+    List<CalculatorVO> pageQuery(Pagination pagination, CalculatorQueryVO vo);
+
+    /**
+     * 分页查询
+     * @return
+     */
+    List<CalculatorVO> pageQuery2(Pagination pagination, CalculatorQueryVO vo, Sort s);
+
+    /**
+     * @description 计算租金计划表
+     * @author Yangjiajin
+     * @date 2019/10/23 10:17
+     * @param []
+     * @return com.leasing.calculate.dto.CalculatorDTO
+     */
+    List calOperateLease();
+
+    /**
+     * @description 计算计提结果表
+     * @author Yangjiajin
+     * @date 2019/10/23 10:17
+     * @param []
+     * @return com.leasing.calculate.dto.CalculatorDTO
+     */
+    List calMakeResults();
+
+    /**
+     * @description 计算会计分摊表
+     * @author Yangjiajin
+     * @date 2019/10/23 10:17
+     * @param []
+     * @return com.leasing.calculate.dto.CalculatorDTO
+     */
+    List calAccountingShare();
+
+    /**
+     * @description 计算irr
+     * @author Yangjiajin
+     * @date 2019/10/23 10:25
+     * @param []
+     * @return java.math.BigDecimal
+     */
+    BigDecimal calDayIRR();
+
+    /**
+     * @description 专门用于C端业务批量计算
+     * @author Yangjiajin
+     * @date 2019/10/23 10:25
+     * @param []
+     * @return java.math.BigDecimal
+     */
+    List calBatchBusinessC();
 
     CalculatorDTO findByIsSql(String pkLeaseCalculator);
 

@@ -3,6 +3,9 @@ package com.leasing.calculate.repository;
 import com.leasing.calculate.dos.CalculatorDO;
 import com.leasing.calculate.dto.CalculatorDTO;
 import com.leasing.calculate.vo.CalculatorVO;
+import com.leasing.calculate.vo.queryVO.CalculatorQueryVO;
+import com.leasing.common.base.entity.BaseQuery;
+import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.base.repository.BaseRepository;
 import org.springframework.data.jpa.repository.Query;
 import javax.transaction.Transactional;
@@ -15,7 +18,7 @@ import java.util.List;
  * @description:
  **/
 @Transactional
-public interface CalculatorRepository extends BaseRepository<CalculatorDO,String> {
+public interface CalculatorRepository extends BaseRepository<CalculatorDO,CalculatorQueryVO,CalculatorVO,String> {
 
     //自定义sql
     @Query(value = "select new com.leasing.calculate.dto.CalculatorDTO(l.pkLeaseCalculator as pkLeaseCalculator, u.pkUser as quot_code, u.userName as quot_name ) \n" +

@@ -2,7 +2,7 @@ package com.leasing.calculate.dos;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.leasing.calculate.vo.CalculatorVO;
-import com.leasing.calculate.vo.CustomerRefVO;
+import com.leasing.common.base.entity.BaseDO;
 import com.leasing.common.base.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +22,7 @@ import java.text.DecimalFormat;
 
 @Entity
 @Table(name="yls_inout_plan")
-public class InoutPlanPDO extends BaseEntity {
+public class InoutPlanPDO extends BaseDO {
     /**
      * 主键
      */
@@ -31,6 +31,8 @@ public class InoutPlanPDO extends BaseEntity {
     /**
      * 主表主键
      */
+//    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH }, optional = true)
+//    @JoinColumn(name="sourceBill")
     public String sourceBill;
 
     /**
