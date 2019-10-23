@@ -2,7 +2,7 @@ package com.leasing.customer.service.impl;
 
 import com.leasing.customer.dao.dos.CustomerCorpDO;
 import com.leasing.customer.dao.vo.CustomerCorpAllVO;
-import com.leasing.customer.repository.CustomerCorpRepository;
+import com.leasing.customer.dao.repository.CustomerCorpRepository;
 import com.leasing.customer.service.CustomerCorpService;
 import org.springframework.stereotype.Service;
 
