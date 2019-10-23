@@ -58,8 +58,8 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
         int curPage = pagination.getCurPage() - 1;
         int pageSize = pagination.getPageSize();
         Pageable pageable = PageRequest.of(curPage, pageSize);
-        Page page = this.findAll(pageable);
-        return page.getContent(); 
+        Page page = this.findAll(query.toSpec(),pageable);
+        return page.getContent();
     }
 
     @Override

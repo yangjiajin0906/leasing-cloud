@@ -10,5 +10,5 @@ import com.leasing.rentearly.rentearlyservice.projectInfo.enity.dos.ProjectInfoD
  * @author:jiaoshy@yonyou.com
  * @description:
  **/
-public interface ProjectApprovalRepository extends BaseRepository<ProjectApprovalDO, String> {
-}
+//public interface ProjectApprovalRepository extends BaseRepository<ProjectApprovalDO, String> {
+//}

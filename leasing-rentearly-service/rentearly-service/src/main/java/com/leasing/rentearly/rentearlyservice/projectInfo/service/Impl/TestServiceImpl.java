@@ -3,7 +3,7 @@ package com.leasing.rentearly.rentearlyservice.projectInfo.service.Impl;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.ProjectInfoVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.dos.ProjectApprovalDO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.dos.ProjectInfoDO;
-import com.leasing.rentearly.rentearlyservice.projectInfo.repository.ProjectApprovalRepository;
+//import com.leasing.rentearly.rentearlyservice.projectInfo.repository.ProjectApprovalRepository;
 import com.leasing.rentearly.rentearlyservice.projectInfo.repository.TestRepository;
 import com.leasing.rentearly.rentearlyservice.projectInfo.service.TestService;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -27,8 +27,8 @@ public class TestServiceImpl implements TestService {
     JdbcTemplate jdbcTemplate;
     @Resource
     TestRepository testRepository;
-    @Resource
-    ProjectApprovalRepository projectApprovalRepository;
+//    @Resource
+//    ProjectApprovalRepository projectApprovalRepository;
 
     @Override
     public List queryForList() {

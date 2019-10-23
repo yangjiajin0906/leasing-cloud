@@ -1,9 +1,14 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.controller;
 
+import com.leasing.common.base.repository.support.Pagination;
+import com.leasing.rentearly.rentearlyservice.projectInfo.enity.ProjectInfoVO;
+import com.leasing.rentearly.rentearlyservice.projectInfo.enity.queryVO.ProjectQueryVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.dos.ProjectInfoDO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO.ProjectInfoRefVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.repository.TestRepository;
 import com.leasing.rentearly.rentearlyservice.projectInfo.service.TestService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -101,7 +106,77 @@ public class TestController {
         projectInfoDO.setProjectName("昆明");
         projectInfoDO.setProjectCode("01482-07-05-2013-00130");
 
-        List list = testRepository.findAll(projectInfoDO.toSpec());
+//        List list = testRepository.findAll(projectInfoDO.toSpec());
         return "deleteSucessful";
+    }
+
+    @RequestMapping("testPageLike")
+    public List testPageLike() {
+        //测试全查
+        Pagination pagination = new Pagination();
+        pagination.setCurPage(1);
+        pagination.setPageSize(20);
+        ProjectQueryVO projectInfoVO = new ProjectQueryVO();
+        List list = testRepository.pageQuery(pagination,projectInfoVO);
+        //加入条件
+        projectInfoVO.setProjectCode("00000");
+        List list1 = testRepository.pageQuery(pagination,projectInfoVO);
+        return list;
+
+    }
+
+
+        @RequestMapping("testPage")
+    public List testPage(){
+        Pagination pagination = new Pagination();
+        pagination.setCurPage(1);
+        pagination.setPageSize(20);
+        ProjectQueryVO projectInfoVO = new ProjectQueryVO();
+        ProjectInfoDO projectInfoDO = new ProjectInfoDO();
+        List list = testRepository.pageQuery(pagination,projectInfoVO);
+        Pageable pageable = PageRequest.of(1, 10);
+        projectInfoDO.setProjectCode("00000");
+//        testRepository.findAll(projectInfoDO.toSpec(),pageable);
+        return list;
+    }
+
+    @RequestMapping("testPageJQ")
+    public List testPageJQ(){
+        Pagination pagination = new Pagination();
+        pagination.setCurPage(1);
+        pagination.setPageSize(20);
+        ProjectQueryVO projectInfoVO = new ProjectQueryVO();
+        String jq = "select p from ProjectInfoVO p";
+        List list = testRepository.pageQuery(pagination,projectInfoVO,jq);
+        return list;
+    }
+
+    @RequestMapping("findOne")
+    public String findOne(){
+        String query = "select * from yls_project_info where project_code like '%01482-07-05-2013-00130%'";
+        String pk = "0001AA1000000012GG7J";
+        testRepository.findOne(pk,ProjectInfoDO.class);
+        return "ss";
+    }
+
+    @RequestMapping("findOneByJPQL")
+    public String findOneByJPQL(){
+        String jq = "select p from ProjectInfoVO p where p.pkProjectInfo = '0001AA1000000012GG7J'";
+        testRepository.findOneByJPQL(ProjectInfoVO.class,jq);
+        return "ss";
+    }
+
+    @RequestMapping("findByNativeSql")
+    public String findByNativeSql(){
+        String query = "select * from yls_project_info where project_code like '%01482-07-05-2013-00130%'";
+        testRepository.findByNativeSql(ProjectInfoDO.class,query);
+        return "ss";
+    }
+
+    @RequestMapping("findOneByNativeSql")
+    public String findOneByNativeSql(){
+        String query = "select * from yls_project_info where pk_project_info like  = '0001AA1000000012GG7J'";
+        testRepository.findByNativeSql(ProjectInfoDO.class,query);
+        return "ss";
     }
 }

@@ -3,6 +3,7 @@ package com.leasing.rentearly.rentearlyservice.projectInfo.enity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.leasing.common.base.entity.BaseEntity;
+import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.vo.foundation.UserVO;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "yls_project_info")
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer"})
-public class ProjectInfoVO extends BaseEntity {
+public class ProjectInfoVO extends BaseVO {
 
     @Id    //主键id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "project-id")

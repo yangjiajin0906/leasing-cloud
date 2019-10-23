@@ -4,8 +4,8 @@ package com.leasing.rentearly.rentearlyservice.projectInfo.repository;
 import com.leasing.common.base.repository.BaseRepository;
 import com.leasing.common.base.repository.support.StringModalType;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.ProjectInfoVO;
+import com.leasing.rentearly.rentearlyservice.projectInfo.enity.queryVO.ProjectQueryVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.dos.ProjectInfoDO;
-import com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO.ProjectInfoRefVO;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,7 +19,7 @@ import java.util.List;
  * @author:jiaoshy@yonyou.com
  * @description:
  **/
-public interface TestRepository extends BaseRepository<ProjectInfoDO, String> {
+public interface TestRepository extends BaseRepository<ProjectInfoDO,ProjectQueryVO,ProjectInfoVO ,String> {
 
 
     /**
