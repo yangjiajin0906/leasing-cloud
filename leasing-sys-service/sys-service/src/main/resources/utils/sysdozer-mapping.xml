@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+    <mapping wildcard="true" map-null="false">    <!--wildcard为false时指定field域中属性赋值,map-empty为true时排除空属性映射 -->
+        <class-a>com.leasing.sys.entity.vo.DFuncMenuVO</class-a>
+        <class-b>com.leasing.sys.entity.dos.DFuncMenuDO</class-b>
+    </mapping>
+
+    <mapping wildcard="true" map-null="false">
+        <class-a>com.leasing.sys.entity.vo.DFuncMenuVO</class-a>
+        <class-b>com.leasing.sys.entity.dto.DFuncMenuDTO</class-b>
+    </mapping>
+
+    <mapping wildcard="true" map-null="false" map-empty-string="false"> <!--map-null指定false排除空值映射 -->
+        <class-a>java.util.Map</class-a>
+        <class-b>com.leasing.sys.entity.vo.DFuncMenuVO</class-b>
+        <field>
+            <a>pkParent</a>
+            <b>pkParent.pkFuncmenu</b>
+        </field>
+        <field>
+            <a>pkSystem</a>
+            <b>pkSystem.pkSystem</b>
+        </field>
+        <field>
+            <a>pkOperator</a>
+            <b>pkOperator.pkUser</b>
+        </field>
+        <field>
+            <a>pkDept</a>
+            <b>pkDept.pkDeptdoc</b>
+        </field>
+        <field>
+            <a>pkOrg</a>
+            <b>pkOrg.pkOrg</b>
+        </field>
+        <field>
+            <a>deptCode</a>
+            <b>pkDept.deptCode</b>
+        </field>
+        <field>
+            <a>deptName</a>
+            <b>pkDept.deptName</b>
+        </field>
+        <field>
+            <a>orgCode</a>
+            <b>pkOrg.orgCode</b>
+        </field>
+        <field>
+            <a>orgName</a>
+            <b>pkOrg.orgName</b>
+        </field>
+    </mapping>
+
+</mappings>

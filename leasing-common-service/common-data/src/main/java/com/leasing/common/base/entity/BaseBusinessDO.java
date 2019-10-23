@@ -1,5 +1,7 @@
 package com.leasing.common.base.entity;
 
+import org.dozer.Mapping;
+
 import javax.persistence.MappedSuperclass;
 
 /**
@@ -18,6 +20,7 @@ public abstract class BaseBusinessDO extends BaseDO {
     /**
      * 操作人
      */
+    @Mapping("pkOperator.pkUser")
     public String pkOperator;
     /**
      * 操作日期
@@ -30,10 +33,12 @@ public abstract class BaseBusinessDO extends BaseDO {
     /**
      * 机构
      */
+    @Mapping("pkOrg.pkOrg")
     public String pkOrg;
     /**
      * 部门主键
      */
+    @Mapping("pkDept.pkDeptdoc")
     public String pkDept;
 
 
@@ -83,5 +88,10 @@ public abstract class BaseBusinessDO extends BaseDO {
 
     public void setPkDept(String pkDept) {
         this.pkDept = pkDept;
+    }
+
+    @Override
+    public String[] getAttributeNames() {
+        return super.getAttributeNames();
     }
 }

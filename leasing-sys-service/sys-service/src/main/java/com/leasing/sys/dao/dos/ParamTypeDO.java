@@ -4,10 +4,7 @@ import com.leasing.common.base.entity.BaseBusinessDO;
 import com.leasing.common.base.entity.BaseDO;
 import com.leasing.common.base.entity.BaseVO;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -59,7 +56,7 @@ public class ParamTypeDO extends BaseBusinessDO {
      * 参数设置
      */
 
-    @Transient
+    @OneToMany(mappedBy = "pkParamType",cascade={CascadeType.ALL},fetch=FetchType.EAGER,orphanRemoval=true)
     private List<ParameterDO> parameter;
 
 

@@ -94,12 +94,15 @@ public abstract class AbstractBaseEntity implements Serializable,Cloneable{
                 arys = (String[]) map.get(this.getClass());
                 if (arys == null) {
                     HashSet set = new HashSet();
+                    Class<?> clazz = this.getClass() ;
                     //获取当前对象的每个属性值
-                    Field[] field = this.getClass().getDeclaredFields(); // 获取实体类的所有属性，返回Field数组
-                    int len$ = field.length;
-                    for (int i$ = 0; i$ < len$; ++i$) {
-                        String str = field[i$].getName();
-                        set.add(str);
+                    for(; clazz != AbstractBaseEntity.class ; clazz = clazz.getSuperclass()) {
+                        Field[] field = clazz.getDeclaredFields(); // 获取实体类的所有属性，返回Field数组
+                        int len$ = field.length;
+                        for (int i$ = 0; i$ < len$; ++i$) {
+                            String str = field[i$].getName();
+                            set.add(str);
+                        }
                     }
                     arys = (String[]) set.toArray(new String[set.size()]);
                     map.put(this.getClass(), arys);
@@ -212,7 +215,7 @@ public abstract class AbstractBaseEntity implements Serializable,Cloneable{
      * @return
      */
     @Override
-    protected Object clone(){
+    public Object clone(){
         AbstractBaseEntity vo = null;
         try {
             vo = this.getClass().newInstance();
