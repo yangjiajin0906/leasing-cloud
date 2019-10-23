@@ -16,4 +16,8 @@ public interface TestService {
     List queryForList();
 
     void testLock();
+
+    void update();
+
+    void delete();
 }

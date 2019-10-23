@@ -1,15 +1,9 @@
-package com.leasing.rentearly.rentearlyservice.projectInfo.enity;
+package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.vo.foundation.UserVO;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 /**
  * @project:leasing-cloud
@@ -19,8 +13,7 @@ import java.math.BigDecimal;
  **/
 @Entity
 @Table(name = "yls_project_info")
-@JsonIgnoreProperties(value = { "hibernateLazyInitializer"})
-public class ProjectInfoVO extends BaseEntity {
+public class ProjectInfoDTO {
 
     @Id    //主键id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "project-id")
@@ -35,10 +28,10 @@ public class ProjectInfoVO extends BaseEntity {
 
     private String pkProjectApproval;
 
-
     @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkPrjManager")
     public UserVO pkPrjManager;
+
 
     public String getPkProjectInfo() {
         return pkProjectInfo;
@@ -78,15 +71,5 @@ public class ProjectInfoVO extends BaseEntity {
 
     public void setPkPrjManager(UserVO pkPrjManager) {
         this.pkPrjManager = pkPrjManager;
-    }
-
-    @Override
-    public String getPk() {
-        return null;
-    }
-
-    @Override
-    public void setPk(String pk) {
-
     }
 }

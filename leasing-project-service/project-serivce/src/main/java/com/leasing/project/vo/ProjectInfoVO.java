@@ -80,8 +80,8 @@ public class ProjectInfoVO {
      * 项目经理
      */
     @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
-    @JoinColumn(name = "pk_prj_manager", referencedColumnName = "pk_user")
-    public UserRefVO pk_prj_manager;
+    @JoinColumn(name = "pkPrjManager", referencedColumnName = "pk_user")
+    public UserVO pkPrjManager;
     /**
      * 项目类型
      */
