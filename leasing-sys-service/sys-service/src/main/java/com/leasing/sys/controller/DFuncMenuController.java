@@ -7,14 +7,9 @@ import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.ResultUtils;
 import com.leasing.sys.service.DFuncMenuService;
 import com.leasing.sys.service.SystemService;
-import com.leasing.sys.service.UserService;
-import com.leasing.common.utils.DozerBeanMapperConfigure;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import javax.transaction.Transactional;
-import java.util.*;
 
 /**
  * @project:leasing-cloud
@@ -31,8 +26,6 @@ public class DFuncMenuController {
     @Autowired
     SystemService systemService;
 
-    @Resource
-    UserService userService;
 
     /**
      * 获取所有菜单列表 分级处理
@@ -148,97 +141,6 @@ public class DFuncMenuController {
 //        dFuncMenuService.deleteDfuncMenu("55555555555555555555");
 //        return "测试删除";
 //    }
-
-    /**
-     * 测试查询
-     */
-    @RequestMapping(value = "/testvo")
-    public ResResult testvo(){
-        List<DFuncMenuVO> result = dFuncMenuService.getFuncmenu();
-        return ResultUtils.successWithData(result);
-    }
-
-    /**
-     * 测试vo转换do
-     * @return
-     */
-    @RequestMapping(value ="testvo2")
-    public ResResult testvo2(){
-        List<DFuncMenuVO> list = dFuncMenuService.getFuncmenu();
-        DFuncMenuVO vo=list.get(0);
-        DFuncMenuDO dos = DozerBeanMapperConfigure.BEANMAPPER.getMapper().map(vo,DFuncMenuDO.class);
-        return ResultUtils.successWithData(dos);
-    }
-
-    /**
-     * 测试vo转换do并执行更新操作
-     * @return
-     */
-    @RequestMapping(value ="testvo3")
-    @Transactional
-    public ResResult testvo3(){
-        List<DFuncMenuVO> list = dFuncMenuService.getFuncmenu();
-        DFuncMenuVO vo=list.get(0);
-        DFuncMenuDO dos = DozerBeanMapperConfigure.BEANMAPPER.getMapper().map(vo,DFuncMenuDO.class);
-        dos.setMenuPath("test");
-        dFuncMenuService.updateDFuncMenu(dos);
-        return ResultUtils.successWithData(dos);
-    }
-
-    /**
-     * 测试vo转换为dto
-     * @return
-     */
-    @RequestMapping(value ="testvo4")
-    public ResResult testvo4(){
-        List<DFuncMenuVO> list = dFuncMenuService.getFuncmenu();
-        List<DFuncMenuDTO> result =new ArrayList<>();
-        for(DFuncMenuVO vo:list){
-            DFuncMenuDTO dto = DozerBeanMapperConfigure.BEANMAPPER.getMapper().map(vo,DFuncMenuDTO.class);
-            result.add(dto);
-        }
-        return ResultUtils.successWithData(result);
-    }
-
-    /**
-     * 测试map转换为vo
-     * @return
-     */
-    @RequestMapping(value ="testvo5")
-    public ResResult testvo5(){
-        List<DFuncMenuVO> list = dFuncMenuService.getFuncmenu();
-        DFuncMenuVO vo = list.get(0);
-        Map<String, Object> map = new HashMap<>();
-        String[] attrilist = vo.getAttributeNames();
-        for (String name: attrilist) {
-            map.put(name,vo.getAttributeValue(name));
-        }
-        DFuncMenuVO newvo = DozerBeanMapperConfigure.BEANMAPPER.getMapper().map(map,DFuncMenuVO.class);
-        return ResultUtils.successWithData(newvo);
-    }
-
-
-    /**
-     * 测试vo转换do do加入另外数据 存储map 并重新转化为vo  即测试并行结果集转换子类对象vo
-     * @return
-     */
-    @RequestMapping(value ="testvo6")
-    public ResResult testvo6(){
-        List<DFuncMenuVO> list = dFuncMenuService.getFuncmenu();
-        DFuncMenuVO vo=list.get(0);
-        DFuncMenuDO dos = DozerBeanMapperConfigure.BEANMAPPER.getMapper().map(vo,DFuncMenuDO.class);
-        Map<String, Object> hmap = new HashMap<>();
-        String[] arrlist = dos.getAttributeNames();
-        for (String name: arrlist) {
-            hmap.put(name,dos.getAttributeValue(name));
-        }
-        hmap.put("orgCode",vo.getPkOrg().getOrgCode());
-        hmap.put("orgName",vo.getPkOrg().getOrgName());
-        hmap.put("deptCode",vo.getPkDept().getDeptcode());
-        hmap.put("deptName",vo.getPkDept().getDeptname());
-        DFuncMenuVO resultvo = DozerBeanMapperConfigure.BEANMAPPER.getMapper().map(hmap,DFuncMenuVO.class);
-        return ResultUtils.successWithData(resultvo);
-    }
 
 
     /**

@@ -1,6 +1,7 @@
 package com.leasing.sys.entity.dos;
 
 import com.leasing.common.base.entity.BaseBusinessDO;
+import com.leasing.common.vo.foundation.OrgVO;
 import org.dozer.Mapping;
 
 import javax.persistence.*;
@@ -29,13 +30,10 @@ public class DFuncMenuDO extends BaseBusinessDO {
     public DFuncMenuDO(){}
 
     @Id
-    @Mapping("pkFuncmenu")
     private String pkFuncmenu;
 
-    @Mapping("pkSystem.pkSystem")
     private String pkSystem;
 
-    @Mapping("pkParent.pkFuncmenu")
     private String pkParent;
 
     private String funcCode;
@@ -55,6 +53,18 @@ public class DFuncMenuDO extends BaseBusinessDO {
     private String icon;
 
     private Short collected;
+
+//    @ManyToOne
+//    @JoinColumn(name = "pkOrg")
+//    private OrgVO pkOrg;
+//
+//    public OrgVO getPkOrg() {
+//        return pkOrg;
+//    }
+//
+//    public void setPkOrg(OrgVO pkOrg) {
+//        this.pkOrg = pkOrg;
+//    }
 
     public String getPkFuncmenu() {
         return pkFuncmenu;
