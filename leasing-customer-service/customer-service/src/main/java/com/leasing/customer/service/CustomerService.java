@@ -1,5 +1,6 @@
 package com.leasing.customer.service;
 
+import com.leasing.common.base.web.ResResult;
 import com.leasing.customer.dao.vo.CustomerCorpAllVO;
 import com.leasing.customer.dao.vo.CustomerVO;
 
@@ -11,6 +12,8 @@ import com.leasing.customer.dao.vo.CustomerVO;
  **/
 public interface CustomerService {
 
+
+    void deleteByPkCustomer(String pkCustomer);
     /**
      * 根据客户主键更新客户单据状态
      *
@@ -32,5 +35,20 @@ public interface CustomerService {
      * @param vo 修改成vo
      */
     void saveOrUpdate(CustomerCorpAllVO vo);
+
+
+    /**
+     * 客户名称数量
+     * @param customerName 客户名称
+     * @return int
+     */
+    int countCustomerName(String customerName);
+
+    /**
+     * 证件号码数量
+     * @param identityNo 客户证件号
+     * @return int
+     */
+    int countIdentityNo(String identityNo);
 
 }

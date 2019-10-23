@@ -1,5 +1,6 @@
 package com.leasing.sys.serviceimpl;
 
+import com.leasing.sys.entity.dos.SystemDO;
 import com.leasing.sys.entity.vo.SystemVO;
 import com.leasing.sys.dao.SystemRepository;
 import com.leasing.sys.service.SystemService;
@@ -18,7 +19,7 @@ public class SystemServiceImpl implements SystemService {
     SystemRepository systemRepository;
 
     @Override
-    public SystemVO findOne(String pk){
+    public SystemDO findOne(String pk){
         return  systemRepository.findOne(pk);
     }
 }

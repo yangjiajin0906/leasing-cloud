@@ -1,9 +1,10 @@
-package com.leasing.common.config;
+package com.leasing.common.utils;
 
 import org.dozer.DozerBeanMapper;
-import org.springframework.context.annotation.PropertySource;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @project:leasing-cloud
@@ -12,17 +13,20 @@ import java.util.Arrays;
  * @description:
  **/
 
-public enum DozerBeanMapperConfigure {
+public enum  DozerBeanMapperConfigure {
     BEANMAPPER;
 
-    private DozerBeanMapper mapper = null;
+    private DozerBeanMapper mapper=null;
+
     private DozerBeanMapperConfigure(){
-        mapper = new DozerBeanMapper();
-        mapper.setMappingFiles(Arrays.asList("utils/sysdozer-mapping.xml"));
+        mapper=new DozerBeanMapper();
+        List<String> mappingfiles=new ArrayList<>();
+        mappingfiles.add("utils/sysdozer-mapping.xml");
+        mapper.setMappingFiles(mappingfiles);
     }
 
     public DozerBeanMapper getMapper(){
-        return mapper;
+        return  mapper;
     }
 
 

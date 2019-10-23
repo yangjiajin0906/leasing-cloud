@@ -9,9 +9,7 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
@@ -41,8 +39,8 @@ public abstract class AbstractBaseEntity implements Serializable,Cloneable{
      * @return
      */
     public boolean equalsContent(AbstractBaseEntity target, @Nullable String[] fieldNames) {
-        String[] arr$ = null == fieldNames ? this.getAttributeAry() : fieldNames;
-        if (fieldNames != null && target != null) {
+        String[] arr$ = null == fieldNames ? this.getAttributeNames() : fieldNames;
+        if (arr$ != null && target != null) {
             int len$ = arr$.length;
             for (int i$ = 0; i$ < len$; ++i$) {
                 String field = arr$[i$];
@@ -219,6 +217,16 @@ public abstract class AbstractBaseEntity implements Serializable,Cloneable{
         AbstractBaseEntity vo = null;
         try {
             vo = this.getClass().newInstance();
+//            Class<?> clazz = this.getClass() ;
+//            //获取当前对象的每个属性值
+//            for(; clazz != AbstractBaseEntity.class ; clazz = clazz.getSuperclass()) {
+//                Field[] field = clazz.getDeclaredFields(); // 获取实体类的所有属性，返回Field数组
+//                int len$ = field.length;
+//                for (int i$ = 0; i$ < len$; ++i$) {
+//                    String str = field[i$].getName();
+//                    vo.setAttributeValue(str, this.getAttributeValue(str));
+//                }
+//            }
             BeanUtils.copyProperties(this,vo);
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -228,5 +236,27 @@ public abstract class AbstractBaseEntity implements Serializable,Cloneable{
             throw new RuntimeException("IllegalAccessException in Class " + this.getClass().getName());
         }
         return vo;
+    }
+
+
+    /**
+     * 判断该对象下与目标对象指定字段属性是否相等,调用字段属性equals方法进行比较
+     * @param target 目标对象
+     * @param fieldNames 属性数组
+     * @return
+     */
+    public List<String> differentColumn(AbstractBaseEntity target, @Nullable String[] fieldNames) {
+        String[] arr$ = null == fieldNames ? this.getAttributeNames() : fieldNames;
+        List<String> returnlist=new ArrayList<String>();
+        if (arr$ != null && target != null) {
+            int len$ = arr$.length;
+            for (int i$ = 0; i$ < len$; ++i$) {
+                String field = arr$[i$];
+                if (!this.isAttributeEquals(this.getAttributeValue(field), target.getAttributeValue(field))) {
+                    returnlist.add(field);
+                }
+            }
+        }
+        return  returnlist;
     }
 }

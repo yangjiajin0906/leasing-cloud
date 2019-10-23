@@ -7,7 +7,6 @@ package com.leasing.sys.dao;
  * @description:
  **/
 import com.leasing.common.base.entity.BaseQuery;
-import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.base.repository.support.StringModalType;
 import com.leasing.sys.entity.dos.DFuncMenuDO;
 import com.leasing.sys.entity.vo.DFuncMenuVO;
@@ -20,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public interface DFuncMenuRepository extends BaseRepository<DFuncMenuDO,BaseQuery,BaseVO,String> {
+public interface DFuncMenuRepository extends BaseRepository<DFuncMenuDO,DFuncMenuVO, BaseQuery,String> {
 
 
     public DFuncMenuDO findByPkFuncmenu(String pk);
