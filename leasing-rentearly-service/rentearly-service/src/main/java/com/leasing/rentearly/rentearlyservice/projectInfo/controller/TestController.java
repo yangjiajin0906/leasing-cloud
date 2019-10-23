@@ -9,6 +9,7 @@ import com.leasing.rentearly.rentearlyservice.projectInfo.repository.TestReposit
 import com.leasing.rentearly.rentearlyservice.projectInfo.service.TestService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -121,6 +122,9 @@ public class TestController {
         //加入条件
         projectInfoVO.setProjectCode("00000");
         List list1 = testRepository.pageQuery(pagination,projectInfoVO);
+
+        Sort sort = new Sort(Sort.Direction.DESC,"ts");
+        List list2 = testRepository.pageQuery(pagination,projectInfoVO,sort);
         return list;
 
     }
@@ -146,7 +150,7 @@ public class TestController {
         pagination.setCurPage(1);
         pagination.setPageSize(20);
         ProjectQueryVO projectInfoVO = new ProjectQueryVO();
-        String jq = "select p from ProjectInfoVO p";
+        String jq = "select p from ProjectInfoVO p order by case billstatus when 20 then 1 when 36 then 2 when 204 then 3 when 8 then 4 when 9 then 5 end,ts desc";
         List list = testRepository.pageQuery(pagination,projectInfoVO,jq);
         return list;
     }

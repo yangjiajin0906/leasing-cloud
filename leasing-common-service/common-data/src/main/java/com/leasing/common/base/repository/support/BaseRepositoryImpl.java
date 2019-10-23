@@ -12,6 +12,7 @@ import org.hibernate.transform.Transformers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,7 +59,7 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
         int curPage = pagination.getCurPage() - 1;
         int pageSize = pagination.getPageSize();
         Pageable pageable = PageRequest.of(curPage, pageSize);
-        Page page = this.findAll(query.toSpec(),pageable);
+        Page page = this.findAll(query.toSpec(), pageable);
         return page.getContent();
     }
 
@@ -76,7 +77,7 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
     @Override
     public <S> S findOne(ID id, Class<S> S) {
         Assert.notNull(id, "查询主键不能为空!");
-        T e =  findById(id).get();
+        T e = findById(id).get();
         return (S) e;
     }
 
@@ -102,7 +103,7 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
         Query query = entityManager.createNativeQuery(sql);
         query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.aliasToBean(R));
         List list = query.getResultList();
-        if(list.isEmpty()) return null;
+        if (list.isEmpty()) return null;
         return (R) list.get(0);
     }
 
@@ -121,6 +122,15 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
         List<Map<String, Object>> list = query.getResultList();
         Assert.notEmpty(list, "未查询到数据,请检查!");
         return list.get(0);
+    }
+
+    @Override
+    public List<V> pageQuery(Pagination pagination, Q query, Sort sort) {
+        int curPage = pagination.getCurPage() - 1;
+        int pageSize = pagination.getPageSize();
+        Pageable pageable = PageRequest.of(curPage, pageSize,sort);
+        Page page = this.findAll(query.toSpec(), pageable);
+        return page.getContent();
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.leasing.common.base.repository;
 
 import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.base.repository.support.Pagination;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
 import org.springframework.data.repository.NoRepositoryBean;
 
@@ -100,8 +101,14 @@ public interface BaseRepository<T,Q,V,ID> extends JpaRepositoryImplementation<T,
     Map<String,Object> findOneByNativeSql(String sql);
 
 
-
-
+    /**
+     * 带排序的分页查询
+     * @param pagination  分页对象
+     * @param query 查询条件
+     * @param sort 排序方式
+     * @return
+     */
+    List<V> pageQuery(Pagination pagination, Q query, Sort sort);
 
 
 

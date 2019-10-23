@@ -36,6 +36,15 @@ public class ProjectInfoVO extends BaseVO {
 
     private String pkProjectApproval;
 
+    private Short billstatus;
+
+    public Short getBillstatus() {
+        return billstatus;
+    }
+
+    public void setBillstatus(Short billstatus) {
+        this.billstatus = billstatus;
+    }
 
     @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkPrjManager")
