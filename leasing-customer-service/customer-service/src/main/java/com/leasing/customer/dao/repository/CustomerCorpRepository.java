@@ -1,7 +1,8 @@
-package com.leasing.customer.repository;
+package com.leasing.customer.dao.repository;
 
 import com.leasing.common.base.repository.BaseRepository;
 import com.leasing.customer.dao.dos.CustomerCorpDO;
+import com.leasing.customer.dao.query.CustomerCorpQuery;
 import com.leasing.customer.dao.vo.CustomerCorpAllVO;
 import com.leasing.customer.dao.vo.CustomerCorpVO;
 import org.springframework.data.jpa.repository.Query;
@@ -17,7 +18,7 @@ import java.util.List;
  * @description: 单位客户数据操作
  **/
 @Repository
-public interface CustomerCorpRepository extends BaseRepository<CustomerCorpDO, String> {
+public interface CustomerCorpRepository extends BaseRepository<CustomerCorpDO, CustomerCorpQuery, CustomerCorpAllVO,String> {
 
     @Query(value = "select b from CustomerCorpVO b " +
             " left join CustomerDTO m on b.pkCustomer = m.pkCustomer " +
