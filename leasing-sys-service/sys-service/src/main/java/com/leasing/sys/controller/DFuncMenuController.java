@@ -7,12 +7,10 @@ import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.ResultUtils;
 import com.leasing.sys.service.DFuncMenuService;
 import com.leasing.sys.service.SystemService;
-import com.leasing.sys.service.UserService;
-import com.leasing.common.utils.DozerBeanMapperConfigure;
+import com.leasing.common.config.DozerBeanMapperConfigure;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.util.*;
 
@@ -31,8 +29,8 @@ public class DFuncMenuController {
     @Autowired
     SystemService systemService;
 
-    @Resource
-    UserService userService;
+//    @Resource
+//    UserService userService;
 
     /**
      * 获取所有菜单列表 分级处理

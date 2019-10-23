@@ -1,4 +1,4 @@
-package com.leasing.common.utils;
+package com.leasing.common.config;
 
 import org.dozer.DozerBeanMapper;
 import org.springframework.context.annotation.PropertySource;
@@ -12,17 +12,17 @@ import java.util.Arrays;
  * @description:
  **/
 
-public enum  DozerBeanMapperConfigure {
+public enum DozerBeanMapperConfigure {
     BEANMAPPER;
 
-    private DozerBeanMapper mapper=null;
+    private DozerBeanMapper mapper = null;
     private DozerBeanMapperConfigure(){
-        mapper=new DozerBeanMapper();
+        mapper = new DozerBeanMapper();
         mapper.setMappingFiles(Arrays.asList("utils/sysdozer-mapping.xml"));
     }
 
     public DozerBeanMapper getMapper(){
-        return  mapper;
+        return mapper;
     }
 
 
