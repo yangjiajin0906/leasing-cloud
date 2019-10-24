@@ -176,7 +176,7 @@ public class TestController {
     @RequestMapping("findOneByJPQL")
     public String findOneByJPQL(){
         String jq = "select p from ProjectInfoVO p where p.pkProjectInfo = '0001AA1000000012GG7J'";
-        testRepository.findOneByJPQL(ProjectInfoVO.class,jq);
+        testRepository.findOneByJPQL(ProjectInfoVO.class,jq,false);
         return "ss";
     }
 
