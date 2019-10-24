@@ -1,5 +1,6 @@
 package com.leasing.calculate.dos;
 
+import com.leasing.common.base.entity.BaseBusinessDO;
 import com.leasing.common.base.entity.BaseDO;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Entity
 @Table(name="yls_lease_calculator")
-public class CalculatorDO extends BaseDO {
+public class CalculatorDO extends BaseBusinessDO {
     /**
      * 主键
      */
@@ -300,6 +301,7 @@ public class CalculatorDO extends BaseDO {
     /**
      * 远期支付期限
      */
+    @Transient
     public Integer limitT;
 
     /**
@@ -320,66 +322,79 @@ public class CalculatorDO extends BaseDO {
     /**
      * 远期是否收首付款
      */
+    @Transient
     public Short ifDownPaymentT;
 
     /**
      * 在建期还本金额
      */
+    @Transient
     public BigDecimal repaymentCorpusCashC;
 
     /**
      * 在建期期限
      */
+    @Transient
     public Integer limitC;
 
     /**
      * 在建期支付频率
      */
+    @Transient
     public Short leasePeriodC;
 
     /**
      * 在建期还本周期
      */
+    @Transient
     public Short repaymentCorpusPeriodC;
 
     /**
      * 在建期利率档次
      */
+    @Transient
     public Short interrateLevelC;
 
     /**
      * 在建期基准利率
      */
+    @Transient
     public BigDecimal interrateC;
 
     /**
      * 在建期利率浮动值
      */
+    @Transient
     public BigDecimal floatValueC;
 
     /**
      * 在建期利率
      */
+    @Transient
     public BigDecimal finalRateC;
 
     /**
      * 在建期利率类型
      */
+    @Transient
     public Short interrateTypeC;
 
     /**
      * 在建期利率浮动方式
      */
+    @Transient
     public Short floatMethodC;
 
     /**
      * 在建期利率生效日期
      */
+    @Transient
     public String pkInterrateC;
 
     /**
      * 建设期利息处理方式
      */
+    @Transient
     public Short interestMethodC;
 
     /**
@@ -659,25 +674,25 @@ public class CalculatorDO extends BaseDO {
      */
     public Short ifCorpusTickets;
 
-    /**
-     * 单据状态
-     */
-    public Short billstatus;
-
-    /**
-     * 操作员主键
-     */
-    public String pkOperator;
-
-    /**
-     * 操作日期
-     */
-    public String operateDate;
-
-    /**
-     * 操作时间
-     */
-    public String operateTime;
+//    /**
+//     * 单据状态
+//     */
+//    public Short billstatus;
+//
+//    /**
+//     * 操作员主键
+//     */
+//    public String pkOperator;
+//
+//    /**
+//     * 操作日期
+//     */
+//    public String operateDate;
+//
+//    /**
+//     * 操作时间
+//     */
+//    public String operateTime;
 
     /**
      * 复核员主键
@@ -710,30 +725,24 @@ public class CalculatorDO extends BaseDO {
     public String grantTime;
 
     /**
-     * 机构
-     */
-    public String pkOrg;
-
-    /**
-     * 部门
-     */
-    public String  pkDept;
-    /**
      * 投放计划（子表）
      */
-    @OneToMany(mappedBy = "sourceBill", cascade = CascadeType.ALL,orphanRemoval=true,fetch = FetchType.LAZY)
+    @OneToMany(orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="sourceBill")
     public List<LeaseLoanPlanDO> leaseLoanPlan;
 
     /**
      * 规则设置（子表）
      */
-    @OneToMany(mappedBy = "sourceBill", cascade = CascadeType.ALL,orphanRemoval=true,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
+    @JoinColumn(name="sourceBill")
     public List<LeaseRulePDO> leaseRule;
 
     /**
      * 收支计划（子表）市场  --存储
      */
-    @OneToMany(mappedBy = "sourceBill", cascade = CascadeType.ALL,orphanRemoval=true,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY)
+    @JoinColumn(name="sourceBill")
     public List<InoutPlanPDO> inoutPlanMarket;
 
 
@@ -1928,38 +1937,6 @@ public class CalculatorDO extends BaseDO {
         this.ifCorpusTickets = ifCorpusTickets;
     }
 
-    public Short getBillstatus() {
-        return billstatus;
-    }
-
-    public void setBillstatus(Short billstatus) {
-        this.billstatus = billstatus;
-    }
-
-    public String getPkOperator() {
-        return pkOperator;
-    }
-
-    public void setPkOperator(String pkOperator) {
-        this.pkOperator = pkOperator;
-    }
-
-    public String getOperateDate() {
-        return operateDate;
-    }
-
-    public void setOperateDate(String operateDate) {
-        this.operateDate = operateDate;
-    }
-
-    public String getOperateTime() {
-        return operateTime;
-    }
-
-    public void setOperateTime(String operateTime) {
-        this.operateTime = operateTime;
-    }
-
     public String getPkChecker() {
         return pkChecker;
     }
@@ -2006,22 +1983,6 @@ public class CalculatorDO extends BaseDO {
 
     public void setGrantTime(String grantTime) {
         this.grantTime = grantTime;
-    }
-
-    public String getPkOrg() {
-        return pkOrg;
-    }
-
-    public void setPkOrg(String pkOrg) {
-        this.pkOrg = pkOrg;
-    }
-
-    public String getPkDept() {
-        return pkDept;
-    }
-
-    public void setPkDept(String pkDept) {
-        this.pkDept = pkDept;
     }
 
     public List<LeaseLoanPlanDO> getLeaseLoanPlan() {

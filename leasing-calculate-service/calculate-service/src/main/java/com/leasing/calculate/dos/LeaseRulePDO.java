@@ -1,6 +1,7 @@
 package com.leasing.calculate.dos;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.leasing.common.base.entity.BaseDO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name="yls_lease_rule")
-public class LeaseRulePDO {
+public class LeaseRulePDO extends BaseDO {
 
     /**
      * 主键
@@ -55,6 +56,16 @@ public class LeaseRulePDO {
     public String sourceBilltype;
 
     public LeaseRulePDO() {
+    }
+
+    @Override
+    public String getPk() {
+        return pkLeaseRule;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkLeaseRule = pk;
     }
 
     public String getPkLeaseRule() {

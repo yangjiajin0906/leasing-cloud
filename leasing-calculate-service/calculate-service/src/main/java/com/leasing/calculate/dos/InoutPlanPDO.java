@@ -1,10 +1,15 @@
 package com.leasing.calculate.dos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.leasing.calculate.vo.CalculatorVO;
+import com.leasing.calculate.vo.CustomerRefVO;
 import com.leasing.common.base.entity.BaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
@@ -17,7 +22,7 @@ import java.text.DecimalFormat;
 
 @Entity
 @Table(name="yls_inout_plan")
-public class InoutPlanPDO extends BaseEntity {
+public class InoutPlanPDO extends BaseDO {
     /**
      * 主键
      */
@@ -26,6 +31,8 @@ public class InoutPlanPDO extends BaseEntity {
     /**
      * 主表主键
      */
+//    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH }, optional = true)
+//    @JoinColumn(name="sourceBill")
     public String sourceBill;
 
     /**
