@@ -110,7 +110,7 @@ public class LeaseLoanPlanDO extends BaseDO {
     /**
      * 计息金额计算方式
      */
-    public short calinterestAmountStyle;
+    public Short calinterestAmountStyle;
 
     public LeaseLoanPlanDO() {
     }
@@ -251,11 +251,11 @@ public class LeaseLoanPlanDO extends BaseDO {
         this.loanBatch = loanBatch;
     }
 
-    public short getCalinterestAmountStyle() {
+    public Short getCalinterestAmountStyle() {
         return calinterestAmountStyle;
     }
 
-    public void setCalinterestAmountStyle(short calinterestAmountStyle) {
+    public void setCalinterestAmountStyle(Short calinterestAmountStyle) {
         this.calinterestAmountStyle = calinterestAmountStyle;
     }
 

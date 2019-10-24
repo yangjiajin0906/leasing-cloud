@@ -43,6 +43,34 @@
     <!--            select o from OrgVO o left join fetch o.parentPk d-->
     <!--        </query>-->
     <!--    </named-query>-->
+    <named-query name="DFuncMenuVO.findFuncmenuVO">
+        <query>
+            select s from DFuncMenuVO s
+            left join fetch s.pkParent l
+            left join fetch s.pkSystem p
+            left join fetch s.pkOrg o
+            left join fetch s.pkDept d
+            left join fetch s.pkOperator t
+            where s.pkFuncmenu = '824f6343a4334fa6a1d4'
+        </query>
+    </named-query>
+
+    <named-native-query name="DFuncMenuVO.getDFuncmentest" result-set-mapping="findByNativeone">
+        <query>
+            select s.pk_funcmenu pkFuncmenu,s.func_code funcCode,s.billstatus billstatus,m.system_code systemCode,m.system_name systemName from sm_business_menu s
+            left join sm_system m on s.pk_system=m.pk_system
+            where s.pk_funcmenu = '824f6343a4334fa6a1d4'
+        </query>
+    </named-native-query>
+
+    <sql-result-set-mapping name="findByNativeone">
+        <column-result name="pkFuncmenu" />
+        <column-result name="funcCode" />
+        <column-result name="billstatus" />
+        <column-result name="systemCode" />
+        <column-result name="systemName" />
+    </sql-result-set-mapping>
+
 
 
 

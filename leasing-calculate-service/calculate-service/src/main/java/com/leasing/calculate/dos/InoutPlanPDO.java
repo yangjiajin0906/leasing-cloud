@@ -1,6 +1,14 @@
 package com.leasing.calculate.dos;
 
 import com.leasing.common.base.entity.BaseDO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.leasing.calculate.vo.CalculatorVO;
+import com.leasing.common.base.entity.BaseDO;
+import com.leasing.common.base.entity.BaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

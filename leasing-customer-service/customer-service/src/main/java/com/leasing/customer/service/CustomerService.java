@@ -1,6 +1,6 @@
 package com.leasing.customer.service;
 
-import com.leasing.common.base.web.ResResult;
+import com.leasing.customer.dao.dos.CustomerDO;
 import com.leasing.customer.dao.vo.CustomerCorpAllVO;
 import com.leasing.customer.dao.vo.CustomerVO;
 
@@ -28,13 +28,15 @@ public interface CustomerService {
      *
      * @param vo 客户修改成vo
      */
-    void saveOrUpdate(CustomerVO vo);
+    void save(CustomerVO vo);
+
+    void save(CustomerDO customerDO);
 
     /**
      * 修改客户信息
      * @param vo 修改成vo
      */
-    void saveOrUpdate(CustomerCorpAllVO vo);
+    void save(CustomerCorpAllVO vo);
 
 
     /**

@@ -20,18 +20,17 @@ import java.util.List;
 @Repository
 public interface CustomerCorpRepository extends BaseRepository<CustomerCorpDO, CustomerCorpQuery, CustomerCorpAllVO,String> {
 
-    @Query(value = "select b from CustomerCorpVO b " +
-            " left join CustomerDTO m on b.pkCustomer = m.pkCustomer " +
-            " where b.pkCustomer = ?1 ")
-    List<CustomerCorpVO> findTest(String pk);
+//    @Query(value = "select b from CustomerCorpVO b " +
+//            " left join CustomerDTO m on b.pkCustomer = m.pkCustomer " +
+//            " where b.pkCustomer = ?1 ")
+//    List<CustomerCorpVO> findTest(String pk);
 
     /**
      * 根据客户主键查询单位客户详情
      * @param pkCustomer 客户主键
      * @return List<CustomerCorpAllVO>
      */
-    @Query(value = "select b from CustomerCorpAllVO b " +
-            "where b.pkCustomer = :pkCustomer ")
+    @Query(name = "CustomerCorpAllVO.findByPkCustomer")
     CustomerCorpAllVO findOneAllByPkCustomer(@Param("pkCustomer") String pkCustomer);
 
     /**
@@ -39,29 +38,16 @@ public interface CustomerCorpRepository extends BaseRepository<CustomerCorpDO, C
      * @param pkCustomer 客户名称
      * @return List<CustomerCorpAllVO>
      */
-    @Query(value = "select count(b.customerName) from CustomerCorpAllVO b " +
-            "where b.customerName = :pkCustomer AND b.ifNew = 0")
-    int findOneAllByCustomerName(@Param("pkCustomer") String pkCustomer);
-
-
+    @Query(name = "CustomerCorpAllVO.findByCustomerName")
+    CustomerCorpAllVO findOneAllByCustomerName(@Param("pkCustomer") String pkCustomer);
 
 //
-//
-//    @Query(value = "select b from CustomerCorpVO b " +
-//            " left join fetch b.customerProperty t" +
-//            " left join fetch b.customerPropertyIn l" +
-//            " left join fetch b.pkChecker m" +
-//            " where b.pkCustomer = ?1 ")
-//    List<CustomerCorpVO> findTest1(String pk);
-//
-//    @Query(value = "select b from ParameterVO b " +
-//            " left join fetch ParamTypeDTO m on b.pkParamType = m.pkParamType " +
-//            " where b.paramCode = ?1 ")
-//    List<CustomerVO> findTest2(String pk);
-//
-//    @Query(value = "select b,m.paramVarname from ParameterVO b " +
-//            " left join fetch b.pkParamType m " +
-//            " where m.paramCode = ?1 ")
-//    List<CustomerVO> findTest3(String pk);
-//
+//    /**
+//     *
+//     * @param pkCustomer 客户主键
+//     * @return List<CustomerCorpAllVO>
+//     */
+//    @Query(value = "select b from CustomerCorpAllVO b " +
+//            "where b.ifNew = 0 ")
+//    CustomerCorpAllVO pageList(@Param("pkCustomer") String pkCustomer);
 }

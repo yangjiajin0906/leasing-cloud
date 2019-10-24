@@ -1,4 +1,4 @@
-package com.leasing.common.utils;
+package com.leasing.common.config;
 
 import org.dozer.DozerBeanMapper;
 

@@ -1,11 +1,9 @@
 package com.leasing.customer.service.impl;
 
-import com.leasing.common.base.web.ResResult;
-import com.leasing.common.utils.ResultUtils;
 import com.leasing.customer.dao.dos.CustomerDO;
+import com.leasing.customer.dao.repository.CustomerRepository;
 import com.leasing.customer.dao.vo.CustomerCorpAllVO;
 import com.leasing.customer.dao.vo.CustomerVO;
-import com.leasing.customer.dao.repository.CustomerRepository;
 import com.leasing.customer.service.CustomerService;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
     public void updateBillStatus(Short newBillstatus, String pkCustomer) {
         CustomerDO customerDO = customerRepository.findOne(pkCustomer);
         customerDO.setBillstatus(newBillstatus);
-        this.saveOrUpdate(customerDO);
+        this.save(customerDO);
     }
 
     /**
@@ -51,9 +49,9 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     @Transactional
-    public void saveOrUpdate(CustomerVO vo) {
+    public void save(CustomerVO vo) {
         //todo vo转do
-        saveOrUpdate(new CustomerDO());
+        save(new CustomerDO());
     }
 
     /**
@@ -63,10 +61,10 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     @Transactional
-    public void saveOrUpdate(CustomerCorpAllVO vo) {
+    public void save(CustomerCorpAllVO vo) {
 
         //todo 将单位客户信息拆分出来保存到yls_customer表中
-        saveOrUpdate(new CustomerDO());
+        save(new CustomerDO());
     }
 
     /**
@@ -95,7 +93,8 @@ public class CustomerServiceImpl implements CustomerService {
      * @param customerDO 客户信息
      */
     @Transactional
-    void saveOrUpdate(CustomerDO customerDO) {
+    @Override
+    public void save(CustomerDO customerDO) {
         customerRepository.save(customerDO);
     }
 }

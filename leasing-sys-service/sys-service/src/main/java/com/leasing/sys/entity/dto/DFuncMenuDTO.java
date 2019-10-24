@@ -22,9 +22,6 @@ public class DFuncMenuDTO {
 
     private Short ifEnabled;
 
-    @ManyToOne
-    @JoinColumn(name ="pkSystem")
-    private SystemVO pkSystem;
 
     private Short ifFirstEnabled;
 
@@ -76,11 +73,4 @@ public class DFuncMenuDTO {
         this.ifFirstEnabled = ifFirstEnabled;
     }
 
-    public SystemVO getPkSystem() {
-        return pkSystem;
-    }
-
-    public void setPkSystem(SystemVO pkSystem) {
-        this.pkSystem = pkSystem;
-    }
 }

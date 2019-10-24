@@ -53,7 +53,7 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
     public T findOne(ID id) {
         Assert.notNull(id, "查询主键不能为空!");
         Optional<T> result = findById(id);
-        if(!result.isPresent()) return null;
+        if (!result.isPresent()) return null;
         return result.get();
     }
 
@@ -61,7 +61,7 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
     @Override
     public PageQueryData pageQuery(Pagination pagination, Q query) {
         PageQueryData pageQueryData = new PageQueryData();
-        int curPage = pagination.getCurPage()> 0 ? pagination.getCurPage() - 1 : 0;
+        int curPage = pagination.getCurPage() > 0 ? pagination.getCurPage() - 1 : 0;
         int pageSize = pagination.getPageSize();
         Pageable pageable = PageRequest.of(curPage, pageSize);
         Page page = this.findAll(query.toSpec(), pageable);
@@ -74,7 +74,7 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
 
     @Override
     public List<V> pageQuery(Pagination pagination, Q query, String jpql) {
-        int curPage = pagination.getCurPage()> 0 ? pagination.getCurPage() - 1 : 0;
+        int curPage = pagination.getCurPage() > 0 ? pagination.getCurPage() - 1 : 0;
         int pageSize = pagination.getPageSize();
         int firstResult = curPage * pageSize;
         int maxResult = pageSize;
@@ -102,11 +102,11 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
     }
 
     @Override
-    public <R> R findOneByJPQL(Class R, String jpql) {
+    public <R> R findOneByJPQL(Class R, String jpql, boolean byName) {
         Assert.notNull(jpql, "自定义jpql不能为空!");
-        Query queryResult = entityManager.createQuery(jpql);
-        if(queryResult.getResultList().isEmpty()) return null;
-        return (R) queryResult.getResultList().get(0);
+        List resultList = findByJPQL(R,jpql,byName);
+        if (resultList.isEmpty()) return null;
+        return (R) resultList.get(0);
     }
 
     @Override
@@ -128,8 +128,14 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
     }
 
     @Override
-    public List<Map<String, Object>> findByNativeSql(String sql) {
-        Query query = entityManager.createNativeQuery(sql);
+    public List<Map<String, Object>> findByNativeSql(String sql,boolean byName) {
+        Query query;
+        if(byName){
+            query = entityManager.createNamedQuery(sql);
+        }else {
+            query = entityManager.createNativeQuery(sql);
+
+        }
         query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map<String, Object>> list = query.getResultList();
         return list;
@@ -144,20 +150,18 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
     }
 
     @Override
-    public Map<String, Object> findOneByNativeSql(String sql) {
-        Query query = entityManager.createNativeQuery(sql);
-        query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
-        List<Map<String, Object>> list = query.getResultList();
-        if(list.isEmpty()) return null;
+    public Map<String, Object> findOneByNativeSql(String sql,boolean byName) {
+        List<Map<String, Object>> list = findByNativeSql(sql,byName);
+        if (list.isEmpty()) return null;
         return list.get(0);
     }
 
     @Override
     public PageQueryData pageQuery(Pagination pagination, Q query, Sort sort) {
         PageQueryData pageQueryData = new PageQueryData();
-        int curPage = pagination.getCurPage()> 0 ? pagination.getCurPage() - 1 : 0;
+        int curPage = pagination.getCurPage() > 0 ? pagination.getCurPage() - 1 : 0;
         int pageSize = pagination.getPageSize();
-        Pageable pageable = PageRequest.of(curPage, pageSize,sort);
+        Pageable pageable = PageRequest.of(curPage, pageSize, sort);
         Page page = this.findAll(query.toSpec(), pageable);
         pageQueryData.setPageData(page.getContent());
         pageQueryData.setPageSize(page.getTotalPages());
@@ -166,10 +170,14 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
     }
 
     @Override
-    public List findByJPQL(Class R, String jpql) {
-        entityManager.getDelegate();
-        List result = entityManager.createQuery(jpql).getResultList();
-        return result;
+    public List findByJPQL(Class R, String jpql, boolean byName) {
+        Query queryResult;
+        if (byName) {
+            queryResult = entityManager.createNamedQuery(jpql);
+        } else {
+            queryResult = entityManager.createQuery(jpql);
+        }
+        return queryResult.getResultList();
     }
 
 

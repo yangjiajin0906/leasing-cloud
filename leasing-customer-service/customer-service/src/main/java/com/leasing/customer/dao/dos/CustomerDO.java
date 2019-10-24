@@ -21,6 +21,8 @@ public class CustomerDO extends BaseBusinessDO {
      * 客户主键
      */
     @Id
+//    @GeneratedValue(generator = "id_generator")
+//    @GenericGenerator(name = "id_generator",strategy = "com.haramasu.simple_jpa.test.generator.MyGenerator")
     public String pkCustomer;
 
     /**
@@ -61,11 +63,6 @@ public class CustomerDO extends BaseBusinessDO {
      * 证件号码
      */
     public String identityNo;
-
-    /**
-     * 客户经理
-     */
-    public String pkPrjManager;
 
     /**
      * 客户状态
@@ -244,14 +241,6 @@ public class CustomerDO extends BaseBusinessDO {
 
     public void setIdentityNo(String identityNo) {
         this.identityNo = identityNo;
-    }
-
-    public String getPkPrjManager() {
-        return pkPrjManager;
-    }
-
-    public void setPkPrjManager(String pkPrjManager) {
-        this.pkPrjManager = pkPrjManager;
     }
 
     public Short getCustomerStatus() {

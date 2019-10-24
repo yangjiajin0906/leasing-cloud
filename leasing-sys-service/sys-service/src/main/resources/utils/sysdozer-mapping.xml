@@ -11,7 +11,7 @@
 <!--        </converter>-->
 <!--        </custom-converters>-->
 <!--    </configuration>-->
-    <mapping map-id="dsad" wildcard="true">    <!--wildcard为false时指定field域中属性赋值 -->
+    <mapping  wildcard="true">    <!--wildcard为false时指定field域中属性赋值 -->
         <class-a>com.leasing.sys.entity.vo.DFuncMenuVO</class-a>      <!-- 出现的tableName和attributeNames 均有get无需map-null -->
         <class-b>com.leasing.sys.entity.dos.DFuncMenuDO</class-b>   <!-- 对象名称不用mapping注解出现的错误转换 VO转DO无错-->
         <field>
@@ -85,32 +85,32 @@
         </field-exclude>
     </mapping>
 
-    <mapping wildcard="true">    <!--wildcard为false时指定field域中属性赋值 -->
-        <class-a>com.leasing.sys.entity.vo.DFuncMenuVO</class-a>
-        <class-b>com.leasing.sys.entity.dos.DFuncMenuDO</class-b>
-        <field>
-            <a>pkParent.pkFuncmenu</a>
-            <b>pkParent</b>
-        </field>
-        <field>
-            <a>pkSystem.pkSystem</a>
-            <b>pkSystem</b>
-        </field>
-        <field>
-            <a>pkOperator.pkUser</a>
-            <b>pkOperator</b>
-        </field>
-        <field>
-            <a>pkDept</a>
-            <b>pkOrg</b>
-        </field>
-        <field>
-            <a>pkOrg.pkOrg</a>
-            <b>pkDept</b>
-        </field>
-        <field>
-            <a>pkDept.deptcode</a>
-            <b>pkOrg.orgCode</b>
-        </field>
-    </mapping>
+<!--    <mapping wildcard="true">    &lt;!&ndash;wildcard为false时指定field域中属性赋值 &ndash;&gt;-->
+<!--        <class-a>com.leasing.sys.entity.vo.DFuncMenuVO</class-a>-->
+<!--        <class-b>com.leasing.sys.entity.dos.DFuncMenuDO</class-b>-->
+<!--        <field>-->
+<!--            <a>pkParent.pkFuncmenu</a>-->
+<!--            <b>pkParent</b>-->
+<!--        </field>-->
+<!--        <field>-->
+<!--            <a>pkSystem.pkSystem</a>-->
+<!--            <b>pkSystem</b>-->
+<!--        </field>-->
+<!--        <field>-->
+<!--            <a>pkOperator.pkUser</a>-->
+<!--            <b>pkOperator</b>-->
+<!--        </field>-->
+<!--        <field>-->
+<!--            <a>pkDept</a>-->
+<!--            <b>pkOrg</b>-->
+<!--        </field>-->
+<!--        <field>-->
+<!--            <a>pkOrg.pkOrg</a>-->
+<!--            <b>pkDept</b>-->
+<!--        </field>-->
+<!--        <field>-->
+<!--            <a>pkDept.deptcode</a>-->
+<!--            <b>pkOrg.orgCode</b>-->
+<!--        </field>-->
+<!--    </mapping>-->
 </mappings>

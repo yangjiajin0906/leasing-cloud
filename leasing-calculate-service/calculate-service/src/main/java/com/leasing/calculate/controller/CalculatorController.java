@@ -7,6 +7,7 @@ import com.leasing.calculate.service.CalculateService;
 import com.leasing.calculate.vo.queryVO.CalculatorQueryVO;
 import com.leasing.common.api.feign.calculate.CalculatorTest;
 import com.leasing.common.base.entity.BaseQuery;
+import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -53,17 +54,17 @@ public class CalculatorController {
     @ApiOperation("获得报价列表")
     @ApiImplicitParam(name = "data", value = "分页JSON串 + 报价VO JSON串", dataType = "String")
     @RequestMapping(value = "/pageQuery2")
-    public List<CalculatorVO> pageQuery2(){
+    public PageQueryData pageQuery2(){
         Pagination pagination = new Pagination();
         pagination.setCurPage(1);
         pagination.setPageSize(10);
         CalculatorQueryVO queryVO = new CalculatorQueryVO();
-        queryVO.setQuotName("杨佳进");
+        //queryVO.setQuotName("杨佳进");
         BigDecimal bigDecimal = new BigDecimal(20000000);
         queryVO.setTotalAmountEquipment(bigDecimal);
         Sort s = new Sort(Sort.Direction.DESC,"ts");
-        List<CalculatorVO> list = calculateService.pageQuery2(pagination,queryVO,s);
-        return list;
+        PageQueryData pageQueryData = calculateService.pageQuery2(pagination,queryVO,s);
+        return pageQueryData;
     }
 
     @ApiOperation("获得字表数据")
