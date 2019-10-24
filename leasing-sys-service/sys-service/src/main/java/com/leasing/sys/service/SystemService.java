@@ -1,7 +1,7 @@
 package com.leasing.sys.service;
 
-import com.leasing.sys.entity.vo.SystemVO;
+import com.leasing.sys.entity.dos.SystemDO;
 
 public interface SystemService {
-    SystemVO findOne(String pk);
+    SystemDO findOne(String pk);
 }

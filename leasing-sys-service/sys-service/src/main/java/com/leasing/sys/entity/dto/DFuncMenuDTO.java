@@ -1,5 +1,10 @@
 package com.leasing.sys.entity.dto;
 
+import com.leasing.sys.entity.vo.SystemVO;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 /**
  * @project:leasing-cloud
  * @date:2019/10/22
@@ -16,6 +21,10 @@ public class DFuncMenuDTO {
     private Short ifPower;
 
     private Short ifEnabled;
+
+    @ManyToOne
+    @JoinColumn(name ="pkSystem")
+    private SystemVO pkSystem;
 
     private Short ifFirstEnabled;
 
@@ -65,5 +74,13 @@ public class DFuncMenuDTO {
 
     public void setIfFirstEnabled(Short ifFirstEnabled) {
         this.ifFirstEnabled = ifFirstEnabled;
+    }
+
+    public SystemVO getPkSystem() {
+        return pkSystem;
+    }
+
+    public void setPkSystem(SystemVO pkSystem) {
+        this.pkSystem = pkSystem;
     }
 }

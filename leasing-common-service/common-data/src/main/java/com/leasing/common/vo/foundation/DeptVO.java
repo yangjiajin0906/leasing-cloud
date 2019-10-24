@@ -8,7 +8,7 @@ import javax.persistence.*;
  * @project:leasing-cloud
  * @date:2019-10-10
  * @author:lvcna@yonyou.com
- * @description:
+ * @description: hr部门实体类
  **/
 @Entity
 @Table(name="bd_deptdoc")
