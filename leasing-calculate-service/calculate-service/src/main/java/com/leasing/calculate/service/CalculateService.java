@@ -4,11 +4,13 @@ import com.leasing.calculate.vo.CalculatorVO;
 import com.leasing.calculate.dto.CalculatorDTO;
 import com.leasing.calculate.vo.queryVO.CalculatorQueryVO;
 import com.leasing.common.base.entity.BaseQuery;
+import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import org.springframework.data.domain.Sort;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @project:leasing-cloud
@@ -52,7 +54,7 @@ public interface CalculateService {
      * 分页查询
      * @return
      */
-    List<CalculatorVO> pageQuery2(Pagination pagination, CalculatorQueryVO vo, Sort s);
+    PageQueryData pageQuery2(Pagination pagination, CalculatorQueryVO vo, Sort s);
 
     /**
      * @description 计算租金计划表
@@ -101,8 +103,10 @@ public interface CalculateService {
 
     CalculatorDTO findByIsSql(String pkLeaseCalculator);
 
+    Map<String,Object> findByIsSql2(String pkLeaseCalculator);
+
     CalculatorDTO findByPkLeaseCalculator(String pkLeaseCalculator, Class<CalculatorDTO> type);
 
-    List<CalculatorVO> findListTest1(String pk);
+    List<CalculatorVO> findListByPk(String pk);
 
 }

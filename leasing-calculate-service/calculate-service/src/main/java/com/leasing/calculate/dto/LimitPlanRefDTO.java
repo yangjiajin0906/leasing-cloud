@@ -35,6 +35,38 @@ public class LimitPlanRefDTO extends BaseVO {
 
     }
 
+    public String getPkLimitPlan() {
+        return pkLimitPlan;
+    }
+
+    public void setPkLimitPlan(String pkLimitPlan) {
+        this.pkLimitPlan = pkLimitPlan;
+    }
+
+    public String getLimitName() {
+        return limitName;
+    }
+
+    public void setLimitName(String limitName) {
+        this.limitName = limitName;
+    }
+
+    public String getLimitCode() {
+        return limitCode;
+    }
+
+    public void setLimitCode(String limitCode) {
+        this.limitCode = limitCode;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
     @Override
     public String getPk() {
         return pkLimitPlan;

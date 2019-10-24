@@ -91,4 +91,12 @@ public class InterrateRefDTO {
     public void setMemo(String memo) {
         this.memo = memo;
     }
+
+    public String getPkInterrate() {
+        return pkInterrate;
+    }
+
+    public void setPkInterrate(String pkInterrate) {
+        this.pkInterrate = pkInterrate;
+    }
 }
