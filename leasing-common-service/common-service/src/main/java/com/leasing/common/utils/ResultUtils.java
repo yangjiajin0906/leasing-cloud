@@ -1,6 +1,6 @@
 package com.leasing.common.utils;
 
-import com.leasing.common.entity.sys.web.ResResult;
+import com.leasing.common.base.web.ResResult;
 
 /**
  * @project:leasing-cloud

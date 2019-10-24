@@ -19,7 +19,12 @@ spring:
         dialect : org.hibernate.dialect.Oracle10gDialect
     show-sql: true
     mapping-resources:
-
+logging:
+  pattern:
+    console: '%d{yyyy-MMM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{15} - %msg%n'
+  path: E:/log/seller.log
+  level:
+    root: info
 eureka:
   port:
     8800

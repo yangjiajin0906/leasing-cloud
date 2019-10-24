@@ -5,20 +5,24 @@
         http://java.sun.com/xml/ns/persistence/orm_2_0.xsd ">
 
 
-    <!--find all books order by pages descending-->
-    <named-query name="Book.findAllXML">
-        <query>SELECT b FROM Book b ORDER BY b.pages DESC</query>
+    <!--校验客户名称是否重复-->
+    <named-query name="CustomerVO.countCustomerName">
+        <query>select count(b.customerName) from CustomerVO b  where b.customerName = :customerName </query>
     </named-query>
 
-    <!--find books by title-->
-    <named-query name="Book.findByTitleContainingXML">
-        <query>SELECT b FROM Book b WHERE b.title LIKE ?1</query>
+    <!--校验客户证件号码是否重复-->
+    <named-query name="CustomerVO.countIdentityNo">
+        <query>select count(b.identityNo) from CustomerVO b  where b.identityNo = :identityNo </query>
     </named-query>
 
-    <!--native SQL query to find a book by isbn-->
-    <named-native-query name="Book.findByIsbnNativeXML"
-                        result-class="com.leasing.customer_service.pojo.Book">
-        <query>SELECT * FROM book b WHERE b.isbn = :isbn</query>
-    </named-native-query>
+    <!--根据客户名称查询客户-->
+    <named-query name="CustomerCorpAllVO.findByCustomerName">
+        <query>select b from CustomerCorpAllVO b where b.customerName = :customerName AND b.ifNew = 0 </query>
+    </named-query>
+
+    <!--根据客户主键查询客户-->
+    <named-query name="CustomerCorpAllVO.findByPkCustomer">
+        <query>select b from CustomerCorpAllVO b where b.pkCustomer = :pkCustomer AND b.ifNew = 0 </query>
+    </named-query>
 
 </entity-mappings>

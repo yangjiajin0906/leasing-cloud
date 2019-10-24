@@ -9,8 +9,13 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>leasing-cloud</groupId>
-    <artifactId>rentearly-service</artifactId>
+    <artifactId>leasing-rentearly-service</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>rentearly-service</module>
+    </modules>
 
-
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
 </project>
