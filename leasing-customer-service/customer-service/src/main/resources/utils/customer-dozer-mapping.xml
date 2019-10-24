@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+    <mapping wildcard="true">    <!--wildcard为false时指定field域中属性赋值 -->
+        <class-a>com.leasing.customer.dao.vo.CustomerCorpAllVO</class-a>      <!-- 出现的tableName和attributeNames 均有get无需map-null -->
+        <class-b>com.leasing.customer.dao.dos.CustomerCorpDO</class-b>   <!-- 对象名称不用mapping注解出现的错误转换 VO转DO无错-->
+        
+
+
+        <field>
+            <a>region.pkParameter</a>
+            <b>region</b>
+        </field>
+        <field>
+            <a>customerProperty.pkParameter</a>
+            <b>customerProperty</b>
+        </field>
+        <field>
+            <a>economicType.pkParameter</a>
+            <b>economicType</b>
+        </field>
+        <field>
+            <a>industryType.pkParameter</a>
+            <b>industryType</b>
+        </field>
+        <field>
+            <a>industryType1.pkParameter</a>
+            <b>industryType1</b>
+        </field>
+        <field>
+            <a>industry.pkParameter</a>
+            <b>industry</b>
+        </field>
+        <field>
+            <a>industry1.pkParameter</a>
+            <b>industry1</b>
+        </field>
+        <field>
+            <a>industry2.pkParameter</a>
+            <b>industry2</b>
+        </field>
+        <field>
+            <a>industry3.pkParameter</a>
+            <b>industry3</b>
+        </field>
+        <field>
+            <a>actualControl.pkCustomer</a>
+            <b>actualControl</b>
+        </field>
+        <field>
+            <a>country.pkParameter</a>
+            <b>country</b>
+        </field>
+        <field>
+            <a>province.pkAreacl</a>
+            <b>province</b>
+        </field>
+        <field>
+            <a>city.pkAreacl</a>
+            <b>city</b>
+        </field>
+        <field>
+            <a>district.pkAreacl</a>
+            <b>district</b>
+        </field>
+        <field>
+            <a>expressCompany.pkParameter</a>
+            <b>expressCompany</b>
+        </field>
+        <field>
+            <a>invoiceExplain.pkParameter</a>
+            <b>invoiceExplain</b>
+        </field>
+    </mapping>
+
+    <mapping wildcard="true">    <!--wildcard为false时指定field域中属性赋值 -->
+        <class-a>com.leasing.customer.dao.vo.CustomerCorpAllVO</class-a>      <!-- 出现的tableName和attributeNames 均有get无需map-null -->
+        <class-b>com.leasing.customer.dao.dos.CustomerDO</class-b>   <!-- 对象名称不用mapping注解出现的错误转换 VO转DO无错-->
+
+        <field>
+            <a>pkDept.pkDeptdoc</a>
+            <b>pkDept</b>
+        </field>
+        <field>
+            <a>pkOperator.pkUser</a>
+            <b>pkOperator</b>
+        </field>
+        <field>
+            <a>pkOperatorLst.pkUser</a>
+            <b>pkOperatorLst</b>
+        </field>
+        <field>
+            <a>pkChecker.pkUser</a>
+            <b>pkChecker</b>
+        </field>
+        <field>
+            <a>pkGrantor.pkUser</a>
+            <b>pkGrantor</b>
+        </field>
+        <field>
+            <a>pkOrg.pkOrg</a>
+            <b>pkOrg</b>
+        </field>
+    </mapping>
+
+    <!--<mapping wildcard="true" map-null="false"> &lt;!&ndash;map-null指定false排除空值映射 &ndash;&gt;-->
+    <!--<class-a>java.util.Map</class-a>-->
+    <!--<class-b>com.leasing.sys.entity.vo.DFuncMenuVO</class-b>-->
+    <!--<field>-->
+    <!--<a>pkParent</a>-->
+    <!--<b>pkParent.pkFuncmenu</b>-->
+    <!--</field>-->
+    <!--<field>-->
+    <!--<a>pkSystem</a>-->
+    <!--<b>pkSystem.pkSystem</b>-->
+    <!--</field>-->
+    <!--<field>-->
+    <!--<a>pkOperator</a>-->
+    <!--<b>pkOperator.pkUser</b>-->
+    <!--</field>-->
+    <!--<field>-->
+    <!--<a>pkDept</a>-->
+    <!--<b>pkDept.pkDeptdoc</b>-->
+    <!--</field>-->
+    <!--<field>-->
+    <!--<a>pkOrg</a>-->
+    <!--<b>pkOrg.pkOrg</b>-->
+    <!--</field>-->
+    <!--<field>-->
+    <!--<a>deptCode</a>-->
+    <!--<b>pkDept.deptCode</b>-->
+    <!--</field>-->
+    <!--<field>-->
+    <!--<a>deptName</a>-->
+    <!--<b>pkDept.deptName</b>-->
+    <!--</field>-->
+    <!--<field>-->
+    <!--<a>orgCode</a>-->
+    <!--<b>pkOrg.orgCode</b>-->
+    <!--</field>-->
+    <!--<field>-->
+    <!--<a>orgName</a>-->
+    <!--<b>pkOrg.orgName</b>-->
+    <!--</field>-->
+    <!--<field-exclude>-->
+    <!--<a>tableName</a>-->
+    <!--<b>tableName</b>-->
+    <!--</field-exclude>-->
+    <!--<field-exclude>-->
+    <!--<a>attributeNames</a>-->
+    <!--<b>attributeNames</b>-->
+    <!--</field-exclude>-->
+    <!--</mapping>-->
+
+    <!--<mapping wildcard="true">    &lt;!&ndash;wildcard为false时指定field域中属性赋值 &ndash;&gt;-->
+    <!--<class-a>com.leasing.sys.entity.vo.DFuncMenuVO</class-a>-->
+    <!--<class-b>com.leasing.sys.entity.dos.DFuncMenuDO</class-b>-->
+    <!--<field>-->
+    <!--<a>pkParent.pkFuncmenu</a>-->
+    <!--<b>pkParent</b>-->
+    <!--</field>-->
+    <!--<field>-->
+    <!--<a>pkSystem.pkSystem</a>-->
+    <!--<b>pkSystem</b>-->
+    <!--</field>-->
+    <!--<field>-->
+    <!--<a>pkOperator.pkUser</a>-->
+    <!--<b>pkOperator</b>-->
+    <!--</field>-->
+    <!--<field>-->
+    <!--<a>pkDept</a>-->
+    <!--<b>pkOrg</b>-->
+    <!--</field>-->
+    <!--<field>-->
+    <!--<a>pkOrg.pkOrg</a>-->
+    <!--<b>pkDept</b>-->
+    <!--</field>-->
+    <!--<field>-->
+    <!--<a>pkDept.deptcode</a>-->
+    <!--<b>pkOrg.orgCode</b>-->
+    <!--</field>-->
+    <!--</mapping>-->
+</mappings>

@@ -33,12 +33,12 @@ public class TestController {
         return ResultUtils.successWithData(obj);
     }
 
-    @PostMapping("/test1")
-    ResResult test1(){
-        String pk = "0001AA100000000R0E92";
-        Object obj = customerCorpRepository.findTest(pk);
-        return ResultUtils.successWithData(obj);
-    }
+//    @PostMapping("/test1")
+//    ResResult test1(){
+//        String pk = "0001AA100000000R0E92";
+//        Object obj = customerCorpRepository.findTest(pk);
+//        return ResultUtils.successWithData(obj);
+//    }
 
 
 //    @PostMapping("/test2")
