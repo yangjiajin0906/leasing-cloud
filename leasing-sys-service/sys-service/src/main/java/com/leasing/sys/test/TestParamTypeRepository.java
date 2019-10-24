@@ -2,7 +2,7 @@ package com.leasing.sys.test;
 
 import com.leasing.common.base.repository.BaseRepository;
 import com.leasing.sys.dao.dos.ParamTypeDO;
-import com.leasing.sys.dao.query.ParameterQuery;
+import com.leasing.sys.dao.query.ParamTypeQuery;
 import com.leasing.sys.dao.vo.ParameterVO;
 
 /**
@@ -11,7 +11,7 @@ import com.leasing.sys.dao.vo.ParameterVO;
  * @author:lvcna@yonyou.com
  * @description:
  **/
-public interface TestParamTypeRepository extends BaseRepository<ParamTypeDO,ParameterVO,ParameterQuery,String> {
+public interface TestParamTypeRepository extends BaseRepository<ParamTypeDO,ParameterVO,ParamTypeQuery,String> {
 
 
     ParamTypeDO findOne(String pk);

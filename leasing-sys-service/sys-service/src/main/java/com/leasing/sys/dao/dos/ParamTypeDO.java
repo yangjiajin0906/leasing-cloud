@@ -56,7 +56,8 @@ public class ParamTypeDO extends BaseBusinessDO {
      * 参数设置
      */
 
-    @OneToMany(mappedBy = "pkParamType",cascade={CascadeType.ALL},fetch=FetchType.EAGER,orphanRemoval=true)
+    @OneToMany(cascade={CascadeType.ALL},fetch=FetchType.EAGER,orphanRemoval=true)
+    @JoinColumn(name = "pkParameter")
     private List<ParameterDO> parameter;
 
 

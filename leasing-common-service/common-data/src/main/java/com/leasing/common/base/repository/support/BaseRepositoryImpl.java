@@ -85,6 +85,7 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
     public <R> R findOneByJPQL(Class R, String jpql) {
         Assert.notNull(jpql, "自定义jpql不能为空!");
         Query queryResult = entityManager.createQuery(jpql);
+        entityManager.createNamedQuery()
         Assert.notEmpty(queryResult.getResultList());
         return (R) queryResult.getSingleResult();
     }
