@@ -18,16 +18,9 @@ public class DFuncMenuVO extends BaseBusinessVO {
 
     public String getTableName(){return "sm_business_menu";}
 
-//    public void setTableName(String pkFuncmenu){}
-//
-//    public String[] getAttributeNames(){return new String[]{"AttributeNames"};}
-//
-//    public void setAttributeNames(String attributeNames){}
-
     public String getPk(){return pkFuncmenu;}
 
     public void setPk(String pkFuncmenu){this.pkFuncmenu = pkFuncmenu;}
-
 
     @Id
     private String pkFuncmenu;
