@@ -1,8 +1,10 @@
 package com.leasing.sys.dao.query;
 
+import com.leasing.common.annotation.QueryCondition;
 import com.leasing.common.base.annotation.YlQuery;
 import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.base.enums.QueryEnum;
+import com.leasing.common.enums.MatchType;
 import org.springframework.data.jpa.domain.Specification;
 
 /**
@@ -11,15 +13,15 @@ import org.springframework.data.jpa.domain.Specification;
  * @author:lvcna@yonyou.com
  * @description: 枚举类型查询
  **/
-public class ParameterQuery extends BaseQuery {
+public class ParamTypeQuery extends BaseQuery {
 
 
-    @YlQuery
+    @QueryCondition
     public String paramCode;
-
-    @YlQuery(logic = QueryEnum.LIKE)
+    @QueryCondition(func = MatchType.like)
     public String paramName;
-
+    @QueryCondition(func = MatchType.like)
+    public String paramVarname;
 
     public String getParamCode() {
         return paramCode;
@@ -35,6 +37,14 @@ public class ParameterQuery extends BaseQuery {
 
     public void setParamName(String paramName) {
         this.paramName = paramName;
+    }
+
+    public String getParamVarname() {
+        return paramVarname;
+    }
+
+    public void setParamVarname(String paramVarname) {
+        this.paramVarname = paramVarname;
     }
 
     @Override
