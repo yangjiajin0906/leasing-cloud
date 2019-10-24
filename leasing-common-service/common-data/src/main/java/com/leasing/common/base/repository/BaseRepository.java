@@ -102,19 +102,19 @@ public interface BaseRepository<T, Q, V, ID> extends JpaRepositoryImplementation
 
     /**
      * 根据传入的SQL检索单个对象
-     *
+     * @param byName 是否通过名称
      * @param sql
      * @return 集合<map>
      */
-    List<Map<String, Object>> findByNativeSql(String sql);
+    List<Map<String, Object>> findByNativeSql(String sql,boolean byName);
 
     /**
      * 根据传入的SQL检索单个对象
-     *
+     * @param byName 是否通过名称
      * @param sql
      * @return map
      */
-    Map<String, Object> findOneByNativeSql(String sql);
+    Map<String, Object> findOneByNativeSql(String sql,boolean byName);
 
 
     /**
