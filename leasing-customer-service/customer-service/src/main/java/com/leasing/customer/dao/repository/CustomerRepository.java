@@ -8,19 +8,16 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface CustomerRepository extends BaseRepository<CustomerDO, CustomerQuery, CustomerVO, String> {
 
     //查询客户名称数量
-    @Query(value = "select b from CustomerVO b " +
-            " where b.customerName = :customerName ")
+    @Query(name = "CustomerVO.countCustomerName")
     int countCustomerName(@Param("customerName") String customerName);
 
 
-    // 查询指定证件号数量
-    @Query(value = "SELECT CASE WHEN EXISTS (SELECT 0 FROM CustomerVO a WHERE a.identityNo = :identityNo " +
-            " AND a.ifNew = 0) THEN 1 ELSE 0 END FROM DUAL")
+    // 查询指定证件号
+    @Query(name = "CustomerVO.countIdentityNo")
     int countIdentityNo(@Param("identityNo") String identityNo);
+
 }

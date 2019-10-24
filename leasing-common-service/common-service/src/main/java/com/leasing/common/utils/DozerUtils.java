@@ -1,5 +1,7 @@
 package com.leasing.common.utils;
 
+import com.leasing.common.config.DozerBeanMapperConfigure;
+
 /**
  * @project:leasing-cloud
  * @date:2019/10/23

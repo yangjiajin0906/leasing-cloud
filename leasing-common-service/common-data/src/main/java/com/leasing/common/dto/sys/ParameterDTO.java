@@ -64,4 +64,77 @@ public class ParameterDTO extends BaseEntity{
     public void setPk(String pk) {
         this.pkParameter = pk;
     }
+
+
+    public String getPkParameter() {
+        return pkParameter;
+    }
+
+    public void setPkParameter(String pkParameter) {
+        this.pkParameter = pkParameter;
+    }
+
+    public String getPkParamType() {
+        return pkParamType;
+    }
+
+    public void setPkParamType(String pkParamType) {
+        this.pkParamType = pkParamType;
+    }
+
+    public String getParamName() {
+        return paramName;
+    }
+
+    public void setParamName(String paramName) {
+        this.paramName = paramName;
+    }
+
+    public String getParamCode() {
+        return paramCode;
+    }
+
+    public void setParamCode(String paramCode) {
+        this.paramCode = paramCode;
+    }
+
+    public String getParamValue() {
+        return paramValue;
+    }
+
+    public void setParamValue(String paramValue) {
+        this.paramValue = paramValue;
+    }
+
+    public Integer getParamType() {
+        return paramType;
+    }
+
+    public void setParamType(Integer paramType) {
+        this.paramType = paramType;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
+    }
+
+    public String getIsEnable() {
+        return isEnable;
+    }
+
+    public void setIsEnable(String isEnable) {
+        this.isEnable = isEnable;
+    }
+
+    public String getParentParameter() {
+        return parentParameter;
+    }
+
+    public void setParentParameter(String parentParameter) {
+        this.parentParameter = parentParameter;
+    }
 }

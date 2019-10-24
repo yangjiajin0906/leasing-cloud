@@ -115,18 +115,22 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
     }
 
     @Override
-    public List<Map<String, Object>> findByNativeSql(String sql) {
-        Query query = entityManager.createNativeQuery(sql);
+    public List<Map<String, Object>> findByNativeSql(String sql,boolean byName) {
+        Query query;
+        if(byName){
+            query = entityManager.createNamedQuery(sql);
+        }else {
+            query = entityManager.createNativeQuery(sql);
+
+        }
         query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map<String, Object>> list = query.getResultList();
         return list;
     }
 
     @Override
-    public Map<String, Object> findOneByNativeSql(String sql) {
-        Query query = entityManager.createNativeQuery(sql);
-        query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
-        List<Map<String, Object>> list = query.getResultList();
+    public Map<String, Object> findOneByNativeSql(String sql,boolean byName) {
+        List<Map<String, Object>> list = findByNativeSql(sql,byName);
         if (list.isEmpty()) return null;
         return list.get(0);
     }

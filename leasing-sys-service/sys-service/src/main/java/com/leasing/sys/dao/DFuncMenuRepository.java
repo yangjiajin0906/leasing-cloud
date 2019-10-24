@@ -19,23 +19,16 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public interface DFuncMenuRepository extends BaseRepository<DFuncMenuDO,DFuncMenuVO, BaseQuery,String> {
+public interface DFuncMenuRepository extends BaseRepository<DFuncMenuDO,BaseQuery,DFuncMenuVO ,String> {
 
-
-    public DFuncMenuDO findByPkFuncmenu(String pk);
 
     public void deleteDFuncMenuDOByPkFuncmenu(String pk);
 
-    @Query(name = "DFuncMenuVO.getDFuncmenu")
-    List<DFuncMenuVO> getDFuncmenu();
 
-//    @Query("select new com.leasing.sys.entity.vo.DFuncMenuVO(s,t.pkSystem,t.systemName) " +
-//            "FROM DFuncMenuDO s left JOIN SystemVO t on s.pkSystem = t.pkSystem")
-//    List<DFuncMenuVO> getDFuncmenu1();
 
     @Modifying
-    @Query(value = "update DFuncMenuDO s set s.menuPath =?1 where s.pkFuncmenu =?2 and s.ts=?3")
-    int updateDFuncmenu(String menupath, String pk, StringModalType ts);
+    @Query(value = "update DFuncMenuDO s set s.billstatus =?1 where s.pkFuncmenu =?2 and s.ts=?3")
+    void updateDFuncmenu(Short billstatus, String pk, StringModalType ts);
 
 
 }

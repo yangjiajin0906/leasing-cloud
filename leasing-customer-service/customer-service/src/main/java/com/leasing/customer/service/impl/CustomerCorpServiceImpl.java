@@ -1,11 +1,14 @@
 package com.leasing.customer.service.impl;
 
+import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
+import com.leasing.common.utils.DozerUtils;
 import com.leasing.common.utils.ResultUtils;
 import com.leasing.customer.dao.dos.CustomerCorpDO;
-import com.leasing.customer.dao.repository.CustomerRepository;
-import com.leasing.customer.dao.vo.CustomerCorpAllVO;
+import com.leasing.customer.dao.dos.CustomerDO;
+import com.leasing.customer.dao.query.CustomerCorpQuery;
 import com.leasing.customer.dao.repository.CustomerCorpRepository;
+import com.leasing.customer.dao.vo.CustomerCorpAllVO;
 import com.leasing.customer.service.CustomerCorpService;
 import com.leasing.customer.service.CustomerService;
 import org.springframework.stereotype.Service;
@@ -51,15 +54,34 @@ public class CustomerCorpServiceImpl implements CustomerCorpService {
     }
 
     @Override
+    public CustomerCorpAllVO findOneAllByCustomerName(String customerName) {
+        return customerCorpRepository.findOneAllByCustomerName(customerName);
+    }
+
+    @Override
     public List<CustomerCorpAllVO> findListByConditions(Map<String, Object> conditions) {
+
         return null;
     }
 
     @Override
+    public List<CustomerCorpAllVO> pageQuery(Pagination pagination, CustomerCorpQuery query) {
+        String JPQL = "select b from CustomerCorpAllVO b where b.ifNew = 0 ";
+        return customerCorpRepository.pageQuery(pagination,query, JPQL);
+    }
+
+    @Override
     @Transactional
-    public void saveOrUpdate(CustomerCorpAllVO vo) {
-        // TODO
-        this.saveOrUpdate(new CustomerCorpDO());
+    public void save(CustomerCorpAllVO vo) {
+
+        CustomerCorpDO corpDO = DozerUtils.convert(vo,CustomerCorpDO.class);
+        CustomerDO customerDO = DozerUtils.convert(vo, CustomerDO.class);
+        customerDO.setPkCustomer("customerDO");
+        customerDO.setBillstatus(Short.valueOf("204")
+        );
+        customerService.save(customerDO);
+        corpDO.setPkCustomer(customerDO.getPkCustomer());
+        this.saveOrUpdate(corpDO);
     }
 
     @Override
