@@ -21,9 +21,7 @@ import org.springframework.util.Assert;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @project:leasing-cloud
@@ -49,23 +47,29 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
 
     public T findOne(ID id) {
         Assert.notNull(id, "查询主键不能为空!");
-        T entity = findById(id).get();
-        return entity;
+        Optional<T> result = findById(id);
+        if(!result.isPresent()) return null;
+        return result.get();
     }
 
 
     @Override
-    public List<V> pageQuery(Pagination pagination, Q query) {
-        int curPage = pagination.getCurPage() - 1;
+    public PageQueryData pageQuery(Pagination pagination, Q query) {
+        PageQueryData pageQueryData = new PageQueryData();
+        int curPage = pagination.getCurPage()> 0 ? pagination.getCurPage() - 1 : 0;
         int pageSize = pagination.getPageSize();
         Pageable pageable = PageRequest.of(curPage, pageSize);
         Page page = this.findAll(query.toSpec(), pageable);
-        return page.getContent();
+        pageQueryData.setPageData(page.getContent());
+        pageQueryData.setPageSize(page.getTotalPages());
+        pageQueryData.setTotal(page.getTotalElements());
+        return pageQueryData;
     }
+
 
     @Override
     public List<V> pageQuery(Pagination pagination, Q query, String jpql) {
-        int curPage = pagination.getCurPage() - 1;
+        int curPage = pagination.getCurPage()> 0 ? pagination.getCurPage() - 1 : 0;
         int pageSize = pagination.getPageSize();
         int firstResult = curPage * pageSize;
         int maxResult = pageSize;
@@ -77,7 +81,7 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
     @Override
     public <S> S findOne(ID id, Class<S> S) {
         Assert.notNull(id, "查询主键不能为空!");
-        T e = findById(id).get();
+        Optional<T> e = findById(id);
         return (S) e;
     }
 
@@ -85,8 +89,8 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
     public <R> R findOneByJPQL(Class R, String jpql) {
         Assert.notNull(jpql, "自定义jpql不能为空!");
         Query queryResult = entityManager.createQuery(jpql);
-        Assert.notEmpty(queryResult.getResultList());
-        return (R) queryResult.getSingleResult();
+        if(queryResult.getResultList().isEmpty()) return null;
+        return (R) queryResult.getResultList().get(0);
     }
 
     @Override
@@ -120,17 +124,21 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
         Query query = entityManager.createNativeQuery(sql);
         query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map<String, Object>> list = query.getResultList();
-        Assert.notEmpty(list, "未查询到数据,请检查!");
+        if(list.isEmpty()) return null;
         return list.get(0);
     }
 
     @Override
-    public List<V> pageQuery(Pagination pagination, Q query, Sort sort) {
-        int curPage = pagination.getCurPage() - 1;
+    public PageQueryData pageQuery(Pagination pagination, Q query, Sort sort) {
+        PageQueryData pageQueryData = new PageQueryData();
+        int curPage = pagination.getCurPage()> 0 ? pagination.getCurPage() - 1 : 0;
         int pageSize = pagination.getPageSize();
         Pageable pageable = PageRequest.of(curPage, pageSize,sort);
         Page page = this.findAll(query.toSpec(), pageable);
-        return page.getContent();
+        pageQueryData.setPageData(page.getContent());
+        pageQueryData.setPageSize(page.getTotalPages());
+        pageQueryData.setTotal(page.getTotalElements());
+        return pageQueryData;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.leasing.common.base.repository;
 
 import com.leasing.common.base.entity.BaseQuery;
+import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
@@ -8,6 +9,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 /**
@@ -32,7 +34,7 @@ public interface BaseRepository<T,Q,V,ID> extends JpaRepositoryImplementation<T,
      * @param query
      * @return
      */
-    List<V> pageQuery(Pagination pagination, Q query);
+    PageQueryData pageQuery(Pagination pagination, Q query);
 
     /**
      * 分页查询,根据动态JPQL查询集合
@@ -108,7 +110,7 @@ public interface BaseRepository<T,Q,V,ID> extends JpaRepositoryImplementation<T,
      * @param sort 排序方式
      * @return
      */
-    List<V> pageQuery(Pagination pagination, Q query, Sort sort);
+    PageQueryData pageQuery(Pagination pagination, Q query, Sort sort);
 
 
 
