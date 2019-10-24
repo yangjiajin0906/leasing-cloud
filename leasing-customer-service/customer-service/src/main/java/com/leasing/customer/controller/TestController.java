@@ -3,8 +3,8 @@ package com.leasing.customer.controller;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.ResultUtils;
 import com.leasing.customer.dao.dos.CustomerCorpDO;
-import com.leasing.customer.repository.CustomerCorpRepository;
-import com.leasing.customer.repository.CustomerRepository;
+import com.leasing.customer.dao.repository.CustomerCorpRepository;
+import com.leasing.customer.dao.repository.CustomerRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,12 +47,12 @@ public class TestController {
 //        Object obj = customerCorpRepository.findTest1();
 //        return ResultUtils.successWithData(obj);
 //    }
-    @PostMapping("/test3")
-    ResResult test3(){
-        String pk = "0001AA100000000R0E92";
-        Object obj = customerRepository.findTest(pk);
-        return ResultUtils.successWithData(obj);
-    }
+//    @PostMapping("/test3")
+//    ResResult test3(){
+//        String pk = "0001AA100000000R0E92";
+//        Object obj = customerRepository.findTest(pk);
+//        return ResultUtils.successWithData(obj);
+//    }
 
     @PostMapping("/test4")
     ResResult test4() {

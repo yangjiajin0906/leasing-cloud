@@ -1,5 +1,6 @@
 package com.leasing.sys.controller;
 
+import com.leasing.common.utils.DozerBeanMapperConfigure;
 import com.leasing.sys.entity.dos.DFuncMenuDO;
 import com.leasing.sys.entity.dto.DFuncMenuDTO;
 import com.leasing.sys.entity.vo.DFuncMenuVO;
@@ -7,8 +8,6 @@ import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.ResultUtils;
 import com.leasing.sys.service.DFuncMenuService;
 import com.leasing.sys.service.SystemService;
-import com.leasing.sys.service.UserService;
-import com.leasing.common.utils.DozerBeanMapperConfigure;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +30,8 @@ public class DFuncMenuController {
     @Autowired
     SystemService systemService;
 
-    @Resource
-    UserService userService;
+//    @Resource
+//    UserService userService;
 
     /**
      * 获取所有菜单列表 分级处理

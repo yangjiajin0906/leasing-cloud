@@ -1,9 +1,8 @@
 package com.leasing.custoemr_service;
 
-import com.leasing.customer_service.CustomerServiceApplication;
-import com.leasing.customer_service.pojo.CustomerCorpVO;
-import com.leasing.customer_service.service.CustomerService;
-import org.junit.Test;
+
+import com.leasing.customer.CustomerServiceApplication;
+import com.leasing.customer.service.CustomerService;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -11,7 +10,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
-import java.util.List;
 
 /**
  * @project:leasing-cloud

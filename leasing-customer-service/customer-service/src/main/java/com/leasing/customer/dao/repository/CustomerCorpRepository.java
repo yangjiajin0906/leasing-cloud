@@ -35,13 +35,15 @@ public interface CustomerCorpRepository extends BaseRepository<CustomerCorpDO, C
     CustomerCorpAllVO findOneAllByPkCustomer(@Param("pkCustomer") String pkCustomer);
 
     /**
-     * 根据客户主键查询单位客户详情（校验）
+     * 根据客户名称查询单位客户详情
      * @param pkCustomer 客户名称
      * @return List<CustomerCorpAllVO>
      */
     @Query(value = "select count(b.customerName) from CustomerCorpAllVO b " +
-            "where b.customerName = ?1 AND b.ifNew = 0")
-    int findOneAllByCustomerName(String pkCustomer);
+            "where b.customerName = :pkCustomer AND b.ifNew = 0")
+    int findOneAllByCustomerName(@Param("pkCustomer") String pkCustomer);
+
+
 
 //
 //

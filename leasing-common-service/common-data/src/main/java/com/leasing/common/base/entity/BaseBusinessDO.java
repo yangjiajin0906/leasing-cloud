@@ -20,7 +20,6 @@ public abstract class BaseBusinessDO extends BaseDO {
     /**
      * 操作人
      */
-    @Mapping("pkOperator.pkUser")
     public String pkOperator;
     /**
      * 操作日期
@@ -33,12 +32,10 @@ public abstract class BaseBusinessDO extends BaseDO {
     /**
      * 机构
      */
-    @Mapping("pkOrg.pkOrg")
     public String pkOrg;
     /**
      * 部门主键
      */
-    @Mapping("pkDept.pkDeptdoc")
     public String pkDept;
 
 

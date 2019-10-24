@@ -22,7 +22,7 @@ import java.text.DecimalFormat;
 
 @Entity
 @Table(name="yls_inout_plan")
-public class InoutPlanPDO extends BaseEntity {
+public class InoutPlanPDO extends BaseDO {
     /**
      * 主键
      */
@@ -31,6 +31,8 @@ public class InoutPlanPDO extends BaseEntity {
     /**
      * 主表主键
      */
+//    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH }, optional = true)
+//    @JoinColumn(name="sourceBill")
     public String sourceBill;
 
     /**

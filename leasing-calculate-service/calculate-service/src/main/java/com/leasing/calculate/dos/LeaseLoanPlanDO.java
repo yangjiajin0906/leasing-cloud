@@ -2,6 +2,7 @@ package com.leasing.calculate.dos;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.leasing.calculate.vo.CalculatorVO;
+import com.leasing.common.base.entity.BaseDO;
 import com.leasing.common.base.entity.BaseEntity;
 import lombok.*;
 
@@ -16,7 +17,7 @@ import java.math.BigDecimal;
  **/
 @Entity
 @Table(name="yls_lease_loan_plan")
-public class LeaseLoanPlanDO extends BaseEntity {
+public class LeaseLoanPlanDO extends BaseDO {
 
     /**
      * 主键
