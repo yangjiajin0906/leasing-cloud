@@ -7,6 +7,7 @@ import com.leasing.rentearly.rentearlyservice.projectInfo.enity.dos.ProjectInfoD
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO.ProjectInfoRefVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.repository.TestRepository;
 import com.leasing.rentearly.rentearlyservice.projectInfo.service.TestService;
+import com.leasing.rentearly.rentearlyservice.projectInfo.service.TestTransactionService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -30,6 +31,8 @@ public class TestController {
     TestService testService;
     @Resource
     TestRepository testRepository;
+    @Resource
+    TestTransactionService testTransactionService;
 
 
     @RequestMapping("/test")
@@ -183,4 +186,25 @@ public class TestController {
         testRepository.findByNativeSql(ProjectInfoDO.class,query);
         return "ss";
     }
+
+    @RequestMapping("test1")
+    public String test1(){
+        testTransactionService.testRequired();
+        testTransactionService.testRequiredNewException();
+        return "ss";
+    }
+
+    @RequestMapping("test2")
+    public String test2(){
+        testTransactionService.testRequiredNewException();
+        testTransactionService.testRequiredException();
+        return "ss";
+    }
+
+    @RequestMapping("test3")
+    public String test3(){
+        testTransactionService.testRequiredAndNew();
+        return "ss";
+    }
+
 }
