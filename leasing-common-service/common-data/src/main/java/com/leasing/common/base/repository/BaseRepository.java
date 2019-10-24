@@ -44,6 +44,8 @@ public interface BaseRepository<T,Q,V,ID> extends JpaRepositoryImplementation<T,
      */
     List<V> pageQuery(Pagination pagination, Q query,String jpql);
 
+    List<V> pageQueryName(Pagination pagination, Q query,String jpql);
+
     /**
      * 动态查找单个对象
      * @param id
@@ -94,7 +96,10 @@ public interface BaseRepository<T,Q,V,ID> extends JpaRepositoryImplementation<T,
      * @param sql
      * @return 集合<map>
      */
+
     List<Map<String, Object>> findByNativeSql(String sql);
+    List<Map<String, Object>> findByNativeSqlName(String name);
+
     /**
      * 根据传入的SQL检索单个对象
      * @param sql

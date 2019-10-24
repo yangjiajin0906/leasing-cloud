@@ -5,8 +5,11 @@ import com.leasing.common.base.repository.BaseRepository;
 import com.leasing.common.base.repository.support.StringModalType;
 import com.leasing.sys.dao.dos.ParameterDO;
 import com.leasing.sys.dao.vo.ParameterVO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.mongodb.repository.CountQuery;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
@@ -81,6 +84,14 @@ public interface TestParameterRepository extends BaseRepository<ParameterDO,Para
     @Query(value = "select * from yls_parameter b ",nativeQuery = true)
     List findTest9(String pk);
 
+
+    @Query(value = "select count(b) from ParameterDO b")
+    List findTest10(String pk);
+
+
+    @Query(value = "select b from ParameterDO b",
+            countQuery="select count(b) from ParameterDO b")
+    Page<ParameterDO> findTest11(Pageable pageable);
 
 
 }
