@@ -1,4 +1,4 @@
-package com.leasing.common.utils;
+package com.leasing.common.utils.base;
 
 import com.leasing.common.base.web.ResResult;
 
@@ -6,7 +6,7 @@ import com.leasing.common.base.web.ResResult;
  * @project:leasing-cloud
  * @date:2019-9-23
  * @author:lvcna@yonyou.com
- * @description:
+ * @description:结果集工具类 业务调用结束后传入返回前端页面结果集
  **/
 public class ResultUtils {
 

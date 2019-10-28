@@ -1,4 +1,4 @@
-package com.leasing.common.utils;
+package com.leasing.common.utils.base;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

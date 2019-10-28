@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public interface DFuncMenuRepository extends BaseRepository<DFuncMenuDO,BaseQuery,DFuncMenuVO ,String> {
+public interface DFuncMenuRepo extends BaseRepository<DFuncMenuDO,BaseQuery,DFuncMenuVO ,String> {
 
 
     public void deleteDFuncMenuDOByPkFuncmenu(String pk);
