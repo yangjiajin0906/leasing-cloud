@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://dozer.sourceforge.net
+          http://dozer.sourceforge.net/schema/beanmapping.xsd">
+    <!--    <configuration>-->
+    <!--        <custom-converters>-->
+    <!--        <converter type="com.leasing.sys.util.TestCustomConverter">-->
+    <!--            <class-a>com.leasing.sys.entity.vo.DFuncMenuVO</class-a>-->
+    <!--            <class-b>com.leasing.sys.entity.dos.DFuncMenuDO</class-b>-->
+    <!--        </converter>-->
+    <!--        </custom-converters>-->
+    <!--    </configuration>-->
+    <mapping map-id="dsad" wildcard="true">    <!--wildcard为false时指定field域中属性赋值 -->
+        <class-a>com.leasing.rentearly.rentearlyservice.projectInfo.enity.ProjectInfoVO</class-a>      <!-- 出现的tableName和attributeNames 均有get无需map-null -->
+        <class-b>com.leasing.rentearly.rentearlyservice.projectInfo.enity.dos.ProjectInfoDO</class-b>   <!-- 对象名称不用mapping注解出现的错误转换 VO转DO无错-->
+        <field>
+            <a>pkProjectApproval.pkProjectApproval</a>
+            <b>pkProjectApproval</b>
+        </field>
+        <field>
+            <a>projectDept.pkDeptdoc</a>
+            <b>projectDept</b>
+        </field>
+        <field>
+            <a>pkPrjManager.pkUser</a>
+            <b>pkPrjManager</b>
+        </field>
+        <field>
+            <a>grantingCurrency.pkCurrtype</a>
+            <b>grantingCurrency</b>
+        </field>
+        <field>
+            <a>clientRating.pkRatingMaintainB</a>
+            <b>clientRating</b>
+        </field>
+        <field>
+            <a>pkConsumer.pkCustomer</a>
+            <b>pkConsumer</b>
+        </field>
+        <field>
+            <a>pkFrameworkAgreem.pkContract</a>
+            <b>pkFrameworkAgreem</b>
+        </field>
+        <field>
+            <a>pkQuotaScheme.pkLimitPlan</a>
+            <b>pkQuotaScheme</b>
+        </field>
+        <field>
+            <a>pkContractRule.pkContractRule</a>
+            <b>pkContractRule</b>
+        </field>
+        <field>
+            <a>regionManager.pkUser</a>
+            <b>regionManager</b>
+        </field>
+        <field>
+            <a>belongsArea.pkDeptdoc</a>
+            <b>belongsArea</b>
+        </field>
+        <field>
+            <a>areaManager.pkUser</a>
+            <b>areaManager</b>
+        </field>
+        <field>
+            <a>industryType.pkParameter</a>
+            <b>industryType</b>
+        </field>
+        <field>
+            <a>pkCustFinance.pkCustomer</a>
+            <b>pkCustFinance</b>
+        </field>
+
+        <field>
+            <a>pkCustMain.pkCustomer</a>
+            <b>pkCustMain</b>
+        </field>
+        <field>
+            <a>pkCustHelp.pkCustomer</a>
+            <b>pkCustHelp</b>
+        </field>
+        <field>
+            <a>pkAccount.pkCustBankAccount</a>
+            <b>pkAccount</b>
+        </field>
+        <field>
+            <a>businessDomain.pkParameter</a>
+            <b>businessDomain</b>
+        </field>
+    </mapping>
+
+
+</mappings>

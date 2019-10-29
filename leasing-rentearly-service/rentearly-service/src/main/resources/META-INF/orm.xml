@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
+    http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd" version="2.2">
+
+    <named-query name="test">
+        <query>
+            select k from ProjectInfoVO k left join fetch k.pkPrjManager c
+            left join fetch c.pkOrg l left join fetch l.parentPk p
+        </query>
+    </named-query>
+
+    <!--避免N+1 的全查-->
+    <named-query name="ProjectInfoVO.queryForGrid">
+        <query>
+            select piv from ProjectInfoVO piv
+            left join fetch piv.pkProjectApproval ppa
+            left join fetch ppa.pkProOrg ppo
+            left join fetch ppo.parentPk ppp
+            left join fetch piv.projectDept ppt
+            left join fetch piv.pkPrjManager prm
+            left join fetch prm.pkOrg l left join fetch l.parentPk p
+            left join fetch piv.grantingCurrency pgc
+            left join fetch piv.clientRating pcr
+            left join fetch piv.pkConsumer ppcon
+            left join fetch ppcon.capitalCur pcac
+            left join fetch piv.pkFrameworkAgreem fa
+            left join fetch piv.pkQuotaScheme pqs
+            left join fetch piv.pkContractRule pcru
+            left join fetch piv.regionManager rm
+            left join fetch rm.pkOrg rmorg
+            left join fetch rmorg.parentPk rmorgp
+            left join fetch piv.belongsArea pbarea
+            left join fetch piv.areaManager pamn
+            left join fetch pamn.pkOrg ppo
+            left join fetch ppo.parentPk ppop
+            left join fetch piv.industryType pit
+            left join fetch piv.pkCustFinance pcf
+            left join fetch pcf.capitalCur pcfcc
+            left join fetch piv.pkCustMain pcum
+            left join fetch piv.pkCustHelp pcuh
+            left join fetch piv.pkAccount ppacc
+            left join fetch piv.projectcal pcref
+            left join fetch piv.projectret preting
+            left join fetch piv.businessDomain pbdomain
+
+
+        </query>
+    </named-query>
+
+    <named-query name="ProjectInfoVO.findOne">
+        <query>
+            select piv from ProjectInfoVO piv
+            left join fetch piv.pkProjectApproval ppa
+            left join fetch ppa.pkProOrg ppo
+            left join fetch ppo.parentPk ppp
+            left join fetch piv.projectDept ppt
+            left join fetch piv.pkPrjManager prm
+            left join fetch prm.pkOrg l left join fetch l.parentPk p
+            left join fetch piv.grantingCurrency pgc
+            left join fetch piv.clientRating pcr
+            left join fetch piv.pkConsumer ppcon
+            left join fetch ppcon.capitalCur pcac
+            left join fetch piv.pkFrameworkAgreem fa
+            left join fetch piv.pkQuotaScheme pqs
+            left join fetch piv.pkContractRule pcru
+            left join fetch piv.regionManager rm
+            left join fetch rm.pkOrg rmorg
+            left join fetch rmorg.parentPk rmorgp
+            left join fetch piv.belongsArea pbarea
+            left join fetch piv.areaManager pamn
+            left join fetch pamn.pkOrg ppo
+            left join fetch ppo.parentPk ppop
+            left join fetch piv.industryType pit
+            left join fetch piv.pkCustFinance pcf
+            left join fetch pcf.capitalCur pcfcc
+            left join fetch piv.pkCustMain pcum
+            left join fetch piv.pkCustHelp pcuh
+            left join fetch piv.pkAccount ppacc
+            left join fetch piv.projectcal pcref
+            left join fetch piv.projectret preting
+            left join fetch piv.businessDomain pbdomain
+            where piv.pkProjectInfo = ?1
+
+        </query>
+    </named-query>
+
+    <named-query name="ProjectInfoVO.deleteByIds">
+        <query>
+            delete from ProjectInfoDO c where c.pkProjectInfo.in :ids
+        </query>
+    </named-query>
+
+
+    <named-query name="ProjectInfoVO.updateBillstatus">
+        <query>
+            update ProjectInfoDO k set k.billstatus = :billstatus where k.pkProjectInfo = :pkProjectInfo and k.ts = :ts
+        </query>
+    </named-query>
+
+</entity-mappings>

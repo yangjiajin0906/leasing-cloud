@@ -6,6 +6,7 @@ import com.leasing.rentearly.rentearlyservice.projectInfo.enity.ProjectInfoVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.queryVO.ProjectQueryVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.dos.ProjectInfoDO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO.ProjectInfoRefVO;
+import com.leasing.rentearly.rentearlyservice.projectInfo.repository.ProjectInfoRepository;
 import com.leasing.rentearly.rentearlyservice.projectInfo.repository.TestRepository;
 import com.leasing.rentearly.rentearlyservice.projectInfo.service.TestService;
 import com.leasing.rentearly.rentearlyservice.projectInfo.service.TestTransactionService;
@@ -34,6 +35,8 @@ public class TestController {
     TestRepository testRepository;
     @Resource
     TestTransactionService testTransactionService;
+    @Resource
+    ProjectInfoRepository projectInfoRepository;
 
 
     @RequestMapping("/test")
@@ -212,6 +215,24 @@ public class TestController {
     public String test3(){
         testTransactionService.testRequiredAndNew();
         return "ss";
+    }
+
+    @RequestMapping("pageData")
+    public List pageData(){
+        Pagination pagination = new Pagination(1,100);
+        ProjectQueryVO projectQueryVO = new ProjectQueryVO();
+        List<ProjectInfoVO> list = projectInfoRepository.pageData();
+        return list;
+    }
+
+
+    /*Pageable pageable = new PageRequest(0,5);
+     */
+    @RequestMapping("pageDataPage")
+    public List pageDataPage(){
+        Pageable pageable = new PageRequest(0,20);
+        List<ProjectInfoVO> list = projectInfoRepository.pageDataPage(pageable);
+        return list;
     }
 
 }
