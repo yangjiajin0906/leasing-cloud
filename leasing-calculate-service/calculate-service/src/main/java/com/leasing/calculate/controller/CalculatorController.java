@@ -34,83 +34,64 @@ public class CalculatorController {
     @Resource
     CalculateService calculateService;
 
-//    @Override implements CalculatorTest
-//    @RequestMapping(value = "/testFeign")
-//    public String TestFeign(String str) {
-//        return "Test my fiegn interface "+ str;
-//    }
 
     @ApiOperation("获得报价列表")
-    @ApiImplicitParam(name = "data", value = "分页JSON串 + 报价VO JSON串", dataType = "String")
+    @ApiImplicitParam(name = "data", value = "分页JSON串", dataType = "String")
     @RequestMapping(value = "/pageQuery")
-    public List<CalculatorVO> pageQuery(){
-        Pagination pagination = new Pagination();
-        pagination.setCurPage(1);
-        pagination.setPageSize(5);
-        List<CalculatorVO> list = calculateService.pageQuery(pagination,null);
-        return list;
-    }
-
-    @ApiOperation("获得报价列表")
-    @ApiImplicitParam(name = "data", value = "分页JSON串 + 报价VO JSON串", dataType = "String")
-    @RequestMapping(value = "/pageQuery2")
-    public PageQueryData pageQuery2(){
+    public List<CalculatorVO> pageQuery(String data){
         Pagination pagination = new Pagination();
         pagination.setCurPage(1);
         pagination.setPageSize(10);
         CalculatorQueryVO queryVO = new CalculatorQueryVO();
-        //queryVO.setQuotName("杨佳进");
-        BigDecimal bigDecimal = new BigDecimal(20000000);
-        queryVO.setTotalAmountEquipment(bigDecimal);
-        Sort s = new Sort(Sort.Direction.DESC,"ts");
-        PageQueryData pageQueryData = calculateService.pageQuery2(pagination,queryVO,s);
-        return pageQueryData;
+        List<CalculatorVO> list = calculateService.pageQuery(pagination,queryVO);
+        return list;
     }
 
-    @ApiOperation("获得字表数据")
-    @ApiImplicitParam(name = "data", value = "报价VO JSON串", dataType = "String")
-    @RequestMapping(value = "/getChildList")
-    public List<CalculatorVO> getChildList(String data){
-        return null;
-    }
+//    @ApiOperation("通过主键查询主表+字表列表数据")
+//    @ApiImplicitParam(name = "id", value = "报价主键", dataType = "String")
+//    @RequestMapping(value = "/findChildListById")
+//    public CalculatorVO findChildListById(String data){
+//        CalculatorVO vo = calculateService.findChildListById("0001MG00000000036711");
+//        return vo;
+//    }
 
-    @ApiOperation("通过主键查询报价数据")
+    @ApiOperation("通过主键查询主表+字表列表数据")
     @ApiImplicitParam(name = "id", value = "报价主键", dataType = "String")
     @RequestMapping(value = "/findOne")
-    public CalculatorVO findById(String id) {
-        CalculatorVO vo = calculateService.findOne("0001MG00000000036711");
+    public CalculatorVO findOne(String data) {
+        CalculatorVO vo = calculateService.findChildListById("0001MG00000000036711");
         return vo;
     }
 
     @ApiOperation("保存")
     @ApiImplicitParam(name = "data", value = "报价VO JSON串", dataType = "String")
     @RequestMapping(value = "/save")
-    public CalculatorDO save(CalculatorDO vo){
-        //CalculatorDO vo = JSON.parseObject(data,CalculatorDO.class);
+    public CalculatorDO save(String data){
+        CalculatorDO vo = JSON.parseObject(data,CalculatorDO.class);
         return calculateService.save(vo);
     }
 
     @ApiOperation("更新报价")
     @ApiImplicitParam(name = "data", value = "报价VO JSON串", dataType = "String")
     @RequestMapping(value = "/update")
-    public CalculatorDO update(CalculatorDO vo){
-        //CalculatorDO vo = JSON.parseObject(data,CalculatorDO.class);
+    public CalculatorDO update(String data){
+        CalculatorDO vo = JSON.parseObject(data,CalculatorDO.class);
         return calculateService.update(vo);
     }
 
     @ApiOperation("删除报价")
-    @ApiImplicitParam(name = "data", value = "报价VO JSON串", dataType = "String")
+    @ApiImplicitParam(name = "data", value = "报价主键PK", dataType = "String")
     @RequestMapping(value = "/delete")
-    public void delete(CalculatorDO vo){
-        //CalculatorDO vo = JSON.parseObject(data,CalculatorDO.class);
+    public void delete(String data){
+        CalculatorDO vo = calculateService.findOne(data);
         calculateService.delete(vo);
     }
 
     @ApiOperation("计算租金计划表")
     @ApiImplicitParam(name = "vo", value = "报价VO", dataType = "CalculatorDO")
     @RequestMapping(value = "/calOperateLease")
-    public List calOperateLease(CalculatorDO vo){
-        return calculateService.calOperateLease();
+    public List calOperateLease(CalculatorVO vo){
+        return calculateService.calOperateLease(vo);
     }
 
     @ApiOperation("计算计提结果表")

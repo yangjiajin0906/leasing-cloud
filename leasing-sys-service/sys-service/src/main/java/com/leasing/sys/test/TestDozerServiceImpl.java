@@ -1,6 +1,5 @@
 package com.leasing.sys.test;
 
-import com.leasing.sys.dao.DFuncMenuRepository;
 import com.leasing.sys.entity.dos.DFuncMenuDO;
 import com.leasing.sys.entity.vo.DFuncMenuVO;
 import org.springframework.beans.factory.annotation.Autowired;

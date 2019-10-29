@@ -63,6 +63,10 @@
             <a>pkCurrtype</a>
             <b>pkCurrtype.pkCurrtype</b>
         </field>
+        <field>
+            <a>ts</a>
+            <b>ts.version</b>
+        </field>
     </mapping>
 
     <!--<mapping wildcard="true">    &lt;!&ndash;wildcard为false时指定field域中属性赋值 &ndash;&gt;-->

@@ -5,6 +5,8 @@ import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.ResultUtils;
 import com.leasing.customer.dao.query.CustomerCorpQuery;
+import com.leasing.customer.dao.vo.CustomerAuthApplyVO;
+import com.leasing.customer.dao.vo.CustomerAuthVO;
 import com.leasing.customer.dao.vo.CustomerCorpAllVO;
 import com.leasing.customer.service.CustomerCorpService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +20,7 @@ import java.util.List;
  * @project:leasing-cloud
  * @date:2019-10-21
  * @author:zhangzhhn@yonyou.com
- * @description:
+ * @description: 单位客户管理
  **/
 @RestController
 @RequestMapping(value = "/customer")
@@ -90,7 +92,7 @@ public class CustomerCorpController {
     @PostMapping(value = "/save")
     public ResResult save(String data) {
         CustomerCorpAllVO vo = customerCorpService.findOneAllByPkCustomer("0001MG00000000030425");
-        String ddd  = JSON.toJSONString(vo);
+        String ddd = JSON.toJSONString(vo);
 //        CustomerCorpAllVO vo = JSON.parseObject(data, CustomerCorpAllVO.class);
         CustomerCorpAllVO fff = JSON.parseObject(ddd, CustomerCorpAllVO.class);
         fff.setPkCustomer("22222222222222222223");
@@ -103,12 +105,13 @@ public class CustomerCorpController {
     /**
      * 删除单位客户
      *
-     * @param pkCustomer 客户主键
+     * @param data 客户主键
      * @return com.leasing.common.base.web.ResResult
      */
     @PostMapping(value = "/corpDelete")
-    public ResResult corpDelete(String pkCustomer) {
-        customerCorpService.delete(pkCustomer);
+    public ResResult corpDelete(String data) {
+        CustomerCorpAllVO vo = JSON.parseObject(data, CustomerCorpAllVO.class);
+        customerCorpService.delete(vo);
         return ResultUtils.successWithData("");
     }
 
@@ -123,53 +126,54 @@ public class CustomerCorpController {
         return null;
     }
 
-
-    /**
-     * 审核
-     *
-     * @param data 提交申请
-     * @return
-     */
-    @PostMapping(value = "/audit")
-    public ResResult audit(String data) {
-        return null;
-    }
-
-
-    /**
-     * 驳回
-     *
-     * @param data 驳回
-     * @return
-     */
-    @PostMapping(value = "/")
-    public ResResult reject(String data) {
-        return null;
-    }
-
     /**
      * 申请授权
      *
-     * @param data 申请信息
+     * @param data 申请信息 CustomerAuthApplyVO
      * @return
      */
     @PostMapping(value = "/applyAuth")
     public ResResult applyAuth(String data) {
-        return null;
+        CustomerAuthApplyVO vo = JSON.parseObject(data, CustomerAuthApplyVO.class);
+        return customerCorpService.applyAuth(vo);
     }
 
     /**
-     * 授权
+     * 授权（可为多人开通权限）
      *
-     * @param data 申请信息
+     * @param data 申请信息  data为List<CustomerAuthVO>
      * @return
      */
     @PostMapping(value = "/doAuth")
     public ResResult doAuth(String data) {
-        return null;
+        List<CustomerAuthVO> list = JSON.parseArray(data, CustomerAuthVO.class);
+        return customerCorpService.doApplyAuth(list);
     }
 
 
+    /**
+     * 查询客户授权给了哪些用户
+     *
+     * @param pkCustomer 客户主键
+     * @return 已授权用户列表List<CustomerAuthVO>
+     */
+    @PostMapping(value = "/queryAuth")
+    public ResResult queryAuth(String pkCustomer) {
+
+        return customerCorpService.queryAuth(pkCustomer);
+    }
+
+    /**
+     * 收回授权
+     *
+     * @param data data为List<CustomerAuthVO>  在查询页面可以多选已经授权的用户
+     * @return
+     */
+    @PostMapping(value = "/recoverAuth")
+    public ResResult recoverAuth(String data) {
+        List<CustomerAuthVO> list = JSON.parseArray(data, CustomerAuthVO.class);
+        return customerCorpService.recoverAuth(list);
+    }
 
 
 }

@@ -1,6 +1,6 @@
 package com.leasing.sys.controller;
 
-import com.leasing.common.utils.ResultUtils;
+import com.leasing.common.utils.base.ResultUtils;
 import com.leasing.common.entity.sys.FuncMenuVO;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.sys.service.FuncMenuService;

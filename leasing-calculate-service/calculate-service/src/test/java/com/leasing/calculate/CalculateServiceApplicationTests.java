@@ -1,8 +1,7 @@
 package com.leasing.calculate;
 
-import com.alibaba.fastjson.JSON;
 import com.leasing.calculate.dos.CalculatorDO;
-import com.leasing.calculate.repository.CalculatorRepository;
+import com.leasing.calculate.repository.CalculatorRepo;
 import com.leasing.calculate.vo.CalculatorVO;
 import com.leasing.calculate.service.CalculateService;
 import com.leasing.calculate.dto.CalculatorDTO;
@@ -29,12 +28,12 @@ public class CalculateServiceApplicationTests {
 	CalculateService calculateService;
 
 	@Resource
-	CalculatorRepository calculatorRepository;
+	CalculatorRepo calculatorRepo;
 
 	//避免 n+1 问题 left join feach
 	@Test
 	public void findOne() {
-		CalculatorVO vo = calculateService.findOne("0001MG00000000038284");
+		CalculatorVO vo = calculateService.findByPk("0001MG00000000038284");
 		System.out.println(vo);
 	}
 
@@ -62,7 +61,7 @@ public class CalculateServiceApplicationTests {
 		for(String key:map.keySet()){//keySet获取map集合key的集合  然后在遍历key即可
 			map2.put(key,map.get(key));
 		}
-		CalculatorVO vo = DozerUtils.convert(map2,CalculatorVO.class);
+		CalculatorVO vo = DozerUtils.convert(map,CalculatorVO.class);
 		System.out.println(vo);
 	}
 
@@ -76,14 +75,14 @@ public class CalculateServiceApplicationTests {
 	// Dozer vo转do
 	@Test
 	public void findListTest2(){
-		CalculatorVO vo = calculateService.findOne("0001MG00000000038284");
+		CalculatorVO vo = calculateService.findByPk("0001MG00000000038284");
 		CalculatorDO dos = DozerUtils.convert(vo,CalculatorDO.class);
 		System.out.println(vo);
 	}
 	// Dozer do转vo
 	@Test
 	public void findListTest3(){
-		CalculatorDO dos = calculatorRepository.findOne("0001MG00000000038284");
+		CalculatorDO dos = calculatorRepo.findOne("0001MG00000000038284");
 		CalculatorVO vo = DozerUtils.convert(dos,CalculatorVO.class);
 		System.out.println(vo);
 	}

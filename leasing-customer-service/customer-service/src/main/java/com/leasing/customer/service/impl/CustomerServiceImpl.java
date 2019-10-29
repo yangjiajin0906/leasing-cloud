@@ -1,7 +1,7 @@
 package com.leasing.customer.service.impl;
 
 import com.leasing.customer.dao.dos.CustomerDO;
-import com.leasing.customer.dao.repository.CustomerRepository;
+import com.leasing.customer.dao.repository.CustomerRepo;
 import com.leasing.customer.dao.vo.CustomerCorpAllVO;
 import com.leasing.customer.dao.vo.CustomerVO;
 import com.leasing.customer.service.CustomerService;
@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @project:leasing-cloud
@@ -17,15 +19,22 @@ import javax.transaction.Transactional;
  * @description: 客户服务服务接口实现类
  **/
 @Service("customer.CustomerService")
+@Transactional
 public class CustomerServiceImpl implements CustomerService {
 
     @Resource
-    private CustomerRepository customerRepository;
+    private CustomerRepo customerRepo;
 
     @Override
-    @Transactional
+
     public void deleteByPkCustomer(String pkCustomer) {
-        customerRepository.deleteById(pkCustomer);
+        customerRepo.deleteById(pkCustomer);
+    }
+
+    @Override
+    public void batchDelete(List<String> pks) {
+
+        customerRepo.batchDeleteByPks(pks);
     }
 
     /**
@@ -35,9 +44,8 @@ public class CustomerServiceImpl implements CustomerService {
      * @param pkCustomer    客户主键
      */
     @Override
-    @Transactional
     public void updateBillStatus(Short newBillstatus, String pkCustomer) {
-        CustomerDO customerDO = customerRepository.findOne(pkCustomer);
+        CustomerDO customerDO = customerRepo.findOne(pkCustomer);
         customerDO.setBillstatus(newBillstatus);
         this.save(customerDO);
     }
@@ -48,22 +56,8 @@ public class CustomerServiceImpl implements CustomerService {
      * @param vo 客户信息
      */
     @Override
-    @Transactional
     public void save(CustomerVO vo) {
         //todo vo转do
-        save(new CustomerDO());
-    }
-
-    /**
-     * 保存或修改客户信息
-     *
-     * @param vo 客户信息
-     */
-    @Override
-    @Transactional
-    public void save(CustomerCorpAllVO vo) {
-
-        //todo 将单位客户信息拆分出来保存到yls_customer表中
         save(new CustomerDO());
     }
 
@@ -74,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     public int countCustomerName(String customerName) {
-        return customerRepository.countCustomerName(customerName);
+        return customerRepo.countCustomerName(customerName);
     }
 
     /**
@@ -84,7 +78,7 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     public int countIdentityNo(String identityNo) {
-        return customerRepository.countIdentityNo(identityNo);
+        return customerRepo.countIdentityNo(identityNo);
     }
 
     /**
@@ -95,6 +89,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     @Override
     public void save(CustomerDO customerDO) {
-        customerRepository.save(customerDO);
+        customerRepo.save(customerDO);
     }
 }
