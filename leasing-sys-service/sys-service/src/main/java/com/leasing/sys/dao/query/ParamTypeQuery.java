@@ -1,11 +1,8 @@
 package com.leasing.sys.dao.query;
 
 import com.leasing.common.annotation.QueryCondition;
-import com.leasing.common.base.annotation.YlQuery;
 import com.leasing.common.base.entity.BaseQuery;
-import com.leasing.common.base.enums.QueryEnum;
 import com.leasing.common.enums.MatchType;
-import org.springframework.data.jpa.domain.Specification;
 
 /**
  * @project:leasing-cloud
@@ -47,8 +44,4 @@ public class ParamTypeQuery extends BaseQuery {
         this.paramVarname = paramVarname;
     }
 
-    @Override
-    public Specification toSpec() {
-        return null;
-    }
 }

@@ -30,24 +30,38 @@ public interface BaseRepository<T, Q, V, ID> extends JpaRepositoryImplementation
     T findOne(ID id);
 
     /**
-     * 分页查询,查询当前存储库对象
-     *
-     * @param pagination
-     * @param query
+     * 保存业务对象
+     * @param entity
+     * @param <S>
      * @return
      */
-    PageQueryData pageQuery(Pagination pagination, Q query);
+    <S extends T> S saveEntity(S entity);
+
+    /**
+     * 更新业务对象
+     * @param entity
+     * @param <S>
+     * @return
+     */
+    <S extends T> S updateEntity(S entity);
 
     /**
      * 分页查询,根据动态JPQL查询集合
-     *
      * @param pagination
      * @param query
+     * @param queryName
      * @return
      */
-    List<V> pageQuery(Pagination pagination, Q query, String jpql);
+    PageQueryData<V> pageQuery(Pagination pagination, Q query, String queryName);
 
-    List<V> pageQueryName(Pagination pagination, Q query,String jpql);
+    /**
+     * 分页查询,根据原生SQL查询
+     * @param pagination
+     * @param query
+     * @param queryName
+     * @return
+     */
+    PageQueryData pageQueryNative(Pagination pagination, Q query,String queryName);
 
     /**
      * 动态查找单个对象
@@ -59,79 +73,19 @@ public interface BaseRepository<T, Q, V, ID> extends JpaRepositoryImplementation
      */
     <S> S findOne(ID id, Class<S> S);
 
-
     /**
-     * 根据自定义JPQL返回指定类型结果集
-     *
-     * @param R      结果集泛型
-     * @param jpql
-     * @param byName 是否通过 jpql名称查询 true代表通过名称查询
-     * @param <R>    结果集泛型
-     * @return
-     */
-    <R> List<R> findByJPQL(Class<R> R, String jpql, boolean byName);
-
-    /**
-     * 根据自定义JPQL返回单个自定义实体对象
-     *
-     * @param R
-     * @param jpql
-     * @param <R>
-     * @param byName 是否通过 jpql名称查询 true代表通过名称查询
-     * @return
-     */
-    <R> R findOneByJPQL(Class R, String jpql, boolean byName);
-
-    /**
-     * 根据原生SQL返回单个自定义实体对象
-     *
-     * @param R
+     * 根据原生SQL查询结果集
      * @param sql
-     * @param <R>
      * @return
      */
-    <R> List<R> findByNativeSql(Class R, String sql);
+    List<Map<String, Object>> findByNative(String sql);
 
     /**
-     * 根据原生SQL返回单个自定义实体对象
-     *
-     * @param R
-     * @param sql
-     * @param <R>
+     * 根据原生SQL queryName查询结果集合
+     * @param name
      * @return
      */
-    <R> R findOneByNativeSql(Class R, String sql);
-
-    /**
-     * 根据传入的SQL检索单个对象
-     * @param byName 是否通过名称
-     * @param sql
-     * @return 集合<map>
-     */
-
-    List<Map<String, Object>> findByNativeSql(String sql);
-    List<Map<String, Object>> findByNativeSqlName(String name);
-
-    List<Map<String, Object>> findByNativeSql(String sql,boolean byName);
-
-    /**
-     * 根据传入的SQL检索单个对象
-     * @param byName 是否通过名称
-     * @param sql
-     * @return map
-     */
-    Map<String, Object> findOneByNativeSql(String sql,boolean byName);
-
-
-    /**
-     * 带排序的分页查询
-     *
-     * @param pagination 分页对象
-     * @param query      查询条件
-     * @param sort       排序方式
-     * @return
-     */
-    PageQueryData pageQuery(Pagination pagination, Q query, Sort sort);
+    List<Map<String, Object>> findByNativeName(String name);
 
 
 }

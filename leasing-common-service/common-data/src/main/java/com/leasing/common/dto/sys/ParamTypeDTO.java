@@ -1,5 +1,6 @@
 package com.leasing.common.dto.sys;
 
+import com.leasing.common.base.entity.BaseDTO;
 import com.leasing.common.vo.foundation.UserVO;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import javax.persistence.*;
  **/
 @Entity
 @Table(name="yls_param_type")
-public class ParamTypeDTO {
+public class ParamTypeDTO extends BaseDTO{
 
     /**
      * 主键
@@ -91,5 +92,15 @@ public class ParamTypeDTO {
 
     public void setPkOperator(UserVO pkOperator) {
         this.pkOperator = pkOperator;
+    }
+
+    @Override
+    public String getPk() {
+        return null;
+    }
+
+    @Override
+    public void setPk(String pk) {
+
     }
 }

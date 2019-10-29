@@ -9,4 +9,5 @@ package com.leasing.common.base.entity;
 public abstract class BaseDTO extends BaseEntity{
 
 
+
 }

@@ -62,7 +62,7 @@ public class DFuncMenuController {
 //            }
 //            resultlist.add(vo);
 //        }
-        List<DFuncMenuVO> result = dFuncMenuService.getMenuList();
+        PageQueryData<DFuncMenuVO> result = dFuncMenuService.getMenuList();
 //        for(DFuncMenuVO vo:result){
 //            DFuncMenuDO parentdo=dFuncMenuService.findByPkFuncmenu(vo.getPkParent().getPkFuncmenu());
 //            if(parentdo!=null){
@@ -122,25 +122,26 @@ public class DFuncMenuController {
     //返回单个对象结果   可自定义类型
     @RequestMapping(value="/findByjpql")
     public ResResult findBypql(){
-        String jq="select s from DFuncMenuVO s where s.pkFuncmenu = '824f6343a4334fa6a1d4'";
-        DFuncMenuVO vo = dFuncMenuRepository.findOneByJPQL(DFuncMenuVO.class,jq,false);
-        String jql ="select d from SystemVO d where d.pkSystem='11111111111111111111'";
-        SystemVO dos = dFuncMenuRepository.findOneByJPQL(SystemVO.class,jql,false);
-        String jqldo="select f from DFuncMenuDO f where f.pkFuncmenu = '824f6343a4334fa6a1d4'";
-        DFuncMenuDO dos2 =dFuncMenuRepository.findOneByJPQL(DFuncMenuDO.class,jqldo,false);
-        return ResultUtils.successWithData(dos);
+//        String jq="select s from DFuncMenuVO s where s.pkFuncmenu = '824f6343a4334fa6a1d4'";
+//        DFuncMenuVO vo = dFuncMenuRepository.findOneByJPQL(DFuncMenuVO.class,jq,false);
+//        String jql ="select d from SystemVO d where d.pkSystem='11111111111111111111'";
+//        SystemVO dos = dFuncMenuRepository.findOneByJPQL(SystemVO.class,jql,false);
+//        String jqldo="select f from DFuncMenuDO f where f.pkFuncmenu = '824f6343a4334fa6a1d4'";
+//        DFuncMenuDO dos2 =dFuncMenuRepository.findOneByJPQL(DFuncMenuDO.class,jqldo,false);
+        return ResultUtils.successWithData(1);
     }
 
     //返回对象结果集合   可自定义类型
     @RequestMapping(value="/findByJPQLlist")
     public ResResult findBypqlList(){
-        String jq="select s from DFuncMenuVO s";
-        List<DFuncMenuVO> vo = dFuncMenuRepository.findByJPQL(DFuncMenuVO.class,jq,false);
-        String jql ="select d from SystemVO d";
-        List<SystemVO> dos = dFuncMenuRepository.findByJPQL(SystemVO.class,jql,false);
-        String jqldo = "select f from DFuncMenuDO f";
-        List<DFuncMenuDO> dos1 = dFuncMenuRepository.findByJPQL(DFuncMenuDO.class,jqldo,false);
-        return ResultUtils.successWithData(dos);
+//        String jq="select s from DFuncMenuVO s";
+//        List<DFuncMenuVO> vo = dFuncMenuRepository.findByJPQL(DFuncMenuVO.class,jq,false);
+//        String jql ="select d from SystemVO d";
+//        List<SystemVO> dos = dFuncMenuRepository.findByJPQL(SystemVO.class,jql,false);
+//        String jqldo = "select f from DFuncMenuDO f";
+//        List<DFuncMenuDO> dos1 = dFuncMenuRepository.findByJPQL(DFuncMenuDO.class,jqldo,false);
+//        return ResultUtils.successWithData(dos);
+        return null;
     }
 
 
@@ -152,8 +153,8 @@ public class DFuncMenuController {
 //        String sql2="select s.pk_system as pkSystem,s.system_code as systemCode,s.system_name as systemName from sm_system s where s.pk_system = '11111111111111111111'";
 //        SystemVO svo = dFuncMenuRepository.findOneByNativeSql(SystemVO.class,sql2);   //报错
 //        SystemDO sdo = dFuncMenuRepository.findOneByNativeSql(SystemDO.class,sql2);
-        List list = dFuncMenuRepository.findByNativeSql("DFuncMenuVO.getDFuncmentest",true);
-        return ResultUtils.successWithData(list);
+//        List list = dFuncMenuRepository.findByNativeSql("DFuncMenuVO.getDFuncmentest",true);
+        return ResultUtils.successWithData(1);
     }
 
 
@@ -165,7 +166,7 @@ public class DFuncMenuController {
         DFuncMenuQuery query =new DFuncMenuQuery();
         query.setFuncName("系统管理");
         Sort sort = new Sort(Sort.Direction.DESC,"ts");
-        PageQueryData list2 = dFuncMenuRepository.pageQuery(pagination,query,sort);
+        PageQueryData list2 = dFuncMenuRepository.pageQuery(pagination,query,"");
         return ResultUtils.successWithData(list2);
     }
 

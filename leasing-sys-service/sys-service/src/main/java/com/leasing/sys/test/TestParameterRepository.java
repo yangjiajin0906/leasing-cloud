@@ -5,11 +5,11 @@ import com.leasing.common.base.repository.BaseRepository;
 import com.leasing.common.base.repository.support.StringModalType;
 import com.leasing.sys.dao.dos.ParameterDO;
 import com.leasing.sys.dao.vo.ParameterVO;
+import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.mongodb.repository.CountQuery;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
@@ -21,7 +21,7 @@ import java.util.List;
  * @author:lvcna@yonyou.com
  * @description:
  **/
-public interface TestParameterRepository extends BaseRepository<ParameterDO,ParameterVO,BaseQuery,String> {
+public interface TestParameterRepository extends BaseRepository<ParameterDO,BaseQuery,ParameterVO,String> {
 
 
 
@@ -92,6 +92,23 @@ public interface TestParameterRepository extends BaseRepository<ParameterDO,Para
     @Query(value = "select b from ParameterDO b",
             countQuery="select count(b) from ParameterDO b")
     Page<ParameterDO> findTest11(Pageable pageable);
+
+
+    @Query(value = "select b from ParameterVO b",
+            countQuery="select count(b) from ParameterVO b")
+    Page<ParameterVO> findTest12(Pageable pageable, Example e);
+
+    @Query(name = "query111",countName = "count111" )
+    Page<ParameterVO> findTest13(Pageable pageable, Example e);
+
+
+
+
+    @Query(name = "test888",countName = "test999")
+    Page<ParameterVO> findTest14(Pageable pageable, Integer param);
+
+
+
 
 
 }

@@ -18,7 +18,7 @@ public interface DFuncMenuService {
      * 获取整个所有的菜单列表VO(分页查询 条件查询  排序查询)
      * @return
      */
-    List<DFuncMenuVO> getMenuList();
+    PageQueryData<DFuncMenuVO> getMenuList();
 
     /**
      * 获取存储库内的菜单列表DO

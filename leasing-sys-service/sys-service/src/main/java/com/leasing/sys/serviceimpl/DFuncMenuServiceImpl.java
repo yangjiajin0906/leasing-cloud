@@ -25,7 +25,7 @@ public class DFuncMenuServiceImpl implements DFuncMenuService {
     DFuncMenuRepository dFuncMenuRepository;
 
     @Override
-    public List<DFuncMenuVO>getMenuList(){
+    public PageQueryData<DFuncMenuVO>getMenuList(){
         Pagination pagination = new Pagination();
         pagination.setCurPage(1);
         pagination.setPageSize(20);
@@ -36,7 +36,7 @@ public class DFuncMenuServiceImpl implements DFuncMenuService {
                 "            left join fetch s.pkOrg o" +
                 "            left join fetch s.pkDept d" +
                 "            left join fetch s.pkOperator t";
-        List<DFuncMenuVO> list = dFuncMenuRepository.pageQuery(pagination,queryvo,jqpl);
+        PageQueryData<DFuncMenuVO> list = dFuncMenuRepository.pageQuery(pagination,queryvo,jqpl);
         return list;
 
     }
@@ -47,7 +47,8 @@ public class DFuncMenuServiceImpl implements DFuncMenuService {
         pagination.setCurPage(1);
         pagination.setPageSize(20);
         DFuncMenuQuery queryvo =new DFuncMenuQuery();
-        PageQueryData list = dFuncMenuRepository.pageQuery(pagination,queryvo);
+//        PageQueryData list = dFuncMenuRepository.pageQuery(pagination,queryvo);
+        PageQueryData list = null;
 //        queryvo.setFuncName("系统");
 //        PageQueryData list2 =dFuncMenuRepository.pageQuery(pagination,queryvo);
         return list;
@@ -67,10 +68,10 @@ public class DFuncMenuServiceImpl implements DFuncMenuService {
     public DFuncMenuDO findOneDO(String pk){return dFuncMenuRepository.findOne(pk);}
 
     @Override
-    public DFuncMenuVO findOneVO(String jpqlName){return dFuncMenuRepository.findOneByJPQL(DFuncMenuVO.class,jpqlName,true);}
+    public DFuncMenuVO findOneVO(String jpqlName){return null;}
 
     @Override
-    public List<Map<String,Object>>findByNativeSQL(String sql){return dFuncMenuRepository.findByNativeSql(sql,true);}
+    public List<Map<String,Object>>findByNativeSQL(String sql){return dFuncMenuRepository.findByNative(sql);}
 
 
 }

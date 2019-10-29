@@ -38,18 +38,4 @@ public class DFuncMenuQuery extends BaseQuery {
         this.funcName = funcName;
     }
 
-    @Override
-    public Specification<DFuncMenuQuery> toSpec() {
-        Specification<DFuncMenuQuery> spec = super.toSpecWithAnd();
-        return ((root, criteriaQuery, criteriaBuilder) -> {
-            List<Predicate> predicatesList = new ArrayList<>();
-            predicatesList.add(spec.toPredicate(root, criteriaQuery, criteriaBuilder));
-//            if (projectCode != null) {
-//                predicatesList.add(
-//                        criteriaBuilder.like(
-//                                root.get("projectCode"),"%"+projectCode+"%"));
-//            }
-            return criteriaBuilder.and(predicatesList.toArray(new Predicate[predicatesList.size()]));
-        });
-    }
 }

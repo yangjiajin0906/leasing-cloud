@@ -1,5 +1,7 @@
 package com.leasing.common.base.repository.support;
 
+import org.springframework.data.domain.Page;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,12 +11,12 @@ import java.util.List;
  * @author:jiaoshy@yonyou.com
  * @description: 条件查询 结果集封装
  **/
-public class PageQueryData implements Serializable {
+public class PageQueryData<T> implements Serializable {
 
     /**
      * 查询结果集
      */
-    private List pageData;
+    private List<T> pageData;
 
     /**
      * 总条数
@@ -27,6 +29,20 @@ public class PageQueryData implements Serializable {
     private long pageSize;
 
 
+    public PageQueryData(Page<T> page){
+        this.pageData = page.getContent();
+        this.pageSize = page.getTotalPages();
+        this.total = page.getTotalElements();
+    }
+
+    public PageQueryData(long total,long pageSize,List<T> pageData){
+        this.total = total;
+        this.pageSize = pageSize;
+        this.pageData = pageData;
+    }
+
+    public PageQueryData(){
+    }
 
     public List getPageData() {
         return pageData;

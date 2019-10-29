@@ -1,7 +1,14 @@
 spring:
+  data:
+    mongodb:
+      uri: mongodb://192.168.249.87:27017/jic-sys-config
+#      uri: mongodb://127.0.0.1:27017/jic-sys-config
+      password:
+      username:
   datasource:
     driverClassName: oracle.jdbc.driver.OracleDriver
     url: jdbc:oracle:thin:@192.168.249.87:1521/ncdb
+#    url: jdbc:oracle:thin:@127.0.0.1:1521/orcl
     username: ztnc
     password: ztnc
     jpa:
@@ -9,6 +16,7 @@ spring:
       show-sql: true
   redis:
     host: 192.168.249.87
+#    host: 127.0.0.1
     port: 6379
     database: 0
     timeout: 1s  # 数据库连接超时时间，2.0 中该参数的类型为Duration，这里在配置的时候需要指明单位

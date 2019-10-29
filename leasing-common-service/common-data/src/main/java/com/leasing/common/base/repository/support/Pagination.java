@@ -1,5 +1,8 @@
 package com.leasing.common.base.repository.support;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import java.io.Serializable;
 
 /**
@@ -24,6 +27,15 @@ public class Pagination implements Serializable {
 
     }
 
+    /**
+     * Pagination对象转换为Pageable对象
+     * @return Pageable
+     */
+    public Pageable toPageable(){
+        return PageRequest.of(this.curPage > 0 ?
+                this.curPage - 1 : 0, this.pageSize);
+    }
+
     private int curPage;
 
     private int pageSize;
@@ -42,5 +54,16 @@ public class Pagination implements Serializable {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+
+    /**
+     * 获取分页开始记录数
+     * @return
+     */
+    public int getFirstResult(){
+        int curPage = this.getCurPage()> 0 ? this.getCurPage() - 1 : 0;
+        int pageSize = this.getPageSize();
+        return curPage * pageSize;
     }
 }

@@ -21,6 +21,87 @@
     <named-query name="test888">
         <query>
             select b from ParameterDO b
+             where 1 = 1 and (?1 is null or b.paramType = ?1)
+        </query>
+    </named-query>
+    <named-query name="test999">
+        <query>
+            select count(b) from ParameterDO b
+            where 1 = 1 and (?1 is null or b.paramType = ?1)
+        </query>
+    </named-query>
+
+    <named-query name="query111">
+        <query>
+            select b from ParameterVO b
+             left join fetch b.pkParamType m
+             left join fetch m.pkOperator r
+             left join fetch r.pkOrg g
+             left join fetch b.parentParameter er
+             order by b.pkParameter desc
+        </query>
+    </named-query>
+
+    <named-query name="query111.count">
+        <query>
+            select count(b) from ParameterVO b
+        </query>
+    </named-query>
+
+    <named-native-query name="pagequery">
+        <query>
+            select r.pk_parameter,
+            r.pk_param_type,
+            r.parent_parameter,
+            r.param_name,
+            r.param_code,
+            r.param_value,
+            r.memo,
+            r.is_enable,
+            r.ts,
+            r.mdb_code,
+            r.is_only,
+            r.value_type,pe.param_type from yls_parameter r
+            left join yls_param_type pe on r.pk_param_type = pe.pk_param_type
+            order by r.ts desc
+        </query>
+    </named-native-query>
+
+    <named-native-query name="pagequery.count">
+        <query>
+            select count(r.pk_parameter) from yls_parameter r
+            left join yls_param_type pe on r.pk_param_type = pe.pk_param_type
+        </query>
+    </named-native-query>
+
+    <named-native-query name="test1">
+        <query>
+            select r.pk_parameter from yls_parameter r
+            left join yls_param_type pe on r.pk_param_type = pe.pk_param_type
+            order by r.ts desc
+        </query>
+    </named-native-query>
+
+    <named-query name="test2">
+        <query>
+            select b from ParameterVO b
+            left join fetch b.pkParamType m
+            left join fetch m.pkOperator r
+            left join fetch r.pkOrg g
+            left join fetch b.parentParameter er
+            order by b.pkParameter desc
+        </query>
+    </named-query>
+
+    <named-query name="DFuncMenuVO.findFuncmenuVO">
+        <query>
+            select s from DFuncMenuVO s
+            left join fetch s.pkParent l
+            left join fetch s.pkSystem p
+            left join fetch s.pkOrg o
+            left join fetch s.pkDept d
+            left join fetch s.pkOperator t
+            where s.pkFuncmenu = '824f6343a4334fa6a1d4'
         </query>
     </named-query>
 
@@ -33,27 +114,6 @@
     </named-native-query>
 
 
-    <sql-result-set-mapping name="test123">
-        <column-result name="pkParameter"/>
-        <column-result name="paramName"/>
-    </sql-result-set-mapping>
-
-    <!--    <named-query name="OrgVO.findOrgRef">-->
-    <!--        <query>-->
-    <!--            select o from OrgVO o left join fetch o.parentPk d-->
-    <!--        </query>-->
-    <!--    </named-query>-->
-    <named-query name="DFuncMenuVO.findFuncmenuVO">
-        <query>
-            select s from DFuncMenuVO s
-            left join fetch s.pkParent l
-            left join fetch s.pkSystem p
-            left join fetch s.pkOrg o
-            left join fetch s.pkDept d
-            left join fetch s.pkOperator t
-            where s.pkFuncmenu = '824f6343a4334fa6a1d4'
-        </query>
-    </named-query>
 
     <named-native-query name="DFuncMenuVO.getDFuncmentest" result-set-mapping="findByNativeone">
         <query>
@@ -69,6 +129,10 @@
         <column-result name="billstatus" />
         <column-result name="systemCode" />
         <column-result name="systemName" />
+    </sql-result-set-mapping>
+    <sql-result-set-mapping name="test123">
+        <column-result name="pkParameter"/>
+        <column-result name="paramName"/>
     </sql-result-set-mapping>
 
 

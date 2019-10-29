@@ -3,16 +3,6 @@ server:
 spring:
   application:
     name: leasing-sys-service
-  data:
-    mongodb:
-      uri: mongodb://192.168.249.87:27017/jic-sys-config
-      password:
-      username:
-  datasource:
-    url: jdbc:oracle:thin:@192.168.249.87:1521:ncdb
-    username: ztnc
-    password: ztnc
-    driver-class-name: oracle.jdbc.driver.OracleDriver
   jpa:
     properties:
       hibernate:
