@@ -1,9 +1,14 @@
 package com.leasing.customer.dao.vo;
 
-import com.leasing.common.base.entity.BaseBusinessVO;
+import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.dto.sys.ParameterDTO;
+import com.leasing.common.vo.foundation.OrgVO;
 import com.leasing.common.vo.foundation.UserVO;
-import com.leasing.customer.dao.dto.CustomerDTO;
+import com.leasing.common.dto.customer.CustomerDTO;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import javax.persistence.*;
 
 /**
  * @project:leasing-cloud
@@ -11,31 +16,41 @@ import com.leasing.customer.dao.dto.CustomerDTO;
  * @author:zhangzhhn@yonyou.com
  * @description: 客户来源
  **/
-public class CustRelatedCompanyVO extends BaseBusinessVO {
+@Entity
+@Table(name = "YLS_CUST_RELATED_COMPANY")
+public class CustRelatedCompanyVO extends BaseVO {
     /**
      * 主键
      */
+    @Id
     private String pkCustRelatedCompany;
 
 
     /**
      * 客户主键
      */
+    @ManyToOne
+    @JoinColumn(name = "pkCustomer")
+    @Fetch(FetchMode.JOIN)
     private CustomerDTO pkCustomer;
 
     /**
      * 关联客户编号
      */
+    @ManyToOne
+    @JoinColumn(name = "pkCustomerRef")
     private CustomerDTO pkCustomerRef;
 
     /**
      * 关联客户名称
      */
+    @Transient
     private String customerName;
 
     /**
      * 关联客户类别
      */
+    @Transient
     private Short customerType;
 
 
@@ -48,6 +63,8 @@ public class CustRelatedCompanyVO extends BaseBusinessVO {
     /**
      * 客户关系
      */
+    @ManyToOne
+    @JoinColumn(name="relationRole")
     private ParameterDTO relationRole;
 
 
@@ -69,6 +86,8 @@ public class CustRelatedCompanyVO extends BaseBusinessVO {
     /**
      * 复核人
      */
+    @ManyToOne
+    @JoinColumn(name = "pkChecker")
     private UserVO pkChecker;
 
     /**
@@ -86,6 +105,8 @@ public class CustRelatedCompanyVO extends BaseBusinessVO {
     /**
      * 授权人
      */
+    @ManyToOne
+    @JoinColumn(name = "pkGrantor")
     private UserVO pkGrantor;
 
     /**
@@ -103,6 +124,36 @@ public class CustRelatedCompanyVO extends BaseBusinessVO {
      * 合同主键
      */
     private String pkContract;
+
+
+    /**
+     * 单据状态
+     */
+    private Short billstatus;
+
+    /**
+     * 操作人
+     */
+    @ManyToOne
+    @JoinColumn(name = "pkOperator")
+    private UserVO pkOperator;
+
+    /**
+     * 操作日期
+     */
+    private String operateDate;
+
+    /**
+     * 操作时间
+     */
+    private String operateTime;
+
+    /**
+     * 机构
+     */
+    @ManyToOne
+    @JoinColumn(name = "pkOrg")
+    private OrgVO pkOrg;
 
     /**
      * 类CustRelatedCompanyVO的构造方法
@@ -396,5 +447,45 @@ public class CustRelatedCompanyVO extends BaseBusinessVO {
      */
     public void setPkContract(String pkContract) {
         this.pkContract = pkContract;
+    }
+
+    public Short getBillstatus() {
+        return billstatus;
+    }
+
+    public void setBillstatus(Short billstatus) {
+        this.billstatus = billstatus;
+    }
+
+    public UserVO getPkOperator() {
+        return pkOperator;
+    }
+
+    public void setPkOperator(UserVO pkOperator) {
+        this.pkOperator = pkOperator;
+    }
+
+    public String getOperateDate() {
+        return operateDate;
+    }
+
+    public void setOperateDate(String operateDate) {
+        this.operateDate = operateDate;
+    }
+
+    public String getOperateTime() {
+        return operateTime;
+    }
+
+    public void setOperateTime(String operateTime) {
+        this.operateTime = operateTime;
+    }
+
+    public OrgVO getPkOrg() {
+        return pkOrg;
+    }
+
+    public void setPkOrg(OrgVO pkOrg) {
+        this.pkOrg = pkOrg;
     }
 }

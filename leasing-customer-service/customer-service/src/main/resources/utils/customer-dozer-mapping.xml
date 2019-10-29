@@ -7,8 +7,6 @@
     <mapping wildcard="true">    <!--wildcard为false时指定field域中属性赋值 -->
         <class-a>com.leasing.customer.dao.vo.CustomerCorpAllVO</class-a>      <!-- 出现的tableName和attributeNames 均有get无需map-null -->
         <class-b>com.leasing.customer.dao.dos.CustomerCorpDO</class-b>   <!-- 对象名称不用mapping注解出现的错误转换 VO转DO无错-->
-        
-
 
         <field>
             <a>region.pkParameter</a>

@@ -5,10 +5,12 @@ import com.leasing.customer.dao.dos.CustomerCorpDO;
 import com.leasing.customer.dao.query.CustomerCorpQuery;
 import com.leasing.customer.dao.vo.CustomerCorpAllVO;
 import com.leasing.customer.dao.vo.CustomerCorpVO;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -18,12 +20,7 @@ import java.util.List;
  * @description: 单位客户数据操作
  **/
 @Repository
-public interface CustomerCorpRepository extends BaseRepository<CustomerCorpDO, CustomerCorpQuery, CustomerCorpAllVO,String> {
-
-//    @Query(value = "select b from CustomerCorpVO b " +
-//            " left join CustomerDTO m on b.pkCustomer = m.pkCustomer " +
-//            " where b.pkCustomer = ?1 ")
-//    List<CustomerCorpVO> findTest(String pk);
+public interface CustomerCorpRepo extends BaseRepository<CustomerCorpDO, CustomerCorpQuery, CustomerCorpAllVO,String> {
 
     /**
      * 根据客户主键查询单位客户详情
@@ -41,13 +38,10 @@ public interface CustomerCorpRepository extends BaseRepository<CustomerCorpDO, C
     @Query(name = "CustomerCorpAllVO.findByCustomerName")
     CustomerCorpAllVO findOneAllByCustomerName(@Param("pkCustomer") String pkCustomer);
 
-//
-//    /**
-//     *
-//     * @param pkCustomer 客户主键
-//     * @return List<CustomerCorpAllVO>
-//     */
-//    @Query(value = "select b from CustomerCorpAllVO b " +
-//            "where b.ifNew = 0 ")
-//    CustomerCorpAllVO pageList(@Param("pkCustomer") String pkCustomer);
+    // 批量删除单位客户
+    @Modifying
+    @Transactional
+    @Query(name = "CustomerCorpVO.batchDeleteByPks")
+    void batchDeleteByPks(@Param("pks") List<String> pks);
+
 }

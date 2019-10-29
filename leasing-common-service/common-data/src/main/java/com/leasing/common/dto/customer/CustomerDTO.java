@@ -1,4 +1,4 @@
-package com.leasing.customer.dao.dto;
+package com.leasing.common.dto.customer;
 
 import com.leasing.common.vo.foundation.DeptVO;
 import org.hibernate.annotations.Fetch;
@@ -28,6 +28,12 @@ public class CustomerDTO {
     @Fetch(FetchMode.JOIN)
     private DeptVO pkDept;
 
+    public CustomerDTO(String pkCustomer) {
+        this.pkCustomer = pkCustomer;
+    }
+    public CustomerDTO() {
+
+    }
 
     public String getPkCustomer() {
         return pkCustomer;
