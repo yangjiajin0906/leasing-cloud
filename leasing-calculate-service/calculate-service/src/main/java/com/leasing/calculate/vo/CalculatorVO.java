@@ -752,25 +752,24 @@ public class CalculatorVO extends BaseBusinessVO {
     /**
      * 规则设置（子表）
      */
-
     @Transient
     public List<LeaseRulePDO> leaseRule;
-//    /**
-//     * 风险金计划（子表）
-//     */
 
+    /**
+     * 风险金计划（子表）
+     */
     @Transient
     public List<InoutPlanPDO> inoutPlanDeposit;
+
     /**
      * 服务费收入（子表） --展现
      */
-
     @Transient
     public List<InoutPlanPDO> inoutPlanSrvin;
+
     /**
      * 服务费支出（子表） --展现
      */
-
     @Transient
     public List<InoutPlanPDO>  inoutPlanSrvot;
     /**
@@ -779,10 +778,10 @@ public class CalculatorVO extends BaseBusinessVO {
 
     @Transient
     public List<InoutPlanPDO>  inoutPlanOther;
+
     /**
      * 租金计划表（子表） --展现
      */
-
     @Transient
     public List<InoutPlanPDO>  inoutPlan;
 
