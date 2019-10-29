@@ -1,7 +1,10 @@
 package com.leasing.calculate.service;
 import com.leasing.calculate.dos.CalculatorDO;
+import com.leasing.calculate.vo.ArithmeticCoreParam;
+import com.leasing.calculate.vo.CalArithmeticVO;
 import com.leasing.calculate.vo.CalculatorVO;
 import com.leasing.calculate.dto.CalculatorDTO;
+import com.leasing.calculate.vo.LeasePlanVO;
 import com.leasing.calculate.vo.queryVO.CalculatorQueryVO;
 import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.base.repository.support.PageQueryData;
@@ -9,6 +12,7 @@ import com.leasing.common.base.repository.support.Pagination;
 import org.springframework.data.domain.Sort;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -39,10 +43,16 @@ public interface CalculateService {
     CalculatorDO update(CalculatorDO vo);
 
     /**
-     * 查询单个实体类（包含子表）
+     * 查询单个DO实体类（包含子表）
      * @return
      */
-    CalculatorVO findOne(String pk);
+    CalculatorDO findOne(String pk);
+
+    /**
+     * 查询单个VO（包含子表）
+     * @return
+     */
+    CalculatorVO findByPk(String pk);
 
     /**
      * 分页查询
@@ -51,19 +61,30 @@ public interface CalculateService {
     List<CalculatorVO> pageQuery(Pagination pagination, CalculatorQueryVO vo);
 
     /**
-     * 分页查询
-     * @return
+     * @description 查询字表数据
+     * @author Yangjiajin
+     * @date 2019/10/28 10:04
+     * @param [id]
+     * @return com.leasing.calculate.vo.CalculatorVO
      */
-    PageQueryData pageQuery2(Pagination pagination, CalculatorQueryVO vo, Sort s);
+    CalculatorVO findChildListById(String id);
 
     /**
-     * @description 计算租金计划表
+     * @description 租金计划表接口
      * @author Yangjiajin
      * @date 2019/10/23 10:17
-     * @param []
+     * @param [vo 报价VO]
      * @return com.leasing.calculate.dto.CalculatorDTO
      */
-    List calOperateLease();
+    List calOperateLease(CalculatorVO vo);
+
+    CalculatorDTO findByIsSql(String pkLeaseCalculator);
+
+    Map<String,Object> findByIsSql2(String pkLeaseCalculator);
+
+    CalculatorDTO findByPkLeaseCalculator(String pkLeaseCalculator, Class<CalculatorDTO> type);
+
+    List<CalculatorVO> findListByPk(String pk);
 
     /**
      * @description 计算计提结果表
@@ -101,12 +122,5 @@ public interface CalculateService {
      */
     List calBatchBusinessC();
 
-    CalculatorDTO findByIsSql(String pkLeaseCalculator);
-
-    Map<String,Object> findByIsSql2(String pkLeaseCalculator);
-
-    CalculatorDTO findByPkLeaseCalculator(String pkLeaseCalculator, Class<CalculatorDTO> type);
-
-    List<CalculatorVO> findListByPk(String pk);
 
 }

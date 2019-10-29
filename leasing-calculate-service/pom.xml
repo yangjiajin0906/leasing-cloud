@@ -12,9 +12,11 @@
     <artifactId>leasing-calculate-service</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>calculate-api</module>
-        <module>calculate-data</module>
+        <module>calculate-service</module>
     </modules>
 
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
 
 </project>
