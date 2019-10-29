@@ -7,6 +7,7 @@ import com.leasing.calculate.dto.IRRConvertParamDTO;
 import com.leasing.calculate.dto.InterrateRefDTO;
 import com.leasing.calculate.dto.LimitPlanRefDTO;
 import com.leasing.common.base.entity.BaseBusinessVO;
+import com.leasing.common.vo.foundation.CurrtypeVO;
 import com.leasing.common.vo.foundation.UserVO;
 
 import javax.persistence.*;
@@ -72,9 +73,9 @@ public class CalculatorVO extends BaseBusinessVO {
     /**
      * 币种
      */
-//    @ManyToOne()
-//    @JoinColumn(name = "pkCurrtype")
-//    public CurrtypeRefVO pkCurrtype;
+    @ManyToOne
+    @JoinColumn(name = "pkCurrtype")
+    public CurrtypeVO pkCurrtype;
 
     /**
      * 汇率
@@ -2479,6 +2480,14 @@ public class CalculatorVO extends BaseBusinessVO {
 
     public void setCalType(Short calType) {
         this.calType = calType;
+    }
+
+    public CurrtypeVO getPkCurrtype() {
+        return pkCurrtype;
+    }
+
+    public void setPkCurrtype(CurrtypeVO pkCurrtype) {
+        this.pkCurrtype = pkCurrtype;
     }
 
 }

@@ -1,15 +1,13 @@
 package com.leasing.sys.test;
 
 import com.leasing.common.base.entity.AbstractBaseEntity;
-import com.leasing.common.utils.DozerUtils;
-import com.leasing.sys.controller.DFuncMenuController;
+import com.leasing.common.utils.base.DozerUtils;
 import com.leasing.sys.entity.dos.DFuncMenuDO;
 import com.leasing.sys.entity.dto.DFuncMenuDTO;
 import com.leasing.sys.entity.vo.DFuncMenuVO;
 import com.leasing.common.base.web.ResResult;
-import com.leasing.common.utils.ResultUtils;
+import com.leasing.common.utils.base.ResultUtils;
 import com.leasing.sys.entity.vo.SystemVO;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

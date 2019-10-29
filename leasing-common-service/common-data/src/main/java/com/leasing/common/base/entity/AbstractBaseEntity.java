@@ -1,6 +1,10 @@
 package com.leasing.common.base.entity;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.leasing.common.base.repository.support.StringModalType;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.reflect.FieldUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
@@ -32,6 +36,27 @@ public abstract class AbstractBaseEntity implements Serializable,Cloneable{
                 : this.equalsContent((AbstractBaseEntity)obj, this.getAttributeNames());
     }
 
+
+    /**
+     * 判断两个相同对象指定字段属性是否相等 调用字段属性equals方法进行比较
+     */
+    public boolean equalsContentBetween(AbstractBaseEntity source,AbstractBaseEntity target) {
+        if(source==null||target==null) return false;
+        String []arr$ = source.getAttributeNames();
+        if (arr$ != null && target != null) {
+            int len$ = arr$.length;
+            for (int i$ = 0; i$ < len$; ++i$) {
+                String field = arr$[i$];
+                if (!this.isAttributeEquals(source.getAttributeValue(field), target.getAttributeValue(field))) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * 判断该对象下与目标对象指定字段属性是否相等,调用字段属性equals方法进行比较
      * @param target 目标对象
@@ -54,15 +79,6 @@ public abstract class AbstractBaseEntity implements Serializable,Cloneable{
         }
     }
 
-    /**
-     * 判断该对象下与目标对象指定字段属性是否相等,调用字段属性equals方法进行比较
-     * 比较所有字段
-     * @param target
-     * @return
-     */
-    public boolean equalsContent(AbstractBaseEntity target) {
-        return this.equalsContent(target,null);
-    }
     /**
      *获取当前对象属性集合
      * @return
@@ -91,17 +107,8 @@ public abstract class AbstractBaseEntity implements Serializable,Cloneable{
             try {
                 arys = (String[]) map.get(this.getClass());
                 if (arys == null) {
-                    HashSet set = new HashSet();
-                    Class<?> clazz = this.getClass() ;
-                    //获取当前对象的每个属性值
-                    for(; clazz != AbstractBaseEntity.class ; clazz = clazz.getSuperclass()) {
-                        Field[] field = clazz.getDeclaredFields(); // 获取实体类的所有属性，返回Field数组
-                        int len$ = field.length;
-                        for (int i$ = 0; i$ < len$; ++i$) {
-                            String str = field[i$].getName();
-                            set.add(str);
-                        }
-                    }
+                    //获取当前对象(包含父类)的每个属性值
+                    HashSet set = getFieldSet(this.getClass());
                     arys = (String[]) set.toArray(new String[set.size()]);
                     map.put(this.getClass(), arys);
                 }
@@ -111,6 +118,26 @@ public abstract class AbstractBaseEntity implements Serializable,Cloneable{
             }
         }
         return arys;
+    }
+
+
+    /**
+     * 自封装获取当前对象所有属性  指定到当前基类为最顶层  排除顶层两字段属性
+     */
+    public static HashSet getFieldSet(Class clazz){
+        if(clazz == null){
+            return null;  //如果当前对象为空 则直接返回空数组
+        }
+        HashSet set = new HashSet();
+        for(; clazz != AbstractBaseEntity.class ; clazz = clazz.getSuperclass()) {
+            Field[] field = clazz.getDeclaredFields(); // 获取实体类的所有属性，返回Field数组
+            int len$ = field.length;
+            for (int i$ = 0; i$ < len$; ++i$) {
+                String str = field[i$].getName();
+                set.add(str);
+            }
+        }
+        return set;
     }
 
     /**
@@ -136,9 +163,22 @@ public abstract class AbstractBaseEntity implements Serializable,Cloneable{
     public static Object getProperty(Object bean, String propertyName) {
         Assert.hasLength(propertyName,"propertyName is empty,please check!");
         Method e = null;
+        Class clazz = bean.getClass();
+        Class tagetclazz = bean.getClass();
+        for(; clazz != AbstractBaseEntity.class ; clazz = clazz.getSuperclass()) {
+            Field[] field = clazz.getDeclaredFields(); // 获取实体类的所有属性，返回Field数组
+            int len$ = field.length;
+            for (int i$ = 0; i$ < len$; ++i$) {
+                String name = field[i$].getName();
+                if(name.equals(propertyName)){
+                    tagetclazz = clazz;
+                    break;
+                }
+            }
+        }
         try {
             propertyName = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);  //改驼峰式命名
-            e = bean.getClass().getMethod("get" + propertyName);
+            e = tagetclazz.getMethod("get" + propertyName);
             return propertyName != null && e == null ? null : (e == null ? null : e.invoke(bean));
         } catch (IllegalAccessException e1) {
             e1.printStackTrace();
@@ -171,13 +211,16 @@ public abstract class AbstractBaseEntity implements Serializable,Cloneable{
      */
     public static void setProperty(Object bean, String propertyName, Object value) {
         Class type = java.lang.String.class;
-        Field[] field = bean.getClass().getDeclaredFields();
-        int len$ = field.length;
-        for (int i$ = 0; i$ < len$; ++i$) {
-            String name = field[i$].getName();
-            if(name.equals(propertyName)){
-                type = field[i$].getType();
-                break;
+        Class clazz = bean.getClass();
+        for(; clazz != AbstractBaseEntity.class ; clazz = clazz.getSuperclass()) {
+            Field[] field = clazz.getDeclaredFields(); // 获取实体类的所有属性，返回Field数组
+            int len$ = field.length;
+            for (int i$ = 0; i$ < len$; ++i$) {
+                String name = field[i$].getName();
+                if(name.equals(propertyName)){
+                    type = field[i$].getType();
+                    break;
+                }
             }
         }
         propertyName = propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1); //改驼峰式命名
@@ -205,7 +248,22 @@ public abstract class AbstractBaseEntity implements Serializable,Cloneable{
      * @return
      */
     private boolean isAttributeEquals(Object attrOld, Object attrNew) {
-        return attrOld == attrNew ? true : (attrOld != null && attrNew != null ? attrOld.equals(attrNew) : false);
+        if(attrOld == attrNew){
+            return true;
+        }else{
+            if(attrOld!=null&&attrNew!=null){
+                if(attrNew.getClass().getName().equals("com.leasing.common.base.repository.support.StringModalType")
+                        &&attrOld.getClass().getName().equals("com.leasing.common.base.repository.support.StringModalType")) {
+                    return true;
+                }else if(attrNew.getClass().getSuperclass().getName().equals("java.lang.Object")&&attrOld.getClass().getSuperclass().getName().equals("java.lang.Object")){
+                    return attrOld.equals(attrNew);
+                } else{
+                    return equalsContentBetween((AbstractBaseEntity) attrNew,(AbstractBaseEntity)attrOld);
+                }
+            }else{
+                return false;
+            }
+        }
     }
 
     /**
@@ -217,17 +275,8 @@ public abstract class AbstractBaseEntity implements Serializable,Cloneable{
         AbstractBaseEntity vo = null;
         try {
             vo = this.getClass().newInstance();
-//            Class<?> clazz = this.getClass() ;
-//            //获取当前对象的每个属性值
-//            for(; clazz != AbstractBaseEntity.class ; clazz = clazz.getSuperclass()) {
-//                Field[] field = clazz.getDeclaredFields(); // 获取实体类的所有属性，返回Field数组
-//                int len$ = field.length;
-//                for (int i$ = 0; i$ < len$; ++i$) {
-//                    String str = field[i$].getName();
-//                    vo.setAttributeValue(str, this.getAttributeValue(str));
-//                }
-//            }
-            BeanUtils.copyProperties(this,vo);
+            String jsonS = JSON.toJSONString(this);
+            vo = JSONObject.parseObject(jsonS,this.getClass());
         } catch (InstantiationException e) {
             e.printStackTrace();
             throw new RuntimeException("InstantiationException in Class " + this.getClass().getName());

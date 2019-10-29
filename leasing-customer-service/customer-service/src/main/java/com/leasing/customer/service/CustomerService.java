@@ -1,8 +1,10 @@
 package com.leasing.customer.service;
 
-import com.leasing.common.base.web.ResResult;
+import com.leasing.customer.dao.dos.CustomerDO;
 import com.leasing.customer.dao.vo.CustomerCorpAllVO;
 import com.leasing.customer.dao.vo.CustomerVO;
+
+import java.util.List;
 
 /**
  * @project:leasing-cloud
@@ -14,6 +16,9 @@ public interface CustomerService {
 
 
     void deleteByPkCustomer(String pkCustomer);
+
+    void batchDelete(List<String> pks);
+
     /**
      * 根据客户主键更新客户单据状态
      *
@@ -28,17 +33,14 @@ public interface CustomerService {
      *
      * @param vo 客户修改成vo
      */
-    void saveOrUpdate(CustomerVO vo);
+    void save(CustomerVO vo);
 
-    /**
-     * 修改客户信息
-     * @param vo 修改成vo
-     */
-    void saveOrUpdate(CustomerCorpAllVO vo);
+    void save(CustomerDO customerDO);
 
 
     /**
      * 客户名称数量
+     *
      * @param customerName 客户名称
      * @return int
      */
@@ -46,6 +48,7 @@ public interface CustomerService {
 
     /**
      * 证件号码数量
+     *
      * @param identityNo 客户证件号
      * @return int
      */

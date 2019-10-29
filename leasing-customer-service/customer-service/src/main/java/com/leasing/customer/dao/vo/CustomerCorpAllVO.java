@@ -5,10 +5,9 @@ import com.leasing.common.dto.sys.ParameterDTO;
 import com.leasing.common.vo.foundation.AreaclVO;
 import com.leasing.common.vo.foundation.CurrtypeVO;
 import com.leasing.common.vo.foundation.UserVO;
-import com.leasing.customer.dao.dto.CustomerDTO;
+import com.leasing.common.dto.customer.CustomerDTO;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**

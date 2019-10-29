@@ -1,11 +1,16 @@
 package com.leasing.sys.test;
 
+import com.leasing.common.base.entity.BaseQuery;
+import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.refvo.sys.ParameterRefVO;
 import com.leasing.common.utils.ResultUtils;
 import com.leasing.sys.dao.dos.ParamTypeDO;
 import com.leasing.sys.dao.dos.ParameterDO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -163,7 +168,7 @@ public class TestParameterController {
         String sql = "select D.* from YLS_PARAMETER d " +
                 " left join YLS_PARAM_TYPE pe on d.pk_param_type = pe.pk_param_type " +
                 " where pe.pk_param_type = '0001AA1000000001346I' ";
-        List vos = parameterRepository.findByNativeSql(sql);
+        List vos = parameterRepository.findByNativeSqlName("Test.test");
         return ResultUtils.successWithData(vos);
     }
 
@@ -177,6 +182,30 @@ public class TestParameterController {
         return ResultUtils.successWithData(vos);
     }
 
+    //测试本地SQL
+    @RequestMapping(value = "test17")
+    ResResult test17(){
+        String pk = "1001630";
+        List vos = parameterRepository.findTest10(pk);
+        return ResultUtils.successWithData(vos);
+    }
+
+
+    //测试SQL分页
+    @RequestMapping(value = "test18")
+    ResResult test18(){
+        Pagination pagination = new Pagination(2,20);
+        List list = parameterRepository.pageQueryName(pagination,null,"test888");
+        return ResultUtils.successWithData(list);
+    }
+
+    //测试SQL分页
+    @RequestMapping(value = "test19")
+    ResResult test19(){
+        Pagination pagination = new Pagination(2,20);
+        Page<ParameterDO> page = parameterRepository.findTest11(PageRequest.of(1,20));
+        return ResultUtils.successWithData(page);
+    }
 }
 
 

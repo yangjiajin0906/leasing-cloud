@@ -4,6 +4,7 @@ import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.base.repository.BaseRepository;
+import com.sun.istack.internal.NotNull;
 import org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.internal.NativeQueryImpl;
@@ -15,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
@@ -82,6 +84,17 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
     }
 
     @Override
+    public List<V> pageQueryName(Pagination pagination, Q query, String name) {
+        int curPage = pagination.getCurPage()> 0 ? pagination.getCurPage() - 1 : 0;
+        int pageSize = pagination.getPageSize();
+        int firstResult = curPage * pageSize;
+        int maxResult = pageSize;
+        Query queryResult = entityManager.createNamedQuery(name);
+        queryResult.setFirstResult(firstResult).setMaxResults(maxResult);
+        return queryResult.getResultList();
+    }
+
+    @Override
     public <S> S findOne(ID id, Class<S> S) {
         Assert.notNull(id, "查询主键不能为空!");
         Optional<T> e = findById(id);
@@ -123,6 +136,14 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
             query = entityManager.createNativeQuery(sql);
 
         }
+        query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
+        List<Map<String, Object>> list = query.getResultList();
+        return list;
+    }
+
+    @Override
+    public List<Map<String, Object>> findByNativeSqlName(String name) {
+        Query query = entityManager.createNamedQuery(name);
         query.unwrap(NativeQueryImpl.class).setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP);
         List<Map<String, Object>> list = query.getResultList();
         return list;

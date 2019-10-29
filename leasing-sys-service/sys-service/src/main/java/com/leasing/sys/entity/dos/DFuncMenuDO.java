@@ -54,18 +54,6 @@ public class DFuncMenuDO extends BaseBusinessDO {
 
     private Short collected;
 
-//    @ManyToOne
-//    @JoinColumn(name = "pkOrg")
-//    private OrgVO pkOrg;
-//
-//    public OrgVO getPkOrg() {
-//        return pkOrg;
-//    }
-//
-//    public void setPkOrg(OrgVO pkOrg) {
-//        this.pkOrg = pkOrg;
-//    }
-
     public String getPkFuncmenu() {
         return pkFuncmenu;
     }

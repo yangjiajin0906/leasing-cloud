@@ -65,7 +65,7 @@ public class CustomerVO extends BaseBusinessVO {
     /**
      * 证件号码
      */
-    public String identityNo;
+    private String identityNo;
 
 
 
