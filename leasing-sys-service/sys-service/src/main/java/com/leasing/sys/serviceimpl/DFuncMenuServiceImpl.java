@@ -36,7 +36,8 @@ public class DFuncMenuServiceImpl implements DFuncMenuService {
                 "            left join fetch s.pkOrg o" +
                 "            left join fetch s.pkDept d" +
                 "            left join fetch s.pkOperator t";
-        PageQueryData<DFuncMenuVO> list = dFuncMenuRepository.pageQuery(pagination,queryvo,jqpl);
+        PageQueryData<DFuncMenuVO> list = dFuncMenuRepo.pageQuery(pagination,queryvo,jqpl);
+
         return list;
 
     }

@@ -9,7 +9,6 @@ import com.leasing.common.utils.base.DozerUtils;
 import com.leasing.common.utils.base.ResultUtils;
 import com.leasing.sys.dao.DFuncMenuRepo;
 import com.leasing.sys.entity.dos.DFuncMenuDO;
-import com.leasing.sys.entity.dos.SystemDO;
 import com.leasing.sys.entity.query.DFuncMenuQuery;
 import com.leasing.sys.entity.vo.DFuncMenuVO;
 import com.leasing.sys.entity.vo.SystemVO;

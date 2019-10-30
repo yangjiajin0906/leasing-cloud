@@ -58,13 +58,13 @@ public interface CalculateService {
      * 分页查询
      * @return
      */
-    List<CalculatorVO> pageQuery(Pagination pagination, CalculatorQueryVO vo);
+    PageQueryData<CalculatorVO> pageQuery(Pagination pagination, CalculatorQueryVO vo);
 
     /**
      * @description 查询字表数据
      * @author Yangjiajin
      * @date 2019/10/28 10:04
-     * @param [id]
+     * @param id
      * @return com.leasing.calculate.vo.CalculatorVO
      */
     CalculatorVO findChildListById(String id);
@@ -73,7 +73,7 @@ public interface CalculateService {
      * @description 租金计划表接口
      * @author Yangjiajin
      * @date 2019/10/23 10:17
-     * @param [vo 报价VO]
+     * @param vo
      * @return com.leasing.calculate.dto.CalculatorDTO
      */
     List calOperateLease(CalculatorVO vo);

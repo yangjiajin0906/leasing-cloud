@@ -122,7 +122,7 @@ public class GB2AlphaUtils {
 
     public static void main(String[] args) {
         GB2AlphaUtils obj1 = new GB2AlphaUtils();
-        System.out.println(obj1.String2Alpha("测试：中华人民共和国！"));
+        System.out.println(obj1.String2Alpha("测试中华人民共和国！"));
         System.out.println(obj1.String2Alpha("裴贺先"));
         return;
     }
