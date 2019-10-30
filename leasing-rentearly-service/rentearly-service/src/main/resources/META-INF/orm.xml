@@ -86,11 +86,11 @@
         </query>
     </named-query>
 
-    <named-query name="ProjectInfoVO.deleteByIds">
-        <query>
-            delete from ProjectInfoDO c where c.pkProjectInfo.in :ids
-        </query>
-    </named-query>
+<!--    <named-query name="ProjectInfoVO.deleteByIds">-->
+<!--        <query>-->
+<!--            delete from ProjectInfoDO c where c.pkProjectInfo.in :ids-->
+<!--        </query>-->
+<!--    </named-query>-->
 
 
     <named-query name="ProjectInfoVO.updateBillstatus">

@@ -1,5 +1,6 @@
-package com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO;
+package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
 import javax.persistence.Column;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name = "yls_rating_maintain_b")
-public class RatingMaintainBRefVO extends BaseRefVO {
+public class RatingMaintainBDTO extends BaseEntity {
     @Id
     @Column(name = "pk_rating_maintain_b")
     public String pkRatingMaintainB;
@@ -24,7 +25,7 @@ public class RatingMaintainBRefVO extends BaseRefVO {
 
     public String descriptorData;
 
-//    public RatingMaintainBRefVO(String pkRatingMaintainB, String serialNumber, String descriptorData) {
+//    public RatingMaintainBDTO(String pkRatingMaintainB, String serialNumber, String descriptorData) {
 //        this.pkRatingMaintainB = pkRatingMaintainB;
 //        this.serialNumber = serialNumber;
 //        this.descriptorData = descriptorData;
@@ -55,5 +56,15 @@ public class RatingMaintainBRefVO extends BaseRefVO {
 
     public void setDescriptorData(String descriptorData) {
         this.descriptorData = descriptorData;
+    }
+
+    @Override
+    public String getPk() {
+        return pkRatingMaintainB;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkRatingMaintainB = pk;
     }
 }

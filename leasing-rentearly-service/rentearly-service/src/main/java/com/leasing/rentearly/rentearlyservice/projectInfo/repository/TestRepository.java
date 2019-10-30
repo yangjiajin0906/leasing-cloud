@@ -30,8 +30,8 @@ public interface TestRepository extends BaseRepository<ProjectInfoDO,ProjectQuer
      * @param <S>
      * @return
      */
-    @Query(value = "select new com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO.ProjectInfoRefVO(b.pkProjectInfo,b.projectCode,b.projectName,b.pkProjectApproval) from ProjectInfoDO b where b.pkProjectInfo =?1")
-    <S> Collection<S> findTest6(String pk, Class<S> type);
+//    @Query(value = "select new com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO.ProjectInfoRefVO(b.pkProjectInfo,b.projectCode,b.projectName,b.pkProjectApproval) from ProjectInfoDO b where b.pkProjectInfo =?1")
+//    <S> Collection<S> findTest6(String pk, Class<S> type);
 
     /**
      * 投影参照 动态
@@ -51,8 +51,8 @@ public interface TestRepository extends BaseRepository<ProjectInfoDO,ProjectQuer
      * @param <S>
      * @return
      */
-    @Query(value = "select new com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO.ProjectInfoRefVO(b.pkProjectInfo,b.projectCode,b.projectName,b.pkProjectApproval) from ProjectInfoDTO b where b.pkProjectInfo =?1")
-    <S> Collection<S> findTest4(String pk, Class<S> type);
+//    @Query(value = "select new com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO.ProjectInfoRefVO(b.pkProjectInfo,b.projectCode,b.projectName,b.pkProjectApproval) from ProjectInfoDTO b where b.pkProjectInfo =?1")
+//    <S> Collection<S> findTest4(String pk, Class<S> type);
 
 
     /**

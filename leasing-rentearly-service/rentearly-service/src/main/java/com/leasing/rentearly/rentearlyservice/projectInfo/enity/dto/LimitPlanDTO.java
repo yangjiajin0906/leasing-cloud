@@ -1,10 +1,12 @@
-package com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO;
+package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.math.BigDecimal;
 
 /**
  * @project:leasing-cloud
@@ -14,7 +16,7 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name = "yls_limit_plan")
-public class LimitPlanRefVO extends BaseRefVO {
+public class LimitPlanDTO extends BaseEntity {
 
     @Id
     public String pkLimitPlan;
@@ -23,7 +25,7 @@ public class LimitPlanRefVO extends BaseRefVO {
 
     public String limitName;
 
-//    public LimitPlanRefVO(String pkLimitPlan, String limitCode, String limitName) {
+//    public LimitPlanDTO(String pkLimitPlan, String limitCode, String limitName) {
 //        this.pkLimitPlan = pkLimitPlan;
 //        this.limitCode = limitCode;
 //        this.limitName = limitName;
@@ -55,4 +57,17 @@ public class LimitPlanRefVO extends BaseRefVO {
     public void setLimitName(String limitName) {
         this.limitName = limitName;
     }
+
+    @Override
+    public String getPk() {
+        return pkLimitPlan;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkLimitPlan = pk;
+    }
+
+
+
 }

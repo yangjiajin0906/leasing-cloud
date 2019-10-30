@@ -1,5 +1,6 @@
-package com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO;
+package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ import javax.persistence.Transient;
         "        INNER JOIN YLS_PARAM_TYPE B ON A.PK_PARAM_TYPE = B.PK_PARAM_TYPE" +
         "        WHERE B.PARAM_CODE = '1001630'" +
         "     )")
-public class BusinessDomainRefVO extends BaseRefVO {
+public class BusinessDomainDTO extends BaseEntity {
 
     @Id
     public String pkParameter;
@@ -108,7 +109,17 @@ public class BusinessDomainRefVO extends BaseRefVO {
         this.parentParameter = parentParameter;
     }
 
-//    public BusinessDomainRefVO(String pkParameter, String paramCode, String paramName, String paramValue, String pkParamType, String memo, Boolean isEnable, Integer paramType, String parentParameter) {
+    @Override
+    public String getPk() {
+        return pkParameter;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkParameter = pk;
+    }
+
+//    public BusinessDomainDTO(String pkParameter, String paramCode, String paramName, String paramValue, String pkParamType, String memo, Boolean isEnable, Integer paramType, String parentParameter) {
 //        this.pkParameter = pkParameter;
 //        this.paramCode = paramCode;
 //        this.paramName = paramName;

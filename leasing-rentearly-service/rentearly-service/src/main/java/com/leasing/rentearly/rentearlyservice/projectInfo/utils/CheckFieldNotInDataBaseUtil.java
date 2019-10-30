@@ -18,7 +18,7 @@ public class CheckFieldNotInDataBaseUtil {
     private final static String url = "jdbc:oracle:thin:@192.168.249.87:1521:ncdb";
     private final static String user = "ztnc";
     private final static String passWorld = "ztnc";
-    private final static String vo = "com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO.RatingMaintainBRefVO";
+    private final static String vo = "com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO";
     private final static boolean ref = true;
 
 

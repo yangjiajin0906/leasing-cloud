@@ -52,9 +52,9 @@ public interface ProjectInfoRepository extends BaseRepository<ProjectInfoDO, Pro
      *
      * @param ids
      */
-    @Modifying
-    @Query(name = "ProjectInfoVO.deleteByIds")
-    void deleteByIds(@Param("ids") List<String> ids);
+//    @Modifying
+//    @Query(name = "ProjectInfoVO.deleteByIds")
+//    void deleteByIds(@Param("ids") List<String> ids);
 
     /**
      * 更新单据状态

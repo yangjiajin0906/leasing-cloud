@@ -1,5 +1,6 @@
-package com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO;
+package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name = "yls_parameter")
-public class ParmsRefVO extends BaseRefVO {
+public class ParmsDTO extends BaseEntity {
 
     @Id
     public String pkParameter;
@@ -29,7 +30,7 @@ public class ParmsRefVO extends BaseRefVO {
 
     public String parentParameter;
 
-//    public ParmsRefVO(String pkParameter, String paramCode, String paramName, String paramValue, Integer paramType, String parentParameter) {
+//    public ParmsDTO(String pkParameter, String paramCode, String paramName, String paramValue, Integer paramType, String parentParameter) {
 //        this.pkParameter = pkParameter;
 //        this.paramCode = paramCode;
 //        this.paramName = paramName;
@@ -87,5 +88,15 @@ public class ParmsRefVO extends BaseRefVO {
 
     public void setParentParameter(String parentParameter) {
         this.parentParameter = parentParameter;
+    }
+
+    @Override
+    public String getPk() {
+        return pkParameter;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkParameter = pk;
     }
 }

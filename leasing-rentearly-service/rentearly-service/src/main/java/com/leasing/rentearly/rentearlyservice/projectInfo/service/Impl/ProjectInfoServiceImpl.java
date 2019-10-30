@@ -50,7 +50,7 @@ public class ProjectInfoServiceImpl implements ProjectInfoService {
 
     @Override
     public void delete(List<String> ids) {
-        projectInfoRepository.deleteByIds(ids);
+//        projectInfoRepository.deleteByIds(ids);
     }
 
     @Override

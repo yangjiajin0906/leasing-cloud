@@ -1,5 +1,6 @@
-package com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO;
+package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ import javax.persistence.Table;
         "    ON CNTSPR.PK_CONTRACT = CNT.PK_CONTRACT" +
         " INNER JOIN YLS_PROJECT_INFO PI" +
         "    ON PI.PK_PROJECT_INFO = CNT.PK_PROJECT)")
-public class ProviderConferRefVO extends BaseRefVO {
+public class ProviderConferDTO extends BaseEntity {
 
     @Id
     public String pkContract;
@@ -42,7 +43,7 @@ public class ProviderConferRefVO extends BaseRefVO {
     public Short protocolType;
 
 
-//    public ProviderConferRefVO(String pkContract, String protocolCode, String protocolName, String approvalCode, String approvalName, Short protocolType) {
+//    public ProviderConferDTO(String pkContract, String protocolCode, String protocolName, String approvalCode, String approvalName, Short protocolType) {
 //        this.pkContract = pkContract;
 //        this.protocolCode = protocolCode;
 //        this.protocolName = protocolName;
@@ -100,5 +101,15 @@ public class ProviderConferRefVO extends BaseRefVO {
 
     public void setProtocolType(Short protocolType) {
         this.protocolType = protocolType;
+    }
+
+    @Override
+    public String getPk() {
+        return pkContract;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkContract = pk;
     }
 }

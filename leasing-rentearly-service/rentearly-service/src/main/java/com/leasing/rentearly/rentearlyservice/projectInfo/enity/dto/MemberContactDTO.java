@@ -1,5 +1,6 @@
-package com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO;
+package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name = "v_member_contact")
-public class MemberContactRefVO extends BaseRefVO {
+public class MemberContactDTO extends BaseEntity {
 
     /**
      * 客户
@@ -63,7 +64,7 @@ public class MemberContactRefVO extends BaseRefVO {
     public String initialPk;
 
 
-//    public MemberContactRefVO(String pkCustomer, String customerName, Short ifInvoiceMan, String department, String duty, String mobile, String email, String officePhone, String fax, Integer custType, String initialPk) {
+//    public MemberContactDTO(String pkCustomer, String customerName, Short ifInvoiceMan, String department, String duty, String mobile, String email, String officePhone, String fax, Integer custType, String initialPk) {
 //        this.pkCustomer = pkCustomer;
 //        this.customerName = customerName;
 //        this.ifInvoiceMan = ifInvoiceMan;
@@ -165,5 +166,15 @@ public class MemberContactRefVO extends BaseRefVO {
 
     public void setInitialPk(String initialPk) {
         this.initialPk = initialPk;
+    }
+
+    @Override
+    public String getPk() {
+        return pkCustomer;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkCustomer = pk;
     }
 }

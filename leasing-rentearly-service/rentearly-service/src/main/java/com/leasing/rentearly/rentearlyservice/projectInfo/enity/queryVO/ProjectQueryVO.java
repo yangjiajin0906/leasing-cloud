@@ -38,23 +38,5 @@ public class ProjectQueryVO extends BaseQuery {
         this.projectName = projectName;
     }
 
-    @Override
-    public Specification<ProjectQueryVO> toSpec() {
-        Specification<ProjectQueryVO> spec = super.toSpecWithAnd();
-        return ((root, criteriaQuery, criteriaBuilder) -> {
-            List<Predicate> predicatesList = new ArrayList<>();
-            predicatesList.add(spec.toPredicate(root, criteriaQuery, criteriaBuilder));
-//            if (projectCode != null) {
-//                predicatesList.add(
-//                        criteriaBuilder.like(
-//                                root.get("projectCode"),"%"+projectCode+"%"));
-//            }
-//            if (projectName != null) {
-//                predicatesList.add(
-//                        criteriaBuilder.like(
-//                                root.get("projectName"),"%"+projectName+"%") );
-//            }
-            return criteriaBuilder.and(predicatesList.toArray(new Predicate[predicatesList.size()]));
-        });
-    }
+
 }

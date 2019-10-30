@@ -1,5 +1,6 @@
-package com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO;
+package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
 import javax.persistence.Entity;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name = "bd_currtype")
-public class CurrtypeRefVO extends BaseRefVO {
+public class CurrtypeDTO extends BaseEntity {
     @Id
     public String pkCurrtype;
 
@@ -24,7 +25,7 @@ public class CurrtypeRefVO extends BaseRefVO {
 
     public String currtypesign;
 
-//    public CurrtypeRefVO(String pkCurrtype, String currtypecode, String currtypename, String currtypesign) {
+//    public CurrtypeDTO(String pkCurrtype, String currtypecode, String currtypename, String currtypesign) {
 //        this.pkCurrtype = pkCurrtype;
 //        this.currtypecode = currtypecode;
 //        this.currtypename = currtypename;
@@ -64,5 +65,15 @@ public class CurrtypeRefVO extends BaseRefVO {
 
     public void setCurrtypesign(String currtypesign) {
         this.currtypesign = currtypesign;
+    }
+
+    @Override
+    public String getPk() {
+        return pkCurrtype;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkCurrtype = pk;
     }
 }

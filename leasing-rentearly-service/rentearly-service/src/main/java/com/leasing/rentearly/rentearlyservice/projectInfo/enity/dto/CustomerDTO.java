@@ -1,7 +1,6 @@
-package com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO;
+package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
-import com.leasing.common.base.entity.BaseDO;
-import com.leasing.common.base.entity.BaseRefVO;
+import com.leasing.common.base.entity.BaseEntity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -52,7 +51,7 @@ import java.math.BigDecimal;
         "" +
         "  " +
         " )")
-public class CustomerRefVO extends BaseRefVO {
+public class CustomerDTO extends BaseEntity {
 
     /**
      * 客户主键
@@ -197,7 +196,7 @@ public class CustomerRefVO extends BaseRefVO {
     public String nationalTax;
 
     /**
-     * 行业类别 ParmsRefVO
+     * 行业类别 ParmsDTO
      */
     public String industryType;
 
@@ -257,7 +256,7 @@ public class CustomerRefVO extends BaseRefVO {
     /**注册币种*/
     @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
     @JoinColumn(name = "capitalCur")
-    public CurrtypeRefVO capitalCur;
+    public CurrtypeDTO capitalCur;
     /**注册资本*/
     public BigDecimal capital;
     /**注册地址*/
@@ -309,7 +308,7 @@ public class CustomerRefVO extends BaseRefVO {
      */
     public Short ifWarrantCust;
 
-//    public CustomerRefVO(String pkCustomer, String customerCode, String customerName, String custNameNew, Short customerType, String customerEngName, Short identityType, String identityNo, Short customerStatus, Short freezeTreatment, String userName, String customerManager, String customerManagerNa, String province, String provinceNa, String city, String district, String industry, Short enterScaleInner, Short enterScale6m, String legalRep, String legalRepresentative, String commAddress, String informAddress, String informAddressZip, String commAddressZip, String fax, String companyMailbox, String nationalTax, String industryType, String industryTypeNa, String customerNo, String financeRelated, String equipmentRelated, String otherDept, String governmentRelated, String governFinanceRelated, String governOtherSectors, Short billstatus, Short enterScalePbc, String establishDate, Integer employeeNum, CurrtypeRefVO capitalCur, BigDecimal capital, String regAddress, Short schoolGrade, Short hospitalGrade, Short ifNew, String economicType, String customerProperty, String industry1, String industry2, String pkIndustry1, String pkIndustry2, String industry3, Short ifWarrantCust) {
+//    public CustomerDTO(String pkCustomer, String customerCode, String customerName, String custNameNew, Short customerType, String customerEngName, Short identityType, String identityNo, Short customerStatus, Short freezeTreatment, String userName, String customerManager, String customerManagerNa, String province, String provinceNa, String city, String district, String industry, Short enterScaleInner, Short enterScale6m, String legalRep, String legalRepresentative, String commAddress, String informAddress, String informAddressZip, String commAddressZip, String fax, String companyMailbox, String nationalTax, String industryType, String industryTypeNa, String customerNo, String financeRelated, String equipmentRelated, String otherDept, String governmentRelated, String governFinanceRelated, String governOtherSectors, Short billstatus, Short enterScalePbc, String establishDate, Integer employeeNum, CurrtypeDTO capitalCur, BigDecimal capital, String regAddress, Short schoolGrade, Short hospitalGrade, Short ifNew, String economicType, String customerProperty, String industry1, String industry2, String pkIndustry1, String pkIndustry2, String industry3, Short ifWarrantCust) {
 //        this.pkCustomer = pkCustomer;
 //        this.customerCode = customerCode;
 //        this.customerName = customerName;
@@ -707,11 +706,11 @@ public class CustomerRefVO extends BaseRefVO {
         this.employeeNum = employeeNum;
     }
 
-    public CurrtypeRefVO getCapitalCur() {
+    public CurrtypeDTO getCapitalCur() {
         return capitalCur;
     }
 
-    public void setCapitalCur(CurrtypeRefVO capitalCur) {
+    public void setCapitalCur(CurrtypeDTO capitalCur) {
         this.capitalCur = capitalCur;
     }
 
@@ -817,5 +816,15 @@ public class CustomerRefVO extends BaseRefVO {
 
     public void setIfWarrantCust(Short ifWarrantCust) {
         this.ifWarrantCust = ifWarrantCust;
+    }
+
+    @Override
+    public String getPk() {
+        return pkCustomer;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkCustomer = pk;
     }
 }

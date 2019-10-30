@@ -1,5 +1,6 @@
-package com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO;
+package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
 import javax.persistence.Entity;
@@ -57,7 +58,7 @@ import java.math.BigDecimal;
         "          A.USE_ADDRESS," +
         "          A.ACCEPTOR" +
         "    )")
-public class ProjectRentThingRefVO extends BaseRefVO {
+public class ProjectRentThingDTO extends BaseEntity {
 
 
     /**
@@ -106,7 +107,7 @@ public class ProjectRentThingRefVO extends BaseRefVO {
 
     public String thingName;
 
-//    public ProjectRentThingRefVO(String sourceBill, String thingModel, BigDecimal totalCost, BigDecimal netWorth, BigDecimal valuation, String paramName, String deliveryDate, String deliveryAddress, String useAddress, String acceptor, String thingCode, String thingName) {
+//    public ProjectRentThingDTO(String sourceBill, String thingModel, BigDecimal totalCost, BigDecimal netWorth, BigDecimal valuation, String paramName, String deliveryDate, String deliveryAddress, String useAddress, String acceptor, String thingCode, String thingName) {
 //        this.sourceBill = sourceBill;
 //        this.thingModel = thingModel;
 //        this.totalCost = totalCost;
@@ -219,5 +220,15 @@ public class ProjectRentThingRefVO extends BaseRefVO {
 
     public void setThingName(String thingName) {
         this.thingName = thingName;
+    }
+
+    @Override
+    public String getPk() {
+        return pkProjectInfo;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkProjectInfo = pk;
     }
 }

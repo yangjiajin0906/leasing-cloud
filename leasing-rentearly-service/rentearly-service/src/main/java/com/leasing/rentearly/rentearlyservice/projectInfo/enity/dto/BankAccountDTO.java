@@ -1,10 +1,13 @@
-package com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO;
+package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
+import lombok.Value;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.beans.ConstructorProperties;
 
 /**
  * @project:leasing-cloud
@@ -14,7 +17,7 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name = "v_bank_account")
-public class BankAccountRefVO extends BaseRefVO {
+public class BankAccountDTO extends BaseEntity {
 
     /**
      * 客户主键
@@ -78,7 +81,7 @@ public class BankAccountRefVO extends BaseRefVO {
      */
     public String initialPk;
 
-//    public BankAccountRefVO(String pkCustomer, String accountNo, String accountName, String accountBank, String bankNo, String bankProvince, String bankCity, String bankAddress, Short accountUse, Short accountType, Short accountStatus, Short sourceType, String initialPk) {
+//    public BankAccountDTO(String pkCustomer, String accountNo, String accountName, String accountBank, String bankNo, String bankProvince, String bankCity, String bankAddress, Short accountUse, Short accountType, Short accountStatus, Short sourceType, String initialPk) {
 //        this.pkCustomer = pkCustomer;
 //        this.accountNo = accountNo;
 //        this.accountName = accountName;
@@ -208,4 +211,15 @@ public class BankAccountRefVO extends BaseRefVO {
     public void setInitialPk(String initialPk) {
         this.initialPk = initialPk;
     }
+
+    @Override
+    public String getPk() {
+        return pkCustBankAccount;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkCustBankAccount = pk;
+    }
+
 }

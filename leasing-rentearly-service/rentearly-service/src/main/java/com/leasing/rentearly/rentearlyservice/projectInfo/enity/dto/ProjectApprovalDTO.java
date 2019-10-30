@@ -1,5 +1,6 @@
-package com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO;
+package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 import com.leasing.common.vo.foundation.OrgVO;
 
@@ -13,8 +14,8 @@ import java.math.BigDecimal;
  * @description: 立项参照
  **/
 @Entity
-@Table(name="yls_project_approval")
-public class ProjectApprovalRefVO extends BaseRefVO {
+@Table(name = "yls_project_approval")
+public class ProjectApprovalDTO extends BaseEntity {
 
     @Id
     public String pkProjectApproval;
@@ -84,7 +85,7 @@ public class ProjectApprovalRefVO extends BaseRefVO {
     @JoinColumn(name = "pkProOrg")
     public OrgVO pkProOrg;
 
-//    public ProjectApprovalRefVO(String pkProjectApproval,String projectFilingCode,String projectFilingName, Integer projectFilingBatch, String pkConsumer, String projectApprovalRule, Short projectType, BigDecimal releaseAmount, BigDecimal areaApproveTotal, BigDecimal areaLoanTotal, BigDecimal areaSurplusTotal, BigDecimal areaUsableTotal, BigDecimal industryApproveTotal, BigDecimal industryLoanTotal, BigDecimal industrySurplusTotal, BigDecimal industryUsableTotal, OrgVO pkProOrg) {
+//    public ProjectApprovalDTO(String pkProjectApproval,String projectFilingCode,String projectFilingName, Integer projectFilingBatch, String pkConsumer, String projectApprovalRule, Short projectType, BigDecimal releaseAmount, BigDecimal areaApproveTotal, BigDecimal areaLoanTotal, BigDecimal areaSurplusTotal, BigDecimal areaUsableTotal, BigDecimal industryApproveTotal, BigDecimal industryLoanTotal, BigDecimal industrySurplusTotal, BigDecimal industryUsableTotal, OrgVO pkProOrg) {
 //        this.pkProjectApproval = pkProjectApproval;
 //        this.projectFilingCode = projectFilingCode;
 //        this.projectFilingName = projectFilingName;
@@ -241,5 +242,15 @@ public class ProjectApprovalRefVO extends BaseRefVO {
 
     public void setPkProOrg(OrgVO pkProOrg) {
         this.pkProOrg = pkProOrg;
+    }
+
+    @Override
+    public String getPk() {
+        return pkProjectApproval;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkProjectApproval = pk;
     }
 }

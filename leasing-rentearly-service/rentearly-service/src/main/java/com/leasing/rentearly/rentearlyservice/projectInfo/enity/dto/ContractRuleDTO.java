@@ -1,5 +1,6 @@
-package com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO;
+package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ import javax.persistence.Table;
         "  FROM YLS_CONTRACT_RULE CR" +
         "  LEFT JOIN SM_FUNCREGISTER FR" +
         "    ON CR.PK_FUN_NODE = FR.CFUNID)")
-public class ContractRuleRefVO extends BaseRefVO {
+public class ContractRuleDTO extends BaseEntity {
 
     @Id
     public String pkContractRule;
@@ -35,7 +36,7 @@ public class ContractRuleRefVO extends BaseRefVO {
 
     public String funCode;
 
-//    public ContractRuleRefVO(String pkContractRule, String ruleCode, String ruleName, String memo, String funCode) {
+//    public ContractRuleDTO(String pkContractRule, String ruleCode, String ruleName, String memo, String funCode) {
 //        this.pkContractRule = pkContractRule;
 //        this.ruleCode = ruleCode;
 //        this.ruleName = ruleName;
@@ -84,5 +85,15 @@ public class ContractRuleRefVO extends BaseRefVO {
 
     public void setFunCode(String funCode) {
         this.funCode = funCode;
+    }
+
+    @Override
+    public String getPk() {
+        return pkContractRule;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkContractRule = pk;
     }
 }

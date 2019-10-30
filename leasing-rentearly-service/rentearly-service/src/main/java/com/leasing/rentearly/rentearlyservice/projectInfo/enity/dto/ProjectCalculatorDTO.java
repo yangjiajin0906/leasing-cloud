@@ -1,6 +1,6 @@
-package com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO;
+package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
-import com.leasing.common.base.entity.BaseRefVO;
+import com.leasing.common.base.entity.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 
 /**
  * @project:leasing-cloud
- * @date:2019/10/28
+ * @date:2019/10/30
  * @author:jiaoshy@yonyou.com
- * @description: 报价参照
+ * @description:
  **/
 @Entity
 @Table(name = "(" +
@@ -165,7 +165,7 @@ import java.math.BigDecimal;
         "          A.FINANCE_IRR_YEAR" +
         "          /* [会计IRR算法调整] add wangjj 2016/10/28 end */" +
         "        )")
-public class ProjectCalculatorRefVO extends BaseRefVO {
+public class ProjectCalculatorDTO extends BaseEntity {
 
     @Id
     public String pkProjectInfo;
@@ -296,44 +296,44 @@ public class ProjectCalculatorRefVO extends BaseRefVO {
     private BigDecimal financeNotaxIrr;
 
 
-//    public ProjectCalculatorRefVO(String pkProjectInfo, String quotName, String quotCode, String limitName, Short leaseMethod, Short taxMode, Integer leaseTimes, Short leaseFreq, Short leaseCalMethod, BigDecimal finalRate, BigDecimal totalAmountEquipment, BigDecimal netFinanceCash, BigDecimal tradeDiscount, BigDecimal planCashLoan, BigDecimal factCashLoan, BigDecimal downPayment, BigDecimal depositCash, BigDecimal srvfeeCashIn, BigDecimal srvfeeCashOut, BigDecimal leaseCash, BigDecimal leaseInterest, BigDecimal leaseCorpus, BigDecimal commercialIrr, BigDecimal vatIrr, BigDecimal financeIrr, BigDecimal rentIrr, BigDecimal projectIrr, BigDecimal projectNotaxIrr, BigDecimal feeDistrIrr, BigDecimal contractIrr, BigDecimal auditIrr, BigDecimal lesseeIrr, BigDecimal financeNotaxIrr) {
-//        this.pkProjectInfo = pkProjectInfo;
-//        this.quotName = quotName;
-//        this.quotCode = quotCode;
-//        this.limitName = limitName;
-//        this.leaseMethod = leaseMethod;
-//        this.taxMode = taxMode;
-//        this.leaseTimes = leaseTimes;
-//        this.leaseFreq = leaseFreq;
-//        this.leaseCalMethod = leaseCalMethod;
-//        this.finalRate = finalRate;
-//        this.totalAmountEquipment = totalAmountEquipment;
-//        this.netFinanceCash = netFinanceCash;
-//        this.tradeDiscount = tradeDiscount;
-//        this.planCashLoan = planCashLoan;
-//        this.factCashLoan = factCashLoan;
-//        this.downPayment = downPayment;
-//        this.depositCash = depositCash;
-//        this.srvfeeCashIn = srvfeeCashIn;
-//        this.srvfeeCashOut = srvfeeCashOut;
-//        this.leaseCash = leaseCash;
-//        this.leaseInterest = leaseInterest;
-//        this.leaseCorpus = leaseCorpus;
-//        this.commercialIrr = commercialIrr;
-//        this.vatIrr = vatIrr;
-//        this.financeIrr = financeIrr;
-//        this.rentIrr = rentIrr;
-//        this.projectIrr = projectIrr;
-//        this.projectNotaxIrr = projectNotaxIrr;
-//        this.feeDistrIrr = feeDistrIrr;
-//        this.contractIrr = contractIrr;
-//        this.auditIrr = auditIrr;
-//        this.lesseeIrr = lesseeIrr;
-//        this.financeNotaxIrr = financeNotaxIrr;
-//        this.setPk(pkProjectInfo);
-//        this.setName(quotName);
-//        this.setCode(quotCode);
-//    }
+    //    public ProjectCalculatorRefVO(String pkProjectInfo, String quotName, String quotCode, String limitName, Short leaseMethod, Short taxMode, Integer leaseTimes, Short leaseFreq, Short leaseCalMethod, BigDecimal finalRate, BigDecimal totalAmountEquipment, BigDecimal netFinanceCash, BigDecimal tradeDiscount, BigDecimal planCashLoan, BigDecimal factCashLoan, BigDecimal downPayment, BigDecimal depositCash, BigDecimal srvfeeCashIn, BigDecimal srvfeeCashOut, BigDecimal leaseCash, BigDecimal leaseInterest, BigDecimal leaseCorpus, BigDecimal commercialIrr, BigDecimal vatIrr, BigDecimal financeIrr, BigDecimal rentIrr, BigDecimal projectIrr, BigDecimal projectNotaxIrr, BigDecimal feeDistrIrr, BigDecimal contractIrr, BigDecimal auditIrr, BigDecimal lesseeIrr, BigDecimal financeNotaxIrr) {
+    //        this.pkProjectInfo = pkProjectInfo;
+    //        this.quotName = quotName;
+    //        this.quotCode = quotCode;
+    //        this.limitName = limitName;
+    //        this.leaseMethod = leaseMethod;
+    //        this.taxMode = taxMode;
+    //        this.leaseTimes = leaseTimes;
+    //        this.leaseFreq = leaseFreq;
+    //        this.leaseCalMethod = leaseCalMethod;
+    //        this.finalRate = finalRate;
+    //        this.totalAmountEquipment = totalAmountEquipment;
+    //        this.netFinanceCash = netFinanceCash;
+    //        this.tradeDiscount = tradeDiscount;
+    //        this.planCashLoan = planCashLoan;
+    //        this.factCashLoan = factCashLoan;
+    //        this.downPayment = downPayment;
+    //        this.depositCash = depositCash;
+    //        this.srvfeeCashIn = srvfeeCashIn;
+    //        this.srvfeeCashOut = srvfeeCashOut;
+    //        this.leaseCash = leaseCash;
+    //        this.leaseInterest = leaseInterest;
+    //        this.leaseCorpus = leaseCorpus;
+    //        this.commercialIrr = commercialIrr;
+    //        this.vatIrr = vatIrr;
+    //        this.financeIrr = financeIrr;
+    //        this.rentIrr = rentIrr;
+    //        this.projectIrr = projectIrr;
+    //        this.projectNotaxIrr = projectNotaxIrr;
+    //        this.feeDistrIrr = feeDistrIrr;
+    //        this.contractIrr = contractIrr;
+    //        this.auditIrr = auditIrr;
+    //        this.lesseeIrr = lesseeIrr;
+    //        this.financeNotaxIrr = financeNotaxIrr;
+    //        this.setPk(pkProjectInfo);
+    //        this.setName(quotName);
+    //        this.setCode(quotCode);
+    //    }
 
 
     public String getPkProjectInfo() {
@@ -598,5 +598,16 @@ public class ProjectCalculatorRefVO extends BaseRefVO {
 
     public void setFinanceNotaxIrr(BigDecimal financeNotaxIrr) {
         this.financeNotaxIrr = financeNotaxIrr;
+    }
+
+
+    @Override
+    public String getPk() {
+        return null;
+    }
+
+    @Override
+    public void setPk(String pk) {
+
     }
 }
