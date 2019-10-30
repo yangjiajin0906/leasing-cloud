@@ -185,7 +185,7 @@ public class CalCommonArithmeticUtils {
             }
             //termInterest = balanceAmount.multiply(termRate).setScale(diag, RoundingMode.HALF_UP);
             //计算每期利息yjj
-            termInterest = getTermInterest(balanceAmount,termRate,diag);
+            termInterest = getTermInterestAmount(balanceAmount,termRate,diag);
             vo.setLease_cash(termRentAmount);
             vo.setLease_interest(termInterest);
             // 处理先付项目，第一期利息为0
@@ -220,10 +220,10 @@ public class CalCommonArithmeticUtils {
 
                                     //重算本期本金yjj
                                     //termCorpus = termRentAmount.subtract(balanceAmount.multiply(termRate).setScale(diag, RoundingMode.HALF_UP));
-                                    termCorpus = termRentAmount.subtract(getTermInterest(balanceAmount,termRate,diag));
+                                    termCorpus = termRentAmount.subtract(getTermInterestAmount(balanceAmount,termRate,diag));
                                     //重算利息yjj
                                     //termInterest = (balanceAmount.multiply(termRate).setScale(diag, RoundingMode.HALF_UP)).subtract(oldbalanceAmount.multiply(dayRate).multiply(new BigDecimal(day))).setScale(diag, RoundingMode.HALF_UP);
-                                    termInterest = getTermInterest(balanceAmount, termRate, diag).subtract(getTermInterestAmount(oldbalanceAmount,dayRate,day,diag));
+                                    termInterest = getTermInterestAmount(balanceAmount, termRate, diag).subtract(getTermInterestAmount(oldbalanceAmount,dayRate,day,diag));
                                     //租金=本金+利息
                                     BigDecimal newTermRentAmount = termCorpus.add(termInterest);
                                     vo.setLease_cash(newTermRentAmount);
@@ -262,7 +262,7 @@ public class CalCommonArithmeticUtils {
                                             //重算利息
                                             partInterest = partInterest.add(oldbalanceAmount.multiply(dayRate).multiply(new BigDecimal(day)).setScale(diag, RoundingMode.HALF_UP));
                                             //termInterest = (balanceAmount.multiply(termRate).setScale(diag, RoundingMode.HALF_UP)).subtract(partInterest).setScale(diag, RoundingMode.HALF_UP);
-                                            termInterest = (getTermInterest(balanceAmount, termRate, diag)).subtract(partInterest).setScale(diag, RoundingMode.HALF_UP);
+                                            termInterest = (getTermInterestAmount(balanceAmount, termRate, diag)).subtract(partInterest).setScale(diag, RoundingMode.HALF_UP);
                                             //租金=本金+利息
                                             BigDecimal newTermRentAmount  = termCorpus.add(termInterest);
 
@@ -352,7 +352,7 @@ public class CalCommonArithmeticUtils {
                 termBeginDate = dayParamList.get(i - 2).getCal_date();
                 termEndDate = dayParamList.get(i - 1).getCal_date();
             }
-            termInterest = getTermInterest(dayParam, balanceAmount, diag,arithmeticParm.getIrr_days(),arithmeticParm.getDate_interest(),puttingDate).setScale(diag, RoundingMode.HALF_UP);
+            termInterest = getTermInterestAmount(dayParam, balanceAmount, diag,arithmeticParm.getIrr_days(),arithmeticParm.getDate_interest(),puttingDate).setScale(diag, RoundingMode.HALF_UP);
             //判断此租期内是否存在投放计划，若存在，则剩余本金 = 剩余本金+投放金额
             if(loanPlanList!=null){
                 for(int j=0;j<loanPlanList.size();j++){
@@ -371,7 +371,7 @@ public class CalCommonArithmeticUtils {
                                 balanceAmount = balanceAmount.add(oldbalanceAmount);
                                 getTermRentAmount(caldayParamList, balanceAmount);
                                 calCashAgainFalg = true;
-                                termInterest = getTermInterest(dayParam, balanceAmount, diag,arithmeticParm.getIrr_days(),arithmeticParm.getDate_interest(),puttingDate).setScale(diag, RoundingMode.HALF_UP);
+                                termInterest = getTermInterestAmount(dayParam, balanceAmount, diag,arithmeticParm.getIrr_days(),arithmeticParm.getDate_interest(),puttingDate).setScale(diag, RoundingMode.HALF_UP);
                                 break;
                             }else{//按本次投放金额计息
                                 for(int m=0;m<j;m++){
@@ -395,7 +395,7 @@ public class CalCommonArithmeticUtils {
                                         dayParam.setBegin_date(termBeginDate);
                                         termBeginDate = calLeaseLoanPlanVO.getPlan_date();
                                         //计算本期开始到本次投放之间的利息
-                                        BigDecimal tempCash = getTermInterest(dayParam, balanceAmount, diag,arithmeticParm.getIrr_days(),arithmeticParm.getDate_interest(),puttingDate);
+                                        BigDecimal tempCash = getTermInterestAmount(dayParam, balanceAmount, diag,arithmeticParm.getIrr_days(),arithmeticParm.getDate_interest(),puttingDate);
                                         timeCash = timeCash.add(tempCash);
                                         tempBalance = balanceAmount;
                                         tempBalance = tempBalance.add(tempCash);
@@ -410,7 +410,7 @@ public class CalCommonArithmeticUtils {
 
                                     }
                                 }
-                                BigDecimal timeCash2 =getTermInterest(dayParam, tempBalance, diag,arithmeticParm.getIrr_days(),arithmeticParm.getDate_interest(),puttingDate);
+                                BigDecimal timeCash2 =getTermInterestAmount(dayParam, tempBalance, diag,arithmeticParm.getIrr_days(),arithmeticParm.getDate_interest(),puttingDate);
                                 termInterest = timeCash.add(timeCash2);
                                 break;
                             }
@@ -785,7 +785,7 @@ public class CalCommonArithmeticUtils {
      *            计算精度
      * @return
      */
-    public static BigDecimal getTermInterest(BigDecimal puttingAmount, BigDecimal termRate,int diag) {
+    public static BigDecimal getTermInterestAmount(BigDecimal puttingAmount, BigDecimal termRate,int diag) {
         return puttingAmount.multiply(termRate).setScale(diag, RoundingMode.HALF_UP);
     }
 
@@ -832,7 +832,7 @@ public class CalCommonArithmeticUtils {
      *            投放日期
      * @return
      */
-    public static BigDecimal getTermInterest(ArithmeticCoreDayParam dayParam, BigDecimal balanceAmount, int diag, Short irr_days,
+    public static BigDecimal getTermInterestAmount(ArithmeticCoreDayParam dayParam, BigDecimal balanceAmount, int diag, Short irr_days,
                                                    Boolean truncationTime , String puttingDate ) {
         // 每期利息
         BigDecimal termInterest = BigDecimal.ZERO;

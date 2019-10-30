@@ -58,7 +58,7 @@ public interface CalculateService {
      * 分页查询
      * @return
      */
-    List<CalculatorVO> pageQuery(Pagination pagination, CalculatorQueryVO vo);
+    PageQueryData<CalculatorVO> pageQuery(Pagination pagination, CalculatorQueryVO vo);
 
     /**
      * @description 查询字表数据
