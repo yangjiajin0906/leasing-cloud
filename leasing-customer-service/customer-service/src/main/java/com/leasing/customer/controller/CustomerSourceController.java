@@ -1,7 +1,7 @@
 package com.leasing.customer.controller;
 
 import com.leasing.common.base.web.ResResult;
-import com.leasing.common.utils.ResultUtils;
+import com.leasing.common.utils.base.ResultUtils;
 import com.leasing.customer.dao.vo.CustRelatedCompanyVO;
 import com.leasing.customer.service.CustRelatedCompanyService;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,7 +1,7 @@
 package com.leasing.customer.controller;
 
 import com.leasing.common.base.web.ResResult;
-import com.leasing.common.utils.ResultUtils;
+import com.leasing.common.utils.base.ResultUtils;
 import com.leasing.customer.dao.dos.CustomerCorpDO;
 import com.leasing.customer.dao.repository.CustomerCorpRepo;
 import com.leasing.customer.dao.repository.CustomerRepo;

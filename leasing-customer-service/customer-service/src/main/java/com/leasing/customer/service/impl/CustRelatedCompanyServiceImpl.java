@@ -1,6 +1,6 @@
 package com.leasing.customer.service.impl;
 
-import com.leasing.common.utils.DozerUtils;
+import com.leasing.common.utils.base.DozerUtils;
 import com.leasing.customer.dao.dos.CustRelatedCompanyDO;
 import com.leasing.common.dto.customer.CustomerDTO;
 import com.leasing.customer.dao.repository.CustRelatedCompanyRepo;

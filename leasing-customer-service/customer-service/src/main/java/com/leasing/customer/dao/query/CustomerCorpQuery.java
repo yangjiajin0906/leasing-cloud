@@ -35,9 +35,4 @@ public class CustomerCorpQuery extends BaseQuery {
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
     }
-
-    @Override
-    public Specification toSpec() {
-        return null;
-    }
 }

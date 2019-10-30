@@ -2,8 +2,8 @@ package com.leasing.customer.service.impl;
 
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
-import com.leasing.common.utils.DozerUtils;
-import com.leasing.common.utils.ResultUtils;
+import com.leasing.common.utils.base.DozerUtils;
+import com.leasing.common.utils.base.ResultUtils;
 import com.leasing.customer.dao.dos.CustomerCorpDO;
 import com.leasing.customer.dao.dos.CustomerDO;
 import com.leasing.customer.dao.query.CustomerCorpQuery;
@@ -87,16 +87,11 @@ public class CustomerCorpServiceImpl implements CustomerCorpService {
         return customerCorpRepo.findOneAllByCustomerName(customerName);
     }
 
-    @Override
-    public List<CustomerCorpAllVO> findListByConditions(Map<String, Object> conditions) {
-
-        return null;
-    }
 
     @Override
     public List<CustomerCorpAllVO> pageQuery(Pagination pagination, CustomerCorpQuery query) {
         String JPQL = "select b from CustomerCorpAllVO b where b.ifNew = 0 ";
-        return customerCorpRepo.pageQuery(pagination, query, JPQL);
+        return (List<CustomerCorpAllVO>) customerCorpRepo.pageQuery(pagination, query, JPQL);
     }
 
     @Override
@@ -116,12 +111,6 @@ public class CustomerCorpServiceImpl implements CustomerCorpService {
     @Override
     public void save(CustomerCorpVO vo) {
         customerService.save(new CustomerDO());
-    }
-
-    @Override
-    @Transactional
-    public void updateBillStatus(String billstatus, String pkCustomer) {
-
     }
 
     @Override
