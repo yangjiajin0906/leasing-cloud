@@ -16,10 +16,10 @@ import java.util.List;
  * @description:
  **/
 public class DFuncMenuQuery extends BaseQuery {
-    @QueryCondition(func = MatchType.like)
+    @QueryCondition(func = MatchType.like,field = "s.funcCode")
     private String funcCode;
 
-    @QueryCondition(func = MatchType.like)
+    @QueryCondition(func = MatchType.like,field = "s.funcName")
     private String funcName;
 
     public String getFuncCode() {

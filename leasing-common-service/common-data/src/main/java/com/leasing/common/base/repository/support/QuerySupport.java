@@ -106,6 +106,7 @@ public class QuerySupport<S extends BaseQuery>{
         //判断是否生成了动态条件
         if(StringUtils.isBlank(whereSql.toString())){
             queryDataParam.setIfArrange(false);
+            queryDataParam.setParamMap(map);
         } else {
             String sqlWhere = StringUtils.isBlank(whereSql.toString()) ? ""
                     : flag ? whereSql.toString() : " where " + whereSql.toString();
@@ -132,7 +133,7 @@ public class QuerySupport<S extends BaseQuery>{
         if(ifWhere(sql)){
             //where条件开始的地方
             i = upperCaseSql.lastIndexOf("WHERE");
-            result.insert(i," " + sqlWhere + " AND ");
+            result.insert(i+5," " + sqlWhere + " AND ");
             return result.toString();
         } else if(ifHaving(sql)){
             i = upperCaseSql.lastIndexOf("HAVING");
