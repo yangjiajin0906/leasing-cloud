@@ -67,7 +67,7 @@
         <dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc6</artifactId>
-            <version>11.2.0.1.0</version>
+            <version>11.2.0.4.0-atlassian-hosted</version>
         </dependency>
         <!--自动生成getter setter方法-->
         <dependency>
@@ -107,6 +107,12 @@
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
             <version>2.10.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
             <scope>compile</scope>
         </dependency>
         <!--本地依赖代码包-->
