@@ -33,11 +33,16 @@ public class QuerySupport<S extends BaseQuery>{
      * @return
      */
     public QueryDataParam queryWhere(S query, String sql, Boolean ifNative){
+        QueryDataParam queryDataParam = new QueryDataParam();
+        Map<String,Object> map = new HashMap();
+        if(query == null){
+            queryDataParam.setIfArrange(false);
+            queryDataParam.setParamMap(map);
+            return queryDataParam;
+        }
         List<Field> fields = getAllFieldsWithRoot(query.getClass());
         StringBuffer whereSql = new StringBuffer();
         Boolean flag = ifWhere(sql);
-        QueryDataParam queryDataParam = new QueryDataParam();
-        Map<String,Object> map = new HashMap();
         for (Field field : fields) {
             //获取注解
             QueryCondition qw = field.getAnnotation(QueryCondition.class);
