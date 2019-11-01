@@ -33,11 +33,16 @@ public class QuerySupport<S extends BaseQuery>{
      * @return
      */
     public QueryDataParam queryWhere(S query, String sql, Boolean ifNative){
+        QueryDataParam queryDataParam = new QueryDataParam();
+        Map<String,Object> map = new HashMap();
+        if(query == null){
+            queryDataParam.setIfArrange(false);
+            queryDataParam.setParamMap(map);
+            return queryDataParam;
+        }
         List<Field> fields = getAllFieldsWithRoot(query.getClass());
         StringBuffer whereSql = new StringBuffer();
         Boolean flag = ifWhere(sql);
-        QueryDataParam queryDataParam = new QueryDataParam();
-        Map<String,Object> map = new HashMap();
         for (Field field : fields) {
             //获取注解
             QueryCondition qw = field.getAnnotation(QueryCondition.class);
@@ -106,6 +111,7 @@ public class QuerySupport<S extends BaseQuery>{
         //判断是否生成了动态条件
         if(StringUtils.isBlank(whereSql.toString())){
             queryDataParam.setIfArrange(false);
+            queryDataParam.setParamMap(map);
         } else {
             String sqlWhere = StringUtils.isBlank(whereSql.toString()) ? ""
                     : flag ? whereSql.toString() : " where " + whereSql.toString();
@@ -132,7 +138,7 @@ public class QuerySupport<S extends BaseQuery>{
         if(ifWhere(sql)){
             //where条件开始的地方
             i = upperCaseSql.lastIndexOf("WHERE");
-            result.insert(i," " + sqlWhere + " AND ");
+            result.insert(i+5," " + sqlWhere + " AND ");
             return result.toString();
         } else if(ifHaving(sql)){
             i = upperCaseSql.lastIndexOf("HAVING");

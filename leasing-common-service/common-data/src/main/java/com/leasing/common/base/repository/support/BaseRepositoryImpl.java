@@ -98,12 +98,15 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
         String sql = getQueryByName(queryName);
         String countName = querySupport.countWhere(queryName);
         String count = getQueryByName(countName);
+        //处理查询sql的形式
         QueryDataParam queryDataParam = querySupport.queryWhere(query, sql, ifNative);
+        //处理count查询参数的形式
+        QueryDataParam countDataParam = querySupport.queryWhere(query, count, ifNative);
         String querySql = sql;
         String countSql = count;
         if(queryDataParam.getIfArrange()){
             querySql = queryDataParam.getSql();
-            countSql = count + queryDataParam.getWhere();
+            countSql = countDataParam.getSql();
         }
         Query queryResult,countResult = null;
         if(ifNative){
@@ -119,11 +122,11 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
         log.debug(countSql);
 
         Map<String,Object> paramMap = queryDataParam.getParamMap();
-        for(Iterator<String> key = paramMap.keySet().iterator();key.hasNext();){
+        for (Iterator<String> key = paramMap.keySet().iterator(); key.hasNext(); ) {
             String paramKey = key.next();
             queryResult.setParameter(paramKey, paramMap.get(paramKey));
         }
-        for(Iterator<String> key = paramMap.keySet().iterator();key.hasNext();){
+        for (Iterator<String> key = paramMap.keySet().iterator(); key.hasNext(); ) {
             String paramKey = key.next();
             countResult.setParameter(paramKey, paramMap.get(paramKey));
         }
