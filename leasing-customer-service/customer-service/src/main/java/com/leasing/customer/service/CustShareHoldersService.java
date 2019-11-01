@@ -1,6 +1,9 @@
 package com.leasing.customer.service;
 
+import com.leasing.common.base.repository.support.PageQueryData;
+import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.dto.customer.CustomerDTO;
+import com.leasing.customer.dao.query.CustShareHoldersQuery;
 import com.leasing.customer.dao.vo.CustRelatedCompanyVO;
 import com.leasing.customer.dao.vo.CustShareHoldersVO;
 
@@ -15,12 +18,11 @@ import java.util.List;
 public interface CustShareHoldersService {
 
     /**
-     * 查询客户的客户股东情况
-     *
-     * @param pkCustomer 客户主键
-     * @return 客户股东列表
+     * 分页查询
+     * @param pagination 分页
+     * @param query 查询条件
+     * @return 分页列表
      */
-    List<CustShareHoldersVO> findByCustomer(String pkCustomer);
 
-    List<CustShareHoldersVO> findByCustomer(CustomerDTO customerDTO);
+    PageQueryData<CustShareHoldersVO> pageQuery(Pagination pagination, CustShareHoldersQuery query);
 }

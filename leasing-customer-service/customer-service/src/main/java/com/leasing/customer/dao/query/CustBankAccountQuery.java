@@ -2,15 +2,15 @@ package com.leasing.customer.dao.query;
 
 import com.leasing.common.annotation.QueryCondition;
 import com.leasing.common.base.entity.BaseQuery;
-import org.springframework.data.jpa.domain.Specification;
+import com.leasing.common.base.entity.BaseVO;
 
 /**
  * @project:leasing-cloud
- * @date:2019-10-29
+ * @date:2019-10-31
  * @author:zhangzhhn@yonyou.com
- * @description: 股权情况查询条件
+ * @description: 银行帐号查询
  **/
-public class CustShareHoldersQuery extends BaseQuery {
+public class CustBankAccountQuery extends BaseQuery {
 
     @QueryCondition(field = "a.pkCustomer.pkCustomer")
     private String pkCustomer;

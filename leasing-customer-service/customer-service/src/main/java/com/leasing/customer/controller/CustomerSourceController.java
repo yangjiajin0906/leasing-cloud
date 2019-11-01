@@ -1,7 +1,11 @@
 package com.leasing.customer.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.leasing.common.base.repository.support.PageQueryData;
+import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.base.ResultUtils;
+import com.leasing.customer.dao.query.CustRelatedCompanyQuery;
 import com.leasing.customer.dao.vo.CustRelatedCompanyVO;
 import com.leasing.customer.service.CustRelatedCompanyService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +22,7 @@ import java.util.List;
  * @description:
  **/
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/customer/customerSource")
 public class CustomerSourceController {
 
     @Resource
@@ -26,9 +30,10 @@ public class CustomerSourceController {
 
 
     @PostMapping("/querySourceByCustomer")
-    public ResResult querySourceByCustomer(String data) {
-
-        List<CustRelatedCompanyVO> list = service.findByCustomer("0001MG00000000029381");
+    public ResResult querySourceByCustomer(String query) {
+        CustRelatedCompanyQuery companyQuery = JSON.parseObject(query, CustRelatedCompanyQuery.class);
+        Pagination pagination = new Pagination(1, 50);
+        PageQueryData<CustRelatedCompanyVO> list = service.pageQuery(pagination, companyQuery);
         return ResultUtils.successWithData(list);
     }
 
