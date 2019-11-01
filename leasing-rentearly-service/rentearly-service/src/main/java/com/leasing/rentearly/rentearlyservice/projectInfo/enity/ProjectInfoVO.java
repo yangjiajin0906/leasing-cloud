@@ -19,7 +19,7 @@ import java.math.BigDecimal;
  **/
 @Entity
 @Table(name = "yls_project_info")
-@JsonIgnoreProperties(value = { "hibernateLazyInitializer"})
+@JsonIgnoreProperties(value = { "hibernateEAGERInitializer","handler"})
 public class ProjectInfoVO extends BaseVO {
 
     /**
@@ -47,7 +47,7 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 立项主键
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkProjectApproval")
     public ProjectApprovalDTO pkProjectApproval;
     /**
@@ -57,7 +57,7 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 项目部门
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "projectDept")
     public DeptVO projectDept;
     /**
@@ -71,7 +71,7 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 项目经理
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkPrjManager")
     public UserVO pkPrjManager;
     /**
@@ -141,7 +141,7 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 授信币种
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "grantingCurrency")
     public CurrtypeDTO grantingCurrency;
     /**
@@ -151,25 +151,25 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 客户评级
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "clientRating")
     public RatingMaintainBDTO clientRating;
     /**
      * 客户主键
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkConsumer")
     public CustomerDTO pkConsumer;
     /**
      * 供应商框架协议主键
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkFrameworkAgreem")
     public ProviderConferDTO pkFrameworkAgreem;
     /**
      * 供应商限额方案主键
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkQuotaScheme")
     public LimitPlanDTO pkQuotaScheme;
     /**
@@ -216,7 +216,7 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 审批文档生成规则
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkContractRule")
     public ContractRuleDTO pkContractRule;
     /**
@@ -278,19 +278,19 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 大区经理
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "regionManager")
     public UserVO regionManager;
     /**
      * 所属片区
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "belongsArea")
     public DeptVO belongsArea;
     /**
      * 片区经理
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "areaManager")
     public UserVO areaManager;
     /**
@@ -319,7 +319,7 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 确认业务领域
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "industryType")
     public ParmsDTO industryType;
     /**
@@ -337,7 +337,7 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 实际融资客户
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkCustFinance")
     public CustomerDTO pkCustFinance;
     /**
@@ -347,19 +347,19 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 项目主办人
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkCustMain")
     public MemberContactDTO pkCustMain;
     /**
      * 项目协办人
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkCustHelp")
     public MemberContactDTO pkCustHelp;
     /**
      * 项目主账户
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkAccount")
     public BankAccountDTO pkAccount;
     /**
@@ -414,10 +414,10 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 项目主表参照的报价信息
      */
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     //@PrimaryKeyJoinColumn(name = "pkProjectInfo",referencedColumnName = "pkProjectInfo")
     @JoinColumn(name = "pkProjectInfo")
-    public ProjectCalculatorDTO projectcal;
+    public ProjectCalculatorDTO projectcalculatorrefvo;
     /**
      * 项目主表参照担保信息
      */
@@ -425,11 +425,11 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 项目主表参照租赁物信息
      */
-    //@ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    //@ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     //@PrimaryKeyJoinColumn(name = "pkProjectInfo",referencedColumnName = "sourceBill")
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkProjectInfo")
-    public ProjectRentThingDTO projectret;
+    public ProjectRentThingDTO projectpledgerefvo;
 
 
     /**
@@ -530,7 +530,7 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 业务范围
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "businessDomain")
     public BusinessDomainDTO businessDomain;
 
@@ -1374,31 +1374,21 @@ public class ProjectInfoVO extends BaseVO {
         this.pkAccount = pkAccount;
     }
 
-    public ProjectCalculatorDTO getProjectcal() {
-        return projectcal;
+
+    public ProjectCalculatorDTO getProjectcalculatorrefvo() {
+        return projectcalculatorrefvo;
     }
 
-    public void setProjectcal(ProjectCalculatorDTO projectcal) {
-        this.projectcal = projectcal;
+    public void setProjectcalculatorrefvo(ProjectCalculatorDTO projectcalculatorrefvo) {
+        this.projectcalculatorrefvo = projectcalculatorrefvo;
     }
 
-    //
-//    public ProjectRentThingDTO getProjectRentThingDTO() {
-//        return ProjectRentThingDTO;
-//    }
-//
-//    public void setProjectRentThingDTO(ProjectRentThingDTO ProjectRentThingDTO) {
-//        this.ProjectRentThingDTO = ProjectRentThingDTO;
-//    }
-
-
-
-    public ProjectRentThingDTO getProjectret() {
-        return projectret;
+    public ProjectRentThingDTO getProjectpledgerefvo() {
+        return projectpledgerefvo;
     }
 
-    public void setProjectret(ProjectRentThingDTO projectret) {
-        this.projectret = projectret;
+    public void setProjectpledgerefvo(ProjectRentThingDTO projectpledgerefvo) {
+        this.projectpledgerefvo = projectpledgerefvo;
     }
 
     public BusinessDomainDTO getBusinessDomain() {

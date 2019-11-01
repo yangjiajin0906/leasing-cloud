@@ -1,5 +1,7 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.leasing.common.base.entity.BaseDTO;
 import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
@@ -23,7 +25,13 @@ import javax.persistence.Transient;
         "        INNER JOIN YLS_PARAM_TYPE B ON A.PK_PARAM_TYPE = B.PK_PARAM_TYPE" +
         "        WHERE B.PARAM_CODE = '1001630'" +
         "     )")
-public class BusinessDomainDTO extends BaseEntity {
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
+public class BusinessDomainDTO extends BaseDTO {
+    @Transient
+    public String name;
+
+    @Transient
+    public String code;
 
     @Id
     public String pkParameter;
@@ -109,17 +117,15 @@ public class BusinessDomainDTO extends BaseEntity {
         this.parentParameter = parentParameter;
     }
 
-    @Override
     public String getPk() {
         return pkParameter;
     }
 
-    @Override
     public void setPk(String pk) {
         this.pkParameter = pk;
     }
 
-//    public BusinessDomainDTO(String pkParameter, String paramCode, String paramName, String paramValue, String pkParamType, String memo, Boolean isEnable, Integer paramType, String parentParameter) {
+    //    public BusinessDomainDTO(String pkParameter, String paramCode, String paramName, String paramValue, String pkParamType, String memo, Boolean isEnable, Integer paramType, String parentParameter) {
 //        this.pkParameter = pkParameter;
 //        this.paramCode = paramCode;
 //        this.paramName = paramName;
@@ -133,4 +139,19 @@ public class BusinessDomainDTO extends BaseEntity {
 //        this.setCode(paramCode);
 //        this.setName(paramName);
 //    }
+    public String getName() {
+        return paramName;
+    }
+
+    public String getCode() {
+        return paramCode;
+    }
+
+    public void setName(String name) {
+        this.name = this.paramName;
+    }
+
+    public void setCode(String code) {
+        this.code = this.paramCode;
+    }
 }

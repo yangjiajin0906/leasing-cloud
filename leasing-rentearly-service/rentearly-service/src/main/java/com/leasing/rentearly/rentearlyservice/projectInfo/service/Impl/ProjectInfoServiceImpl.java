@@ -1,6 +1,8 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.service.Impl;
 
+import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
+import com.leasing.common.utils.base.DozerUtils;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.ProjectInfoVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.dos.ProjectInfoDO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.queryVO.ProjectQueryVO;
@@ -32,19 +34,13 @@ public class ProjectInfoServiceImpl implements ProjectInfoService {
 
 
     @Override
-    public Map pageData(ProjectQueryVO projectQueryVO, Pagination pagination) {
-        Map map = new HashMap();
-        Pageable pageable = new PageRequest(pagination.getCurPage(),pagination.getPageSize());
-        List<ProjectInfoVO> list = projectInfoRepository.pageDataPage(pageable);
-        map.put("result",list);
-        map.put("toTal",20);  //没有分页之前 暂时这么写
-        map.put("code","200");
-        return map;
+    public PageQueryData pageData(ProjectQueryVO projectQueryVO, Pagination pagination) {
+        return projectInfoRepository.pageQuery(pagination,projectQueryVO,"ProjectInfoVO.queryForGrid");
     }
 
     @Override
     public ProjectInfoVO finOne(String id) {
-
+        projectInfoRepository.findOne(id,ProjectInfoVO.class);
         return projectInfoRepository.findOneVO(id);
     }
 
@@ -56,7 +52,8 @@ public class ProjectInfoServiceImpl implements ProjectInfoService {
     @Override
     public ProjectInfoVO saveOrUpdate(ProjectInfoVO projectInfoVO) {
         //这里需要将vo 转换成 DO
-        ProjectInfoDO projectInfoDO = new ProjectInfoDO();
+        ProjectInfoDO projectInfoDO = DozerUtils.convert(projectInfoVO,ProjectInfoDO.class);
+        projectInfoDO.setPkOrg("1003");
         projectInfoRepository.saveAndFlush(projectInfoDO);
         return projectInfoVO;
     }
@@ -71,5 +68,11 @@ public class ProjectInfoServiceImpl implements ProjectInfoService {
     public ProjectInfoVO check(ProjectInfoVO projectInfoVO) {
         //业务逻辑处理
         return null;
+    }
+
+    @Override
+    public void delete(String id) {
+        id = "10000000000000000010";
+        projectInfoRepository.deleteById(id);
     }
 }

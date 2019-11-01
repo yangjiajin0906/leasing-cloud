@@ -1,11 +1,14 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.leasing.common.base.entity.BaseDTO;
 import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @project:leasing-cloud
@@ -15,7 +18,8 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name = "bd_currtype")
-public class CurrtypeDTO extends BaseEntity {
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer","handler"})
+public class CurrtypeDTO extends BaseDTO {
     @Id
     public String pkCurrtype;
 
@@ -67,13 +71,32 @@ public class CurrtypeDTO extends BaseEntity {
         this.currtypesign = currtypesign;
     }
 
-    @Override
     public String getPk() {
         return pkCurrtype;
     }
 
-    @Override
     public void setPk(String pk) {
         this.pkCurrtype = pk;
+    }
+
+    @Transient
+    public String name;
+
+    @Transient
+    public String code;
+    public String getName(){
+        return currtypename;
+    }
+
+    public String getCode(){
+        return currtypecode;
+    }
+
+    public void setName(String name) {
+        this.name = this.currtypename;
+    }
+
+    public void setCode(String code) {
+        this.code = this.currtypecode;
     }
 }

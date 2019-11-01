@@ -3,14 +3,14 @@ package com.leasing.rentearly.rentearlyservice.projectInfo.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONPObject;
+import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
+import com.leasing.common.base.web.ResResult;
+import com.leasing.common.utils.base.ResultUtils;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.ProjectInfoVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.queryVO.ProjectQueryVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.service.ProjectInfoService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.constraints.Null;
@@ -25,7 +25,7 @@ import java.util.Map;
  * @description: 普通项目审批
  **/
 @RestController
-@RequestMapping("/projectInfoController")
+@RequestMapping("/leasing/rentearly/projectInfoController")
 public class ProjectInfoController {
 
     @Resource(description = "普通项目审批业务接口")
@@ -41,12 +41,14 @@ public class ProjectInfoController {
      * @return map 结果集封装
      */
     @RequestMapping(value = "/queryForGrid", method = RequestMethod.POST)
-    public Map queryForGrid(@RequestParam(required = false, defaultValue = "1", name = "page") Integer page,
-                            @RequestParam(required = false, defaultValue = "20", name = "pageSize") Integer pageSize,
-                            @RequestParam(required = false, name = "data") String data) {
+    public ResResult queryForGrid(@RequestParam(required = false, defaultValue = "1", name = "page") Integer page,
+                                  @RequestParam(required = false, defaultValue = "20", name = "pageSize") Integer pageSize,
+                                  @RequestParam(required = false, name = "data") String data) {
         ProjectQueryVO projectQueryVO = JSON.parseObject(data, ProjectQueryVO.class);
+        projectQueryVO.setProjectCode("1");
         Pagination pagination = new Pagination(page, pageSize);
-        return projectInfoService.pageData(projectQueryVO, pagination);
+        PageQueryData pageQueryData = projectInfoService.pageData(projectQueryVO, pagination);
+        return ResultUtils.successWithData(pageQueryData);
     }
 
     /**
@@ -56,10 +58,10 @@ public class ProjectInfoController {
      * @return
      */
     @RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
-    public Map saveOrUpdate(@RequestParam(required = false, name = "data") String data) {
+    public Map saveOrUpdate(@RequestBody ProjectInfoVO data) {
         Map map = new HashMap();
-        ProjectInfoVO projectInfoVO = JSON.parseObject(data, ProjectInfoVO.class);
-        ProjectInfoVO resultVO = projectInfoService.saveOrUpdate(projectInfoVO);
+//        ProjectInfoVO projectInfoVO = JSON.parseObject(data, ProjectInfoVO.class);
+        ProjectInfoVO resultVO = projectInfoService.saveOrUpdate(data);
         map.put("code", "200");
         map.put("vo", resultVO);
         return map;
@@ -69,15 +71,13 @@ public class ProjectInfoController {
     /**
      * 批量删除
      *
-     * @param ids 单据主键数组
+     * @param id 单据主键数组
      * @return
      */
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
-    public Map delete(@RequestParam(required = false, name = "ids") String ids) {
+    public Map delete(@RequestParam(required = false, name = "id") String id) {
         Map map = new HashMap();
-        JSONArray jsonArray = JSONArray.parseArray(ids);
-        List<String> keys = jsonArray.toJavaList(String.class);
-        projectInfoService.delete(keys);
+        projectInfoService.delete(id);
         map.put("code", "200");
         return map;
     }

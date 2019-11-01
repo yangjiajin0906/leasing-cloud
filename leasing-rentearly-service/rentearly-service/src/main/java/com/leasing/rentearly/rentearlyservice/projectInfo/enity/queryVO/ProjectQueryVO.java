@@ -16,10 +16,10 @@ import java.util.List;
  * @description:
  **/
 public class ProjectQueryVO extends BaseQuery {
-    @QueryCondition(func = MatchType.like)
+    @QueryCondition(func = MatchType.like,field = "piv.projectCode")
     private String projectCode;
 
-    @QueryCondition(func = MatchType.like)
+    @QueryCondition(func = MatchType.like,field = "piv.projectName")
     private String projectName;
 
     public String getProjectCode() {

@@ -5,7 +5,8 @@ import com.leasing.calculate.repository.CalculatorRepo;
 import com.leasing.calculate.vo.CalculatorVO;
 import com.leasing.calculate.service.CalculateService;
 import com.leasing.calculate.dto.CalculatorDTO;
-import com.leasing.common.utils.DozerUtils;
+
+import com.leasing.common.utils.base.DozerUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

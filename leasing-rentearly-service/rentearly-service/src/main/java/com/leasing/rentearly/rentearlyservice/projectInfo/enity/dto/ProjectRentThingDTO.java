@@ -1,11 +1,14 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.leasing.common.base.entity.BaseDTO;
 import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 
 /**
@@ -58,7 +61,8 @@ import java.math.BigDecimal;
         "          A.USE_ADDRESS," +
         "          A.ACCEPTOR" +
         "    )")
-public class ProjectRentThingDTO extends BaseEntity {
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer","handler"})
+public class ProjectRentThingDTO extends BaseDTO {
 
 
     /**
@@ -222,13 +226,32 @@ public class ProjectRentThingDTO extends BaseEntity {
         this.thingName = thingName;
     }
 
-    @Override
     public String getPk() {
         return pkProjectInfo;
     }
 
-    @Override
     public void setPk(String pk) {
         this.pkProjectInfo = pk;
+    }
+    @Transient
+    public String name;
+
+    @Transient
+    public String code;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

@@ -1,11 +1,14 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.leasing.common.base.entity.BaseDTO;
 import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 
 /**
@@ -16,7 +19,8 @@ import java.math.BigDecimal;
  **/
 @Entity
 @Table(name = "yls_limit_plan")
-public class LimitPlanDTO extends BaseEntity {
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer","handler"})
+public class LimitPlanDTO extends BaseDTO {
 
     @Id
     public String pkLimitPlan;
@@ -58,16 +62,32 @@ public class LimitPlanDTO extends BaseEntity {
         this.limitName = limitName;
     }
 
-    @Override
     public String getPk() {
         return pkLimitPlan;
     }
 
-    @Override
     public void setPk(String pk) {
         this.pkLimitPlan = pk;
     }
 
+    @Transient
+    public String name;
 
+    @Transient
+    public String code;
+    public String getName(){
+        return limitName;
+    }
 
+    public String getCode(){
+        return limitCode;
+    }
+
+    public void setName(String name) {
+        this.name = this.limitName;
+    }
+
+    public void setCode(String code) {
+        this.code = this.limitCode;
+    }
 }

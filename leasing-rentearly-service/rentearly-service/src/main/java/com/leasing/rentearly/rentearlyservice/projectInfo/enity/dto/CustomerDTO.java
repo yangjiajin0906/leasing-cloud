@@ -1,5 +1,7 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.leasing.common.base.entity.BaseDTO;
 import com.leasing.common.base.entity.BaseEntity;
 
 import javax.persistence.*;
@@ -51,7 +53,8 @@ import java.math.BigDecimal;
         "" +
         "  " +
         " )")
-public class CustomerDTO extends BaseEntity {
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer","handler"})
+public class CustomerDTO extends BaseDTO {
 
     /**
      * 客户主键
@@ -818,13 +821,31 @@ public class CustomerDTO extends BaseEntity {
         this.ifWarrantCust = ifWarrantCust;
     }
 
-    @Override
     public String getPk() {
         return pkCustomer;
     }
 
-    @Override
     public void setPk(String pk) {
         this.pkCustomer = pk;
+    }
+    @Transient
+    public String name;
+
+    @Transient
+    public String code;
+    public String getName(){
+        return customerName;
+    }
+
+    public String getCode(){
+        return customerCode;
+    }
+
+    public void setName(String name) {
+        this.name = this.customerName;
+    }
+
+    public void setCode(String code) {
+        this.code = this.customerCode;
     }
 }

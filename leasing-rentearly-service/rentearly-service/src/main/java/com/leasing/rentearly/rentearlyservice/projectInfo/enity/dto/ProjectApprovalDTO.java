@@ -1,5 +1,7 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.leasing.common.base.entity.BaseDTO;
 import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 import com.leasing.common.vo.foundation.OrgVO;
@@ -15,7 +17,8 @@ import java.math.BigDecimal;
  **/
 @Entity
 @Table(name = "yls_project_approval")
-public class ProjectApprovalDTO extends BaseEntity {
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer","handler"})
+public class ProjectApprovalDTO extends BaseDTO {
 
     @Id
     public String pkProjectApproval;
@@ -244,13 +247,31 @@ public class ProjectApprovalDTO extends BaseEntity {
         this.pkProOrg = pkProOrg;
     }
 
-    @Override
     public String getPk() {
         return pkProjectApproval;
     }
 
-    @Override
     public void setPk(String pk) {
         this.pkProjectApproval = pk;
+    }
+    @Transient
+    public String name;
+
+    @Transient
+    public String code;
+    public String getName(){
+        return projectFilingName;
+    }
+
+    public String getCode(){
+        return projectFilingCode;
+    }
+
+    public void setName(String name) {
+        this.name = this.projectFilingName;
+    }
+
+    public void setCode(String code) {
+        this.code = this.projectFilingCode;
     }
 }

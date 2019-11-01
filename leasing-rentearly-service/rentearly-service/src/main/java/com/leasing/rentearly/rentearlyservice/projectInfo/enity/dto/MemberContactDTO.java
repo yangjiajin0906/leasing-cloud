@@ -1,11 +1,14 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.leasing.common.base.entity.BaseDTO;
 import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @project:leasing-cloud
@@ -15,7 +18,8 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name = "v_member_contact")
-public class MemberContactDTO extends BaseEntity {
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer","handler"})
+public class MemberContactDTO extends BaseDTO {
 
     /**
      * 客户
@@ -168,13 +172,33 @@ public class MemberContactDTO extends BaseEntity {
         this.initialPk = initialPk;
     }
 
-    @Override
     public String getPk() {
         return pkCustomer;
     }
 
-    @Override
     public void setPk(String pk) {
         this.pkCustomer = pk;
     }
+
+    public String getName(){
+        return customerName;
+    }
+
+    public String getCode(){
+        return customerName;
+    }
+
+    public void setName(String name) {
+        this.name = this.customerName;
+    }
+
+    public void setCode(String code) {
+        this.code = this.customerName;
+    }
+
+    @Transient
+    public String name;
+
+    @Transient
+    public String code;
 }

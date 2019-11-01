@@ -1,12 +1,16 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.leasing.common.base.entity.BaseDTO;
 import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
+import com.leasing.common.base.repository.support.StringModalType;
 import lombok.Value;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.beans.ConstructorProperties;
 
 /**
@@ -17,7 +21,14 @@ import java.beans.ConstructorProperties;
  **/
 @Entity
 @Table(name = "v_bank_account")
-public class BankAccountDTO extends BaseEntity {
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer","handler"})
+public class BankAccountDTO extends BaseDTO {
+
+    @Transient
+    public String name;
+
+    @Transient
+    public String code;
 
     /**
      * 客户主键
@@ -80,6 +91,7 @@ public class BankAccountDTO extends BaseEntity {
      * 初始主键
      */
     public String initialPk;
+
 
 //    public BankAccountDTO(String pkCustomer, String accountNo, String accountName, String accountBank, String bankNo, String bankProvince, String bankCity, String bankAddress, Short accountUse, Short accountType, Short accountStatus, Short sourceType, String initialPk) {
 //        this.pkCustomer = pkCustomer;
@@ -212,14 +224,27 @@ public class BankAccountDTO extends BaseEntity {
         this.initialPk = initialPk;
     }
 
-    @Override
     public String getPk() {
         return pkCustBankAccount;
     }
 
-    @Override
     public void setPk(String pk) {
         this.pkCustBankAccount = pk;
     }
 
+    public String getName(){
+        return accountName;
+    }
+
+    public String getCode(){
+        return accountNo;
+    }
+
+    public void setName(String name) {
+        this.name = this.accountName;
+    }
+
+    public void setCode(String code) {
+        this.code = this.accountNo;
+    }
 }

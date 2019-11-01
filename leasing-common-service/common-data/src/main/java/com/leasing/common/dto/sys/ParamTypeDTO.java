@@ -94,12 +94,10 @@ public class ParamTypeDTO extends BaseDTO{
         this.pkOperator = pkOperator;
     }
 
-    @Override
     public String getPk() {
         return null;
     }
 
-    @Override
     public void setPk(String pk) {
 
     }

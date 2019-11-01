@@ -1,11 +1,14 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.leasing.common.base.entity.BaseDTO;
 import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * @project:leasing-cloud
@@ -27,7 +30,8 @@ import javax.persistence.Table;
         "    ON CNTSPR.PK_CONTRACT = CNT.PK_CONTRACT" +
         " INNER JOIN YLS_PROJECT_INFO PI" +
         "    ON PI.PK_PROJECT_INFO = CNT.PK_PROJECT)")
-public class ProviderConferDTO extends BaseEntity {
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer","handler"})
+public class ProviderConferDTO extends BaseDTO {
 
     @Id
     public String pkContract;
@@ -102,14 +106,32 @@ public class ProviderConferDTO extends BaseEntity {
     public void setProtocolType(Short protocolType) {
         this.protocolType = protocolType;
     }
+    @Transient
+    public String name;
 
-    @Override
+    @Transient
+    public String code;
     public String getPk() {
         return pkContract;
     }
 
-    @Override
     public void setPk(String pk) {
         this.pkContract = pk;
+    }
+
+    public String getName() {
+        return this.approvalName;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = this.approvalCode;
     }
 }

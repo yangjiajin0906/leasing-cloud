@@ -1,5 +1,7 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.leasing.common.base.entity.BaseDTO;
 import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseRefVO;
 
@@ -16,7 +18,8 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name = "yls_rating_maintain_b")
-public class RatingMaintainBDTO extends BaseEntity {
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer","handler"})
+public class RatingMaintainBDTO extends BaseDTO {
     @Id
     @Column(name = "pk_rating_maintain_b")
     public String pkRatingMaintainB;
@@ -58,12 +61,10 @@ public class RatingMaintainBDTO extends BaseEntity {
         this.descriptorData = descriptorData;
     }
 
-    @Override
     public String getPk() {
         return pkRatingMaintainB;
     }
 
-    @Override
     public void setPk(String pk) {
         this.pkRatingMaintainB = pk;
     }

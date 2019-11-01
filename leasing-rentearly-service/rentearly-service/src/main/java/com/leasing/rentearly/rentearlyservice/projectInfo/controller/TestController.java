@@ -6,6 +6,7 @@ import com.leasing.rentearly.rentearlyservice.projectInfo.enity.queryVO.ProjectQ
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.dos.ProjectInfoDO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.repository.ProjectInfoRepository;
 import com.leasing.rentearly.rentearlyservice.projectInfo.repository.TestRepository;
+import com.leasing.rentearly.rentearlyservice.projectInfo.service.ProjectInfoService;
 import com.leasing.rentearly.rentearlyservice.projectInfo.service.TestService;
 import com.leasing.rentearly.rentearlyservice.projectInfo.service.TestTransactionService;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +25,7 @@ import java.util.List;
  * @description:
  **/
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/leasing/rentearly/test")
 public class TestController {
 
     @Resource
@@ -35,6 +36,8 @@ public class TestController {
     TestTransactionService testTransactionService;
     @Resource
     ProjectInfoRepository projectInfoRepository;
+    @Resource
+    ProjectInfoService projectInfoService;
 
 
     @RequestMapping("/test")
@@ -225,6 +228,11 @@ public class TestController {
      */
     @RequestMapping("pageDataPage")
     public List pageDataPage(){
+        projectInfoService.finOne("0001MG00000000062690");
+        Pagination pagination = new Pagination(1,100);
+        ProjectQueryVO projectQueryVO = new ProjectQueryVO();
+        projectQueryVO.setProjectCode("1");
+        projectInfoService.pageData(projectQueryVO,pagination);
         Pageable pageable = new PageRequest(0,20);
         List<ProjectInfoVO> list = projectInfoRepository.pageDataPage(pageable);
         return list;

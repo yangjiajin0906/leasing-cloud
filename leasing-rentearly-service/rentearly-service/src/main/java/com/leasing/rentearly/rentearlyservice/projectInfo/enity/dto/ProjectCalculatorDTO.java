@@ -1,10 +1,13 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.leasing.common.base.entity.BaseDTO;
 import com.leasing.common.base.entity.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 
 /**
@@ -165,7 +168,8 @@ import java.math.BigDecimal;
         "          A.FINANCE_IRR_YEAR" +
         "          /* [会计IRR算法调整] add wangjj 2016/10/28 end */" +
         "        )")
-public class ProjectCalculatorDTO extends BaseEntity {
+@JsonIgnoreProperties(value = { "hibernateLazyInitializer","handler"})
+public class ProjectCalculatorDTO extends BaseDTO {
 
     @Id
     public String pkProjectInfo;
@@ -599,15 +603,32 @@ public class ProjectCalculatorDTO extends BaseEntity {
     public void setFinanceNotaxIrr(BigDecimal financeNotaxIrr) {
         this.financeNotaxIrr = financeNotaxIrr;
     }
+    @Transient
+    public String name;
 
+    @Transient
+    public String code;
 
-    @Override
     public String getPk() {
-        return null;
+        return pkProjectInfo;
     }
 
-    @Override
     public void setPk(String pk) {
 
+    }
+    public String getName(){
+        return quotName;
+    }
+
+    public String getCode(){
+        return quotCode;
+    }
+
+    public void setName(String name) {
+        this.name = this.quotName;
+    }
+
+    public void setCode(String code) {
+        this.code = this.quotCode;
     }
 }
