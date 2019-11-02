@@ -38,13 +38,13 @@ public class CalculatorController {
     @ApiOperation("获得报价列表")
     @ApiImplicitParam(name = "data", value = "分页JSON串", dataType = "String")
     @RequestMapping(value = "/pageQuery")
-    public List<CalculatorVO> pageQuery(String data){
+    public PageQueryData<CalculatorVO> pageQuery(String data){
         Pagination pagination = new Pagination();
         pagination.setCurPage(1);
         pagination.setPageSize(10);
         CalculatorQueryVO queryVO = new CalculatorQueryVO();
-        List<CalculatorVO> list = calculateService.pageQuery(pagination,queryVO);
-        return list;
+        PageQueryData<CalculatorVO> pageQueryData = calculateService.pageQuery(pagination,queryVO);
+        return pageQueryData;
     }
 
 //    @ApiOperation("通过主键查询主表+字表列表数据")

@@ -10,8 +10,5 @@ import org.springframework.data.jpa.domain.Specification;
  * @description:
  **/
 public class CustShareHoldersQuery extends BaseQuery {
-    @Override
-    public Specification toSpec() {
-        return null;
-    }
+
 }

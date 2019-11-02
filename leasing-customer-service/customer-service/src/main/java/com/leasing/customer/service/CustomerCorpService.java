@@ -49,14 +49,6 @@ public interface CustomerCorpService {
     CustomerCorpAllVO findOneAllByCustomerName(String customerName);
 
 
-    /**
-     * 根据查询条件查询列表
-     *
-     * @param conditions 查询条件
-     * @return 符合查询条件列表
-     */
-    List<CustomerCorpAllVO> findListByConditions(Map<String, Object> conditions);
-
 
     /**
      * 分页查询列表
@@ -81,13 +73,6 @@ public interface CustomerCorpService {
     void save(CustomerCorpVO vo);
 
 
-    /**
-     * 更新客户状态
-     *
-     * @param billstatus 客户新状态
-     * @param pkCustomer 客户新主键
-     */
-    void updateBillStatus(String billstatus, String pkCustomer);
 
 
     /**

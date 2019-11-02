@@ -41,9 +41,9 @@ public class CalculateServiceImpl implements CalculateService {
 //    LeaseLoanPlanRepo leaseLoanPlanRepo;
 
     @Override
-    public List<CalculatorVO> pageQuery(Pagination pagination, CalculatorQueryVO vo) {
-        StringBuffer sql = new StringBuffer();
-        sql.append(
+    public PageQueryData<CalculatorVO> pageQuery(Pagination pagination, CalculatorQueryVO vo) {
+        StringBuffer jpql = new StringBuffer();
+        jpql.append(
                 "select c from CalculatorVO c " +
                         " left join fetch c.pkLimitPlan l" +
                         " left join fetch c.pkDept d" +
@@ -55,7 +55,7 @@ public class CalculateServiceImpl implements CalculateService {
                         " left join fetch c.pkSpecialInterrate psi" +
                         " left join fetch c.pkCurrtype pc"
         );
-        return calculatorRepo.pageQuery(pagination, vo, sql.toString());
+        return calculatorRepo.pageQuery(pagination,vo,jpql.toString());
     }
 
     @Override

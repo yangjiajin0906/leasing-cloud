@@ -20,11 +20,6 @@ public interface DFuncMenuService {
      */
     PageQueryData<DFuncMenuVO> getMenuList();
 
-    /**
-     * 获取存储库内的菜单列表DO
-     * @return
-     */
-    PageQueryData getDMenuList();
 
     /**
      * 根据pk查找单个对象 调用基类BaseRepository的findOne方法 返回对象为DO
@@ -32,17 +27,6 @@ public interface DFuncMenuService {
      */
     DFuncMenuDO findOneDO(String pk);
 
-    /**
-     * 自定义JPQL返回自定义类型对象  调用基类BaseRepository的findOneByJPQL方法  返回对象为VO(也可用作查询DO)
-     * @param jpqlName
-     */
-    DFuncMenuVO findOneVO(String jpqlName);
-
-    /**
-     * 源生SQL返回List<Map<String,Object>> 调用基类findByNativeSql方法  返回对象在dozer中配置直接转化为VO
-     * @param sql
-     */
-    List<Map<String,Object>> findByNativeSQL(String sql);
 
     /** 新增菜单项 前台进controller层为vo 配置直接转换为do保存 直接调save方法或者saveAndFlush方法
      * 更改菜单数据(存在部分修改及整体修改情况)

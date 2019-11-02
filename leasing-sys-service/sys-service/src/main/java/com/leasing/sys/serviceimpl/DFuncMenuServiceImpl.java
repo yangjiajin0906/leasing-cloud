@@ -37,21 +37,8 @@ public class DFuncMenuServiceImpl implements DFuncMenuService {
                 "            left join fetch s.pkDept d" +
                 "            left join fetch s.pkOperator t";
         PageQueryData<DFuncMenuVO> list = dFuncMenuRepo.pageQuery(pagination,queryvo,jqpl);
-
         return list;
 
-    }
-
-    @Override
-    public PageQueryData getDMenuList(){
-        Pagination pagination = new Pagination();
-        pagination.setCurPage(1);
-        pagination.setPageSize(20);
-        DFuncMenuQuery queryvo =new DFuncMenuQuery();
-        PageQueryData list = dFuncMenuRepository.pageQuery(pagination,queryvo);
-//        queryvo.setFuncName("系统");
-//        PageQueryData list2 =dFuncMenuRepository.pageQuery(pagination,queryvo);
-        return list;
     }
 
     @Override
@@ -70,11 +57,6 @@ public class DFuncMenuServiceImpl implements DFuncMenuService {
     @Override
     public DFuncMenuDO findOneDO(String pk){return dFuncMenuRepo.findOne(pk);}
 
-    @Override
-    public DFuncMenuVO findOneVO(String jpqlName){return dFuncMenuRepo.findOneByJPQL(DFuncMenuVO.class,jpqlName,true);}
-
-    @Override
-    public List<Map<String,Object>>findByNativeSQL(String sql){return dFuncMenuRepo.findByNativeSql(sql,true);}
 
 
 }
