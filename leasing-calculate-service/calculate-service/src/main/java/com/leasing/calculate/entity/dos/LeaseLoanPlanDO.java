@@ -1,10 +1,6 @@
-package com.leasing.calculate.dos;
+package com.leasing.calculate.entity.dos;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.leasing.calculate.vo.CalculatorVO;
 import com.leasing.common.base.entity.BaseDO;
-import com.leasing.common.base.entity.BaseEntity;
-import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

@@ -1,8 +1,7 @@
 package com.leasing.calculate.utils;
 
-import com.leasing.calculate.vo.ArithmeticCoreDayParam;
-import com.leasing.calculate.vo.ArithmeticCoreParam;
-import com.leasing.calculate.vo.CalculatorVO;
+import com.leasing.calculate.entity.param.ArithmeticCoreDayParam;
+import com.leasing.calculate.entity.param.ArithmeticCoreParam;
 import com.leasing.common.enums.arithmetic.Lease_Cal_Method;
 import com.leasing.common.enums.arithmetic.Payment_Frequency;
 import com.leasing.common.enums.arithmetic.Year_Days;
@@ -100,20 +99,5 @@ public class BaseAppUtils {
         }
         return dayParamList;
     }
-
-    /**
-     * @description 封装计算租金计划表参数
-     * @author Yangjiajin
-     * @date 2019/10/29 18:20
-     * @param [vo]
-     * @return com.leasing.calculate.vo.ArithmeticCoreParam
-     */
-    public static ArithmeticCoreParam buildCalBusinessParam(CalculatorVO vo) {
-        ArithmeticCoreParam arithmeticCoreParam = new ArithmeticCoreParam();
-
-        return null;
-    }
-
-
 
 }

@@ -1,18 +1,11 @@
 package com.leasing.calculate.service;
-import com.leasing.calculate.dos.CalculatorDO;
-import com.leasing.calculate.vo.ArithmeticCoreParam;
-import com.leasing.calculate.vo.CalArithmeticVO;
-import com.leasing.calculate.vo.CalculatorVO;
-import com.leasing.calculate.dto.CalculatorDTO;
-import com.leasing.calculate.vo.LeasePlanVO;
-import com.leasing.calculate.vo.queryVO.CalculatorQueryVO;
-import com.leasing.common.base.entity.BaseQuery;
+import com.leasing.calculate.entity.dto.CalculatorDTO;
+import com.leasing.calculate.entity.query.CalculatorQuery;
+import com.leasing.calculate.entity.vo.CalculatorVO;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
-import org.springframework.data.domain.Sort;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,25 +21,25 @@ public interface CalculateService {
      * @param vo
      * @return
      */
-    CalculatorDO save(CalculatorDO vo);
+    CalculatorVO save(CalculatorVO vo);
 
     /**
      * 删除方法
      * @param vo
      */
-    void delete(CalculatorDO vo);
+    void delete(CalculatorVO vo);
 
     /**
      * 更新方法
      * @param vo
      */
-    CalculatorDO update(CalculatorDO vo);
+    CalculatorVO update(CalculatorVO vo);
 
     /**
-     * 查询单个DO实体类（包含子表）
+     * 单体查询
      * @return
      */
-    CalculatorDO findOne(String pk);
+    CalculatorVO findOne(String pk);
 
     /**
      * 查询单个VO（包含子表）
@@ -58,14 +51,14 @@ public interface CalculateService {
      * 分页查询
      * @return
      */
-    PageQueryData<CalculatorVO> pageQuery(Pagination pagination, CalculatorQueryVO vo);
+    PageQueryData<CalculatorVO> pageQuery(Pagination pagination, CalculatorQuery vo);
 
     /**
      * @description 查询字表数据
      * @author Yangjiajin
      * @date 2019/10/28 10:04
      * @param id
-     * @return com.leasing.calculate.vo.CalculatorVO
+     * @return com.leasing.calculate.entity.vo.CalculatorVO
      */
     CalculatorVO findChildListById(String id);
 
@@ -74,7 +67,7 @@ public interface CalculateService {
      * @author Yangjiajin
      * @date 2019/10/23 10:17
      * @param vo
-     * @return com.leasing.calculate.dto.CalculatorDTO
+     * @return com.leasing.calculate.entity.dto.CalculatorDTO
      */
     List calOperateLease(CalculatorVO vo);
 
@@ -91,7 +84,7 @@ public interface CalculateService {
      * @author Yangjiajin
      * @date 2019/10/23 10:17
      * @param []
-     * @return com.leasing.calculate.dto.CalculatorDTO
+     * @return com.leasing.calculate.entity.dto.CalculatorDTO
      */
     List calMakeResults();
 
@@ -100,7 +93,7 @@ public interface CalculateService {
      * @author Yangjiajin
      * @date 2019/10/23 10:17
      * @param []
-     * @return com.leasing.calculate.dto.CalculatorDTO
+     * @return com.leasing.calculate.entity.dto.CalculatorDTO
      */
     List calAccountingShare();
 

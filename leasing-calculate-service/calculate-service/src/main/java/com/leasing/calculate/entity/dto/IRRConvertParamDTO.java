@@ -1,4 +1,4 @@
-package com.leasing.calculate.dto;
+package com.leasing.calculate.entity.dto;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

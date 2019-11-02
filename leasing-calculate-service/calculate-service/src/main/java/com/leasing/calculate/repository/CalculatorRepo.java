@@ -1,18 +1,15 @@
 package com.leasing.calculate.repository;
 
-import com.leasing.calculate.dos.CalculatorDO;
-import com.leasing.calculate.dos.LeaseLoanPlanDO;
-import com.leasing.calculate.dto.CalculatorDTO;
-import com.leasing.calculate.vo.CalculatorVO;
-import com.leasing.calculate.vo.queryVO.CalculatorQueryVO;
-import com.leasing.common.base.entity.BaseQuery;
-import com.leasing.common.base.entity.BaseVO;
+import com.leasing.calculate.entity.dos.CalculatorDO;
+import com.leasing.calculate.entity.dos.LeaseLoanPlanDO;
+import com.leasing.calculate.entity.dto.CalculatorDTO;
+import com.leasing.calculate.entity.vo.CalculatorVO;
+import com.leasing.calculate.entity.query.CalculatorQueryVO;
 import com.leasing.common.base.repository.BaseRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 

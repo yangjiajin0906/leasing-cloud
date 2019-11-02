@@ -1,7 +1,6 @@
-package com.leasing.calculate.dos;
+package com.leasing.calculate.entity.dos;
 
 import com.leasing.common.base.entity.BaseBusinessDO;
-import com.leasing.common.base.entity.BaseDO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

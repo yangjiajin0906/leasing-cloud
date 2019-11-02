@@ -1,10 +1,10 @@
 package com.leasing.calculate;
 
-import com.leasing.calculate.dos.CalculatorDO;
+import com.leasing.calculate.entity.dos.CalculatorDO;
 import com.leasing.calculate.repository.CalculatorRepo;
-import com.leasing.calculate.vo.CalculatorVO;
+import com.leasing.calculate.entity.vo.CalculatorVO;
 import com.leasing.calculate.service.CalculateService;
-import com.leasing.calculate.dto.CalculatorDTO;
+import com.leasing.calculate.entity.dto.CalculatorDTO;
 import com.leasing.common.utils.DozerUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;

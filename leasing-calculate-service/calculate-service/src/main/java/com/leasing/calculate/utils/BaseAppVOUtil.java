@@ -1,6 +1,6 @@
 package com.leasing.calculate.utils;
 
-import com.leasing.calculate.vo.ArithmeticCoreDayParam;
+import com.leasing.calculate.entity.param.ArithmeticCoreDayParam;
 import com.leasing.common.enums.arithmetic.Payment_Frequency;
 import com.leasing.common.enums.arithmetic.Year_Days;
 

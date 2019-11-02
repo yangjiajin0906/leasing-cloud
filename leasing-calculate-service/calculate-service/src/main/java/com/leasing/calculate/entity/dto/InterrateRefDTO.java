@@ -1,4 +1,4 @@
-package com.leasing.calculate.dto;
+package com.leasing.calculate.entity.dto;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

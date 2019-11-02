@@ -1,7 +1,6 @@
-package com.leasing.calculate.dto;
+package com.leasing.calculate.entity.dto;
 
 import com.leasing.common.vo.foundation.UserVO;
-import lombok.Value;
 
 import javax.persistence.*;
 

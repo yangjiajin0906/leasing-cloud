@@ -44,8 +44,6 @@
             left join fetch piv.projectcal pcref
             left join fetch piv.projectret preting
             left join fetch piv.businessDomain pbdomain
-
-
         </query>
     </named-query>
 
@@ -82,7 +80,6 @@
             left join fetch piv.projectret preting
             left join fetch piv.businessDomain pbdomain
             where piv.pkProjectInfo = ?1
-
         </query>
     </named-query>
 

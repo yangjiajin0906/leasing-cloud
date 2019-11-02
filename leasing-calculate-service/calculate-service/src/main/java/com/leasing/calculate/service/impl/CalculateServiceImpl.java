@@ -1,18 +1,19 @@
 package com.leasing.calculate.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.leasing.calculate.dos.CalculatorDO;
-import com.leasing.calculate.dos.InoutPlanPDO;
-import com.leasing.calculate.dto.CalculatorDTO;
+import com.leasing.calculate.entity.dos.CalculatorDO;
+import com.leasing.calculate.entity.dos.InoutPlanPDO;
+import com.leasing.calculate.entity.dto.CalculatorDTO;
 import com.leasing.calculate.repository.CalculatorRepo;
 import com.leasing.calculate.service.CalculateService;
 import com.leasing.calculate.utils.BaseAppUtils;
 import com.leasing.calculate.utils.CalCommonArithmeticUtils;
-import com.leasing.calculate.vo.ArithmeticCoreParam;
-import com.leasing.calculate.vo.CalArithmeticVO;
-import com.leasing.calculate.vo.CalculatorVO;
-import com.leasing.calculate.vo.LeasePlanVO;
-import com.leasing.calculate.vo.queryVO.CalculatorQueryVO;
+import com.leasing.calculate.entity.param.ArithmeticCoreParam;
+import com.leasing.calculate.entity.vo.CalArithmeticVO;
+import com.leasing.calculate.entity.vo.CalculatorVO;
+import com.leasing.calculate.entity.vo.LeasePlanVO;
+import com.leasing.calculate.entity.query.CalculatorQueryVO;
+import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.utils.base.DozerUtils;
 import org.springframework.stereotype.Service;
@@ -42,20 +43,9 @@ public class CalculateServiceImpl implements CalculateService {
 
     @Override
     public PageQueryData<CalculatorVO> pageQuery(Pagination pagination, CalculatorQueryVO vo) {
-        StringBuffer jpql = new StringBuffer();
-        jpql.append(
-                "select c from CalculatorVO c " +
-                        " left join fetch c.pkLimitPlan l" +
-                        " left join fetch c.pkDept d" +
-                        " left join fetch c.pkChecker u" +
-                        " left join fetch c.pkGrantor pg" +
-                        " left join fetch c.pkOrg o" +
-                        " left join fetch c.pkInterrate i" +
-                        " left join fetch c.pkInterrateDepos pid" +
-                        " left join fetch c.pkSpecialInterrate psi" +
-                        " left join fetch c.pkCurrtype pc"
-        );
-        return calculatorRepo.pageQuery(pagination,vo,jpql.toString());
+        PageQueryData<CalculatorVO> result = calculatorRepo.pageQuery(pagination, vo,"预留queryName");
+
+        return result;
     }
 
     @Override

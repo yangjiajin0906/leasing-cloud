@@ -1,4 +1,6 @@
-package com.leasing.common.enums.base;
+package com.leasing.common.enums.arithmetic;
+
+import com.leasing.common.enums.base.EnumType;
 
 /**
  * @project:leasing-cloud

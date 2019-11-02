@@ -1,4 +1,4 @@
-package com.leasing.calculate.dto;
+package com.leasing.calculate.entity.dto;
 
 /**
  * @project:leasing-cloud

@@ -1,7 +1,4 @@
-package com.leasing.calculate.vo;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.*;
+package com.leasing.calculate.entity.vo;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

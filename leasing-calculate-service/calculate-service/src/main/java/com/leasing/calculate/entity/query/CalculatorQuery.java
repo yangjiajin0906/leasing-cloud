@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @author:Yjj@yonyou.com
  * @description:
  **/
-public class CalculatorQueryVO extends BaseQuery {
+public class CalculatorQuery extends BaseQuery {
 
     /**
      * 测算方案编号

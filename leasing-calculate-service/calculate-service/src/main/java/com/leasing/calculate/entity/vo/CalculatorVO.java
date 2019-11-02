@@ -1,4 +1,4 @@
-package com.leasing.calculate.vo;
+package com.leasing.calculate.entity.vo;
 
 import com.leasing.calculate.entity.dos.InoutPlanPDO;
 import com.leasing.calculate.entity.dos.LeaseLoanPlanDO;
