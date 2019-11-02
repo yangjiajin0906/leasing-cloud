@@ -1,5 +1,6 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.service;
 
+import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.ProjectInfoVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.queryVO.ProjectQueryVO;
@@ -21,7 +22,7 @@ public interface ProjectInfoService {
      * @param pagination 分页对象
      * @return 结果集
      */
-    Map pageData(ProjectQueryVO projectQueryVO, Pagination pagination);
+    PageQueryData pageData(ProjectQueryVO projectQueryVO, Pagination pagination);
 
 
     /**
@@ -56,5 +57,11 @@ public interface ProjectInfoService {
      * @return
      */
     ProjectInfoVO check(ProjectInfoVO projectInfoVO);
+
+    /**
+     * 通过主键删除一条数据
+     * @param id 主键
+     */
+    void delete(String id);
 
 }

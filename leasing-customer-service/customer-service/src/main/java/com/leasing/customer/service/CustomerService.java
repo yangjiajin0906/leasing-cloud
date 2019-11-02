@@ -19,13 +19,7 @@ public interface CustomerService {
 
     void batchDelete(List<String> pks);
 
-    /**
-     * 根据客户主键更新客户单据状态
-     *
-     * @param newBillstatus
-     * @param pkCustomer
-     */
-    void updateBillStatus(Short newBillstatus, String pkCustomer);
+    List<CustomerVO> queryCustomerStatusByName(String customerName, Short CustomerStatus, Short CustomerType);
 
 
     /**

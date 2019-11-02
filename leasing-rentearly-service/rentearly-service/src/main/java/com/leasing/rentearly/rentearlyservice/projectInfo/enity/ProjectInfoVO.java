@@ -2,13 +2,10 @@ package com.leasing.rentearly.rentearlyservice.projectInfo.enity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.leasing.common.base.entity.BaseEntity;
 import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.vo.foundation.DeptVO;
 import com.leasing.common.vo.foundation.UserVO;
-import com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -22,7 +19,7 @@ import java.math.BigDecimal;
  **/
 @Entity
 @Table(name = "yls_project_info")
-@JsonIgnoreProperties(value = { "hibernateLazyInitializer"})
+@JsonIgnoreProperties(value = { "hibernateEAGERInitializer","handler"})
 public class ProjectInfoVO extends BaseVO {
 
     /**
@@ -50,9 +47,9 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 立项主键
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkProjectApproval")
-    public ProjectApprovalRefVO pkProjectApproval;
+    public ProjectApprovalDTO pkProjectApproval;
     /**
      * 符合公司风险政策及准入标准
      */
@@ -60,7 +57,7 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 项目部门
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "projectDept")
     public DeptVO projectDept;
     /**
@@ -74,7 +71,7 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 项目经理
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkPrjManager")
     public UserVO pkPrjManager;
     /**
@@ -144,9 +141,9 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 授信币种
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "grantingCurrency")
-    public CurrtypeRefVO grantingCurrency;
+    public CurrtypeDTO grantingCurrency;
     /**
      * 授信类型
      */
@@ -154,27 +151,27 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 客户评级
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "clientRating")
-    public RatingMaintainBRefVO clientRating;
+    public RatingMaintainBDTO clientRating;
     /**
      * 客户主键
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkConsumer")
-    public CustomerRefVO pkConsumer;
+    public CustomerDTO pkConsumer;
     /**
      * 供应商框架协议主键
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkFrameworkAgreem")
-    public ProviderConferRefVO pkFrameworkAgreem;
+    public ProviderConferDTO pkFrameworkAgreem;
     /**
      * 供应商限额方案主键
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkQuotaScheme")
-    public LimitPlanRefVO pkQuotaScheme;
+    public LimitPlanDTO pkQuotaScheme;
     /**
      * 供应商限额结果
      */
@@ -219,9 +216,9 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 审批文档生成规则
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkContractRule")
-    public ContractRuleRefVO pkContractRule;
+    public ContractRuleDTO pkContractRule;
     /**
      * 保证方式ProjectCalculatorRefVO
      */
@@ -281,19 +278,19 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 大区经理
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "regionManager")
     public UserVO regionManager;
     /**
      * 所属片区
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "belongsArea")
     public DeptVO belongsArea;
     /**
      * 片区经理
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "areaManager")
     public UserVO areaManager;
     /**
@@ -322,9 +319,9 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 确认业务领域
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "industryType")
-    public ParmsRefVO industryType;
+    public ParmsDTO industryType;
     /**
      * 客户号
      */
@@ -340,9 +337,9 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 实际融资客户
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkCustFinance")
-    public CustomerRefVO pkCustFinance;
+    public CustomerDTO pkCustFinance;
     /**
      * 是否预约资金
      */
@@ -350,21 +347,21 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 项目主办人
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkCustMain")
-    public MemberContactRefVO pkCustMain;
+    public MemberContactDTO pkCustMain;
     /**
      * 项目协办人
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkCustHelp")
-    public MemberContactRefVO pkCustHelp;
+    public MemberContactDTO pkCustHelp;
     /**
      * 项目主账户
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkAccount")
-    public BankAccountRefVO pkAccount;
+    public BankAccountDTO pkAccount;
     /**
      * 授信分类
      */
@@ -417,10 +414,10 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 项目主表参照的报价信息
      */
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     //@PrimaryKeyJoinColumn(name = "pkProjectInfo",referencedColumnName = "pkProjectInfo")
     @JoinColumn(name = "pkProjectInfo")
-    public ProjectCalculatorRefVO projectcal;
+    public ProjectCalculatorDTO projectcalculatorrefvo;
     /**
      * 项目主表参照担保信息
      */
@@ -428,11 +425,11 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 项目主表参照租赁物信息
      */
-    //@ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    //@ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     //@PrimaryKeyJoinColumn(name = "pkProjectInfo",referencedColumnName = "sourceBill")
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "pkProjectInfo")
-    public ProjectRentThingRefVO projectret;
+    public ProjectRentThingDTO projectpledgerefvo;
 
 
     /**
@@ -533,9 +530,9 @@ public class ProjectInfoVO extends BaseVO {
     /**
      * 业务范围
      */
-    @ManyToOne(fetch = FetchType.LAZY) //JPA注释： 一对一 关系
+    @ManyToOne(fetch = FetchType.EAGER) //JPA注释： 一对一 关系
     @JoinColumn(name = "businessDomain")
-    public BusinessDomainRefVO businessDomain;
+    public BusinessDomainDTO businessDomain;
 
 
     /**
@@ -1245,59 +1242,59 @@ public class ProjectInfoVO extends BaseVO {
         this.pkPrjManager = pkPrjManager;
     }
 
-    public ProjectApprovalRefVO getPkProjectApproval() {
+    public ProjectApprovalDTO getPkProjectApproval() {
         return pkProjectApproval;
     }
 
-    public void setPkProjectApproval(ProjectApprovalRefVO pkProjectApproval) {
+    public void setPkProjectApproval(ProjectApprovalDTO pkProjectApproval) {
         this.pkProjectApproval = pkProjectApproval;
     }
 
-    public CurrtypeRefVO getGrantingCurrency() {
+    public CurrtypeDTO getGrantingCurrency() {
         return grantingCurrency;
     }
 
-    public void setGrantingCurrency(CurrtypeRefVO grantingCurrency) {
+    public void setGrantingCurrency(CurrtypeDTO grantingCurrency) {
         this.grantingCurrency = grantingCurrency;
     }
 
-    public RatingMaintainBRefVO getClientRating() {
+    public RatingMaintainBDTO getClientRating() {
         return clientRating;
     }
 
-    public void setClientRating(RatingMaintainBRefVO clientRating) {
+    public void setClientRating(RatingMaintainBDTO clientRating) {
         this.clientRating = clientRating;
     }
 
-    public CustomerRefVO getPkConsumer() {
+    public CustomerDTO getPkConsumer() {
         return pkConsumer;
     }
 
-    public void setPkConsumer(CustomerRefVO pkConsumer) {
+    public void setPkConsumer(CustomerDTO pkConsumer) {
         this.pkConsumer = pkConsumer;
     }
 
-    public ProviderConferRefVO getPkFrameworkAgreem() {
+    public ProviderConferDTO getPkFrameworkAgreem() {
         return pkFrameworkAgreem;
     }
 
-    public void setPkFrameworkAgreem(ProviderConferRefVO pkFrameworkAgreem) {
+    public void setPkFrameworkAgreem(ProviderConferDTO pkFrameworkAgreem) {
         this.pkFrameworkAgreem = pkFrameworkAgreem;
     }
 
-    public LimitPlanRefVO getPkQuotaScheme() {
+    public LimitPlanDTO getPkQuotaScheme() {
         return pkQuotaScheme;
     }
 
-    public void setPkQuotaScheme(LimitPlanRefVO pkQuotaScheme) {
+    public void setPkQuotaScheme(LimitPlanDTO pkQuotaScheme) {
         this.pkQuotaScheme = pkQuotaScheme;
     }
 
-    public ContractRuleRefVO getPkContractRule() {
+    public ContractRuleDTO getPkContractRule() {
         return pkContractRule;
     }
 
-    public void setPkContractRule(ContractRuleRefVO pkContractRule) {
+    public void setPkContractRule(ContractRuleDTO pkContractRule) {
         this.pkContractRule = pkContractRule;
     }
 
@@ -1337,84 +1334,68 @@ public class ProjectInfoVO extends BaseVO {
         this.versionNum = versionNum;
     }
 
-    public ParmsRefVO getIndustryType() {
+    public ParmsDTO getIndustryType() {
         return industryType;
     }
 
-    public void setIndustryType(ParmsRefVO industryType) {
+    public void setIndustryType(ParmsDTO industryType) {
         this.industryType = industryType;
     }
 
-    public CustomerRefVO getPkCustFinance() {
+    public CustomerDTO getPkCustFinance() {
         return pkCustFinance;
     }
 
-    public void setPkCustFinance(CustomerRefVO pkCustFinance) {
+    public void setPkCustFinance(CustomerDTO pkCustFinance) {
         this.pkCustFinance = pkCustFinance;
     }
 
-    public MemberContactRefVO getPkCustMain() {
+    public MemberContactDTO getPkCustMain() {
         return pkCustMain;
     }
 
-    public void setPkCustMain(MemberContactRefVO pkCustMain) {
+    public void setPkCustMain(MemberContactDTO pkCustMain) {
         this.pkCustMain = pkCustMain;
     }
 
-    public MemberContactRefVO getPkCustHelp() {
+    public MemberContactDTO getPkCustHelp() {
         return pkCustHelp;
     }
 
-    public void setPkCustHelp(MemberContactRefVO pkCustHelp) {
+    public void setPkCustHelp(MemberContactDTO pkCustHelp) {
         this.pkCustHelp = pkCustHelp;
     }
 
-    public BankAccountRefVO getPkAccount() {
+    public BankAccountDTO getPkAccount() {
         return pkAccount;
     }
 
-    public void setPkAccount(BankAccountRefVO pkAccount) {
+    public void setPkAccount(BankAccountDTO pkAccount) {
         this.pkAccount = pkAccount;
     }
 
-//    public ProjectCalculatorRefVO getProjectCalculatorRefVO() {
-//        return projectCalculatorRefVO;
-//    }
-//
-//    public void setProjectCalculatorRefVO(ProjectCalculatorRefVO projectCalculatorRefVO) {
-//        this.projectCalculatorRefVO = projectCalculatorRefVO;
-//    }
-//
-//    public ProjectRentThingRefVO getProjectRentThingRefVO() {
-//        return projectRentThingRefVO;
-//    }
-//
-//    public void setProjectRentThingRefVO(ProjectRentThingRefVO projectRentThingRefVO) {
-//        this.projectRentThingRefVO = projectRentThingRefVO;
-//    }
 
-
-    public ProjectCalculatorRefVO getProjectcal() {
-        return projectcal;
+    public ProjectCalculatorDTO getProjectcalculatorrefvo() {
+        return projectcalculatorrefvo;
     }
 
-    public void setProjectcal(ProjectCalculatorRefVO projectcal) {
-        this.projectcal = projectcal;
+    public void setProjectcalculatorrefvo(ProjectCalculatorDTO projectcalculatorrefvo) {
+        this.projectcalculatorrefvo = projectcalculatorrefvo;
     }
 
-    public ProjectRentThingRefVO getProjectret() {
-        return projectret;
+    public ProjectRentThingDTO getProjectpledgerefvo() {
+        return projectpledgerefvo;
     }
 
-    public void setProjectret(ProjectRentThingRefVO projectret) {
-        this.projectret = projectret;
+    public void setProjectpledgerefvo(ProjectRentThingDTO projectpledgerefvo) {
+        this.projectpledgerefvo = projectpledgerefvo;
     }
 
-    public BusinessDomainRefVO getBusinessDomain() {
+    public BusinessDomainDTO getBusinessDomain() {
         return businessDomain;
     }
 
-    public void setBusinessDomain(BusinessDomainRefVO businessDomain) {
+    public void setBusinessDomain(BusinessDomainDTO businessDomain) {
         this.businessDomain = businessDomain;
     }
 

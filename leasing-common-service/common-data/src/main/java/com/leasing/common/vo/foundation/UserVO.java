@@ -26,7 +26,7 @@ public class UserVO extends BaseEntity {
     private String memo;
     @ManyToOne
     @JoinColumn(name = "pkOrg")
-    private OrgVO pkOrg;
+    private OrgDTO pkOrg;
     private String isAdmin;
     private Short userRole;
     private String telNo;
@@ -109,11 +109,11 @@ public class UserVO extends BaseEntity {
         this.memo = memo;
     }
 
-    public OrgVO getPkOrg() {
+    public OrgDTO getPkOrg() {
         return pkOrg;
     }
 
-    public void setPkOrg(OrgVO pkOrg) {
+    public void setPkOrg(OrgDTO pkOrg) {
         this.pkOrg = pkOrg;
     }
 

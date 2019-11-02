@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.base.ResultUtils;
-import com.leasing.common.utils.base.ResultUtils;
 import com.leasing.customer.dao.query.CustomerCorpQuery;
 import com.leasing.customer.dao.vo.CustomerAuthApplyVO;
 import com.leasing.customer.dao.vo.CustomerAuthVO;
@@ -24,7 +23,7 @@ import java.util.List;
  * @description: 单位客户管理
  **/
 @RestController
-@RequestMapping(value = "/customer")
+@RequestMapping(value = "/leasing/customer")
 public class CustomerCorpController {
 
     @Resource
@@ -37,7 +36,7 @@ public class CustomerCorpController {
      * @param pkCustomer 客户主键
      * @return com.leasing.common.base.web.ResResult
      */
-    @PostMapping(value = "/corpFindOne")
+    @PostMapping(value = "/findOne")
     public ResResult corpFindOne(String pkCustomer) {
         CustomerCorpAllVO vo = customerCorpService.findOneAllByPkCustomer(pkCustomer);
         return ResultUtils.successWithData(vo);
@@ -46,15 +45,14 @@ public class CustomerCorpController {
     /**
      * 根据查询条件查询单位客户分页查询
      *
-     * @param conditions 客户查询条件
+     * @param query 客户查询条件
      * @return com.leasing.common.base.web.ResResult
      */
-    @PostMapping(value = "/corpList")
-    public ResResult corpList(String conditions) {
-        CustomerCorpQuery query = JSON.parseObject(conditions, CustomerCorpQuery.class);
+    @PostMapping(value = "/list")
+    public ResResult corpList(String query) {
+        CustomerCorpQuery customerCorpQuery = JSON.parseObject(query, CustomerCorpQuery.class);
         Pagination pagination = new Pagination(1, 50);
-        List<CustomerCorpAllVO> vo = customerCorpService.pageQuery(pagination, query);
-        return ResultUtils.successWithData(vo);
+        return ResultUtils.successWithData(customerCorpService.pageQuery(pagination, customerCorpQuery));
     }
 
 
@@ -109,7 +107,7 @@ public class CustomerCorpController {
      * @param data 客户主键
      * @return com.leasing.common.base.web.ResResult
      */
-    @PostMapping(value = "/corpDelete")
+    @PostMapping(value = "/delete")
     public ResResult corpDelete(String data) {
         CustomerCorpAllVO vo = JSON.parseObject(data, CustomerCorpAllVO.class);
         customerCorpService.delete(vo);

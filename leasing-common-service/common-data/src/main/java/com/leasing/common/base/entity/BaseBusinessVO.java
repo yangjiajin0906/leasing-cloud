@@ -1,10 +1,8 @@
 package com.leasing.common.base.entity;
 
 import com.leasing.common.vo.foundation.DeptVO;
-import com.leasing.common.vo.foundation.OrgVO;
+import com.leasing.common.vo.foundation.OrgDTO;
 import com.leasing.common.vo.foundation.UserVO;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -53,7 +51,7 @@ public abstract class BaseBusinessVO extends BaseVO{
      */
     @ManyToOne
     @JoinColumn(name = "pkOrg")
-    private OrgVO pkOrg;
+    private OrgDTO pkOrg;
 
     public DeptVO getPkDept() {
         return pkDept;
@@ -95,11 +93,11 @@ public abstract class BaseBusinessVO extends BaseVO{
         this.operateTime = operateTime;
     }
 
-    public OrgVO getPkOrg() {
+    public OrgDTO getPkOrg() {
         return pkOrg;
     }
 
-    public void setPkOrg(OrgVO pkOrg) {
+    public void setPkOrg(OrgDTO pkOrg) {
         this.pkOrg = pkOrg;
     }
 

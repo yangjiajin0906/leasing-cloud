@@ -6,7 +6,7 @@ package com.leasing.common.base.entity;
  * @author:lvcna@yonyou.com
  * @description:
  **/
-public abstract class BaseDTO extends BaseEntity{
+public abstract class BaseDTO extends AbstractBaseEntity{
 
 
 

@@ -41,9 +41,15 @@
             left join fetch piv.pkCustMain pcum
             left join fetch piv.pkCustHelp pcuh
             left join fetch piv.pkAccount ppacc
-            left join fetch piv.projectcal pcref
-            left join fetch piv.projectret preting
+            left join fetch piv.projectcalculatorrefvo pcref
+            left join fetch piv.projectpledgerefvo preting
             left join fetch piv.businessDomain pbdomain
+        </query>
+    </named-query>
+
+    <named-query name="ProjectInfoVO.queryForGrid.count">
+        <query>
+            select count(piv.pkProjectInfo) from ProjectInfoVO piv
         </query>
     </named-query>
 
@@ -76,18 +82,19 @@
             left join fetch piv.pkCustMain pcum
             left join fetch piv.pkCustHelp pcuh
             left join fetch piv.pkAccount ppacc
-            left join fetch piv.projectcal pcref
-            left join fetch piv.projectret preting
+            left join fetch piv.projectcalculatorrefvo pcref
+            left join fetch piv.projectpledgerefvo preting
             left join fetch piv.businessDomain pbdomain
             where piv.pkProjectInfo = ?1
+
         </query>
     </named-query>
 
-    <named-query name="ProjectInfoVO.deleteByIds">
-        <query>
-            delete from ProjectInfoDO c where c.pkProjectInfo.in :ids
-        </query>
-    </named-query>
+<!--    <named-query name="ProjectInfoVO.deleteByIds">-->
+<!--        <query>-->
+<!--            delete from ProjectInfoDO c where c.pkProjectInfo.in :ids-->
+<!--        </query>-->
+<!--    </named-query>-->
 
 
     <named-query name="ProjectInfoVO.updateBillstatus">

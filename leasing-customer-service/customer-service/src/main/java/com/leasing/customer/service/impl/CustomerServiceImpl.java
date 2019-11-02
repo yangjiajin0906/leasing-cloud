@@ -37,17 +37,9 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepo.batchDeleteByPks(pks);
     }
 
-    /**
-     * 根据客户主键修改客户状态
-     *
-     * @param newBillstatus 客户新状态
-     * @param pkCustomer    客户主键
-     */
     @Override
-    public void updateBillStatus(Short newBillstatus, String pkCustomer) {
-        CustomerDO customerDO = customerRepo.findOne(pkCustomer);
-        customerDO.setBillstatus(newBillstatus);
-        this.save(customerDO);
+    public List<CustomerVO> queryCustomerStatusByName(String customerName, Short customerStatus, Short customerType) {
+        return customerRepo.queryCustomerStatusByName(customerName, customerStatus, customerType);
     }
 
     /**

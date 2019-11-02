@@ -1,13 +1,12 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.controller;
 
-import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.ProjectInfoVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.queryVO.ProjectQueryVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.dos.ProjectInfoDO;
-import com.leasing.rentearly.rentearlyservice.projectInfo.enity.refVO.ProjectInfoRefVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.repository.ProjectInfoRepository;
 import com.leasing.rentearly.rentearlyservice.projectInfo.repository.TestRepository;
+import com.leasing.rentearly.rentearlyservice.projectInfo.service.ProjectInfoService;
 import com.leasing.rentearly.rentearlyservice.projectInfo.service.TestService;
 import com.leasing.rentearly.rentearlyservice.projectInfo.service.TestTransactionService;
 import org.springframework.data.domain.PageRequest;
@@ -26,7 +25,7 @@ import java.util.List;
  * @description:
  **/
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/leasing/rentearly/test")
 public class TestController {
 
     @Resource
@@ -37,6 +36,8 @@ public class TestController {
     TestTransactionService testTransactionService;
     @Resource
     ProjectInfoRepository projectInfoRepository;
+    @Resource
+    ProjectInfoService projectInfoService;
 
 
     @RequestMapping("/test")
@@ -53,8 +54,7 @@ public class TestController {
     @RequestMapping("/testT")
     public Object testToYing(){
         String pk = "0001AA1000000012GG7J";
-        List projectInfoRefVO = (List) testRepository.findTest6(pk,ProjectInfoRefVO.class);
-        return projectInfoRefVO;
+        return null;
     }
 //
     @RequestMapping("/testLeft")
@@ -73,16 +73,14 @@ public class TestController {
     @RequestMapping("/findTest4")
     public Object findTest4(){
         String pk = "0001AA1000000012GG7J";
-        List projectInfoRefVO = (List) testRepository.findTest4(pk,ProjectInfoRefVO.class);
-        return projectInfoRefVO;
+        return null;
     }
 
 
     @RequestMapping("/test8")
     public Object test8(){
         String pk = "0001AA1000000012GG7J";
-        List list = (List) testRepository.findByPkProjectInfo(pk,ProjectInfoRefVO.class);
-        return list;
+        return null;
     }
 
     @RequestMapping("/findFetch")
@@ -125,14 +123,14 @@ public class TestController {
         pagination.setCurPage(1);
         pagination.setPageSize(20);
         ProjectQueryVO projectInfoVO = new ProjectQueryVO();
-        PageQueryData list = testRepository.pageQuery(pagination,projectInfoVO);
+        //PageQueryData list = testRepository.pageQuery(pagination,projectInfoVO);
         //加入条件
         projectInfoVO.setProjectCode("00000");
-        PageQueryData list1 = testRepository.pageQuery(pagination,projectInfoVO);
+        //PageQueryData list1 = testRepository.pageQuery(pagination,projectInfoVO);
 
         Sort sort = new Sort(Sort.Direction.DESC,"ts");
-        PageQueryData list2 = testRepository.pageQuery(pagination,projectInfoVO,sort);
-        return list.getPageData();
+        //PageQueryData list2 = testRepository.pageQuery(pagination,projectInfoVO,sort);
+        return null;
 
     }
 
@@ -150,11 +148,11 @@ public class TestController {
         pagination.setPageSize(20);
         ProjectQueryVO projectInfoVO = new ProjectQueryVO();
         ProjectInfoDO projectInfoDO = new ProjectInfoDO();
-        PageQueryData list = testRepository.pageQuery(pagination,projectInfoVO);
+        //PageQueryData list = testRepository.pageQuery(pagination,projectInfoVO);
         Pageable pageable = PageRequest.of(1, 10);
         projectInfoDO.setProjectCode("00000");
 //        testRepository.findAll(projectInfoDO.toSpec(),pageable);
-        return list.getPageData();
+            return null;
     }
 
     @RequestMapping("testPageJQ")
@@ -164,8 +162,8 @@ public class TestController {
         pagination.setPageSize(20);
         ProjectQueryVO projectInfoVO = new ProjectQueryVO();
         String jq = "select p from ProjectInfoVO p order by case billstatus when 20 then 1 when 36 then 2 when 204 then 3 when 8 then 4 when 9 then 5 end,ts desc";
-        List list = testRepository.pageQuery(pagination,projectInfoVO,jq);
-        return list;
+       // List list = testRepository.pageQuery(pagination,projectInfoVO,jq);
+        return null;
     }
 
     @RequestMapping("findOne")
@@ -179,21 +177,21 @@ public class TestController {
     @RequestMapping("findOneByJPQL")
     public String findOneByJPQL(){
         String jq = "select p from ProjectInfoVO p where p.pkProjectInfo = '0001AA1000000012GG7J'";
-        testRepository.findOneByJPQL(ProjectInfoVO.class,jq,false);
+//        testRepository.findOneByJPQL(ProjectInfoVO.class,jq,false);
         return "ss";
     }
 
     @RequestMapping("findByNativeSql")
     public String findByNativeSql(){
         String query = "select * from yls_project_info where project_code like '%01482-07-05-2013-00130%'";
-        testRepository.findByNativeSql(ProjectInfoDO.class,query);
+//        testRepository.findByNativeSql(ProjectInfoDO.class,query);
         return "ss";
     }
 
     @RequestMapping("findOneByNativeSql")
     public String findOneByNativeSql(){
         String query = "select * from yls_project_info where pk_project_info like  = '0001AA1000000012GG7J'";
-        testRepository.findByNativeSql(ProjectInfoDO.class,query);
+//        testRepository.findByNativeSql(ProjectInfoDO.class,query);
         return "ss";
     }
 
@@ -230,6 +228,11 @@ public class TestController {
      */
     @RequestMapping("pageDataPage")
     public List pageDataPage(){
+        projectInfoService.finOne("0001MG00000000062690");
+        Pagination pagination = new Pagination(1,100);
+        ProjectQueryVO projectQueryVO = new ProjectQueryVO();
+        projectQueryVO.setProjectCode("1");
+        projectInfoService.pageData(projectQueryVO,pagination);
         Pageable pageable = new PageRequest(0,20);
         List<ProjectInfoVO> list = projectInfoRepository.pageDataPage(pageable);
         return list;
