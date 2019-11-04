@@ -16,7 +16,7 @@ import java.util.List;
  * @author:lvcna@yonyou.com
  * @description:
  **/
-@Service(value = "sys.ParameterServiceImpl")
+@Service(value = "sys.TestParameterServiceImpl")
 public class TestParameterServiceImpl implements TestParameterService {
 
     @Resource

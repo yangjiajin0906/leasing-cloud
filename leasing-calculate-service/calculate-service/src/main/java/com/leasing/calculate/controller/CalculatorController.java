@@ -1,11 +1,14 @@
 package com.leasing.calculate.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.leasing.calculate.entity.query.CalculatorQuery;
-import com.leasing.calculate.entity.vo.CalculatorVO;
 import com.leasing.calculate.service.CalculateService;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
+import com.leasing.common.entity.calculate.dos.CalculatorDO;
+import com.leasing.common.entity.calculate.query.CalculatorQuery;
+import com.leasing.common.entity.calculate.vo.CalculatorVO;
+import com.leasing.common.entity.sys.vo.ParameterVO;
+import com.leasing.common.utils.ParamType.ParamTypeUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -35,6 +38,7 @@ public class CalculatorController {
     @ApiImplicitParam(name = "data", value = "分页JSON串", dataType = "String")
     @RequestMapping(value = "/pageQuery")
     public PageQueryData<CalculatorVO> pageQuery(String data){
+        List<ParameterVO> list = ParamTypeUtils.findByPkParamType("0001AA1000000005GZ2X");
         Pagination pagination = new Pagination();
         pagination.setCurPage(1);
         pagination.setPageSize(10);
@@ -62,16 +66,16 @@ public class CalculatorController {
     @ApiOperation("保存")
     @ApiImplicitParam(name = "data", value = "报价VO JSON串", dataType = "String")
     @RequestMapping(value = "/save")
-    public CalculatorVO save(String data){
-        CalculatorVO vo = JSON.parseObject(data,CalculatorVO.class);
+    public CalculatorDO save(String data){
+        CalculatorDO vo = JSON.parseObject(data,CalculatorDO.class);
         return calculateService.save(vo);
     }
 
     @ApiOperation("更新报价")
     @ApiImplicitParam(name = "data", value = "报价VO JSON串", dataType = "String")
     @RequestMapping(value = "/update")
-    public CalculatorVO update(String data){
-        CalculatorVO vo = JSON.parseObject(data,CalculatorVO.class);
+    public CalculatorDO update(String data){
+        CalculatorDO vo = JSON.parseObject(data,CalculatorDO.class);
         return calculateService.update(vo);
     }
 
@@ -79,7 +83,7 @@ public class CalculatorController {
     @ApiImplicitParam(name = "data", value = "报价主键PK", dataType = "String")
     @RequestMapping(value = "/delete")
     public void delete(String data){
-        CalculatorVO vo = calculateService.findOne(data);
+        CalculatorDO vo = calculateService.findOne(data);
         calculateService.delete(vo);
     }
 

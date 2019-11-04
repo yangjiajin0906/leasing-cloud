@@ -1,11 +1,10 @@
 package com.leasing.calculate;
 
-import com.leasing.calculate.entity.dos.CalculatorDO;
 import com.leasing.calculate.repository.CalculatorRepo;
-import com.leasing.calculate.entity.vo.CalculatorVO;
 import com.leasing.calculate.service.CalculateService;
-import com.leasing.calculate.entity.dto.CalculatorDTO;
-import com.leasing.common.utils.DozerUtils;
+import com.leasing.common.entity.calculate.dos.CalculatorDO;
+import com.leasing.common.entity.calculate.vo.CalculatorVO;
+import com.leasing.common.utils.base.DozerUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,9 +13,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RunWith(SpringRunner.class)              //就是指用SpringJUnit4ClassRunner来运行
 @WebAppConfiguration                                    //申明这是一个测试
@@ -34,34 +31,6 @@ public class CalculateServiceApplicationTests {
 	@Test
 	public void findOne() {
 		CalculatorVO vo = calculateService.findByPk("0001MG00000000038284");
-		System.out.println(vo);
-	}
-
-	//动态投影
-	@Test
-	public void findByPkLeaseCalculatorClass() {
-		CalculatorDTO vo = calculateService.findByPkLeaseCalculator("0001MG00000000038284", CalculatorDTO.class);
-		System.out.println(vo.getQuotName());
-		//System.out.println(vo.getLeaseCalculator());
-	}
-
-	//自定义sql new对象
-	@Test
-	public void findByIsSql() {
-		CalculatorDTO vo  = calculateService.findByIsSql("0001MG00000000038284");
-		//CalculatorVO vo = JSON.parseObject(JSON.toJSONString(map),CalculatorVO.class);
-		System.out.println(vo);
-	}
-
-	//自定义sql 别名
-	@Test
-	public void findByIsSql2() {
-		Map<String,Object> map = calculateService.findByIsSql2("0001MG00000000038284");
-		Map<String,Object> map2 = new HashMap<String,Object>();
-		for(String key:map.keySet()){//keySet获取map集合key的集合  然后在遍历key即可
-			map2.put(key,map.get(key));
-		}
-		CalculatorVO vo = DozerUtils.convert(map,CalculatorVO.class);
 		System.out.println(vo);
 	}
 

@@ -1,7 +1,9 @@
 package com.leasing.calculate.service;
-import com.leasing.calculate.entity.dto.CalculatorDTO;
-import com.leasing.calculate.entity.query.CalculatorQuery;
-import com.leasing.calculate.entity.vo.CalculatorVO;
+
+import com.leasing.common.entity.calculate.dos.CalculatorDO;
+import com.leasing.common.entity.calculate.dto.CalculatorDTO;
+import com.leasing.common.entity.calculate.query.CalculatorQuery;
+import com.leasing.common.entity.calculate.vo.CalculatorVO;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 
@@ -21,25 +23,25 @@ public interface CalculateService {
      * @param vo
      * @return
      */
-    CalculatorVO save(CalculatorVO vo);
+    CalculatorDO save(CalculatorDO vo);
 
     /**
      * 删除方法
      * @param vo
      */
-    void delete(CalculatorVO vo);
+    void delete(CalculatorDO vo);
 
     /**
      * 更新方法
      * @param vo
      */
-    CalculatorVO update(CalculatorVO vo);
+    CalculatorDO update(CalculatorDO vo);
 
     /**
      * 单体查询
      * @return
      */
-    CalculatorVO findOne(String pk);
+    CalculatorDO findOne(String pk);
 
     /**
      * 查询单个VO（包含子表）
@@ -58,7 +60,7 @@ public interface CalculateService {
      * @author Yangjiajin
      * @date 2019/10/28 10:04
      * @param id
-     * @return com.leasing.calculate.entity.vo.CalculatorVO
+     * @return com.leasing.common.entity.calculate.vo.CalculatorVO
      */
     CalculatorVO findChildListById(String id);
 
@@ -67,15 +69,9 @@ public interface CalculateService {
      * @author Yangjiajin
      * @date 2019/10/23 10:17
      * @param vo
-     * @return com.leasing.calculate.entity.dto.CalculatorDTO
+     * @return com.leasing.common.entity.calculate.dto.CalculatorDTO
      */
     List calOperateLease(CalculatorVO vo);
-
-    CalculatorDTO findByIsSql(String pkLeaseCalculator);
-
-    Map<String,Object> findByIsSql2(String pkLeaseCalculator);
-
-    CalculatorDTO findByPkLeaseCalculator(String pkLeaseCalculator, Class<CalculatorDTO> type);
 
     List<CalculatorVO> findListByPk(String pk);
 
@@ -84,7 +80,7 @@ public interface CalculateService {
      * @author Yangjiajin
      * @date 2019/10/23 10:17
      * @param []
-     * @return com.leasing.calculate.entity.dto.CalculatorDTO
+     * @return com.leasing.common.entity.calculate.dto.CalculatorDTO
      */
     List calMakeResults();
 
@@ -93,7 +89,7 @@ public interface CalculateService {
      * @author Yangjiajin
      * @date 2019/10/23 10:17
      * @param []
-     * @return com.leasing.calculate.entity.dto.CalculatorDTO
+     * @return com.leasing.common.entity.calculate.dto.CalculatorDTO
      */
     List calAccountingShare();
 
