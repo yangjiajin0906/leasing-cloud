@@ -42,17 +42,31 @@ public class DFuncMenuController {
     @Autowired
     DFuncMenuRepo dFuncMenuRepo;
 
+    /**
+     * xml文件配置测试
+     */
+    @RequestMapping(value = "/testXml")
+    public ResResult testXml(){
+//        Pagination pagination = new Pagination();
+//        pagination.setCurPage(1);
+//        pagination.setPageSize(50);
+//        DFuncMenuQuery queryvo =new DFuncMenuQuery();
+        List<Map<String,Object>> list = dFuncMenuRepo.findByNativeName("DFuncMenuVO.getDFuncmentest");
+        return ResultUtils.successWithData(list);
+    }
+
 
     /**
      * 获取所有菜单列表  前台可视化  直接返回VO list  (已使用)
      * @return
      */
     @RequestMapping(value = "/getMenuList")
-    public ResResult getMenuList(@RequestBody String pagination){
-        Map<String,Object> map = JSONObject.parseObject(pagination);
-        Pagination page=new Pagination();
-        page.setCurPage(Integer.parseInt(String.valueOf(map.get("pageIndex"))));
-        page.setPageSize(Integer.parseInt(String.valueOf(map.get("pageSize"))));
+    //@RequestBody String pagination
+    public ResResult getMenuList(){
+//        Map<String,Object> map = JSONObject.parseObject(pagination);
+//        Pagination page=new Pagination();
+//        page.setCurPage(Integer.parseInt(String.valueOf(map.get("pageIndex"))));
+//        page.setPageSize(Integer.parseInt(String.valueOf(map.get("pageSize"))));
         PageQueryData<DFuncMenuVO> result = dFuncMenuService.getMenuList();
         return ResultUtils.successWithData(result);
     }

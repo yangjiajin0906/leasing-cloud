@@ -1,4 +1,4 @@
-package com.leasing.common.base.service;
+package com.leasing.common.service;
 
 /**
  * @project:leasing-cloud

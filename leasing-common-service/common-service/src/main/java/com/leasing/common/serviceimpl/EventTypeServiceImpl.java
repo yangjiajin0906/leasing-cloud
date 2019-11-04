@@ -1,22 +1,18 @@
-package com.leasing.common.base.serviceimpl;
+package com.leasing.common.serviceimpl;
 
 import com.leasing.common.base.repository.EventTypeRepo;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
-import com.leasing.common.base.service.EventTypeService;
+import com.leasing.common.service.EventTypeService;
 import com.leasing.common.entity.common.dos.EventTypeDO;
 import com.leasing.common.entity.common.dto.EventTypeDTO;
 import com.leasing.common.entity.common.query.EventTypeQuery;
 import com.leasing.common.entity.common.vo.EventTypeVO;
-import javafx.event.EventType;
-import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @project:leasing-cloud

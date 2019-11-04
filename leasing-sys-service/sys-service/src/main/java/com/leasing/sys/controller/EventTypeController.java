@@ -1,7 +1,7 @@
 package com.leasing.sys.controller;
 
 import com.leasing.common.base.repository.support.PageQueryData;
-import com.leasing.common.base.service.EventTypeService;
+import com.leasing.common.service.EventTypeService;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.entity.common.dos.EventTypeDO;
 import com.leasing.common.entity.common.dto.EventTypeDTO;

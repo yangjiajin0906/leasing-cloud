@@ -1,11 +1,10 @@
-package com.leasing.common.base.serviceimpl;
+package com.leasing.common.serviceimpl;
 
 import com.leasing.common.base.repository.IrrTypeRepo;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
-import com.leasing.common.base.service.IrrTypeService;
+import com.leasing.common.service.IrrTypeService;
 import com.leasing.common.entity.common.dos.IrrTypeDO;
-import com.leasing.common.entity.common.query.IrrTypeQuery;
 import com.leasing.common.entity.common.vo.IrrTypeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

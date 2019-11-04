@@ -1,18 +1,20 @@
-package com.leasing.common.base.serviceimpl;
+package com.leasing.common.serviceimpl;
 
 import com.leasing.common.base.repository.CoderuleRepo;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
-import com.leasing.common.base.service.CoderuleService;
+import com.leasing.common.service.CoderuleService;
 import com.leasing.common.entity.common.dos.CoderuleDO;
-import com.leasing.common.entity.common.query.CoderuleQuery;
 import com.leasing.common.entity.common.vo.CoderuleVO;
+import com.leasing.common.enums.base.Billstatus;
+import com.leasing.common.enums.constant.CodeRuleKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @project:leasing-cloud
@@ -30,8 +32,6 @@ public class CoderuleServiceImpl implements CoderuleService {
 
     @Override
     public PageQueryData<CoderuleVO> ListCoderule(){
-        String query = "select * from yls_coderule";
-        List resut = jdbcTemplate.queryForList(query);
         Pagination pagination = new Pagination();
         pagination.setCurPage(1);
         pagination.setPageSize(50);
@@ -59,5 +59,20 @@ public class CoderuleServiceImpl implements CoderuleService {
     @Override
     public void deleteCoderule(CoderuleDO dos){
         coderuleRepo.delete(dos);
+    }
+
+    @Override
+    public List<Map<String,Object>> findCoderuleByFuncCodeAndVariableName(String funcCode,String variableName){
+        return coderuleRepo.findCoderuleByFuncCodeAndVariableName(funcCode,variableName, Billstatus.CHECK.getShort());
+    }
+
+    @Override
+    public List<Map<String,Object>> getCodeRuleTypeWithNoLiquid(String pk_coderule){
+        return  coderuleRepo.getCodeRuleTypeWithNoLiquid(pk_coderule, CodeRuleKey.LIQUID);
+    }
+
+    @Override
+    public List<Map<String,Object>> getCodeRuleTypeWithLiquid(String pk_coderule,String refer_sort){
+        return coderuleRepo.getCodeRuleTypeWithLiquid(pk_coderule,refer_sort);
     }
 }
