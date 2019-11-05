@@ -37,8 +37,8 @@ public class CoderuleTypeVO extends BaseVO {
      * 编号规则类型
      */
     @ManyToOne
-    @JoinColumn(name = "pkParameter")
-    private ParameterDTO pkParameter;
+    @JoinColumn(name = "coderuleType")
+    private ParameterDTO coderuleType;
     /**
      * 规则CODE
      */
@@ -80,12 +80,12 @@ public class CoderuleTypeVO extends BaseVO {
         this.referSort = referSort;
     }
 
-    public ParameterDTO getPkParameter() {
-        return pkParameter;
+    public ParameterDTO getCoderuleType() {
+        return coderuleType;
     }
 
-    public void setPkParameter(ParameterDTO pkParameter) {
-        this.pkParameter = pkParameter;
+    public void setCoderuleType(ParameterDTO coderuleType) {
+        this.coderuleType = coderuleType;
     }
 
     public String getRuleCode() {

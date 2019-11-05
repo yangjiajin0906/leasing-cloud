@@ -1,15 +1,16 @@
 package com.leasing.common.serviceimpl;
 
 import com.leasing.common.base.repository.CoderuleRepo;
+import com.leasing.common.base.repository.CoderuleTypeRepo;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
+import com.leasing.common.entity.common.dos.CoderuleTypeDO;
 import com.leasing.common.service.CoderuleService;
 import com.leasing.common.entity.common.dos.CoderuleDO;
 import com.leasing.common.entity.common.vo.CoderuleVO;
 import com.leasing.common.enums.base.Billstatus;
 import com.leasing.common.enums.constant.CodeRuleKey;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -27,8 +28,10 @@ import java.util.Map;
 public class CoderuleServiceImpl implements CoderuleService {
     @Autowired
     CoderuleRepo coderuleRepo;
+
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    CoderuleTypeRepo coderuleTypeRepo;
+
 
     @Override
     public PageQueryData<CoderuleVO> ListCoderule(){
@@ -67,12 +70,28 @@ public class CoderuleServiceImpl implements CoderuleService {
     }
 
     @Override
-    public List<Map<String,Object>> getCodeRuleTypeWithNoLiquid(String pk_coderule){
-        return  coderuleRepo.getCodeRuleTypeWithNoLiquid(pk_coderule, CodeRuleKey.LIQUID);
+    public List<Map<String,Object>> getCodeRuleTypeWithNoLiquid(String pkCoderule){
+        return  coderuleRepo.getCodeRuleTypeWithNoLiquid(pkCoderule, CodeRuleKey.LIQUID);
     }
 
     @Override
-    public List<Map<String,Object>> getCodeRuleTypeWithLiquid(String pk_coderule,String refer_sort){
-        return coderuleRepo.getCodeRuleTypeWithLiquid(pk_coderule,refer_sort);
+    public List<Map<String,Object>> getCodeRuleTypeWithLiquid(String pkCoderule,String referSort){
+        return coderuleRepo.getCodeRuleTypeWithLiquid(pkCoderule,CodeRuleKey.LIQUID,referSort);
     }
+
+    @Override
+    public void insertCoderuleType(CoderuleTypeDO dos){
+        coderuleTypeRepo.saveEntity(dos);
+    }
+
+    @Override
+    public void updateCoderuleType(String INITIAL_VALUE,String PK_CODERULE_TYPE){
+        CoderuleTypeDO dos = coderuleTypeRepo.findOne(PK_CODERULE_TYPE);
+        if(dos != null){
+            dos.setInitialValue(Integer.parseInt(INITIAL_VALUE));
+            coderuleTypeRepo.updateEntity(dos);
+        }
+    }
+
+
 }
