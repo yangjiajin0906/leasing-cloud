@@ -1,25 +1,28 @@
 package com.leasing.customer.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
-import com.leasing.common.utils.base.DozerUtils;
-import com.leasing.common.utils.base.ResultUtils;
+import com.leasing.common.enums.base.Billstatus;
+import com.leasing.common.enums.constant.CodeRuleKey;
+import com.leasing.common.enums.constant.FuncCodeConstant;
+import com.leasing.common.enums.constant.PubEnumsConstant;
+import com.leasing.common.utils.base.*;
 import com.leasing.customer.dao.dos.CustomerCorpDO;
 import com.leasing.customer.dao.dos.CustomerDO;
 import com.leasing.customer.dao.query.CustomerCorpQuery;
 import com.leasing.customer.dao.repository.CustomerCorpRepo;
-import com.leasing.customer.dao.vo.CustomerAuthApplyVO;
-import com.leasing.customer.dao.vo.CustomerAuthVO;
-import com.leasing.customer.dao.vo.CustomerCorpAllVO;
-import com.leasing.customer.dao.vo.CustomerCorpVO;
+import com.leasing.customer.dao.vo.*;
 import com.leasing.customer.service.CustomerCorpService;
 import com.leasing.customer.service.CustomerService;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,24 +40,69 @@ public class CustomerCorpServiceImpl implements CustomerCorpService {
     @Resource
     private CustomerService customerService;
 
+    @Override
+    public String checkUnique(CustomerCorpAllVO vo) {
+
+        String wheresql = "";
+
+        StringBuilder exception = new StringBuilder();
+
+        if (vo.getNationalTax() != null) {
+            if (vo.getPk() == null) {
+                wheresql = "vo.nationalTax = '" + vo.getNationalTax() + "'";
+            } else {
+                wheresql = "vo.nationalTax = '" + vo.getNationalTax() + "' and vo.pkCustomer <> '" + vo.getPk()
+                        + "' and vo.ifNew = '" + PubEnumsConstant.IF_YES + "'";
+            }
+
+            if (BaseBusinessUtils.checkUniqueFields(vo, new String[]{"nationalTax"}, wheresql)) {
+                exception.append("税务登记证号(国税)须唯一,请检查.\n");
+            }
+        }
+
+        if (vo.getLandTax() != null) {
+            if (vo.getPk() == null) {
+                wheresql = "vo.landTax = '" + vo.getLandTax() + "'";
+            } else {
+                wheresql = "vo.landTax = '" + vo.getLandTax() + "' and vo.pkCustomer <> '" + vo.getPk()
+                        + "' and vo.ifNew = '" + PubEnumsConstant.IF_YES + "'";
+            }
+
+            if (BaseBusinessUtils.checkUniqueFields(vo, new String[]{"landTax"}, wheresql)) {
+                exception.append("税务登记证号(地税)须唯一,请检查.");
+            }
+        }
+
+        if (vo.getLicenseNo() != null) {
+            if (vo.getPk() == null) {
+                wheresql = "vo.licenseNo = '" + vo.getLicenseNo() + "'";
+            } else {
+                wheresql = "vo.licenseNo = '" + vo.getLicenseNo() + "' and vo.pkCustomer <> '" + vo.getPk()
+                        + "' and vo.ifNew = '" + PubEnumsConstant.IF_YES + "'";
+            }
+
+            if (BaseBusinessUtils.checkUniqueFields(vo, new String[]{"licenseNo"}, wheresql)) {
+                exception.append("营业执照号码须唯一,请检查.");
+            }
+        }
+        return exception.toString();
+    }
+
 
     @Override
     @Transactional
-    public ResResult delete(CustomerCorpAllVO vo) {
+    public Boolean delete(CustomerCorpAllVO vo) {
         String pkCustomer = vo.getPkCustomer();
-        //逻辑删除
-        boolean ifDelete = deleteBefore(pkCustomer);
+        //1.删除前判断逻辑
+        Boolean ifDelete = deleteBefore(pkCustomer);
         if (ifDelete) {
             // 2.删除关联表
-            deleteSub(pkCustomer);
+            // deleteSub(pkCustomer); 因为暂存状态不能有关联页签  所以没必要
             // 3.删除表中数据
             customerService.deleteByPkCustomer(pkCustomer);
             customerCorpRepo.deleteById(pkCustomer);
-            return ResultUtils.successWithData(pkCustomer);
-        } else {
-            return ResultUtils.failWithMsgData(pkCustomer, "该客户有未完成的业务，不能删除!");
         }
-
+        return ifDelete;
     }
 
     @Override
@@ -68,7 +116,7 @@ public class CustomerCorpServiceImpl implements CustomerCorpService {
                 pass.add(pk);
                 //批量删除
                 //删除子表
-                deleteSub(pass);
+//                deleteSub(pass);
                 customerCorpRepo.batchDeleteByPks(pass);
                 customerService.batchDelete(pass);
             } else {
@@ -103,21 +151,55 @@ public class CustomerCorpServiceImpl implements CustomerCorpService {
 
     @Override
     @Transactional
-    public void save(CustomerCorpAllVO vo) {
+    public CustomerCorpAllVO save(CustomerCorpAllVO vo) {
+        if (vo.getPk() == null) {
+            // 获取客户编号
+            String code = getCustomerCode();
+            vo.setCustomerCode(code);
+            vo.setOperateDate(DateUtils.getCurDate());
+            vo.setOperateTime(DateUtils.getCurDateTime());
+            vo.setBillstatus(Billstatus.INITALIZE.getShort());// 审核通过
+//            vo.setPkDept(getClientENV().getPk_dept());
+//            vo.setPk_prj_manager(getClientENV().getCurUser());
+            vo.setPkCustomerCorp(BaseBusinessUtils.getOID());
+        } else {
+            /**sunlikun 增加修改客户信息请求crm接口*/
+            String data = JSONObject.toJSONString(vo);
+//            Properties properties = PropertiesUtils.loadProperties("factoring.properties");
+//            String webUrl = properties.getProperty("crm").toString().trim();
+//            String result =  HttpClientUtil.doPost(webUrl, data, "UTF-8", true);
+//            /**end*/
+//            ModifyTreeVOUtil modifyUtil = new ModifyTreeVOUtil(vo);
+//            modifyUtil.createHeadVO();
+        }
+
+        // 如果没用冻结客户直接保存
+//        vo.setPk_operator_lst(getClientENV().getCurUser());
+        vo.setOperateDateLst(DateUtils.getCurDate());
+        vo.setOperateTimeLst(DateUtils.getCurDateTime());
+        vo.setAlteraStatus(PubEnumsConstant.ALTERA_STATUS_YSE);//允许修改
 
         CustomerCorpDO corpDO = DozerUtils.convert(vo, CustomerCorpDO.class);
         CustomerDO customerDO = DozerUtils.convert(vo, CustomerDO.class);
-        customerDO.setPkCustomer("customerDO");
-        customerDO.setBillstatus(Short.valueOf("204")
-        );
         customerService.save(customerDO);
         corpDO.setPkCustomer(customerDO.getPkCustomer());
         this.save(corpDO);
+
+        return findOneAllByPkCustomer(customerDO.getPkCustomer());
     }
 
     @Override
     public void save(CustomerCorpVO vo) {
         customerService.save(new CustomerDO());
+    }
+
+    @Override
+    public String getCustomerCode() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put(CodeRuleKey.FUN_CODE, FuncCodeConstant.CUS_CORP_FUNCODE);
+        map.put(CodeRuleKey.VARIABLE_NAME, CodeRuleKey.PK_CUSTOMER_CORP_CODE);
+        return CodeRuleUtil.getCodeRule(map);
     }
 
     @Override
@@ -191,6 +273,8 @@ public class CustomerCorpServiceImpl implements CustomerCorpService {
      */
     private boolean deleteBefore(String pkCustomer) {
 
-        return true;
+        CustomerDO customerDO = customerService.findOneByPkCustomer(pkCustomer);
+        // 如果客户为暂存（未生效）时可以删除
+        return Billstatus.INITALIZE.getShort().equals(customerDO.getBillstatus());
     }
 }

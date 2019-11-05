@@ -20,7 +20,7 @@ import java.util.List;
  * @project:leasing-cloud
  * @date:2019-10-21
  * @author:zhangzhhn@yonyou.com
- * @description: 单位客户管理
+ * @description: 单位客户维护
  **/
 @RestController
 @RequestMapping(value = "/leasing/customer")

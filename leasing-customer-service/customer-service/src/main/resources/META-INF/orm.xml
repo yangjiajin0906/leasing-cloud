@@ -4,22 +4,24 @@
                  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm
         http://java.sun.com/xml/ns/persistence/orm_2_0.xsd ">
 
-<!--*****************************************************CustomerVO客户********************************************************-->
+    <!--*****************************************************CustomerVO客户********************************************************-->
     <!--校验客户名称是否重复-->
     <named-query name="CustomerVO.countCustomerName">
-        <query>select count(b.customerName) from CustomerVO b  where b.customerName = :customerName
-            and b.ifNew = 0</query>
+        <query>select count(b.customerName) from CustomerVO b where b.customerName = :customerName
+            and b.ifNew = 0
+        </query>
     </named-query>
 
     <!--校验客户证件号码是否重复-->
     <named-query name="CustomerVO.countIdentityNo">
-        <query>select count(b.identityNo) from CustomerVO b  where b.identityNo = :identityNo and b.ifNew = 0</query>
+        <query>select count(b.identityNo) from CustomerVO b where b.identityNo = :identityNo and b.ifNew = 0</query>
     </named-query>
 
     <!--查询客户是否封存-->
     <named-query name="CustomerVO.queryCustomerStatusByName">
         <query>select vo from CustomerVO vo where vo.customerName = :customerName
-            and vo.customerStatus = :customerStatus and vo.customerType= :customerType and vo.ifNew = 0</query>
+            and vo.customerStatus = :customerStatus and vo.customerType= :customerType and vo.ifNew = 0
+        </query>
     </named-query>
 
     <!--根据客户主键批量删除客户-->
@@ -28,20 +30,19 @@
     </named-query>
 
 
-
     <!--*************************************************单位客户CustomerCorpAllVO************************************************************-->
     <!--根据客户名称查询客户-->
     <named-query name="CustomerCorpAllVO.findByCustomerName">
-        <query>select b from CustomerCorpAllVO b where b.customerName = :customerName AND b.ifNew = 0 </query>
+        <query>select b from CustomerCorpAllVO b where b.customerName = :customerName AND b.ifNew = 0</query>
     </named-query>
 
     <!--根据客户主键查询客户-->
     <named-query name="CustomerCorpAllVO.findByPkCustomer">
-        <query>select b from CustomerCorpAllVO b where b.pkCustomer = :pkCustomer AND b.ifNew = 0 </query>
+        <query>select b from CustomerCorpAllVO b where b.pkCustomer = :pkCustomer AND b.ifNew = 0</query>
     </named-query>
     <!--单位客户分页查询-->
     <named-query name="corpPageQuery">
-        <query>select b from CustomerCorpAllVO b where b.ifNew = 0 and b.customerType = 0 order by  b.ts desc </query>
+        <query>select b from CustomerCorpAllVO b where b.ifNew = 0 and b.customerType = 0 order by b.ts desc</query>
     </named-query>
     <!--单位客户分页查询-->
     <named-query name="corpPageQuery.count">
@@ -57,87 +58,134 @@
 
     <!--分页查询-->
     <named-query name="custSourcePageQuery">
-        <query>select a from CustRelatedCompanyVO a </query>
+        <query>select a from CustRelatedCompanyVO a</query>
     </named-query>
     <named-query name="custSourcePageQuery.count">
-        <query>select count(a.pkCustRelatedCompany) from CustRelatedCompanyVO a </query>
+        <query>select count(a.pkCustRelatedCompany) from CustRelatedCompanyVO a</query>
     </named-query>
 
-        <!--************************************************股东情况CustShareHoldersVO*************************************************************-->
+    <!--校验是否有相同的数据项 -->
+    <!--高管 和 其他关系-->
+
+    <!--<named-query name="getCustRelatedCompany">-->
+    <!--<query>select a.pkCustRelatedCompany, a.pkCustomer, a.pkCustomerRef,-->
+    <!--b.customerCode-->
+    <!--from CustRelatedCompanyVO a-->
+    <!--JOIN CustomerVO b  on b.pkCustomer = a.pkCustomerRef</query>-->
+    <!--</named-query>-->
+
+    <!--通过客户主键、联系人类型、高管人员类别删除-->
+    <named-query name="deleteForType">
+        <query>delete from CustRelatedCompanyVO b where b.pkCustomer = :pkCustomer and b.billType=:billType
+            and b.executiveType =:executiveType
+        </query>
+    </named-query>
+
+
+    <named-native-query name="getCustRelatedCompany1">
+
+        <query>
+            SELECT CR.PK_CUST_RELATED_COMPANY AS PK_CUST_RELATED_COMPANY,
+            CR.PK_CUSTOMER             AS PK_CUSTOMER,
+            CR.PK_CUSTOMER_REF         AS PK_CUSTOMER_REF,
+            C.CUSTOMER_CODE            AS CUST_REF_CODE
+            FROM YLS_CUST_RELATED_COMPANY CR
+            LEFT JOIN YLS_CUSTOMER C ON C.PK_CUSTOMER = CR.PK_CUSTOMER_REF
+            WHERE CR.PK_CUSTOMER = :pkCustomer
+            AND CR.BILLTYPE = :billType
+        </query>
+    </named-native-query>
+    <!--校验是否有相同的数据项 -->
+    <!--高管 和 其他关系-->
+    <named-native-query name="getCustRelatedCompany2">
+        <query>
+            SELECT CR.PK_CUST_RELATED_COMPANY AS PK_CUST_RELATED_COMPANY,
+            CR.PK_CUSTOMER             AS PK_CUSTOMER,
+            CR.PK_CUSTOMER_REF         AS PK_CUSTOMER_REF,
+            C.CUSTOMER_CODE            AS CUST_REF_CODE
+            FROM YLS_CUST_RELATED_COMPANY CR
+            LEFT JOIN YLS_CUSTOMER C ON C.PK_CUSTOMER = CR.PK_CUSTOMER_REF
+            WHERE CR.PK_CUSTOMER = :pkCustomer
+            AND CR.BILLTYPE = :billType
+            AND CR.EXECUTIVE_TYPE = :executiveType
+        </query>
+    </named-native-query>
+    <!--************************************************股东情况CustShareHoldersVO*************************************************************-->
     <!--根据客户主键查询客户股东情况-->
     <named-query name="CustShareHoldersVO.queryHoldersByPkCustomer">
         <query>select a from CustShareHoldersVO a
-            where a.pkCustomer = :pkCustomer</query>
+            where a.pkCustomer = :pkCustomer
+        </query>
     </named-query>
 
     <named-query name="CustShareHoldersPageQuery">
-        <query>select a from CustShareHoldersVO a </query>
+        <query>select a from CustShareHoldersVO a</query>
     </named-query>
     <named-query name="CustShareHoldersPageQuery.count">
-        <query>select count(a.pkCustShareholders) from CustShareHoldersVO a </query>
+        <query>select count(a.pkCustShareholders) from CustShareHoldersVO a</query>
     </named-query>
 
     <!--************************************************资质认证CustQualificationVO*************************************************************-->
     <!--根据客户主键查询资质认证-->
     <named-query name="custQualificationPageQuery">
         <query>select a from CustQualificationVO a
-        left join fetch a.pkCustomer
-        left join fetch a.pkOperator
-        left join fetch a.pkChecker
-        left join fetch a.pkGrantor
+            left join fetch a.pkCustomer
+            left join fetch a.pkOperator
+            left join fetch a.pkChecker
+            left join fetch a.pkGrantor
         </query>
     </named-query>
     <named-query name="custQualificationPageQuery.count">
-        <query>select count(a.pkCustQualification) from CustQualificationVO a </query>
+        <query>select count(a.pkCustQualification) from CustQualificationVO a</query>
     </named-query>
 
     <!--************************************************股权投资CustEquityInvestmentVO*************************************************************-->
 
     <!--股权投资分页查询-->
     <named-query name="custEquityInvestmentPageQuery">
-        <query>select a from CustEquityInvestmentVO a </query>
+        <query>select a from CustEquityInvestmentVO a</query>
     </named-query>
     <named-query name="custEquityInvestmentPageQuery.count">
-        <query>select count(a.pkCustEquityInvestment) from CustEquityInvestmentVO a </query>
+        <query>select count(a.pkCustEquityInvestment) from CustEquityInvestmentVO a</query>
     </named-query>
 
     <!--************************************************高管信息CustExecutiveInformationVO*************************************************************-->
 
     <!--高管信息分页查询-->
     <named-query name="custExecutiveInformationPageQuery">
-        <query>select a from CustExecutiveInformationVO a </query>
+        <query>select a from CustExecutiveInformationVO a</query>
     </named-query>
     <named-query name="custExecutiveInformationPageQuery.count">
-        <query>select count(a.pkCustRelatedCompany) from CustExecutiveInformationVO a </query>
+        <query>select count(a.pkCustRelatedCompany) from CustExecutiveInformationVO a</query>
     </named-query>
 
     <!--************************************************其他联系人CustContactVO*************************************************************-->
 
     <!--其他联系人分页查询-->
     <named-query name="CustContactPageQuery">
-        <query>select a from CustContactVO a </query>
+        <query>select a from CustContactVO a</query>
     </named-query>
     <named-query name="CustContactPageQuery.count">
-        <query>select count(a.pkCustContact) from CustContactVO a </query>
+        <query>select count(a.pkCustContact) from CustContactVO a</query>
     </named-query>
 
     <!--************************************************客户银行账户信息CustBankAccountVO*************************************************************-->
 
     <!--客户银行账户分页查询-->
     <named-query name="custBankAccountPageQuery">
-        <query>select a from CustBankAccountVO a </query>
+        <query>select a from CustBankAccountVO a</query>
     </named-query>
     <named-query name="custBankAccountPageQuery.count">
-        <query>select count(a.pkCustBankAccount) from CustBankAccountVO a </query>
+        <query>select count(a.pkCustBankAccount) from CustBankAccountVO a</query>
     </named-query>
     <!--************************************************医院资质信息CustBankAccountVO*************************************************************-->
 
     <!--医院资质信息分页查询-->
     <named-query name="custMedicalQualifyPageQuery">
-        <query>select a from CustMedicalQualifyVO a </query>
+        <query>select a from CustMedicalQualifyVO a</query>
     </named-query>
     <named-query name="custMedicalQualifyPageQuery.count">
-        <query>select count(a.pkMedicalQualify) from CustMedicalQualifyVO a </query>
+        <query>select count(a.pkMedicalQualify) from CustMedicalQualifyVO a</query>
     </named-query>
 
 

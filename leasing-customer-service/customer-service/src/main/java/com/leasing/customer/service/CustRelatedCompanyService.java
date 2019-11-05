@@ -9,6 +9,7 @@ import com.leasing.customer.dao.vo.CustRelatedCompanyVO;
 import com.leasing.customer.dao.vo.CustomerVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @project:leasing-cloud
@@ -44,8 +45,21 @@ public interface CustRelatedCompanyService {
 
     void deleteByCustomer(CustomerVO customerVO);
 
+    /**
+     * 根据客户主键/关系类型/高管人员类别 删除
+     *
+     * @param pkCustomer    客户主键
+     * @param BillType      关系类型
+     * @param executiveType 高管人员类别
+     */
+    void deleteForTypes(String pkCustomer, Short BillType, Short executiveType);
+
 
     void deleteByCustomer(List<CustomerVO> customerVO);
+
+    List<Map> getCustRelatedCompany(String pkCustomer, Short billType);
+
+    List<Map> getCustRelatedCompany(String pkCustomer, Short billType, Short executiveType);
 
 
 }

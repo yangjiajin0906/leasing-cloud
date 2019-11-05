@@ -1,15 +1,16 @@
 package com.leasing.customer.service.impl;
 
+import com.leasing.common.enums.base.Billstatus;
+import com.leasing.common.utils.base.DateUtils;
+import com.leasing.common.utils.base.DozerUtils;
 import com.leasing.customer.dao.dos.CustomerDO;
 import com.leasing.customer.dao.repository.CustomerRepo;
-import com.leasing.customer.dao.vo.CustomerCorpAllVO;
 import com.leasing.customer.dao.vo.CustomerVO;
 import com.leasing.customer.service.CustomerService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,6 +33,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public CustomerDO findOneByPkCustomer(String pkCustomer) {
+        return customerRepo.findOne(pkCustomer);
+    }
+
+    @Override
     public void batchDelete(List<String> pks) {
 
         customerRepo.batchDeleteByPks(pks);
@@ -42,6 +48,13 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepo.queryCustomerStatusByName(customerName, customerStatus, customerType);
     }
 
+    @Override
+    public void effect(CustomerVO vo) {
+        vo.setBillstatus(Billstatus.APPROVE.getShort());
+        vo.setEffectiveDate(DateUtils.getCurDate());
+        this.save(vo);
+    }
+
     /**
      * 保存或修改客户信息
      *
@@ -49,8 +62,7 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     public void save(CustomerVO vo) {
-        //todo vo转do
-        save(new CustomerDO());
+        this.save(DozerUtils.convert(vo, CustomerDO.class));
     }
 
     /**

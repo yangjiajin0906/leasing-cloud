@@ -2,6 +2,7 @@ package com.leasing.customer.service.impl;
 
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
+import com.leasing.common.enums.constant.PubEnumsConstant;
 import com.leasing.common.utils.base.DozerUtils;
 import com.leasing.customer.dao.dos.CustRelatedCompanyDO;
 import com.leasing.common.dto.customer.CustomerDTO;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @project:leasing-cloud
@@ -48,7 +50,22 @@ public class CustRelatedCompanyServiceImpl implements CustRelatedCompanyService 
     }
 
     @Override
+    public void deleteForTypes(String pkCustomer, Short BillType, Short executiveType) {
+        repo.deleteForType(pkCustomer, PubEnumsConstant.RELATION_EXECUTIVE, PubEnumsConstant.EXECUTIVE_LEGAL);
+    }
+
+    @Override
     public void deleteByCustomer(List<CustomerVO> customerVO) {
 
+    }
+
+    @Override
+    public List<Map> getCustRelatedCompany(String pkCustomer, Short billTyp) {
+        return repo.getCustRelatedCompany(pkCustomer, billTyp);
+    }
+
+    @Override
+    public List<Map> getCustRelatedCompany(String pkCustomer, Short billTyp, Short executiveType) {
+        return repo.getCustRelatedCompany(pkCustomer, billTyp, executiveType);
     }
 }
