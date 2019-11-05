@@ -5,7 +5,7 @@ import com.leasing.customer.dao.vo.CustomerCorpAllVO;
 import com.leasing.customer.dao.vo.CustomerVO;
 import com.leasing.customer.service.CustomerCorpApplyService;
 import com.leasing.customer.service.CustomerService;
-import com.leasing.customer.util.BaseBusinessUtils;
+import com.leasing.common.utils.base.BaseBusinessUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
