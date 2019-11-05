@@ -28,6 +28,14 @@ public class BaseBusinessUtils {
         baseBusinessUtils = this;
     }
 
+
+    /**
+     * 校验字段唯一性
+     * @param vo 当前业务vo类
+     * @param strFields 字段String数组
+     * @param where 其他拼接where条件
+     * @return
+     */
     public static boolean checkUniqueFields(BaseVO vo, String[] strFields, String where) {
         Object[] strValues = new Object[strFields.length];
         for (int i = 0; i < strFields.length; i++) {
@@ -74,5 +82,14 @@ public class BaseBusinessUtils {
         }
         strCond = strCond + ")";
         return strCond;
+    }
+
+    /**
+     * 主键生成策略接口
+     * @return 返回生成主键
+     */
+    public static String getOID(){
+
+        return null;
     }
 }
