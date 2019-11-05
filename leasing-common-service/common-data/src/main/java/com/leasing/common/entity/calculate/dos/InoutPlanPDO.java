@@ -1,10 +1,12 @@
 package com.leasing.common.entity.calculate.dos;
 
 import com.leasing.common.base.entity.BaseDO;
+import com.leasing.common.entity.common.ref.EventTypeRefVO;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
@@ -45,8 +47,8 @@ public class InoutPlanPDO extends BaseDO {
     /**
      * 交易类别
      */
-//    @transient
-//    public eventtyperefvo transType;
+    @Transient
+    public EventTypeRefVO transType;
     /**
      * 收支方向
      */
@@ -740,6 +742,14 @@ public class InoutPlanPDO extends BaseDO {
         }
 
         return pk.compareTo(oldpk);
+    }
+
+    public EventTypeRefVO getTransType() {
+        return transType;
+    }
+
+    public void setTransType(EventTypeRefVO transType) {
+        this.transType = transType;
     }
 
     @Override

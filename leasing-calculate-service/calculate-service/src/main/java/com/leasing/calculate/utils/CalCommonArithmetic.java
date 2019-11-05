@@ -1,13 +1,15 @@
 package com.leasing.calculate.utils;
 
-import com.leasing.common.entity.calculate.param.ArithmeticCoreDayParam;
-import com.leasing.common.entity.calculate.param.ArithmeticCoreParam;
-import com.leasing.common.entity.calculate.vo.CalArithmeticVO;
-import com.leasing.common.entity.calculate.vo.LeaseLoanPlanVO;
-import com.leasing.common.entity.calculate.vo.LeasePlanVO;
+import com.leasing.common.entity.calculate.vo.base.LeaseLoanPlanVO;
+import com.leasing.common.entity.calculate.vo.cal.ArithmeticCoreDayParam;
+import com.leasing.common.entity.calculate.vo.cal.ArithmeticCoreParam;
+import com.leasing.common.entity.calculate.vo.cal.CalArithmeticVO;
 import com.leasing.common.enums.arithmetic.*;
 import com.leasing.common.enums.base.Direction;
+import com.leasing.common.enums.base.Tax_Mode;
+import com.leasing.common.enums.base.Yes_Or_No;
 import com.leasing.common.enums.constant.PubEnumsConstant;
+import com.leasing.common.enums.constant.TradeType;
 import com.leasing.common.utils.base.BigDecimalUtils;
 import com.leasing.common.utils.base.Days360;
 import com.leasing.common.utils.base.UFDate;
@@ -18,13 +20,16 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.leasing.calculate.utils.BaseAppVO.getDayRate;
+import static com.leasing.calculate.utils.BaseAppVO.getTermRate;
+
 /**
  * @project:leasing-cloud
  * @date:2019/10/25
  * @author:Yjj@yonyou.com
  * @description: 核心算法封装类工具类
  **/
-public class CalCommonArithmeticUtils {
+public class CalCommonArithmetic {
 
     /**
      * @description 租金计划表
@@ -146,9 +151,9 @@ public class CalCommonArithmeticUtils {
         BigDecimal puttingAmount = arithmeticParm.getPuttingAmount();// 投放金额
         List loanPlanList = arithmeticParm.getLease_loan_plan();//投放计划
         //计算期利率
-        BigDecimal termRate = BaseAppVOUtil.getTermRate(year_days, yearRate, payment_frequency);
+        BigDecimal termRate = getTermRate(year_days, yearRate, payment_frequency);
         //计算日利率
-        BigDecimal dayRate = BaseAppVOUtil.getDayRate(yearRate, year_days);
+        BigDecimal dayRate = getDayRate(yearRate, year_days);
         BigDecimal assets_margin = BigDecimalUtils.defaultIfNull(arithmeticParm.getAssets_margin());
         BigDecimal assets_temp = assets_margin.divide((BigDecimal.ONE.add(termRate)).pow(calDateList.size(),
                 MathContext.DECIMAL64), diag, RoundingMode.HALF_UP);
@@ -327,7 +332,7 @@ public class CalCommonArithmeticUtils {
         Integer term = arithmeticParm.getTerm();// 期数
         BigDecimal puttingAmount = arithmeticParm.getPuttingAmount();// 投放金额
         String puttingDate =  arithmeticParm.getPuttingDate();//投放日期
-        List<ArithmeticCoreDayParam> dayParamList = BaseAppUtils.getDayParam(arithmeticParm);
+        List<ArithmeticCoreDayParam> dayParamList = BaseApp.getDayParam(arithmeticParm);
         List<ArithmeticCoreDayParam> caldayParamList = new ArrayList<ArithmeticCoreDayParam>(dayParamList);;
         String termBeginDate ="";
         String termEndDate ="";
@@ -662,7 +667,59 @@ public class CalCommonArithmeticUtils {
      * 本金 = 租金 - 利息
      */
     public static List<CalArithmeticVO> getRentDifPlan(ArithmeticCoreParam arithmeticParm) {
-        return null;
+        List<CalArithmeticVO> list = new ArrayList<CalArithmeticVO>();
+        List<String> calDateList = arithmeticParm.getCalDateList();
+        Short year_days = arithmeticParm.getYear_days();
+        BigDecimal yearRate = arithmeticParm.getYearRate();
+        Short payment_frequency = arithmeticParm.getPayment_frequency();
+        int diag = arithmeticParm.getCal_digit();
+        Integer term = arithmeticParm.getTerm();// 期数
+        Short prepay_or_not = arithmeticParm.getPrepay_or_not();
+        BigDecimal puttingAmount = arithmeticParm.getPuttingAmount();// 投放金额
+        BigDecimal cal_amount = arithmeticParm.getCal_amount();// 等差金额
+        BigDecimal termRate = getTermRate(year_days, yearRate, payment_frequency);// 期息率
+        BigDecimal assets_margin = BigDecimalUtils.defaultIfNull(arithmeticParm.getAssets_margin());
+        BigDecimal assets_temp = assets_margin.divide((BigDecimal.ONE.add(termRate)).pow(calDateList.size(),MathContext.DECIMAL64), 2, RoundingMode.HALF_UP);
+        BigDecimal difRate = BigDecimal.valueOf(Math.pow(1 + termRate.doubleValue(), calDateList.size()));// 等差比例
+        BigDecimal termRentAmount = getTermRentAmount(puttingAmount.subtract(assets_temp), termRate,calDateList.size(), prepay_or_not, diag);// 等额每期租金
+        BigDecimal firstRentAmount = difRate.divide(difRate.subtract(BigDecimal.ONE), MathContext.DECIMAL64).multiply(BigDecimal.valueOf(calDateList.size()));
+        firstRentAmount = firstRentAmount.subtract(BigDecimal.valueOf(calDateList.size())).subtract(BigDecimal.ONE.divide(termRate, MathContext.DECIMAL64));
+        firstRentAmount = firstRentAmount.multiply(cal_amount);
+        firstRentAmount = firstRentAmount.add(termRentAmount).setScale(diag, RoundingMode.HALF_UP);// 第一期租金
+        BigDecimal balanceAmount = puttingAmount;// 剩余本金
+        BigDecimal balanceRentAmount = firstRentAmount;
+        //期次累计
+        int lease_time = 0;
+        if(arithmeticParm.getRentList() != null) {
+            lease_time = arithmeticParm.getRentList().size();
+        }
+        for (int i = 1; i <= calDateList.size() && i <= term; i++) {
+            CalArithmeticVO vo = new CalArithmeticVO();
+            vo.setLease_time(i+lease_time);
+            vo.setCal_date(calDateList.get(i - 1));
+            vo.setPlan_date(calDateList.get(i - 1));
+            vo.setLease_cash(balanceRentAmount.setScale(diag, RoundingMode.HALF_UP));
+            // 计算利息 用期利率yjj
+            //vo.setLease_interest(balanceAmount.multiply(termRate).setScale(diag, RoundingMode.HALF_UP));
+            vo.setLease_interest(getTermInterestAmount(balanceAmount, termRate, diag));
+            if (i == 1 && prepay_or_not.intValue() == Prepay_Or_Not.PREPAY.getShort().intValue()) {
+                vo.setLease_interest(BigDecimal.ZERO);
+            }
+            vo.setLease_corpus(vo.getLease_cash().subtract(vo.getLease_interest()).setScale(diag,RoundingMode.HALF_UP));
+            balanceAmount = balanceAmount.subtract(vo.getLease_corpus());
+            balanceRentAmount = balanceRentAmount.add(cal_amount);
+            vo.setCorpus_balance(balanceAmount);
+            vo.setRateValue(yearRate);
+            vo.setDirection(Direction.INCOME.getShort());
+            list.add(vo);
+        }
+//        if(arithmeticParm.getRentList() == null) {
+//            arithmeticParm.setRentList(list);
+//        } else {
+//            arithmeticParm.getRentList().addAll(list);
+//        }
+//        getRentEQFinPlan(arithmeticParm);
+        return list;
     }
 
     /**
@@ -671,7 +728,134 @@ public class CalCommonArithmeticUtils {
      * 本金 = 租金 - 利息
      */
     public static List<CalArithmeticVO> getRentSpePlan(ArithmeticCoreParam arithmeticParm) {
-        return null;
+        List<CalArithmeticVO> list = new ArrayList<CalArithmeticVO>();
+        List<String> calDateList = arithmeticParm.getCalDateList();
+        Short year_days = arithmeticParm.getYear_days();
+        BigDecimal yearRate = arithmeticParm.getYearRate();
+        Short payment_frequency = arithmeticParm.getPayment_frequency();
+        int diag = arithmeticParm.getCal_digit();
+        Integer term = arithmeticParm.getTerm();// 期数
+        BigDecimal puttingAmount = arithmeticParm.getPuttingAmount();// 投放金额
+        BigDecimal cal_amount = arithmeticParm.getCal_amount();// 指定租金
+        Short prepay_or_not = arithmeticParm.getPrepay_or_not();
+        BigDecimal termRate = getTermRate(year_days, yearRate, payment_frequency);// 期息率
+        //计算日利率
+        BigDecimal dayRate = getDayRate(yearRate, year_days);
+        BigDecimal balanceAmount = puttingAmount;// 剩余本金
+        List loanPlanList = arithmeticParm.getLease_loan_plan();//投放计划
+        BigDecimal oldbalanceAmount = BigDecimal.ZERO;// 上期剩余本金
+        LeaseLoanPlanVO leaseLoanPlanVO = null;
+        LeaseLoanPlanVO oldleaseLoanPlanVO = null;
+        LeaseLoanPlanVO calLeaseLoanPlanVO = null;
+        String termBeginDate ="";
+        String termEndDate ="";
+        Boolean breakFalg = false;
+        BigDecimal termInterest = BigDecimal.ZERO;//每期利息
+        BigDecimal partInterest = BigDecimal.ZERO;//期次起始日到投放日之间的利息
+        int day = 0;//期次起始日和放款日之间间隔天数
+        //期次累计
+        int lease_time = 0;
+        if(arithmeticParm.getRentList() != null) {
+            lease_time = arithmeticParm.getRentList().size();
+        }
+        for (int i = 1; i <= calDateList.size() && i <= term; i++) {
+            partInterest = BigDecimal.ZERO;
+            CalArithmeticVO vo = new CalArithmeticVO();
+            vo.setLease_time(i+lease_time);
+            vo.setCal_date(calDateList.get(i - 1));
+            vo.setPlan_date(calDateList.get(i - 1));
+            vo.setLease_cash(cal_amount.setScale(diag, RoundingMode.HALF_UP));
+            if(i==1){
+                termBeginDate = arithmeticParm.getLastDay();
+                termEndDate = calDateList.get(i - 1);
+            }else{
+                termBeginDate = calDateList.get(i - 2);
+                termEndDate = calDateList.get(i - 1);
+            }
+            //计算利息yjj
+            //termInterest = balanceAmount.multiply(termRate).setScale(diag, RoundingMode.HALF_UP);
+            termInterest = getTermInterestAmount(balanceAmount, termRate, diag);
+            //若本期之间存在投放计划，则根据新的剩余本金重新计算利息
+            if(loanPlanList!=null){
+                for(int j=0;j<loanPlanList.size();j++){
+                    oldbalanceAmount = BigDecimal.ZERO;
+                    leaseLoanPlanVO = (LeaseLoanPlanVO) loanPlanList.get(j);
+                    //若第一次投放计划的计息方式为：全额起租，则跳出循环体
+//            	 if(j==0&&leaseLoanPlanVO.getCalinterest_amount_style().compareTo(PubEnumsConstant.CALINTEREST_STLYE_ZERO)==0){
+//            		 break;
+//            	 }
+                    if((UFDate.getDate(leaseLoanPlanVO.getPlan_date()).after(UFDate.getDate(termBeginDate))
+                            ||UFDate.getDate(leaseLoanPlanVO.getPlan_date()).equals(UFDate.getDate(termBeginDate)))
+                            &&UFDate.getDate(leaseLoanPlanVO.getPlan_date()).before(UFDate.getDate(termEndDate))){
+                        //若此次投放的计息金额计算方式不是‘无’
+                        if(leaseLoanPlanVO.getCalinterest_amount_style().compareTo(PubEnumsConstant.CALINTEREST_STLYE_TWO)!=0){
+                            //若此次投放的计息金额计算方式为：全额起息，则继续循环剩余投放计划，直到将所有的投放金额相加为止
+                            if(leaseLoanPlanVO.getCalinterest_amount_style().compareTo(PubEnumsConstant.CALINTEREST_STLYE_ZERO)==0){
+                                for(int k=j;k<loanPlanList.size();k++){
+                                    calLeaseLoanPlanVO =(LeaseLoanPlanVO) loanPlanList.get(k);
+                                    oldbalanceAmount = oldbalanceAmount.add(calLeaseLoanPlanVO.getPlan_cash());
+
+                                }
+                                day = Days360.days360(termBeginDate,leaseLoanPlanVO.getPlan_date() );
+                                balanceAmount = balanceAmount.add(oldbalanceAmount);
+                                //重算利息yjj
+                                //partInterest = oldbalanceAmount.multiply(dayRate).multiply(new BigDecimal(day)).setScale(diag, RoundingMode.HALF_UP);
+                                //termInterest = (balanceAmount.multiply(termRate).setScale(diag, RoundingMode.HALF_UP)).subtract(partInterest).setScale(diag, RoundingMode.HALF_UP);
+                                partInterest = getTermInterestAmount(oldbalanceAmount, dayRate, day, diag);
+                                termInterest = getTermInterestAmount(balanceAmount, termRate, diag).subtract(partInterest).setScale(diag, RoundingMode.HALF_UP);
+                                break;
+                            }else{//计息金额计算方式为：按本次投放计息
+                                for(int m=0;m<j;m++){
+                                    oldleaseLoanPlanVO =(LeaseLoanPlanVO) loanPlanList.get(m);
+                                    if(oldleaseLoanPlanVO.getCalinterest_amount_style().compareTo(PubEnumsConstant.CALINTEREST_STLYE_ZERO)==0){
+                                        breakFalg =true;
+                                        break;
+                                    }
+                                }
+                                if(breakFalg){
+                                    break;
+                                }
+                                for(int n= j;n<loanPlanList.size();n++){
+                                    calLeaseLoanPlanVO =(LeaseLoanPlanVO) loanPlanList.get(n);
+                                    if((UFDate.getDate(calLeaseLoanPlanVO.getPlan_date()).after(UFDate.getDate(termBeginDate))
+                                            ||UFDate.getDate(calLeaseLoanPlanVO.getPlan_date()).equals(UFDate.getDate(termBeginDate)))
+                                            &&UFDate.getDate(calLeaseLoanPlanVO.getPlan_date()).before(UFDate.getDate(termEndDate))){
+                                        oldbalanceAmount = BigDecimal.ZERO;
+                                        oldbalanceAmount = oldbalanceAmount.add(calLeaseLoanPlanVO.getPlan_cash());
+                                        balanceAmount = balanceAmount.add(oldbalanceAmount);
+                                        day = Days360.days360(termBeginDate, calLeaseLoanPlanVO.getPlan_date());
+                                        //重算利息yjj
+                                        //partInterest = partInterest.add(oldbalanceAmount.multiply(dayRate).multiply(new BigDecimal(day)).setScale(diag, RoundingMode.HALF_UP));
+                                        //termInterest = (balanceAmount.multiply(termRate).setScale(diag, RoundingMode.HALF_UP)).subtract(partInterest).setScale(diag, RoundingMode.HALF_UP);
+                                        partInterest = partInterest.add(getTermInterestAmount(oldbalanceAmount, dayRate, day, diag));
+                                        termInterest = getTermInterestAmount(balanceAmount, termRate, diag).subtract(partInterest).setScale(diag, RoundingMode.HALF_UP);
+                                    }
+                                }
+                                break;
+
+                            }
+                        }else{//'无'
+
+                        }
+                    }
+                }
+            }
+            vo.setLease_interest(termInterest);
+            if (i == 1 && prepay_or_not.intValue() == Prepay_Or_Not.PREPAY.getShort().intValue()) {
+                vo.setLease_interest(BigDecimal.ZERO);
+            }
+            if(BigDecimalUtils.equalZero(cal_amount)) {
+                vo.setLease_interest(BigDecimal.ZERO);
+            }
+            vo.setLease_corpus(vo.getLease_cash().subtract(vo.getLease_interest()).setScale(diag,RoundingMode.HALF_UP));
+            balanceAmount = balanceAmount.subtract(vo.getLease_corpus());
+            vo.setTrans_type(TradeType.TRADETYPE_RENT);
+            vo.setCorpus_balance(balanceAmount);
+            vo.setRateValue(yearRate);
+            vo.setDirection(Direction.INCOME.getShort());
+            list.add(vo);
+        }
+        return list;
     }
 
     /**
@@ -681,7 +865,150 @@ public class CalCommonArithmeticUtils {
      * @return
      */
     public static List<CalArithmeticVO> getPrincipalSpePlan(ArithmeticCoreParam arithmeticParm) {
-        return null;
+        List<CalArithmeticVO> list = new ArrayList<CalArithmeticVO>();
+        List<String> calDateList = arithmeticParm.getCalDateList();
+        BigDecimal yearRate = arithmeticParm.getYearRate();
+        int diag = arithmeticParm.getCal_digit();
+        Integer term = arithmeticParm.getTerm();// 期数
+        Short prepay_or_not = arithmeticParm.getPrepay_or_not();
+        BigDecimal puttingAmount = arithmeticParm.getPuttingAmount();// 投放金额
+        BigDecimal cal_amount = arithmeticParm.getCal_amount();// 指定本金
+
+        BigDecimal value  = BigDecimal.valueOf(360);
+        if(arithmeticParm.getYear_days().intValue() == Year_Days_Value.VALUE_365.getShort().intValue()){
+            value  = BigDecimal.valueOf(365);
+        }
+        BigDecimal dayRate = arithmeticParm.getYearRate().divide(value, MathContext.DECIMAL64);//日利率
+
+
+        Short irr_days = arithmeticParm.getIrr_days();
+        if (irr_days == null) {
+            irr_days = Year_Days_Irr.IRR_360.getShort();
+        }
+
+        UFDate beginDay = UFDate.getDate(arithmeticParm.getLastDay());//投放日期
+
+        BigDecimal balanceAmount = puttingAmount;// 剩余本金
+        List loanPlanList = arithmeticParm.getLease_loan_plan();//投放计划
+        String termBeginDate ="";
+        String termEndDate ="";
+        int calday = 0;//两日期间隔天数
+        BigDecimal partInterest = BigDecimal.ZERO;
+        BigDecimal termInterest = BigDecimal.ZERO;//每期利息
+        BigDecimal oldbalanceAmount = BigDecimal.ZERO;//投放本金之和
+        LeaseLoanPlanVO leaseLoanPlanVO = null;
+        LeaseLoanPlanVO oldleaseLoanPlanVO = null;
+        LeaseLoanPlanVO calLeaseLoanPlanVO = null;//用于计算租期之内的投放金额总和
+        Boolean breakFalg = false;
+        //期次累计
+        int lease_time = 0;
+        if(arithmeticParm.getRentList() != null) {
+            lease_time = arithmeticParm.getRentList().size();
+        }
+        for (int i = 1; i <= calDateList.size() && i <= term; i++) {
+            partInterest = BigDecimal.ZERO;
+            CalArithmeticVO vo = new CalArithmeticVO();
+            vo.setLease_time(i+lease_time);
+            vo.setCal_date(calDateList.get(i - 1));
+            vo.setPlan_date(calDateList.get(i - 1));
+            vo.setLease_corpus(cal_amount.setScale(diag, RoundingMode.HALF_UP));
+            UFDate endDay = UFDate.getDate(vo.getCal_date());//收款日期
+
+            int day = UFDate.getDaysBetween(beginDay, endDay);
+            if (irr_days.intValue() == Year_Days_Irr.IRR_360.getShort().intValue()) {
+                day = Days360.days360(beginDay.toString(), endDay.toString());
+            }
+            // 每次计算的时间为本次收取时间与上期收取时间的天数
+            beginDay = endDay;
+
+            // 单利法 利息 = 剩余本金*日利率*两期金额天数
+            BigDecimal dayInterest = BigDecimal.ZERO;
+            if(arithmeticParm.getDate_interest()){
+                dayInterest = balanceAmount.multiply(dayRate).setScale(diag,RoundingMode.HALF_UP);
+            } else {
+                dayInterest = balanceAmount.multiply(dayRate);
+            }
+            termInterest = dayInterest.multiply(new BigDecimal(day)).setScale(diag, RoundingMode.HALF_UP);
+            if(i==1){
+                termBeginDate = arithmeticParm.getLastDay();
+                termEndDate = calDateList.get(i - 1);
+            }else{
+                termBeginDate = calDateList.get(i - 2);
+                termEndDate = calDateList.get(i - 1);
+            }
+            //若本期次之内存在新的投放计划，则根据新的剩余本金重新计算利息
+            if(loanPlanList!=null){
+                for(int j=0;j<loanPlanList.size();j++){
+                    leaseLoanPlanVO = (LeaseLoanPlanVO) loanPlanList.get(j);
+                    //若在此租期内存在投放计划
+                    if((UFDate.getDate(leaseLoanPlanVO.getPlan_date()).after(UFDate.getDate(termBeginDate))
+                            ||UFDate.getDate(leaseLoanPlanVO.getPlan_date()).equals(UFDate.getDate(termBeginDate)))
+                            &&UFDate.getDate(leaseLoanPlanVO.getPlan_date()).before(UFDate.getDate(termEndDate))){
+                        //若此次投放计划计息金额计算方式不是‘无’
+                        if(leaseLoanPlanVO.getCalinterest_amount_style()!=null&&leaseLoanPlanVO.getCalinterest_amount_style().compareTo(PubEnumsConstant.CALINTEREST_STLYE_TWO)!=0){
+                            //全额起息
+                            if(leaseLoanPlanVO.getCalinterest_amount_style().compareTo(PubEnumsConstant.CALINTEREST_STLYE_ZERO)==0){
+                                for(int k =0;k<loanPlanList.size();k++){
+                                    calLeaseLoanPlanVO =(LeaseLoanPlanVO) loanPlanList.get(k);
+                                    oldbalanceAmount =oldbalanceAmount.add(calLeaseLoanPlanVO.getPlan_cash());
+                                }
+                                balanceAmount = balanceAmount.add(oldbalanceAmount);
+                                break;
+                            }else{//按本次投放金额计息
+                                for(int m=0;m<j;m++){
+                                    oldleaseLoanPlanVO =(LeaseLoanPlanVO) loanPlanList.get(m);
+                                    if(oldleaseLoanPlanVO.getCalinterest_amount_style().compareTo(PubEnumsConstant.CALINTEREST_STLYE_ZERO)==0){
+                                        breakFalg =true;
+                                        break;
+                                    }
+                                }
+                                if(breakFalg){
+                                    break;
+                                }
+                                for(int n= j;n<loanPlanList.size();n++){
+                                    calLeaseLoanPlanVO =(LeaseLoanPlanVO) loanPlanList.get(n);
+                                    if((UFDate.getDate(calLeaseLoanPlanVO.getPlan_date()).after(UFDate.getDate(termBeginDate))
+                                            ||UFDate.getDate(calLeaseLoanPlanVO.getPlan_date()).equals(UFDate.getDate(termBeginDate)))
+                                            &&UFDate.getDate(calLeaseLoanPlanVO.getPlan_date()).before(UFDate.getDate(termEndDate))){
+                                        oldbalanceAmount = BigDecimal.ZERO;
+                                        oldbalanceAmount = oldbalanceAmount.add(calLeaseLoanPlanVO.getPlan_cash());
+                                        balanceAmount = balanceAmount.add(oldbalanceAmount);
+                                        //重算利息
+                                        day = UFDate.getDaysBetween(beginDay, UFDate.getDate(vo.getCal_date()));
+                                        calday = UFDate.getDaysBetween(UFDate.getDate(termBeginDate),UFDate.getDate(calLeaseLoanPlanVO.getPlan_date()));
+                                        if (irr_days.intValue() == Year_Days_Irr.IRR_360.getShort().intValue()) {
+                                            day = Days360.days360(termBeginDate, termEndDate);
+                                            calday = Days360.days360(termBeginDate,calLeaseLoanPlanVO.getPlan_date() );
+                                        }
+                                        //重算利息yjj
+                                        //partInterest = partInterest.add(oldbalanceAmount.multiply(dayRate).multiply(new BigDecimal(calday)).setScale(diag, RoundingMode.HALF_UP));
+                                        //termInterest = (balanceAmount.multiply(dayRate).multiply(new BigDecimal(day)).setScale(diag, RoundingMode.HALF_UP)).subtract(partInterest).setScale(diag, RoundingMode.HALF_UP);
+                                        partInterest = partInterest.add(getTermInterestAmount(oldbalanceAmount, dayRate, calday, diag));
+                                        termInterest = getTermInterestAmount(balanceAmount, dayRate, day, diag).subtract(partInterest).setScale(diag, RoundingMode.HALF_UP);
+
+                                    }
+                                }
+                                break;
+                            }
+                        }else{//'无'
+
+                        }
+                    }
+                }
+            }
+            vo.setLease_interest(termInterest);
+
+            if (i == 1 && prepay_or_not.intValue() == Prepay_Or_Not.PREPAY.getShort().intValue()) {
+                vo.setLease_interest(BigDecimal.ZERO);
+            }
+            vo.setLease_cash(vo.getLease_corpus().add(vo.getLease_interest()).setScale(diag, RoundingMode.HALF_UP));
+            balanceAmount = balanceAmount.subtract(vo.getLease_corpus());
+            vo.setCorpus_balance(balanceAmount);
+            vo.setRateValue(yearRate);
+            vo.setDirection(Direction.INCOME.getShort());
+            list.add(vo);
+        }
+        return list;
     }
 
     /**
@@ -691,7 +1018,24 @@ public class CalCommonArithmeticUtils {
      * @return
      */
     public static List<CalArithmeticVO> getPrincipalSurfacePlan(ArithmeticCoreParam arithmeticParm) {
-        return null;
+        List<CalArithmeticVO> list = arithmeticParm.getRentList();
+        Short year_days = arithmeticParm.getYear_days();
+        BigDecimal yearRate = arithmeticParm.getYearRate();
+        Short payment_frequency = arithmeticParm.getPayment_frequency();
+        int diag = arithmeticParm.getCal_digit();
+        Integer term = arithmeticParm.getTerm();// 期数
+        BigDecimal balanceAmount = arithmeticParm.getPuttingAmount();// 投放金额
+        BigDecimal termRate = getTermRate(year_days, yearRate, payment_frequency);
+        for (int i = 1; i <= list.size() && i <= term; i++) {
+            CalArithmeticVO vo = list.get(i - 1);
+            vo.setLease_time(i);
+            vo.setLease_interest(balanceAmount.multiply(termRate).setScale(diag, RoundingMode.HALF_UP));
+            vo.setLease_cash(vo.getLease_corpus().add(vo.getLease_interest()));
+            balanceAmount = balanceAmount.subtract(vo.getLease_corpus());
+            vo.setCorpus_balance(balanceAmount);
+            vo.setRateValue(yearRate);
+        }
+        return list;
     }
 
     /**
@@ -706,7 +1050,181 @@ public class CalCommonArithmeticUtils {
      * @return
      */
     public static List<CalArithmeticVO> getIrregularRentDayEQPlan(ArithmeticCoreParam arithmeticParm) {
-        return null;
+        List<CalArithmeticVO> list = arithmeticParm.getRentList();
+        int diag = arithmeticParm.getCal_digit();
+        Integer term = arithmeticParm.getTerm();// 期数
+        BigDecimal puttingAmount = arithmeticParm.getPuttingAmount();// 投放金额
+        String putting_date = arithmeticParm.getPuttingDate();
+        Boolean isAllRentSpe =  arithmeticParm.getIsAllRentSpe();
+        List loanPlanList = arithmeticParm.getLease_loan_plan();//投放计划
+        String termBeginDate ="";
+        String termEndDate ="";
+        //租金税额
+        BigDecimal cashTax = BigDecimal.ZERO;
+        //利息税额
+        BigDecimal interestTax = BigDecimal.ZERO;
+        //本金税额
+        BigDecimal corpusTax = BigDecimal.ZERO;
+        BigDecimal tempTax = BigDecimal.ZERO;
+        //本金是否开票
+        Short ifCorpusTickets =arithmeticParm.getIf_corpus_tickets();
+        if(isAllRentSpe!=null && isAllRentSpe){
+            puttingAmount = puttingAmount.subtract(arithmeticParm.getTradeDiscount());
+        }
+        BigDecimal yearRate = CountIrr.countDayIrr(BaseApp.getDayFlowMap(list, putting_date, puttingAmount,arithmeticParm),arithmeticParm.getIrr_days(), arithmeticParm.getYear_days());
+        arithmeticParm.setYearRate(yearRate);
+        List<ArithmeticCoreDayParam> dayParamList = BaseApp.getDayParam(arithmeticParm);
+        BigDecimal balanceAmount = puttingAmount;// 剩余本金
+        LeaseLoanPlanVO leaseLoanPlanVO = null;
+        LeaseLoanPlanVO oldleaseLoanPlanVO = null;
+        LeaseLoanPlanVO calLeaseLoanPlanVO = null;//用于计算租期之内的投放金额总和
+        BigDecimal oldbalanceAmount = BigDecimal.ZERO;//投放本金之和
+        Boolean breakFalg = false;
+        BigDecimal termInterest =BigDecimal.ZERO;
+        // 聚信需求，存放首期为负本金金额
+        BigDecimal tempCash = BigDecimal.ZERO;
+        for (int i = 1; i <= list.size() && i <= term; i++) {
+            termInterest =BigDecimal.ZERO;
+            ArithmeticCoreDayParam dayParam = dayParamList.get(i - 1);
+            CalArithmeticVO vo = list.get(i - 1);
+
+            if(i==1){
+                termBeginDate = arithmeticParm.getLastDay();
+                termEndDate = list.get(i - 1).getCal_date();
+            }else{
+                termBeginDate = list.get(i - 2).getCal_date();
+                termEndDate = list.get(i - 1).getCal_date();
+            }
+            termInterest = getTermInterestAmount(dayParam, balanceAmount, diag,arithmeticParm.getIrr_days(),arithmeticParm.getDate_interest(),putting_date);
+            //判断此租期内是否存在投放计划，若存在，则剩余本金 = 剩余本金+投放金额
+            if(loanPlanList!=null){
+                for(int j=0;j<loanPlanList.size();j++){
+                    leaseLoanPlanVO = (LeaseLoanPlanVO) loanPlanList.get(j);
+                    //若在此租期内存在投放计划
+                    if((UFDate.getDate(leaseLoanPlanVO.getPlan_date()).after(UFDate.getDate(termBeginDate))
+                            ||UFDate.getDate(leaseLoanPlanVO.getPlan_date()).equals(UFDate.getDate(termBeginDate)))
+                            &&UFDate.getDate(leaseLoanPlanVO.getPlan_date()).before(UFDate.getDate(termEndDate))){
+                        //若此次投放计划计息金额计算方式不是‘无’
+                        if(leaseLoanPlanVO.getCalinterest_amount_style().compareTo(PubEnumsConstant.CALINTEREST_STLYE_TWO)!=0){
+                            if(leaseLoanPlanVO.getCalinterest_amount_style().compareTo(PubEnumsConstant.CALINTEREST_STLYE_ZERO)==0){
+                                for(int k =0;k<loanPlanList.size();k++){
+                                    calLeaseLoanPlanVO =(LeaseLoanPlanVO) loanPlanList.get(k);
+                                    oldbalanceAmount =oldbalanceAmount.add(calLeaseLoanPlanVO.getPlan_cash());
+                                }
+                                balanceAmount = balanceAmount.add(oldbalanceAmount);
+                                termInterest = getTermInterestAmount(dayParam, balanceAmount, diag,arithmeticParm.getIrr_days(),arithmeticParm.getDate_interest(),putting_date);
+                                break;
+                            }else{//按本次投放金额计息
+                                for(int m=0;m<j;m++){
+                                    oldleaseLoanPlanVO =(LeaseLoanPlanVO) loanPlanList.get(m);
+                                    if(oldleaseLoanPlanVO.getCalinterest_amount_style().compareTo(PubEnumsConstant.CALINTEREST_STLYE_ZERO)==0){
+                                        breakFalg =true;
+                                        break;
+                                    }
+                                }
+                                if(breakFalg){
+                                    break;
+                                }
+                                BigDecimal timeCash =BigDecimal.ZERO;
+                                BigDecimal tempBalance = BigDecimal.ZERO;//临时剩余本金，用于计算多次投放之间的分段利息
+                                for(int n= j;n<loanPlanList.size();n++){
+                                    calLeaseLoanPlanVO =(LeaseLoanPlanVO) loanPlanList.get(n);
+                                    if((UFDate.getDate(calLeaseLoanPlanVO.getPlan_date()).after(UFDate.getDate(termBeginDate))
+                                            ||UFDate.getDate(calLeaseLoanPlanVO.getPlan_date()).equals(UFDate.getDate(termBeginDate)))
+                                            &&UFDate.getDate(calLeaseLoanPlanVO.getPlan_date()).before(UFDate.getDate(termEndDate))){
+                                        dayParam.setCal_date(calLeaseLoanPlanVO.getPlan_date());
+                                        dayParam.setBegin_date(termBeginDate);
+                                        termBeginDate = calLeaseLoanPlanVO.getPlan_date();
+                                        //计算本期开始到本次投放之间的利息
+                                        BigDecimal tempInterest = getTermInterestAmount(dayParam, balanceAmount, diag,arithmeticParm.getIrr_days(),arithmeticParm.getDate_interest(),putting_date);
+                                        timeCash = timeCash.add(tempInterest);
+                                        tempBalance = balanceAmount;
+                                        tempBalance = tempBalance.add(tempInterest);
+                                        oldbalanceAmount = BigDecimal.ZERO;
+                                        oldbalanceAmount = oldbalanceAmount.add(calLeaseLoanPlanVO.getPlan_cash());
+                                        dayParam.setCal_date(termEndDate);
+                                        dayParam.setBegin_date(calLeaseLoanPlanVO.getPlan_date());
+                                        balanceAmount = balanceAmount.add(oldbalanceAmount);
+                                        tempBalance = tempBalance.add(oldbalanceAmount);
+                                    }
+                                }
+                                BigDecimal timeCash2 =getTermInterestAmount(dayParam, tempBalance, diag,arithmeticParm.getIrr_days(),arithmeticParm.getDate_interest(),putting_date);
+                                termInterest = timeCash.add(timeCash2);
+                                break;
+                            }
+                        }else{//‘无’
+
+                        }
+                    }
+                }
+            }
+            // 最后一期倒算
+            if (i == list.size()) {
+                vo.setLease_interest(vo.getLease_cash().subtract(balanceAmount));
+            } else {
+
+                vo.setLease_interest(termInterest);
+            }
+            vo.setLease_cash(vo.getLease_cash().setScale(diag,RoundingMode.HALF_UP));
+            BigDecimal corpus = vo.getLease_corpus();
+            vo.setLease_corpus(vo.getLease_cash().subtract(vo.getLease_interest()));
+            BigDecimal corpus1 = vo.getLease_corpus();
+            if(tempCash.compareTo(BigDecimal.ZERO) != 0){
+                vo.setLease_corpus(vo.getLease_corpus().subtract(tempCash));
+                vo.setLease_interest(vo.getLease_interest().add(tempCash));
+                tempCash = BigDecimal.ZERO;
+            }
+            // 聚信需求，当"本金为负是否调整为0"为是时
+            // 本期本金调整为零，将本期的利息调增到下期
+            // 只有第一期这样操作
+            if(arithmeticParm.getCorpus_adjust_zero().intValue() == Yes_Or_No.YES.getShort().intValue()
+                    && vo.getLease_corpus().compareTo(BigDecimal.ZERO) < 0
+                    && vo.getTrans_type().equals(TradeType.TRADETYPE_RENT)){
+                tempCash = vo.getLease_corpus().abs();
+                vo.setLease_interest(vo.getLease_cash());
+                vo.setLease_corpus(BigDecimal.ZERO);
+                vo.setCorpus_balance(balanceAmount);
+            } else {
+                balanceAmount = balanceAmount.subtract(vo.getLease_corpus());
+                vo.setCorpus_balance(balanceAmount);
+            }
+
+            vo.setLease_cash_fin(vo.getLease_cash());
+            vo.setLease_corpus_fin(vo.getLease_corpus());
+            vo.setLease_interest_fin(vo.getLease_interest());
+            vo.setCorpus_balance_fin(vo.getCorpus_balance());
+
+            vo.setRateValue(yearRate);
+            //计算税额
+            //不规则算法时，计算税额,只有在增值税情况下，才计算税额
+            if(arithmeticParm.getTax_mode()!=null&&arithmeticParm.getTax_mode().intValue()== Tax_Mode.VALUE_ADDED.getShort().intValue()){
+                //临时变量：0.17/1.17
+                tempTax = (PublicBOUtils.getTaxRate(vo.getTax_rate())).divide(BigDecimal.valueOf(1).add(PublicBOUtils.getTaxRate(vo.getTax_rate())),64,
+                        BigDecimal.ROUND_HALF_UP);
+                //利息税额
+                if(vo.getLease_interest()!=null){
+                    interestTax = vo.getLease_interest().multiply(tempTax).setScale(2, BigDecimal.ROUND_HALF_UP);
+                }
+                vo.setLease_interest_tax(interestTax);
+                vo.setLease_interest_tax_fin(interestTax);
+
+                if(ifCorpusTickets == null || ifCorpusTickets.intValue() == Yes_Or_No.YES.getShort().intValue()){
+                    //本金税额
+                    if(vo.getLease_corpus()!=null){
+                        corpusTax = vo.getLease_corpus().multiply(tempTax).setScale(2, BigDecimal.ROUND_HALF_UP);
+                    }
+                    vo.setLease_corpus_tax(corpusTax);
+                    vo.setLease_corpus_tax_fin(corpusTax);
+                }
+                vo.setLease_cash_tax(interestTax.add(corpusTax));
+                vo.setLease_cash_tax_fin(interestTax.add(corpusTax));
+            }
+
+        }
+        if(isAllRentSpe==null||!isAllRentSpe){
+            getIrregularRentAccount(arithmeticParm);
+        }
+        return list;
     }
 
     /**
@@ -721,6 +1239,8 @@ public class CalCommonArithmeticUtils {
      * @return
      */
     public static List<CalArithmeticVO> getIrregularCorpusDayEQPlanS(ArithmeticCoreParam arithmeticParm) {
+
+
         return null;
     }
 
@@ -736,9 +1256,75 @@ public class CalCommonArithmeticUtils {
      * @return
      */
     public static List<CalArithmeticVO> getIrregularCorpusDayEQPlan(ArithmeticCoreParam arithmeticParm) {
+
+
         return null;
     }
 
+    /**
+     * 会计表
+     * 不规则测算租金--日复利
+     *
+     * 按照天计算利息
+     *
+     * 本金 = 租金 - 利息
+     *
+     * @param arithmeticParm
+     * @return
+     */
+    public static List<CalArithmeticVO> getIrregularRentAccount(ArithmeticCoreParam arithmeticParm) {
+        List<CalArithmeticVO> list = arithmeticParm.getRentList();
+        List<CalArithmeticVO> listFin = new ArrayList<CalArithmeticVO>();
+        int diag = arithmeticParm.getCal_digit();
+        Integer term = arithmeticParm.getTerm();// 期数
+
+        // 投放金额-商业折扣
+        BigDecimal puttingAmount = arithmeticParm.getPuttingAmount().subtract(arithmeticParm.getTradeDiscount());
+        String putting_date = arithmeticParm.getPuttingDate();
+        // 此必须重算irr 因为现金流发生了改变 将商业折扣去掉了
+        BigDecimal yearRate = CountIrr.countDayIrr(BaseApp.getDayFlowMap(list, putting_date, puttingAmount),
+                arithmeticParm.getIrr_days(), arithmeticParm.getYear_days());
+        arithmeticParm.setYearRate(yearRate);
+        List<ArithmeticCoreDayParam> dayParamList = BaseApp.getDayParam(arithmeticParm);
+        BigDecimal balanceAmount = puttingAmount;// 剩余本金
+
+        // 聚信需求，存放首期为负本金金额
+        BigDecimal tempCash = BigDecimal.ZERO;
+        for (int i = 1; i <= list.size() && i <= term; i++) {
+            ArithmeticCoreDayParam dayParam = dayParamList.get(i - 1);
+            CalArithmeticVO vo = list.get(i - 1);
+            // 最后一期倒算
+            if (i == list.size()) {
+                vo.setLease_interest_fin(vo.getLease_cash().subtract(balanceAmount));
+            } else {
+                vo.setLease_interest_fin(getTermInterestAmount(dayParam, balanceAmount, diag, arithmeticParm
+                        .getIrr_days(), arithmeticParm.getDate_interest(), putting_date));
+            }
+            vo.setLease_cash_fin(vo.getLease_cash().setScale(diag, RoundingMode.HALF_UP));
+            vo.setLease_corpus_fin(vo.getLease_cash_fin().subtract(vo.getLease_interest_fin()));
+            if (tempCash.compareTo(BigDecimal.ZERO) != 0) {
+                vo.setLease_corpus_fin(vo.getLease_corpus_fin().subtract(tempCash));
+                vo.setLease_interest_fin(vo.getLease_interest_fin().add(tempCash));
+                tempCash = BigDecimal.ZERO;
+            }
+            // 聚信需求，当"本金为负是否调整为0"为是时
+            // 本期本金调整为零，将本期的利息调增到下期
+            // 只有第一期这样操作
+            if (arithmeticParm.getCorpus_adjust_zero().intValue() == Yes_Or_No.YES.getShort().intValue()
+                    && vo.getLease_corpus_fin().compareTo(BigDecimal.ZERO) < 0
+                    && vo.getTrans_type().equals(TradeType.TRADETYPE_RENT)) {
+                tempCash = vo.getLease_corpus_fin().abs();
+                vo.setLease_interest_fin(vo.getLease_cash_fin());
+                vo.setLease_corpus_fin(BigDecimal.ZERO);
+                vo.setCorpus_balance_fin(balanceAmount);
+            } else {
+                balanceAmount = balanceAmount.subtract(vo.getLease_corpus_fin());
+                vo.setCorpus_balance_fin(balanceAmount);
+            }
+
+        }
+        return listFin;
+    }
 
     /**
      * 等额租金 (本金 = 租金 - 利息)
@@ -864,7 +1450,6 @@ public class CalCommonArithmeticUtils {
     }
 
     /**
-     * 等额租金 (本金 = 租金 - 利息)
      * 计算每期利息(日复利)
      *
      * @param balanceAmount
@@ -877,7 +1462,7 @@ public class CalCommonArithmeticUtils {
      *            计算精度
      * @return
      */
-    public static BigDecimal getTermInterestAmount(BigDecimal balanceAmount, int days, BigDecimal dayRate, int diag) {
+    public static BigDecimal getTermInterestAmount(BigDecimal balanceAmount, BigDecimal dayRate, int days, int diag) {
         // 利息
         BigDecimal termInterest = BigDecimal.ZERO;
         termInterest = balanceAmount.multiply(dayRate).multiply(new BigDecimal(days)).setScale(diag, RoundingMode.HALF_UP);
@@ -902,36 +1487,5 @@ public class CalCommonArithmeticUtils {
         return termInterest;
     }
 
-    /**
-     * @description 等额本金 计算每期利息
-     * @author Yangjiajin
-     * @date 2019/10/25 18:00
-     * @param balanceAmount 剩余本金
-     * @param dayRate 日利率
-     * @param days 间隔天数
-     * @param diag 计算精度
-     * @return
-     */
-    public static BigDecimal getTermInterestAmount(BigDecimal balanceAmount,BigDecimal dayRate,int days,int diag){
-        // 每期利息
-        BigDecimal termInterest = BigDecimal.ZERO;
-        termInterest = balanceAmount.multiply(new BigDecimal(days)).setScale(diag, RoundingMode.HALF_UP);
-        return termInterest;
-    }
-
-
-
-
-
-    /**
-     * @description 封装到租金计划表VO
-     * @author Yangjiajin
-     * @date 2019/10/25 16:11
-     * @param calList 收租计划列表
-     * @return java.util.List<LeasePlanVO>
-     */
-    public static List<LeasePlanVO> getResultRentList(List<CalArithmeticVO> calList) {
-        return null;
-    }
 
 }

@@ -1,7 +1,6 @@
-package com.leasing.common.entity.calculate.param;
+package com.leasing.common.entity.calculate.vo.cal;
 
-import com.leasing.common.entity.calculate.vo.CalArithmeticVO;
-import com.leasing.common.entity.calculate.vo.LeaseLoanPlanVO;
+import com.leasing.common.entity.calculate.vo.base.LeaseLoanPlanVO;
 
 import java.math.BigDecimal;
 import java.util.List;

@@ -5,10 +5,9 @@ import com.leasing.calculate.service.CalculateService;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.entity.calculate.dos.CalculatorDO;
+import com.leasing.common.entity.calculate.dto.CalculatorDTO;
 import com.leasing.common.entity.calculate.query.CalculatorQuery;
-import com.leasing.common.entity.calculate.vo.CalculatorVO;
-import com.leasing.common.entity.sys.vo.ParameterVO;
-import com.leasing.common.utils.ParamType.ParamTypeUtils;
+import com.leasing.common.entity.calculate.vo.base.CalculatorVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -38,7 +37,6 @@ public class CalculatorController {
     @ApiImplicitParam(name = "data", value = "分页JSON串", dataType = "String")
     @RequestMapping(value = "/pageQuery")
     public PageQueryData<CalculatorVO> pageQuery(String data){
-        List<ParameterVO> list = ParamTypeUtils.findByPkParamType("0001AA1000000005GZ2X");
         Pagination pagination = new Pagination();
         pagination.setCurPage(1);
         pagination.setPageSize(10);
@@ -47,19 +45,11 @@ public class CalculatorController {
         return pageQueryData;
     }
 
-//    @ApiOperation("通过主键查询主表+字表列表数据")
-//    @ApiImplicitParam(name = "id", value = "报价主键", dataType = "String")
-//    @RequestMapping(value = "/findChildListById")
-//    public CalculatorVO findChildListById(String data){
-//        CalculatorVO vo = calculateService.findChildListById("0001MG00000000036711");
-//        return vo;
-//    }
-
-    @ApiOperation("通过主键查询主表+字表列表数据")
+    @ApiOperation("通过主表主键查询 多个字表列表 数据")
     @ApiImplicitParam(name = "id", value = "报价主键", dataType = "String")
-    @RequestMapping(value = "/findOne")
-    public CalculatorVO findOne(String data) {
-        CalculatorVO vo = calculateService.findChildListById("0001MG00000000036711");
+    @RequestMapping(value = "/listChild")
+    public CalculatorDTO listChild(String data) {
+        CalculatorDTO vo = calculateService.listChild("0001MG00000000036711",CalculatorDTO.class);
         return vo;
     }
 

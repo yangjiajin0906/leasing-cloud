@@ -1,4 +1,4 @@
-package com.leasing.common.entity.calculate.vo;
+package com.leasing.common.entity.calculate.vo.base;
 
 import com.leasing.common.base.entity.BaseBusinessVO;
 import com.leasing.common.dto.customer.CustomerDTO;

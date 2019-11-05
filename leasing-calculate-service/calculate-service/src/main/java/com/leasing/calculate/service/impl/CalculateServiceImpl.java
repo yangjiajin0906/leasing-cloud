@@ -7,9 +7,9 @@ import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.entity.calculate.dos.CalculatorDO;
 import com.leasing.common.entity.calculate.dos.InoutPlanPDO;
+import com.leasing.common.entity.calculate.dto.CalculatorDTO;
 import com.leasing.common.entity.calculate.query.CalculatorQuery;
-import com.leasing.common.entity.calculate.vo.CalculatorVO;
-import com.leasing.common.utils.base.DozerUtils;
+import com.leasing.common.entity.calculate.vo.base.CalculatorVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -112,10 +112,8 @@ public class CalculateServiceImpl implements CalculateService {
     }
 
     @Override
-    public CalculatorVO findChildListById(String id) {
-        CalculatorDO dos = calculatorRepo.findOne(id);
-        CalculatorVO vo = DozerUtils.convert(dos,CalculatorVO.class);
-        //......
+    public CalculatorDTO listChild(String pk, Class<CalculatorDTO> c) {
+        CalculatorDTO vo = calculatorRepo.findOne(pk,c);
         return vo;
     }
 
@@ -146,13 +144,5 @@ public class CalculateServiceImpl implements CalculateService {
     public BigDecimal calDayIRR() {
         return null;
     }
-
-
-    @Override
-    public List<CalculatorVO> findListByPk(String pk) {
-        return calculatorRepo.findListByPk(pk);
-    }
-
-
 
 }

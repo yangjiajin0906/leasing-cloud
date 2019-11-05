@@ -3,13 +3,12 @@ package com.leasing.calculate.service;
 import com.leasing.common.entity.calculate.dos.CalculatorDO;
 import com.leasing.common.entity.calculate.dto.CalculatorDTO;
 import com.leasing.common.entity.calculate.query.CalculatorQuery;
-import com.leasing.common.entity.calculate.vo.CalculatorVO;
+import com.leasing.common.entity.calculate.vo.base.CalculatorVO;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @project:leasing-cloud
@@ -59,10 +58,10 @@ public interface CalculateService {
      * @description 查询字表数据
      * @author Yangjiajin
      * @date 2019/10/28 10:04
-     * @param id
-     * @return com.leasing.common.entity.calculate.vo.CalculatorVO
+     * @param pk
+     * @return com.leasing.common.entity.calculate.vo.base.CalculatorVO
      */
-    CalculatorVO findChildListById(String id);
+    CalculatorDTO listChild(String pk, Class<CalculatorDTO> s);
 
     /**
      * @description 租金计划表接口
@@ -72,8 +71,6 @@ public interface CalculateService {
      * @return com.leasing.common.entity.calculate.dto.CalculatorDTO
      */
     List calOperateLease(CalculatorVO vo);
-
-    List<CalculatorVO> findListByPk(String pk);
 
     /**
      * @description 计算计提结果表

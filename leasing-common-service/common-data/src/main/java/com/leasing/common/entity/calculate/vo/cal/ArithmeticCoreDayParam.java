@@ -1,4 +1,4 @@
-package com.leasing.common.entity.calculate.param;
+package com.leasing.common.entity.calculate.vo.cal;
 
 import java.math.BigDecimal;
 
