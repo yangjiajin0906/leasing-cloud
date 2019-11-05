@@ -1,12 +1,15 @@
 package com.leasing.sys.controller;
 
 import com.leasing.common.base.repository.support.PageQueryData;
+import com.leasing.common.enums.constant.CodeRuleKey;
+import com.leasing.common.enums.constant.FuncCodeConstant;
 import com.leasing.common.service.CoderuleService;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.dto.sys.ParameterDTO;
 import com.leasing.common.entity.common.dos.CoderuleDO;
 import com.leasing.common.entity.common.dos.CoderuleTypeDO;
 import com.leasing.common.entity.common.vo.CoderuleVO;
+import com.leasing.common.utils.base.CodeRuleUtil;
 import com.leasing.common.utils.base.DozerUtils;
 import com.leasing.common.utils.base.ResultUtils;
 import com.leasing.common.vo.foundation.OrgDTO;
@@ -14,9 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @project:leasing-cloud
@@ -94,6 +95,22 @@ public class CoderuleController {
         CoderuleDO dos = coderuleService.getCoderuleDO("3fb99bc47e494532a1dd");
         coderuleService.deleteCoderule(dos);
         return ResultUtils.successWithData(dos);
+    }
+
+    /**
+     * 测试编码生成规则Util
+     */
+    @RequestMapping(value = "/testUtil")
+    public ResResult testUtil(){
+        Map<String, String> map = new HashMap<>();
+        map.put(CodeRuleKey.FUN_CODE, FuncCodeConstant.LEASECAL_FULL_ZT);
+        map.put(CodeRuleKey.VARIABLE_NAME, CodeRuleKey.PK_LEASECAL_CODE);
+        map.put(CodeRuleKey.OPERATOR, "何爰蒝");
+//        map.put(CodeRuleKey.FUN_CODE, FuncCodeConstant.CUS_CORP_FUNCODE);
+//        map.put(CodeRuleKey.VARIABLE_NAME, CodeRuleKey.PK_CUSTOMER_CORP_CODE);
+        //测试客户节点生成编码
+        String code = CodeRuleUtil.getCodeRule(map);
+        return ResultUtils.successWithData(code);
     }
 
 

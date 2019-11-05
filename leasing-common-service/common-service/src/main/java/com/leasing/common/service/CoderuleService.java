@@ -7,6 +7,7 @@ package com.leasing.common.service;
  **/
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.entity.common.dos.CoderuleDO;
+import com.leasing.common.entity.common.dos.CoderuleTypeDO;
 import com.leasing.common.entity.common.vo.CoderuleVO;
 
 import java.util.List;
@@ -57,5 +58,15 @@ public interface CoderuleService {
      * 获取序列号的设置信息(编码规则子表的数据)
      */
     List<Map<String,Object>> getCodeRuleTypeWithLiquid(String pk_coderule,String refer_sort);
+
+    /**
+     * 插入编码规则设置子表
+     */
+    void insertCoderuleType(CoderuleTypeDO dos);
+
+    /**
+     * 更新编码规则配置子表数据
+     */
+    void updateCoderuleType(String INITIAL_VALUE,String PK_CODERULE_TYPE);
 
 }
