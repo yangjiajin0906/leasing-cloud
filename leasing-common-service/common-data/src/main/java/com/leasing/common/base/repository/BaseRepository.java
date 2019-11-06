@@ -88,4 +88,10 @@ public interface BaseRepository<T, Q, V, ID> extends JpaRepositoryImplementation
     List<Map<String, Object>> findByNativeName(String name);
 
 
+    /**
+     * 根据JPQL 查询结果结合 (不使用name)
+     */
+    List findByJPQL(String jpql);
+
+
 }

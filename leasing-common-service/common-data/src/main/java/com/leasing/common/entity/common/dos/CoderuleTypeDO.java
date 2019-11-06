@@ -36,7 +36,7 @@ public class CoderuleTypeDO extends BaseDO {
     /**
      * 编号规则类型
      */
-    private String pkParameter;
+    private String coderuleType;
     /**
      * 规则CODE
      */
@@ -78,12 +78,12 @@ public class CoderuleTypeDO extends BaseDO {
         this.referSort = referSort;
     }
 
-    public String getPkParameter() {
-        return pkParameter;
+    public String getCoderuleType() {
+        return coderuleType;
     }
 
-    public void setPkParameter(String pkParameter) {
-        this.pkParameter = pkParameter;
+    public void setCoderuleType(String coderuleType) {
+        this.coderuleType = coderuleType;
     }
 
     public String getRuleCode() {

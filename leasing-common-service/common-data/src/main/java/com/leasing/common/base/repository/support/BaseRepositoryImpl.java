@@ -184,4 +184,12 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
         Assert.hasText(namedQueryDefinition.getQueryString(), "未找到 JPA Query " + name + " 查询实例对象!");
         return namedQueryDefinition.getQueryString();
     }
+
+    @Override
+    public List findByJPQL(String jpql) {
+        Assert.notNull(jpql, "JPA Query JPQL 不可为空!");
+        entityManager.getDelegate();
+        List result = entityManager.createQuery(jpql).getResultList();
+        return result;
+    }
 }

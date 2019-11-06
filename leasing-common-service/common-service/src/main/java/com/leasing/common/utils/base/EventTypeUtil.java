@@ -1,6 +1,6 @@
 package com.leasing.common.utils.base;
 
-import com.leasing.common.base.service.EventTypeService;
+import com.leasing.common.service.EventTypeService;
 import com.leasing.common.entity.common.dto.EventTypeDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

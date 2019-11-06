@@ -1,7 +1,6 @@
 package com.leasing.calculate.repository;
 
-import com.leasing.calculate.entity.dos.CalculatorDO;
-import com.leasing.calculate.entity.dos.LeaseLoanPlanDO;
+import com.leasing.common.entity.calculate.dos.LeaseLoanPlanDO;
 import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.base.repository.BaseRepository;
@@ -21,7 +20,7 @@ public interface LeaseLoanPlanRepo extends BaseRepository<LeaseLoanPlanDO,BaseQu
      * @author Yangjiajin
      * @date 2019/10/28 10:59
      * @param [SourceBill]
-     * @return java.util.List<com.leasing.calculate.entity.dos.LeaseLoanPlanDO>
+     * @return java.util.List<com.leasing.common.entity.calculate.dos.LeaseLoanPlanDO>
      */
     List<LeaseLoanPlanDO> findBySourceBill(@Param("SourceBill") String SourceBill);
     /**
@@ -29,7 +28,7 @@ public interface LeaseLoanPlanRepo extends BaseRepository<LeaseLoanPlanDO,BaseQu
      * @author Yangjiajin
      * @date 2019/10/28 10:59
      * @param [pkLeaseLoanPlan]
-     * @return com.leasing.calculate.entity.dos.LeaseLoanPlanDO
+     * @return com.leasing.common.entity.calculate.dos.LeaseLoanPlanDO
      */
     LeaseLoanPlanDO findByPkLeaseLoanPlan(@Param("pkLeaseLoanPlan") String pkLeaseLoanPlan);
 }
