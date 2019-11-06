@@ -87,13 +87,15 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
     }
 
     @Override
-    public PageQueryData<V> pageQuery( Q query, String queryName) {
-        return this.pageQuerySupport(null, query, queryName,false);
+    public List<V>pageQuery( Q query, String queryName) {
+        PageQueryData pageQueryData = this.pageQuerySupport(null, query, queryName,false);
+        return pageQueryData.getPageData();
     }
 
     @Override
-    public PageQueryData pageQueryNative( Q query, String queryName) {
-        return pageQuerySupport(null, query, queryName, true);
+    public List pageQueryNative( Q query, String queryName) {
+        PageQueryData pageQueryData = pageQuerySupport(null, query, queryName, true);
+        return pageQueryData.getPageData();
     }
     /**
      * 处理分页查询

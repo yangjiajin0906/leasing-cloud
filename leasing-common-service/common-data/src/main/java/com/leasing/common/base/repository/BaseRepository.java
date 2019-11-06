@@ -93,7 +93,7 @@ public interface BaseRepository<T, Q, V, ID> extends JpaRepositoryImplementation
      * @param queryName
      * @return
      */
-    PageQueryData<V> pageQuery( Q query, String queryName);
+    List<V> pageQuery( Q query, String queryName);
 
     /**
      * 根据原生SQL查询
@@ -101,7 +101,7 @@ public interface BaseRepository<T, Q, V, ID> extends JpaRepositoryImplementation
      * @param queryName
      * @return
      */
-    PageQueryData pageQueryNative( Q query,String queryName);
+    List pageQueryNative( Q query,String queryName);
 
 
     /**
