@@ -82,4 +82,9 @@ public interface ParamTypeService {
      * 根据 参数类型 查询子表
      */
     List<ParameterVO> findByParamType(String paramType);
+
+    /**
+     * 根据 字表参数类型和参数值 查询字表主键
+     */
+    List<ParameterVO> findByParamTypeAndParamValue(String paramType,  String paramValue);
 }

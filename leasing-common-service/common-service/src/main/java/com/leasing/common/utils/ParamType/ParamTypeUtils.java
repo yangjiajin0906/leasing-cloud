@@ -82,4 +82,14 @@ public class ParamTypeUtils {
         return paramTypeUtils.paramTypeService.findByParamType(paramType);
     }
 
+    /**
+     * @description 根据 字表参数类型和参数值 查询字表
+     * @author Yangjiajin
+     * @date 2019/11/7 9:46
+     * @param [paramType, paramValue]
+     * @return
+     */
+    public static List<ParameterVO> findByParamTypeAndParamValue(String paramType,  String paramValue){
+        return paramTypeUtils.paramTypeService.findByParamTypeAndParamValue(paramType, paramValue);
+    }
 }
