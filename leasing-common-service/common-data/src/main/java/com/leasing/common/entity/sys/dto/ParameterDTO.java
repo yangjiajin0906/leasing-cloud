@@ -1,4 +1,4 @@
-package com.leasing.common.dto.sys;
+package com.leasing.common.entity.sys.dto;
 
 import com.leasing.common.base.entity.BaseEntity;
 

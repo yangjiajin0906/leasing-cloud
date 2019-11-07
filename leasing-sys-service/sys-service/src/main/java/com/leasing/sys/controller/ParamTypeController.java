@@ -21,7 +21,7 @@ import java.util.List;
  * @description:
  **/
 @RestController
-@RequestMapping(value = "/leasing/sys")
+@RequestMapping(value = "/leasing/paramType")
 public class ParamTypeController {
 
 

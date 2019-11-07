@@ -1,18 +1,18 @@
-package com.leasing.common.vo.foundation;
+package com.leasing.sys.entity.dos;
 
-import com.leasing.common.base.entity.BaseEntity;
+import com.leasing.common.base.entity.BaseDO;
 
 import javax.persistence.*;
 
 /**
  * @project:leasing-cloud
- * @date:2019-10-8
- * @author:lvcna@yonyou.com
+ * @date:2019/11/5
+ * @author:Yjj@yonyou.com
  * @description: 用户实体类
  **/
 @Entity
 @Table(name = "sm_user_view")
-public class UserVO extends BaseEntity {
+public class UserDO extends BaseDO{
 
     @Id
     private String pkUser;
@@ -24,20 +24,15 @@ public class UserVO extends BaseEntity {
     private String lockedTag;
     private String loginTag;
     private String memo;
-    @ManyToOne
-    @JoinColumn(name = "pkOrg")
-    private OrgDTO pkOrg;
+    private String pkOrg;
     private String isAdmin;
     private Short userRole;
     private String telNo;
     private String psnname;
     private String deptname;
-    private String pkUserdeCode;
-    private String pkUserdeUser;
-
-    public String getTableName() {
-        return "sm_user_view";
-    }
+    @Transient
+    private String pkOperator;
+    private String psndeptname;
 
     public String getPkUser() {
         return pkUser;
@@ -111,11 +106,11 @@ public class UserVO extends BaseEntity {
         this.memo = memo;
     }
 
-    public OrgDTO getPkOrg() {
+    public String getPkOrg() {
         return pkOrg;
     }
 
-    public void setPkOrg(OrgDTO pkOrg) {
+    public void setPkOrg(String pkOrg) {
         this.pkOrg = pkOrg;
     }
 
@@ -159,20 +154,20 @@ public class UserVO extends BaseEntity {
         this.deptname = deptname;
     }
 
-    public String getPkUserdeCode() {
-        return pkUserdeCode;
+    public String getPkOperator() {
+        return pkOperator;
     }
 
-    public void setPkUserdeCode(String pkUserdeCode) {
-        this.pkUserdeCode = pkUserdeCode;
+    public void setPkOperator(String pkOperator) {
+        this.pkOperator = pkOperator;
     }
 
-    public String getPkUserdeUser() {
-        return pkUserdeUser;
+    public String getPsndeptname() {
+        return psndeptname;
     }
 
-    public void setPkUserdeUser(String pkUserdeUser) {
-        this.pkUserdeUser = pkUserdeUser;
+    public void setPsndeptname(String psndeptname) {
+        this.psndeptname = psndeptname;
     }
 
     @Override

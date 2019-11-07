@@ -32,14 +32,6 @@
         </query>
     </named-query>
 
-    <!-- 分页查询子表数据 -->
-    <!--<named-query name="CalculatorRepo.listChild">-->
-        <!--<query>-->
-            <!--select c from CalculatorChildDTO c-->
-            <!--where c.pkLeaseCalculator =:pk-->
-        <!--</query>-->
-    <!--</named-query>-->
-
     <!-- //解决n+1问题 -->
     <named-query name="CalculatorRepo.findByPk">
         <query>
@@ -53,47 +45,7 @@
             left join fetch c.pkInterrateDepos pid
             left join fetch c.pkSpecialInterrate psi
             left join fetch c.pkCurrtype pc
-            where c.pkLeaseCalculator =:pk
-        </query>
-    </named-query>
-
-    <!-- //自定义sql -->
-    <named-query name="CalculatorRepo.findByIsSql">
-        <query>
-            select new com.leasing.common.entity.calculate.dto.CalculatorDTO
-            (l.pkLeaseCalculator as pkLeaseCalculator, u.pkUser as quotCode, u.userName as quotName )
-            from CalculatorVO l, UserVO u
-            where l.pkChecker = u.pkUser
-            and l.pkLeaseCalculator =:pk
-        </query>
-    </named-query>
-
-    <!-- 查询 投放计划 字表数据Map -->
-    <named-native-query name="CalculatorRepo.findChildById" result-set-mapping="findChildById">
-        <query>
-            select l.pk_Lease_Calculator as pkLeaseCalculator, l.pk_Currtype as pkCurrtype,
-            l.total_Amount_Equipment as totalAmountEquipment, l.ts as ts
-            from yls_lease_calculator l
-            where l.sourceBill =:sourceBill
-        </query>
-    </named-native-query>
-
-    <!-- 查询字表数据Map -->
-    <sql-result-set-mapping name="findChildById">
-        <column-result name="pkLeaseCalculator"></column-result>
-        <column-result name="pkCurrtype"></column-result>
-        <column-result name="totalAmountEquipment"></column-result>
-        <column-result name="ts"></column-result>
-    </sql-result-set-mapping>
-
-    <!-- 解决n+1问题 查询列表主表VO -->
-    <named-query name="CalculatorRepo.findListByPk">
-        <query>
-            select c from CalculatorVO c
-            left join fetch c.pkLimitPlan l
-            left join fetch c.pkDept d
-            left join fetch c.pkChecker u
-            left join fetch c.pkOrg o
+            left join fetch c.pkCustomer pcu
             where c.pkLeaseCalculator =:pk
         </query>
     </named-query>

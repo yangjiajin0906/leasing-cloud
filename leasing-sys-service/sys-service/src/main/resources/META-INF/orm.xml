@@ -135,7 +135,13 @@
         <column-result name="paramName"/>
     </sql-result-set-mapping>
 
-
+    <named-query name="LoginClientRepo.validateUser">
+        <query>
+            select u from UserVO u
+            left join fetch u.pkOrg
+            where u.pkUserdeCode = ?1 and u.pkOrg.pkOrg = ?2 and u.password = ?3
+        </query>
+    </named-query>
 
 
 </entity-mappings>
