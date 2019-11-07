@@ -1,5 +1,6 @@
 package com.leasing.customer.service.impl;
 
+import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.base.DozerUtils;
@@ -72,6 +73,9 @@ public class CustomerCorpServiceImpl implements CustomerCorpService {
                 customerService.batchDelete(pass);
             } else {
                 unPass.add(pk);
+                for (String unpassPk : unPass) {
+
+                }
             }
         }
         return null;
@@ -89,9 +93,12 @@ public class CustomerCorpServiceImpl implements CustomerCorpService {
 
 
     @Override
-    public List<CustomerCorpAllVO> pageQuery(Pagination pagination, CustomerCorpQuery query) {
-        String JPQL = "select b from CustomerCorpAllVO b where b.ifNew = 0 ";
-        return (List<CustomerCorpAllVO>) customerCorpRepo.pageQuery(pagination, query, JPQL);
+    public PageQueryData<CustomerCorpAllVO> pageQuery(Pagination pagination, CustomerCorpQuery query) {
+        if (query == null) {
+            query = new CustomerCorpQuery();
+        }
+        query.setCustomerName("北京");
+        return customerCorpRepo.pageQuery(pagination, query, "corpPageQuery");
     }
 
     @Override

@@ -20,8 +20,4 @@ import java.util.List;
 @Repository
 public interface CustRelatedCompanyRepo extends BaseRepository<CustRelatedCompanyDO, CustRelatedCompanyQuery, CustRelatedCompanyVO,String> {
 
-
-    @Query(name = "CustomerCorpVO.querySourceByPkCustomer")
-    List<CustRelatedCompanyVO> querySourceByPkCustomer(@Param("pkCustomer") CustomerDTO pkCustomer);
-
 }

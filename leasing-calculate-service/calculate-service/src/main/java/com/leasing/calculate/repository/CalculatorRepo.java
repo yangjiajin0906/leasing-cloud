@@ -1,20 +1,12 @@
 package com.leasing.calculate.repository;
 
-import com.leasing.calculate.dos.CalculatorDO;
-import com.leasing.calculate.dos.LeaseLoanPlanDO;
-import com.leasing.calculate.dto.CalculatorDTO;
-import com.leasing.calculate.vo.CalculatorVO;
-import com.leasing.calculate.vo.queryVO.CalculatorQueryVO;
-import com.leasing.common.base.entity.BaseQuery;
-import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.base.repository.BaseRepository;
+import com.leasing.common.entity.calculate.dos.CalculatorDO;
+import com.leasing.common.entity.calculate.query.CalculatorQuery;
+import com.leasing.common.entity.calculate.vo.base.CalculatorVO;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @project:leasing-cloud
@@ -23,26 +15,8 @@ import java.util.Map;
  * @description:
  **/
 @Repository
-public interface CalculatorRepo extends BaseRepository<CalculatorDO,CalculatorQueryVO,CalculatorVO,String> {
-
-    //自定义sql
-    @Query(name="CalculatorRepo.findByIsSql")
-    CalculatorDTO findByIsSql(@Param("pk") String pkLeaseCalculator);
-
-    //自定义sql2
-    @Query(name="CalculatorRepo.findByIsSql2")
-    Map<String,Object> findByIsSql2(@Param("pk") String pkLeaseCalculator);
-
-    //动态类投影
-    CalculatorDTO findByPkLeaseCalculator(String pkLeaseCalculator, Class<CalculatorDTO> type);
-
-    //解决n+1问题 查询列表主表VO
-    @Query(name="CalculatorRepo.findListByPk")
-    List<CalculatorVO> findListByPk(@Param("pk") String pk);
-
+public interface CalculatorRepo extends BaseRepository<CalculatorDO,CalculatorQuery,CalculatorVO,String> {
     //解决n+1问题 查询单个主表VO
     @Query(name="CalculatorRepo.findByPk")
     CalculatorVO findByPk(@Param("pk") String pk);
-
-
 }

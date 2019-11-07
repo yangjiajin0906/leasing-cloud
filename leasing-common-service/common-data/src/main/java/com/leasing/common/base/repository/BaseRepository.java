@@ -87,5 +87,27 @@ public interface BaseRepository<T, Q, V, ID> extends JpaRepositoryImplementation
      */
     List<Map<String, Object>> findByNativeName(String name);
 
+    /**
+     * 根据动态JPQL查询集合
+     * @param query
+     * @param queryName
+     * @return
+     */
+    List<V> pageQuery( Q query, String queryName);
+
+    /**
+     * 根据原生SQL查询
+     * @param query
+     * @param queryName
+     * @return
+     */
+    List pageQueryNative( Q query,String queryName);
+
+
+    /**
+     * 根据JPQL 查询结果结合 (不使用name)
+     */
+    List findByJPQL(String jpql);
+
 
 }

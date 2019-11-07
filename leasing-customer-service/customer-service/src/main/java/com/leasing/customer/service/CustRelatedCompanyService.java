@@ -1,7 +1,10 @@
 package com.leasing.customer.service;
 
+import com.leasing.common.base.repository.support.PageQueryData;
+import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.customer.dao.dos.CustRelatedCompanyDO;
 import com.leasing.common.dto.customer.CustomerDTO;
+import com.leasing.customer.dao.query.CustRelatedCompanyQuery;
 import com.leasing.customer.dao.vo.CustRelatedCompanyVO;
 import com.leasing.customer.dao.vo.CustomerVO;
 
@@ -14,6 +17,15 @@ import java.util.List;
  * @description: 客户来源服务接口
  **/
 public interface CustRelatedCompanyService {
+
+    /**
+     * 客户来源分页查询
+     *
+     * @param pagination 分页
+     * @param query      查询条件
+     * @return 分页列表
+     */
+    PageQueryData<CustRelatedCompanyVO> pageQuery(Pagination pagination, CustRelatedCompanyQuery query);
 
     /**
      * 客户来源保存
@@ -30,31 +42,10 @@ public interface CustRelatedCompanyService {
      */
     void save(CustRelatedCompanyDO custRelatedCompanyDO);
 
-    /**
-     * 根据客户查询 客户来源
-     *
-     * @param customerVO 客户对象
-     * @return 客户来源列表
-     */
-    List<CustRelatedCompanyVO> findByCustomer(CustomerVO customerVO);
-
-    /**
-     * 查询客户的客户来源
-     *
-     * @param pkCustomer 客户主键
-     * @return 客户来源列表
-     */
-    List<CustRelatedCompanyVO> findByCustomer(String pkCustomer);
-
-    List<CustRelatedCompanyVO> findByCustomer(CustomerDTO customerDTO);
-
-
     void deleteByCustomer(CustomerVO customerVO);
 
 
     void deleteByCustomer(List<CustomerVO> customerVO);
-
-
 
 
 }

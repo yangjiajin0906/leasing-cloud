@@ -1,6 +1,9 @@
 package com.leasing.customer.service.impl;
 
+import com.leasing.common.base.repository.support.PageQueryData;
+import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.dto.customer.CustomerDTO;
+import com.leasing.customer.dao.query.CustShareHoldersQuery;
 import com.leasing.customer.dao.repository.CustShareHoldersRepo;
 import com.leasing.customer.dao.vo.CustShareHoldersVO;
 import com.leasing.customer.service.CustShareHoldersService;
@@ -21,13 +24,7 @@ public class CustShareHoldersServiceImpl implements CustShareHoldersService {
     private CustShareHoldersRepo repo;
 
     @Override
-    public List<CustShareHoldersVO> findByCustomer(String pkCustomer) {
-        CustomerDTO customerDTO = new CustomerDTO(pkCustomer);
-        return findByCustomer(customerDTO);
-    }
-
-    @Override
-    public List<CustShareHoldersVO> findByCustomer(CustomerDTO customerDTO) {
-        return repo.queryHoldersByPkCustomer(customerDTO);
+    public PageQueryData<CustShareHoldersVO> pageQuery(Pagination pagination, CustShareHoldersQuery query) {
+        return repo.pageQuery(pagination, query, "CustShareHoldersPageQuery");
     }
 }

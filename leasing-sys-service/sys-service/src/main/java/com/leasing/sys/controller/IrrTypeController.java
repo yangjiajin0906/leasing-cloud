@@ -2,12 +2,10 @@ package com.leasing.sys.controller;
 
 import com.leasing.common.base.repository.IrrTypeRepo;
 import com.leasing.common.base.repository.support.PageQueryData;
-import com.leasing.common.base.service.IrrTypeService;
+import com.leasing.common.service.IrrTypeService;
 import com.leasing.common.base.web.ResResult;
-import com.leasing.common.entity.common.dos.EventTypeDO;
 import com.leasing.common.entity.common.dos.IrrEventSetDO;
 import com.leasing.common.entity.common.dos.IrrTypeDO;
-import com.leasing.common.entity.common.vo.EventTypeVO;
 import com.leasing.common.entity.common.vo.IrrTypeVO;
 import com.leasing.common.utils.base.DozerUtils;
 import com.leasing.common.utils.base.ResultUtils;

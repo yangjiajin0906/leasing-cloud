@@ -24,6 +24,11 @@ public interface CustomerRepo extends BaseRepository<CustomerDO, CustomerQuery, 
     @Query(name = "CustomerVO.countIdentityNo")
     int countIdentityNo(@Param("identityNo") String identityNo);
 
+    // 根据客户名称查询客户封存状态
+    @Query(name = "CustomerVO.queryCustomerStatusByName")
+    List<CustomerVO> queryCustomerStatusByName(@Param("customerName") String customerName,
+                                               @Param("customerStatus") Short customerStatus, @Param("customerType") Short customerType);
+
     // 根据客户主键批量删除客户
     @Modifying
     @Transactional

@@ -1,18 +1,16 @@
 package com.leasing.calculate.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.leasing.calculate.dos.CalculatorDO;
-import com.leasing.calculate.vo.CalculatorVO;
 import com.leasing.calculate.service.CalculateService;
-import com.leasing.calculate.vo.queryVO.CalculatorQueryVO;
-import com.leasing.common.api.feign.calculate.CalculatorTest;
-import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
+import com.leasing.common.entity.calculate.dos.CalculatorDO;
+import com.leasing.common.entity.calculate.dto.CalculatorDTO;
+import com.leasing.common.entity.calculate.query.CalculatorQuery;
+import com.leasing.common.entity.calculate.vo.base.CalculatorVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,24 +40,16 @@ public class CalculatorController {
         Pagination pagination = new Pagination();
         pagination.setCurPage(1);
         pagination.setPageSize(10);
-        CalculatorQueryVO queryVO = new CalculatorQueryVO();
-        PageQueryData<CalculatorVO> pageQueryData = calculateService.pageQuery(pagination,queryVO);
+        CalculatorQuery query = new CalculatorQuery();
+        PageQueryData<CalculatorVO> pageQueryData = calculateService.pageQuery(pagination,query);
         return pageQueryData;
     }
 
-//    @ApiOperation("通过主键查询主表+字表列表数据")
-//    @ApiImplicitParam(name = "id", value = "报价主键", dataType = "String")
-//    @RequestMapping(value = "/findChildListById")
-//    public CalculatorVO findChildListById(String data){
-//        CalculatorVO vo = calculateService.findChildListById("0001MG00000000036711");
-//        return vo;
-//    }
-
-    @ApiOperation("通过主键查询主表+字表列表数据")
+    @ApiOperation("通过主表主键查询 多个字表列表 数据")
     @ApiImplicitParam(name = "id", value = "报价主键", dataType = "String")
-    @RequestMapping(value = "/findOne")
-    public CalculatorVO findOne(String data) {
-        CalculatorVO vo = calculateService.findChildListById("0001MG00000000036711");
+    @RequestMapping(value = "/listChild")
+    public CalculatorDTO listChild(String data) {
+        CalculatorDTO vo = calculateService.listChild("0001MG00000000036711",CalculatorDTO.class);
         return vo;
     }
 

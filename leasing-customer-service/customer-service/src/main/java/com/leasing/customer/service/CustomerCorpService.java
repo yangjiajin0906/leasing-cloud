@@ -1,5 +1,6 @@
 package com.leasing.customer.service;
 
+import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.customer.dao.query.CustomerCorpQuery;
@@ -57,7 +58,7 @@ public interface CustomerCorpService {
      * @param query      查询条件
      * @return List<CustomerCorpAllVO>
      */
-    List<CustomerCorpAllVO> pageQuery(Pagination pagination, CustomerCorpQuery query);
+    PageQueryData<CustomerCorpAllVO> pageQuery(Pagination pagination, CustomerCorpQuery query);
 
 
     /**

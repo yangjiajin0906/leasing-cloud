@@ -1,34 +1,22 @@
 package com.leasing.calculate.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.leasing.calculate.dos.CalculatorDO;
-import com.leasing.calculate.dos.InoutPlanPDO;
-import com.leasing.calculate.dos.LeaseLoanPlanDO;
-import com.leasing.calculate.repository.LeaseLoanPlanRepo;
-import com.leasing.calculate.utils.BaseAppUtils;
-import com.leasing.calculate.utils.CalCommonArithmeticUtils;
-import com.leasing.calculate.vo.ArithmeticCoreParam;
-import com.leasing.calculate.vo.CalArithmeticVO;
-import com.leasing.calculate.vo.CalculatorVO;
 import com.leasing.calculate.repository.CalculatorRepo;
 import com.leasing.calculate.service.CalculateService;
-import com.leasing.calculate.dto.CalculatorDTO;
-
-import com.leasing.calculate.vo.LeasePlanVO;
-import com.leasing.calculate.vo.queryVO.CalculatorQueryVO;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
-import com.leasing.common.utils.base.DozerUtils;
-import org.springframework.data.domain.Sort;
+import com.leasing.common.entity.calculate.dos.CalculatorDO;
+import com.leasing.common.entity.calculate.dos.InoutPlanPDO;
+import com.leasing.common.entity.calculate.dto.CalculatorDTO;
+import com.leasing.common.entity.calculate.query.CalculatorQuery;
+import com.leasing.common.entity.calculate.vo.base.CalculatorVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @project:leasing-cloud
@@ -47,21 +35,10 @@ public class CalculateServiceImpl implements CalculateService {
 //    LeaseLoanPlanRepo leaseLoanPlanRepo;
 
     @Override
-    public PageQueryData<CalculatorVO> pageQuery(Pagination pagination, CalculatorQueryVO vo) {
-        StringBuffer jpql = new StringBuffer();
-        jpql.append(
-                "select c from CalculatorVO c " +
-                        " left join fetch c.pkLimitPlan l" +
-                        " left join fetch c.pkDept d" +
-                        " left join fetch c.pkChecker u" +
-                        " left join fetch c.pkGrantor pg" +
-                        " left join fetch c.pkOrg o" +
-                        " left join fetch c.pkInterrate i" +
-                        " left join fetch c.pkInterrateDepos pid" +
-                        " left join fetch c.pkSpecialInterrate psi" +
-                        " left join fetch c.pkCurrtype pc"
-        );
-        return calculatorRepo.pageQuery(pagination,vo,jpql.toString());
+    public PageQueryData<CalculatorVO> pageQuery(Pagination pagination, CalculatorQuery vo) {
+        PageQueryData<CalculatorVO> result = calculatorRepo.pageQuery(pagination, vo,"CalculatorRepo.pageQuery");
+
+        return result;
     }
 
     @Override
@@ -89,7 +66,7 @@ public class CalculateServiceImpl implements CalculateService {
 //        list2.add(pdo);
 //        dos.setLeaseLoanPlan(list2);
 
-        calculatorRepo.save(dos);
+        calculatorRepo.saveEntity(dos);
         return vo;
     }
 
@@ -119,7 +96,7 @@ public class CalculateServiceImpl implements CalculateService {
         list.add(inoutPlanPDO2);
 
         vo.setInoutPlanMarket(list);
-        calculatorRepo.saveAndFlush(vo);
+        calculatorRepo.updateEntity(vo);
 
         return vo;
     }
@@ -135,19 +112,17 @@ public class CalculateServiceImpl implements CalculateService {
     }
 
     @Override
-    public CalculatorVO findChildListById(String id) {
-        CalculatorDO dos = calculatorRepo.findOne(id);
-        CalculatorVO vo = DozerUtils.convert(dos,CalculatorVO.class);
-        //......
+    public CalculatorDTO listChild(String pk, Class<CalculatorDTO> c) {
+        CalculatorDTO vo = calculatorRepo.findOne(pk,c);
         return vo;
     }
 
     @Override
     public List calOperateLease(CalculatorVO vo) {
-        ArithmeticCoreParam acp = BaseAppUtils.buildCalBusinessParam(vo);
-        List<CalArithmeticVO> listC = CalCommonArithmeticUtils.getRentPlan(acp);
-        List<LeasePlanVO> list = CalCommonArithmeticUtils.getResultRentList(listC);
-        return list;
+//        ArithmeticCoreParam acp = BaseAppUtils.buildCalBusinessParam(vo);
+//        List<CalArithmeticVO> listC = CalCommonArithmeticUtils.getRentPlan(acp);
+//        List<LeasePlanVO> list = CalCommonArithmeticUtils.getResultRentList(listC);
+        return null;
     }
 
     @Override
@@ -169,27 +144,5 @@ public class CalculateServiceImpl implements CalculateService {
     public BigDecimal calDayIRR() {
         return null;
     }
-
-    @Override
-    public CalculatorDTO findByIsSql(String pkLeaseCalculator) {
-        return calculatorRepo.findByIsSql(pkLeaseCalculator);
-    }
-
-    @Override
-    public Map<String,Object> findByIsSql2(String pkLeaseCalculator) {
-        return calculatorRepo.findByIsSql2(pkLeaseCalculator);
-    }
-
-    @Override
-    public CalculatorDTO findByPkLeaseCalculator(String pkLeaseCalculator, Class<CalculatorDTO> type) {
-        return calculatorRepo.findByPkLeaseCalculator(pkLeaseCalculator,CalculatorDTO.class);
-    }
-
-    @Override
-    public List<CalculatorVO> findListByPk(String pk) {
-        return calculatorRepo.findListByPk(pk);
-    }
-
-
 
 }

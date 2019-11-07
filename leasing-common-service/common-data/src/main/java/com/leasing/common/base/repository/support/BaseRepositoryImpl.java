@@ -76,6 +76,7 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
         return super.save(entity);
     }
 
+    @Override
     public PageQueryData<V> pageQuery(Pagination pagination, Q query, String queryName) {
         return this.pageQuerySupport(pagination, query, queryName,false);
     }
@@ -83,6 +84,18 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
     @Override
     public PageQueryData pageQueryNative(Pagination pagination, Q query, String queryName) {
         return pageQuerySupport(pagination, query, queryName, true);
+    }
+
+    @Override
+    public List<V>pageQuery( Q query, String queryName) {
+        PageQueryData pageQueryData = this.pageQuerySupport(null, query, queryName,false);
+        return pageQueryData.getPageData();
+    }
+
+    @Override
+    public List pageQueryNative( Q query, String queryName) {
+        PageQueryData pageQueryData = pageQuerySupport(null, query, queryName, true);
+        return pageQueryData.getPageData();
     }
     /**
      * 处理分页查询
@@ -94,8 +107,8 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
      */
     private PageQueryData pageQuerySupport(Pagination pagination, Q query, String queryName,Boolean ifNative){
         log.debug("开始分页查询-----------:");
-        QuerySupport querySupport = QuerySupport.getInstance();
         String sql = getQueryByName(queryName);
+        QuerySupport querySupport = QuerySupport.getInstance();
         String countName = querySupport.countWhere(queryName);
         String count = getQueryByName(countName);
         //处理查询sql的形式
@@ -133,6 +146,9 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
         log.debug("分页整理参数打印:-----------:");
         log.debug(paramMap.values());
         long total = Long.valueOf(countResult.getSingleResult().toString());
+        if(pagination == null){    //不分页处理
+            pagination = new Pagination(0,Integer.parseInt(String.valueOf(total)));
+        }
         queryResult.setFirstResult(pagination.getFirstResult()).setMaxResults(pagination.getPageSize());
         List result = queryResult.getResultList();
         PageQueryData pageQueryData = new PageQueryData(total, pagination.getPageSize(), result);
@@ -183,5 +199,13 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
         Assert.notNull(namedQueryDefinition, "未找到 JPA Query " + name + " 查询实例!");
         Assert.hasText(namedQueryDefinition.getQueryString(), "未找到 JPA Query " + name + " 查询实例对象!");
         return namedQueryDefinition.getQueryString();
+    }
+
+    @Override
+    public List findByJPQL(String jpql) {
+        Assert.notNull(jpql, "JPA Query JPQL 不可为空!");
+        entityManager.getDelegate();
+        List result = entityManager.createQuery(jpql).getResultList();
+        return result;
     }
 }
