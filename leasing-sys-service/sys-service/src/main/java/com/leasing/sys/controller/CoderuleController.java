@@ -9,6 +9,7 @@ import com.leasing.common.dto.sys.ParameterDTO;
 import com.leasing.common.entity.common.dos.CoderuleDO;
 import com.leasing.common.entity.common.dos.CoderuleTypeDO;
 import com.leasing.common.entity.common.vo.CoderuleVO;
+import com.leasing.common.utils.base.BaseBusinessUtils;
 import com.leasing.common.utils.base.CodeRuleUtil;
 import com.leasing.common.utils.base.DozerUtils;
 import com.leasing.common.utils.base.ResultUtils;
@@ -111,6 +112,16 @@ public class CoderuleController {
         //测试客户节点生成编码
         String code = CodeRuleUtil.getCodeRule(map);
         return ResultUtils.successWithData(code);
+    }
+
+    /**
+     * 测试校验唯一性Util
+     */
+    @RequestMapping(value = "/testUnique")
+    public boolean testUnique(){
+        CoderuleVO vo = coderuleService.getCoderule("0001AA10000000059BLD");
+        String wheresql = "";
+        return BaseBusinessUtils.checkUniqueFields(vo,new String[] { "businessPoint" }, wheresql);
     }
 
 

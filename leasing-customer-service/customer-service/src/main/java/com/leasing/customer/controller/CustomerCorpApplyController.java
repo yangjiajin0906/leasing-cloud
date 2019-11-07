@@ -7,7 +7,6 @@ import com.leasing.common.exception.BaseException;
 import com.leasing.customer.dao.vo.CustomerCorpAllVO;
 import com.leasing.customer.dao.vo.CustomerVO;
 import com.leasing.customer.service.CustomerCorpApplyService;
-import com.leasing.customer.util.BaseBusinessUtils;
 import org.apache.commons.lang.StringUtils;
 
 import javax.annotation.Resource;

@@ -10,7 +10,7 @@ import java.util.List;
  * @project:leasing-cloud
  * @date:2019/9/23
  * @author:Yjj@yonyou.com
- * @description: 报价VO
+ * @description: 报价DO
  **/
 
 @Entity

@@ -6,10 +6,10 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
- * @project:leasing-cloud 规则测算器（规则设置子表）VO类
+ * @project:leasing-cloud
  * @date:2019/9/26
  * @author:Yjj@yonyou.com
- * @description:
+ * @description:规则测算器（规则设置子表）VO类
  **/
 
 @Entity
