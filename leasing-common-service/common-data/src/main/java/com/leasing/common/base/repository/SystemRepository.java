@@ -1,8 +1,8 @@
-package com.leasing.sys.dao;
+package com.leasing.common.base.repository;
 
 import com.leasing.common.base.entity.BaseQuery;
-import com.leasing.sys.entity.dos.SystemDO;
-import com.leasing.sys.entity.vo.SystemVO;
+import com.leasing.common.entity.common.dos.SystemDO;
+import com.leasing.common.entity.common.vo.SystemVO;
 import com.leasing.common.base.repository.BaseRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +13,6 @@ import org.springframework.stereotype.Repository;
  * @description:
  **/
 @Repository
-public interface SystemRepository extends BaseRepository<SystemDO,SystemVO, BaseQuery,String> {
+public interface SystemRepository extends BaseRepository<SystemDO, BaseQuery, SystemVO, String> {
 
 }

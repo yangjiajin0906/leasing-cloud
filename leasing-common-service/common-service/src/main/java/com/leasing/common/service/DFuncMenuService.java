@@ -1,4 +1,4 @@
-package com.leasing.sys.service;
+package com.leasing.common.service;
 
 /**
  * @project:leasing-cloud
@@ -7,11 +7,10 @@ package com.leasing.sys.service;
  * @description:
  **/
 import com.leasing.common.base.repository.support.PageQueryData;
-import com.leasing.sys.entity.dos.DFuncMenuDO;
-import com.leasing.sys.entity.vo.DFuncMenuVO;
+import com.leasing.common.entity.common.dos.DFuncMenuDO;
+import com.leasing.common.entity.common.vo.DFuncMenuVO;
 
 import java.util.List;
-import java.util.Map;
 
 public interface DFuncMenuService {
     /**
@@ -20,6 +19,10 @@ public interface DFuncMenuService {
      */
     PageQueryData<DFuncMenuVO> getMenuList();
 
+    /**
+     * 获取整个所有菜单列表List
+     */
+    List<DFuncMenuVO> getAllMenuList();
 
     /**
      * 根据pk查找单个对象 调用基类BaseRepository的findOne方法 返回对象为DO

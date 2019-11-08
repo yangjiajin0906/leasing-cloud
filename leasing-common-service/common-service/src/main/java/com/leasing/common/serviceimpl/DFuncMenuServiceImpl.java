@@ -1,17 +1,16 @@
-package com.leasing.sys.serviceimpl;
+package com.leasing.common.serviceimpl;
 
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
-import com.leasing.sys.entity.dos.DFuncMenuDO;
-import com.leasing.sys.entity.query.DFuncMenuQuery;
-import com.leasing.sys.entity.vo.DFuncMenuVO;
-import com.leasing.sys.dao.DFuncMenuRepo;
-import com.leasing.sys.service.DFuncMenuService;
+import com.leasing.common.entity.common.dos.DFuncMenuDO;
+import com.leasing.common.entity.common.query.DFuncMenuQuery;
+import com.leasing.common.entity.common.vo.DFuncMenuVO;
+import com.leasing.common.base.repository.DFuncMenuRepo;
+import com.leasing.common.service.DFuncMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @project:leasing-cloud
@@ -41,6 +40,12 @@ public class DFuncMenuServiceImpl implements DFuncMenuService {
         PageQueryData<DFuncMenuVO> list = dFuncMenuRepo.pageQuery(pagination,queryvo,"getDFuncmenuList");
         return list;
 
+    }
+
+    @Override
+    public List<DFuncMenuVO> getAllMenuList(){
+        DFuncMenuQuery queryvo =new DFuncMenuQuery();
+        return dFuncMenuRepo.pageQuery(queryvo,"getDFuncmenuList");
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.leasing.sys.entity.dos;
+package com.leasing.common.entity.common.dos;
 
 import com.leasing.common.base.entity.BaseBusinessDO;
 import com.leasing.common.vo.foundation.OrgVO;
@@ -13,10 +13,10 @@ import javax.persistence.*;
  * @description:
  **/
 @Entity
-@Table(name="sm_business_menu")
+@Table(name="yl_business_menu")
 public class DFuncMenuDO extends BaseBusinessDO {
     public String getTableName() {
-        return "sm_business_menu";
+        return "yl_business_menu";
     }
 
     public String getPk() {

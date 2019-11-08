@@ -15,6 +15,23 @@
             left join fetch s.pkOrg o
             left join fetch s.pkDept d
             left join fetch s.pkOperator t
+            where s.ifPower = '1' and s.ifEnabled = '0' order by s.ts desc
+        </query>
+    </named-query>
+
+    <named-query name="getDFuncmenuList">
+        <query>
+            select s from DFuncMenuVO s
+            left join fetch s.pkParent l
+            left join fetch s.pkSystem p
+            left join fetch s.pkOrg o
+            left join fetch s.pkDept d
+            left join fetch s.pkOperator t
+        </query>
+    </named-query>
+    <named-query name="getDFuncmenuList.count">
+        <query>
+            select count(s) from DFuncMenuVO s
         </query>
     </named-query>
 

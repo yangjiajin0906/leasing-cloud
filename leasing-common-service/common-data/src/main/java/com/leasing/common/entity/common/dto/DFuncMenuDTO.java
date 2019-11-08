@@ -1,9 +1,4 @@
-package com.leasing.sys.entity.dto;
-
-import com.leasing.sys.entity.vo.SystemVO;
-
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+package com.leasing.common.entity.common.dto;
 
 /**
  * @project:leasing-cloud

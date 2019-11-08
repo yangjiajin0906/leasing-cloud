@@ -1,11 +1,12 @@
 package com.leasing.sys.controller;
 
 import com.leasing.common.base.repository.support.PageQueryData;
+import com.leasing.common.entity.sys.dto.ParameterDTO;
 import com.leasing.common.enums.constant.CodeRuleKey;
 import com.leasing.common.enums.constant.FuncCodeConstant;
 import com.leasing.common.service.CoderuleService;
 import com.leasing.common.base.web.ResResult;
-import com.leasing.common.dto.sys.ParameterDTO;
+
 import com.leasing.common.entity.common.dos.CoderuleDO;
 import com.leasing.common.entity.common.dos.CoderuleTypeDO;
 import com.leasing.common.entity.common.vo.CoderuleVO;
