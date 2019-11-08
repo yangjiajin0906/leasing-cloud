@@ -32,6 +32,8 @@ public class UserVO extends BaseEntity {
     private String telNo;
     private String psnname;
     private String deptname;
+    private String pkUserdeCode;
+    private String pkUserdeUser;
 
     public String getTableName() {
         return "sm_user_view";
@@ -155,6 +157,22 @@ public class UserVO extends BaseEntity {
 
     public void setDeptname(String deptname) {
         this.deptname = deptname;
+    }
+
+    public String getPkUserdeCode() {
+        return pkUserdeCode;
+    }
+
+    public void setPkUserdeCode(String pkUserdeCode) {
+        this.pkUserdeCode = pkUserdeCode;
+    }
+
+    public String getPkUserdeUser() {
+        return pkUserdeUser;
+    }
+
+    public void setPkUserdeUser(String pkUserdeUser) {
+        this.pkUserdeUser = pkUserdeUser;
     }
 
     @Override

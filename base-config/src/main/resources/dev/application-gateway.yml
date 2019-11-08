@@ -33,6 +33,10 @@ spring:
         uri: lb://leasing-rentearly-service
         predicates:
         - Path=/leasing/rentearly/**
+      - id: communication-service
+        uri: lb://leasing-communication-service
+        predicates:
+        - Path=/leasing/communication/**
 eureka:
   port:
     8800

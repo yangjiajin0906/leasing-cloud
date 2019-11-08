@@ -89,7 +89,7 @@ public interface TestRepository extends BaseRepository<ProjectInfoDO,ProjectQuer
      * @return
      */
     @Query(value = "select k from ProjectInfoVO k left join fetch k.pkPrjManager c " +
-            "left join fetch c.pkOrg l left join fetch l.parentPk p where k.pkProjectInfo = ?1")
+            "left join fetch c.pkOrg l where k.pkProjectInfo = ?1")
     List<ProjectInfoVO> findFetch(String pk);
 
     /**
