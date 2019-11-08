@@ -1,16 +1,16 @@
-package com.leasing.calculate.utils;
+package com.leasing.communication.calculate.utils;
 
-import com.leasing.common.entity.calculate.vo.base.AdjInoutPlanVO;
-import com.leasing.common.entity.calculate.vo.base.CalculatorVO;
-import com.leasing.common.entity.calculate.vo.base.InoutPlanVO;
-import com.leasing.common.entity.calculate.vo.base.LeasePlanVO;
-import com.leasing.common.entity.calculate.vo.cal.CalBusinessParam;
-import com.leasing.common.enums.constant.PubEnumsConstant;
-import com.leasing.common.enums.constant.TradeType;
-import com.leasing.common.exception.BaseException;
-import com.leasing.common.utils.base.BigDecimalUtils;
-import com.leasing.common.utils.base.Days360;
-import com.leasing.common.utils.base.UFDate;
+import com.leasing.communication.common.entity.calculate.vo.base.AdjInoutPlanVO;
+import com.leasing.communication.common.entity.calculate.vo.base.CalculatorVO;
+import com.leasing.communication.common.entity.calculate.vo.base.InoutPlanVO;
+import com.leasing.communication.common.entity.calculate.vo.base.LeasePlanVO;
+import com.leasing.communication.common.entity.calculate.vo.cal.CalBusinessParam;
+import com.leasing.communication.common.enums.constant.PubEnumsConstant;
+import com.leasing.communication.common.enums.constant.TradeType;
+import com.leasing.communication.common.exception.BaseException;
+import com.leasing.communication.common.utils.base.BigDecimalUtils;
+import com.leasing.communication.common.utils.base.Days360;
+import com.leasing.communication.common.utils.base.UFDate;
 import org.springframework.beans.BeanUtils;
 
 import java.math.BigDecimal;

@@ -1,4 +1,4 @@
-package com.leasing.calculate;
+package com.leasing.communication.calculate;
 
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.service.Contact;

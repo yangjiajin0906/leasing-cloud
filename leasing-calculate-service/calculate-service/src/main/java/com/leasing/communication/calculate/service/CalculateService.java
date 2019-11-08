@@ -1,11 +1,11 @@
-package com.leasing.calculate.service;
+package com.leasing.communication.calculate.service;
 
-import com.leasing.common.entity.calculate.dos.CalculatorDO;
-import com.leasing.common.entity.calculate.dto.CalculatorDTO;
-import com.leasing.common.entity.calculate.query.CalculatorQuery;
-import com.leasing.common.entity.calculate.vo.base.CalculatorVO;
-import com.leasing.common.base.repository.support.PageQueryData;
-import com.leasing.common.base.repository.support.Pagination;
+import com.leasing.communication.common.entity.calculate.dos.CalculatorDO;
+import com.leasing.communication.common.entity.calculate.dto.CalculatorDTO;
+import com.leasing.communication.common.entity.calculate.query.CalculatorQuery;
+import com.leasing.communication.common.entity.calculate.vo.base.CalculatorVO;
+import com.leasing.communication.common.base.repository.support.PageQueryData;
+import com.leasing.communication.common.base.repository.support.Pagination;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -59,7 +59,7 @@ public interface CalculateService {
      * @author Yangjiajin
      * @date 2019/10/28 10:04
      * @param pk
-     * @return com.leasing.common.entity.calculate.vo.base.CalculatorVO
+     * @return CalculatorVO
      */
     CalculatorDTO listChild(String pk, Class<CalculatorDTO> s);
 
@@ -68,7 +68,7 @@ public interface CalculateService {
      * @author Yangjiajin
      * @date 2019/10/23 10:17
      * @param vo
-     * @return com.leasing.common.entity.calculate.dto.CalculatorDTO
+     * @return CalculatorDTO
      */
     List calOperateLease(CalculatorVO vo);
 
@@ -77,7 +77,7 @@ public interface CalculateService {
      * @author Yangjiajin
      * @date 2019/10/23 10:17
      * @param []
-     * @return com.leasing.common.entity.calculate.dto.CalculatorDTO
+     * @return CalculatorDTO
      */
     List calMakeResults();
 
@@ -86,7 +86,7 @@ public interface CalculateService {
      * @author Yangjiajin
      * @date 2019/10/23 10:17
      * @param []
-     * @return com.leasing.common.entity.calculate.dto.CalculatorDTO
+     * @return CalculatorDTO
      */
     List calAccountingShare();
 

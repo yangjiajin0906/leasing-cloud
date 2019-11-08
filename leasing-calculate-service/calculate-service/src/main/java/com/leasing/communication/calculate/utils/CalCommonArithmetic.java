@@ -1,18 +1,18 @@
-package com.leasing.calculate.utils;
+package com.leasing.communication.calculate.utils;
 
-import com.leasing.common.entity.calculate.vo.base.LeaseLoanPlanVO;
-import com.leasing.common.entity.calculate.vo.cal.ArithmeticCoreDayParam;
-import com.leasing.common.entity.calculate.vo.cal.ArithmeticCoreParam;
-import com.leasing.common.entity.calculate.vo.cal.CalArithmeticVO;
-import com.leasing.common.enums.arithmetic.*;
-import com.leasing.common.enums.base.Direction;
-import com.leasing.common.enums.base.Tax_Mode;
-import com.leasing.common.enums.base.Yes_Or_No;
-import com.leasing.common.enums.constant.PubEnumsConstant;
-import com.leasing.common.enums.constant.TradeType;
-import com.leasing.common.utils.base.BigDecimalUtils;
-import com.leasing.common.utils.base.Days360;
-import com.leasing.common.utils.base.UFDate;
+import com.leasing.communication.common.entity.calculate.vo.base.LeaseLoanPlanVO;
+import com.leasing.communication.common.entity.calculate.vo.cal.ArithmeticCoreDayParam;
+import com.leasing.communication.common.entity.calculate.vo.cal.ArithmeticCoreParam;
+import com.leasing.communication.common.entity.calculate.vo.cal.CalArithmeticVO;
+import com.leasing.communication.common.enums.arithmetic.*;
+import com.leasing.communication.common.enums.base.Direction;
+import com.leasing.communication.common.enums.base.Tax_Mode;
+import com.leasing.communication.common.enums.base.Yes_Or_No;
+import com.leasing.communication.common.enums.constant.PubEnumsConstant;
+import com.leasing.communication.common.enums.constant.TradeType;
+import com.leasing.communication.common.utils.base.BigDecimalUtils;
+import com.leasing.communication.common.utils.base.Days360;
+import com.leasing.communication.common.utils.base.UFDate;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -20,8 +20,8 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.leasing.calculate.utils.BaseAppVO.getDayRate;
-import static com.leasing.calculate.utils.BaseAppVO.getTermRate;
+import static com.leasing.communication.calculate.utils.BaseAppVO.getDayRate;
+import static com.leasing.communication.calculate.utils.BaseAppVO.getTermRate;
 
 /**
  * @project:leasing-cloud

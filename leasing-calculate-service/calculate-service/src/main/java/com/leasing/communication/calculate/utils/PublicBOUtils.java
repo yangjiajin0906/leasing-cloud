@@ -1,6 +1,6 @@
-package com.leasing.calculate.utils;
+package com.leasing.communication.calculate.utils;
 
-import com.leasing.common.enums.constant.ParamValueConstant;
+import com.leasing.communication.common.enums.constant.ParamValueConstant;
 
 import java.math.BigDecimal;
 

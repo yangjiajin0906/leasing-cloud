@@ -1,13 +1,13 @@
-package com.leasing.calculate.controller;
+package com.leasing.communication.calculate.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.leasing.calculate.service.CalculateService;
-import com.leasing.common.base.repository.support.PageQueryData;
-import com.leasing.common.base.repository.support.Pagination;
-import com.leasing.common.entity.calculate.dos.CalculatorDO;
-import com.leasing.common.entity.calculate.dto.CalculatorDTO;
-import com.leasing.common.entity.calculate.query.CalculatorQuery;
-import com.leasing.common.entity.calculate.vo.base.CalculatorVO;
+import com.leasing.communication.calculate.service.CalculateService;
+import com.leasing.communication.common.base.repository.support.PageQueryData;
+import com.leasing.communication.common.base.repository.support.Pagination;
+import com.leasing.communication.common.entity.calculate.dos.CalculatorDO;
+import com.leasing.communication.common.entity.calculate.dto.CalculatorDTO;
+import com.leasing.communication.common.entity.calculate.query.CalculatorQuery;
+import com.leasing.communication.common.entity.calculate.vo.base.CalculatorVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

@@ -1,6 +1,6 @@
-package com.leasing.calculate.utils;
+package com.leasing.communication.calculate.utils;
 
-import com.leasing.common.utils.base.BigDecimalUtils;
+import com.leasing.communication.common.utils.base.BigDecimalUtils;
 import io.micrometer.core.instrument.util.StringUtils;
 
 import java.math.BigDecimal;

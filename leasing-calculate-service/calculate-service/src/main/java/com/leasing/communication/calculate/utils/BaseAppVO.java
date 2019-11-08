@@ -1,7 +1,7 @@
-package com.leasing.calculate.utils;
+package com.leasing.communication.calculate.utils;
 
-import com.leasing.common.entity.calculate.vo.cal.ArithmeticCoreDayParam;
-import com.leasing.common.enums.arithmetic.Year_Days;
+import com.leasing.communication.common.entity.calculate.vo.cal.ArithmeticCoreDayParam;
+import com.leasing.communication.common.enums.arithmetic.Year_Days;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

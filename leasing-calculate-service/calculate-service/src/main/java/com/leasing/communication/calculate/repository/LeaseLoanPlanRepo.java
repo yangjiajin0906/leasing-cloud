@@ -1,9 +1,9 @@
-package com.leasing.calculate.repository;
+package com.leasing.communication.calculate.repository;
 
-import com.leasing.common.entity.calculate.dos.LeaseLoanPlanDO;
-import com.leasing.common.base.entity.BaseQuery;
-import com.leasing.common.base.entity.BaseVO;
-import com.leasing.common.base.repository.BaseRepository;
+import com.leasing.communication.common.entity.calculate.dos.LeaseLoanPlanDO;
+import com.leasing.communication.common.base.entity.BaseQuery;
+import com.leasing.communication.common.base.entity.BaseVO;
+import com.leasing.communication.common.base.repository.BaseRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public interface LeaseLoanPlanRepo extends BaseRepository<LeaseLoanPlanDO,BaseQu
      * @author Yangjiajin
      * @date 2019/10/28 10:59
      * @param [SourceBill]
-     * @return java.util.List<com.leasing.common.entity.calculate.dos.LeaseLoanPlanDO>
+     * @return java.util.List<LeaseLoanPlanDO>
      */
     List<LeaseLoanPlanDO> findBySourceBill(@Param("SourceBill") String SourceBill);
     /**
@@ -28,7 +28,7 @@ public interface LeaseLoanPlanRepo extends BaseRepository<LeaseLoanPlanDO,BaseQu
      * @author Yangjiajin
      * @date 2019/10/28 10:59
      * @param [pkLeaseLoanPlan]
-     * @return com.leasing.common.entity.calculate.dos.LeaseLoanPlanDO
+     * @return LeaseLoanPlanDO
      */
     LeaseLoanPlanDO findByPkLeaseLoanPlan(@Param("pkLeaseLoanPlan") String pkLeaseLoanPlan);
 }

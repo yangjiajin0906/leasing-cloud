@@ -1,9 +1,9 @@
-package com.leasing.calculate.repository;
+package com.leasing.communication.calculate.repository;
 
-import com.leasing.common.base.repository.BaseRepository;
-import com.leasing.common.entity.calculate.dos.CalculatorDO;
-import com.leasing.common.entity.calculate.query.CalculatorQuery;
-import com.leasing.common.entity.calculate.vo.base.CalculatorVO;
+import com.leasing.communication.common.base.repository.BaseRepository;
+import com.leasing.communication.common.entity.calculate.dos.CalculatorDO;
+import com.leasing.communication.common.entity.calculate.query.CalculatorQuery;
+import com.leasing.communication.common.entity.calculate.vo.base.CalculatorVO;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
