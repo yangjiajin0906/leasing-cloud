@@ -3,7 +3,8 @@ package com.leasing.sys.test;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
-import com.leasing.common.dto.sys.ParamTypeDTO;
+
+import com.leasing.common.entity.sys.dto.ParamTypeDTO;
 import com.leasing.common.refvo.sys.ParameterRefVO;
 import com.leasing.common.utils.base.ResultUtils;
 import com.leasing.sys.dao.dos.ParamTypeDO;

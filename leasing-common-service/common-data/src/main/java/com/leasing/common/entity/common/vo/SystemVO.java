@@ -1,4 +1,4 @@
-package com.leasing.sys.entity.vo;
+package com.leasing.common.entity.common.vo;
 
 import com.leasing.common.base.entity.BaseBusinessVO;
 
@@ -13,10 +13,10 @@ import javax.persistence.Table;
  * @description:系统类VO
  **/
 @Entity
-@Table(name="sm_system")
+@Table(name="yl_system")
 public class SystemVO extends BaseBusinessVO {
     public String getTableName() {
-        return "sm_system";
+        return "yl_system";
     }
 
     public String getPk(){return pkSystem;}

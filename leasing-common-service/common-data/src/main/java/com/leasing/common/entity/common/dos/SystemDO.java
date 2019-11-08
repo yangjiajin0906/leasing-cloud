@@ -1,4 +1,4 @@
-package com.leasing.sys.entity.dos;
+package com.leasing.common.entity.common.dos;
 
 import com.leasing.common.base.entity.BaseBusinessDO;
 
@@ -13,10 +13,10 @@ import javax.persistence.Table;
  * @description:
  **/
 @Entity
-@Table(name="sm_system")
+@Table(name="yl_system")
 public class SystemDO extends BaseBusinessDO {
     public String getTableName() {
-        return "sm_system";
+        return "yl_system";
     }
 
     public String getPk(){return pkSystem;}

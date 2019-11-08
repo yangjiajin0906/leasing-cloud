@@ -1,4 +1,4 @@
-package com.leasing.sys.entity.vo;
+package com.leasing.common.entity.common.vo;
 
 import com.leasing.common.base.entity.BaseBusinessVO;
 
@@ -13,10 +13,10 @@ import java.util.List;
  **/
 
 @Entity
-@Table(name="sm_business_menu")
+@Table(name="yl_business_menu")
 public class DFuncMenuVO extends BaseBusinessVO {
 
-    public String getTableName(){return "sm_business_menu";}
+    public String getTableName(){return "yl_business_menu";}
 
     public String getPk(){return pkFuncmenu;}
 

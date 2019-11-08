@@ -1,4 +1,4 @@
-package com.leasing.sys.entity.query;
+package com.leasing.common.entity.common.query;
 
 import com.leasing.common.annotation.QueryCondition;
 import com.leasing.common.base.entity.BaseQuery;

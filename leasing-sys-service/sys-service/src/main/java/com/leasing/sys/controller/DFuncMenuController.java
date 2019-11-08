@@ -1,21 +1,15 @@
 package com.leasing.sys.controller;
 
-import com.alibaba.fastjson.JSONObject;
-import com.leasing.common.base.entity.AbstractBaseEntity;
 import com.leasing.common.base.repository.support.PageQueryData;
-import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.base.DozerUtils;
 import com.leasing.common.utils.base.ResultUtils;
-import com.leasing.sys.dao.DFuncMenuRepo;
-import com.leasing.sys.entity.dos.DFuncMenuDO;
-import com.leasing.sys.entity.query.DFuncMenuQuery;
-import com.leasing.sys.entity.vo.DFuncMenuVO;
-import com.leasing.sys.entity.vo.SystemVO;
-import com.leasing.sys.service.DFuncMenuService;
-import com.leasing.sys.service.SystemService;
+import com.leasing.common.base.repository.DFuncMenuRepo;
+import com.leasing.common.entity.common.dos.DFuncMenuDO;
+import com.leasing.common.entity.common.vo.DFuncMenuVO;
+import com.leasing.common.service.DFuncMenuService;
+import com.leasing.common.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 
 import org.springframework.web.bind.annotation.*;
 

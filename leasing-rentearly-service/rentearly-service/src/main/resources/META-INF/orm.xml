@@ -7,7 +7,7 @@
     <named-query name="test">
         <query>
             select k from ProjectInfoVO k left join fetch k.pkPrjManager c
-            left join fetch c.pkOrg l left join fetch l.parentPk p
+            left join fetch c.pkOrg l
         </query>
     </named-query>
 
@@ -17,10 +17,11 @@
             select piv from ProjectInfoVO piv
             left join fetch piv.pkProjectApproval ppa
             left join fetch ppa.pkProOrg ppo
-            left join fetch ppo.parentPk ppp
+<!--            left join fetch ppo.parentPk ppp-->
             left join fetch piv.projectDept ppt
             left join fetch piv.pkPrjManager prm
-            left join fetch prm.pkOrg l left join fetch l.parentPk p
+            left join fetch prm.pkOrg l
+<!--            left join fetch l.parentPk p-->
             left join fetch piv.grantingCurrency pgc
             left join fetch piv.clientRating pcr
             left join fetch piv.pkConsumer ppcon
@@ -30,11 +31,11 @@
             left join fetch piv.pkContractRule pcru
             left join fetch piv.regionManager rm
             left join fetch rm.pkOrg rmorg
-            left join fetch rmorg.parentPk rmorgp
+<!--            left join fetch rmorg.parentPk rmorgp-->
             left join fetch piv.belongsArea pbarea
             left join fetch piv.areaManager pamn
             left join fetch pamn.pkOrg ppo
-            left join fetch ppo.parentPk ppop
+<!--            left join fetch ppo.parentPk ppop-->
             left join fetch piv.industryType pit
             left join fetch piv.pkCustFinance pcf
             left join fetch pcf.capitalCur pcfcc
@@ -58,10 +59,11 @@
             select piv from ProjectInfoVO piv
             left join fetch piv.pkProjectApproval ppa
             left join fetch ppa.pkProOrg ppo
-            left join fetch ppo.parentPk ppp
+<!--            left join fetch ppo.parentPk ppp-->
             left join fetch piv.projectDept ppt
             left join fetch piv.pkPrjManager prm
-            left join fetch prm.pkOrg l left join fetch l.parentPk p
+            left join fetch prm.pkOrg l
+<!--            left join fetch l.parentPk p-->
             left join fetch piv.grantingCurrency pgc
             left join fetch piv.clientRating pcr
             left join fetch piv.pkConsumer ppcon
@@ -71,11 +73,11 @@
             left join fetch piv.pkContractRule pcru
             left join fetch piv.regionManager rm
             left join fetch rm.pkOrg rmorg
-            left join fetch rmorg.parentPk rmorgp
+<!--            left join fetch rmorg.parentPk rmorgp-->
             left join fetch piv.belongsArea pbarea
             left join fetch piv.areaManager pamn
             left join fetch pamn.pkOrg ppo
-            left join fetch ppo.parentPk ppop
+<!--            left join fetch ppo.parentPk ppop-->
             left join fetch piv.industryType pit
             left join fetch piv.pkCustFinance pcf
             left join fetch pcf.capitalCur pcfcc

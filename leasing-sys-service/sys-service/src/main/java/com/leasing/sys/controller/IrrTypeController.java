@@ -31,9 +31,6 @@ public class IrrTypeController {
     @Autowired
     IrrTypeService irrTypeService;
 
-    @Autowired
-    IrrTypeRepo irrTypeRepo;
-
     /**
      * 获取事件类别对Irr影响列表
      * @return PageQueryData
@@ -104,7 +101,7 @@ public class IrrTypeController {
     public ResResult deleteIrrType(){   //前台传pk后台直接查DO 否则会报错
 //        IrrTypeVO vo = irrTypeService.getIrrType("0001AA10000000008RL4");
 //        IrrTypeDO dos = DozerUtils.convert(vo,IrrTypeDO.class);
-        IrrTypeDO dos = irrTypeRepo.findOne("0001AA100000000CWXNK");
+        IrrTypeDO dos = irrTypeService.getIrrTypeDO("0001AA100000000CWXNK");
         irrTypeService.deleteIrrType(dos);
         return ResultUtils.successWithData(dos);
     }
