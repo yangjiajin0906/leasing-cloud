@@ -27,7 +27,7 @@ public interface CustomerCorpRepo extends BaseRepository<CustomerCorpDO, Custome
      * @param pkCustomer 客户主键
      * @return List<CustomerCorpAllVO>
      */
-    @Query(name = "CustomerCorpAllVO.findByPkCustomer")
+    @Query(value = "select b from CustomerCorpAllVO b where b.pkCustomer = :pkCustomer AND b.ifNew = 0 ")
     CustomerCorpAllVO findOneAllByPkCustomer(@Param("pkCustomer") String pkCustomer);
 
     /**

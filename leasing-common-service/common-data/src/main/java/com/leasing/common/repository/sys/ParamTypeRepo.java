@@ -65,5 +65,5 @@ public interface ParamTypeRepo extends BaseRepository<ParamTypeDO,ParamTypeQuery
      */
     @Query(value="select p from ParameterVO p \n" +
             "     where p.paramType = ?1 and paramValue = ?2 ")
-    List<ParameterVO> findByParamTypeAndParamValue(String paramType,  String paramValue);
+    List<ParameterVO> findByParamTypeAndParamValue(Integer paramType,  String paramValue);
 }

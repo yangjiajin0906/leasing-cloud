@@ -1,6 +1,7 @@
 package com.leasing.customer.dao.vo;
 
 import com.leasing.common.base.entity.BaseBusinessVO;
+import com.leasing.common.dto.customer.CustomerPersonDTO;
 import com.leasing.common.dto.sys.ParameterDTO;
 import com.leasing.common.vo.foundation.AreaclVO;
 import com.leasing.common.vo.foundation.CurrtypeVO;
@@ -211,6 +212,13 @@ public class CustomerCorpAllVO extends BaseBusinessVO {
     @JoinColumn(name="customerProperty",table = "yls_customer_corp")
     public ParameterDTO customerProperty;
 
+    /**
+     * 客户性质
+     */
+    @ManyToOne
+    @JoinColumn(name="customerPropertyIn",table = "yls_customer_corp")
+    public ParameterDTO customerPropertyIn;
+
 
     /**
      * 经济性质
@@ -397,7 +405,9 @@ public class CustomerCorpAllVO extends BaseBusinessVO {
     /**
      * 法定代表人编号
      */
-//    public CustomerPersonRefVO pkCustomerPerson;
+    @ManyToOne
+    @JoinColumn(name = "pkCustomerPerson", table = "yls_customer_corp")
+    private CustomerPersonDTO pkCustomerPerson;
 
     /**
      * 实际控制人
@@ -1099,6 +1109,14 @@ public class CustomerCorpAllVO extends BaseBusinessVO {
         this.customerProperty = customerProperty;
     }
 
+    public ParameterDTO getCustomerPropertyIn() {
+        return customerPropertyIn;
+    }
+
+    public void setCustomerPropertyIn(ParameterDTO customerPropertyIn) {
+        this.customerPropertyIn = customerPropertyIn;
+    }
+
     public ParameterDTO getEconomicType() {
         return economicType;
     }
@@ -1297,6 +1315,14 @@ public class CustomerCorpAllVO extends BaseBusinessVO {
 
     public void setLicenseNo(String licenseNo) {
         this.licenseNo = licenseNo;
+    }
+
+    public CustomerPersonDTO getPkCustomerPerson() {
+        return pkCustomerPerson;
+    }
+
+    public void setPkCustomerPerson(CustomerPersonDTO pkCustomerPerson) {
+        this.pkCustomerPerson = pkCustomerPerson;
     }
 
     public CustomerDTO getActualControl() {

@@ -25,6 +25,19 @@ public interface CustomerService {
      */
     CustomerDO findOneByPkCustomer(String pkCustomer);
 
+    /**
+     * 根据客户名称查询客户
+     *
+     * @param customerName 客户名称
+     * @return 客户
+     */
+    CustomerDO findOneByCustomerName(String customerName);
+
+    /**
+     * 根据客户主键批量删除客户
+     *
+     * @param pks 客户主键集合
+     */
     void batchDelete(List<String> pks);
 
     /**
@@ -35,17 +48,7 @@ public interface CustomerService {
      * @param CustomerType   客户类型
      * @return 客户列表
      */
-    List<CustomerVO> queryCustomerStatusByName(String customerName, Short CustomerStatus, Short CustomerType);
-
-    /**
-     * 客户生效
-     * 1.设置billStatus 为 审核状态
-     * 2.设置生效日期
-     * 3.调用保存接口
-     *
-     * @param vo 客户信息
-     */
-    void effect(CustomerVO vo);
+    CustomerVO queryCustomerStatusByName(String customerName, Short CustomerStatus, Short CustomerType);
 
     /**
      * 修改客户信息

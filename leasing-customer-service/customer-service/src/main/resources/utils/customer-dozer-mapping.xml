@@ -13,6 +13,22 @@
             <b>region</b>
         </field>
         <field>
+            <a>capitalCur.pkCurrtype</a>
+            <b>capitalCur</b>
+        </field>
+        <field>
+            <a>customerPropertyIn.pkParameter</a>
+            <b>customerPropertyIn</b>
+        </field>
+        <field>
+            <a>capitalCurPaidin.pkCurrtype</a>
+            <b>capitalCurPaidin</b>
+        </field>
+        <field>
+            <a>pkCustomerPerson.pkCustomer</a>
+            <b>pkCustomerPerson</b>
+        </field>
+        <field>
             <a>customerProperty.pkParameter</a>
             <b>customerProperty</b>
         </field>

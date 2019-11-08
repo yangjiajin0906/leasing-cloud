@@ -1,10 +1,10 @@
 package com.leasing.customer.dao.vo;
 
 import com.leasing.common.base.entity.BaseBusinessVO;
+import com.leasing.common.dto.customer.CustomerDTO;
+import com.leasing.common.vo.foundation.UserVO;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @project:leasing-cloud
@@ -18,6 +18,14 @@ public class CustomerAuthVO extends BaseBusinessVO {
 
     @Id
     private String pkCustomerAuth;
+
+    @ManyToOne
+    @JoinColumn(name = "pkCustomer")
+    private CustomerDTO pkCustomer;
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private UserVO userId;
 
     @Override
     public String getPk() {

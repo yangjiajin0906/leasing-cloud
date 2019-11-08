@@ -155,6 +155,8 @@ public class CustRelatedCompanyVO extends BaseVO {
     @JoinColumn(name = "pkOrg")
     private OrgVO pkOrg;
 
+    private Short executiveType;
+
     /**
      * 类CustRelatedCompanyVO的构造方法
      */
@@ -487,5 +489,13 @@ public class CustRelatedCompanyVO extends BaseVO {
 
     public void setPkOrg(OrgVO pkOrg) {
         this.pkOrg = pkOrg;
+    }
+
+    public Short getExecutiveType() {
+        return executiveType;
+    }
+
+    public void setExecutiveType(Short executiveType) {
+        this.executiveType = executiveType;
     }
 }

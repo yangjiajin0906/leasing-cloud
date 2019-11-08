@@ -3,12 +3,19 @@ package com.leasing.customer.controller;
 import com.alibaba.fastjson.JSON;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
+import com.leasing.common.enums.constant.PubEnumsConstant;
+import com.leasing.common.exception.BaseException;
+import com.leasing.common.utils.base.BaseBusinessUtils;
 import com.leasing.common.utils.base.ResultUtils;
+import com.leasing.customer.dao.dos.CustomerDO;
 import com.leasing.customer.dao.query.CustomerCorpQuery;
 import com.leasing.customer.dao.vo.CustomerAuthApplyVO;
 import com.leasing.customer.dao.vo.CustomerAuthVO;
 import com.leasing.customer.dao.vo.CustomerCorpAllVO;
+import com.leasing.customer.dao.vo.CustomerVO;
 import com.leasing.customer.service.CustomerCorpService;
+import com.leasing.customer.service.CustomerService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,6 +35,8 @@ public class CustomerCorpController {
 
     @Resource
     private CustomerCorpService customerCorpService;
+    @Resource
+    private CustomerService customerService;
 
 
     /**
@@ -43,7 +52,7 @@ public class CustomerCorpController {
     }
 
     /**
-     * 根据查询条件查询单位客户分页查询
+     * 根据查询条件查询单位客户分页查询 (已生效)
      *
      * @param query 客户查询条件
      * @return com.leasing.common.base.web.ResResult
@@ -83,35 +92,105 @@ public class CustomerCorpController {
 
 
     /**
-     * 保存、修改
+     * 保存客户
      *
-     * @param data 客户信息
-     * @return com.leasing.common.base.web.ResResult
+     * @param data 客户数据
+     * @return 客户信息
      */
     @PostMapping(value = "/save")
     public ResResult save(String data) {
-        CustomerCorpAllVO vo = customerCorpService.findOneAllByPkCustomer("0001MG00000000030425");
-        String ddd = JSON.toJSONString(vo);
 //        CustomerCorpAllVO vo = JSON.parseObject(data, CustomerCorpAllVO.class);
-        CustomerCorpAllVO fff = JSON.parseObject(ddd, CustomerCorpAllVO.class);
-        fff.setPkCustomer("22222222222222222223");
-        fff.setPkCustomerCorp("11111111111111111111");
 
-        customerCorpService.save(fff);
-        return ResultUtils.successWithData(vo);
+        CustomerCorpAllVO ddd = customerCorpService.findOneAllByPkCustomer("0001MG00000000028981");
+        String temp = JSON.toJSONString(ddd);
+        CustomerCorpAllVO vo = JSON.parseObject(temp, CustomerCorpAllVO.class);
+        vo.setCustomerName("我爱北京天安门");
+
+        vo.setNationalTax("125117014516483921");
+        vo.setLandTax("125117014516483921");
+        vo.setLicenseNo("125117014516483921");
+        vo.setPkCustomer(null);
+        vo.setPkCustomerCorp(null);
+
+
+        //1.校验客户是否存在
+        boolean uniqueFlag = customerCorpService.validateCustomerUnique(vo);
+        if (uniqueFlag) {
+            CustomerDO customerDO = customerService.findOneByCustomerName(vo.getCustomerName());
+            // 1.1 存在且客户有效时
+            if (PubEnumsConstant.CUST_TYPE_EFFECTIVE.equals(customerDO.getCustomerStatus())){
+                return ResultUtils.success("当前客户已存在，是否发起申请权限？");
+            } else {
+                //1.2 客户已存在 且冻结时
+                customerDO.setCustomerStatus(PubEnumsConstant.CUST_TYPE_EFFECTIVE);
+                //todo 变更为当前操作人
+                customerDO.setCustomerManager("1003A910000000008U8W");
+                //todo 变更为当前所在人的部门
+                customerDO.setPkDept("1003111000000000003O");
+
+                // todo  此时应该向客户历史表中增加历史数据
+                return  ResultUtils.success();
+            }
+        }
+
+        //2.校验客户 税务登记证号(国税)、税务登记证号(地税)与 营业执照号码 唯一
+        String exception = customerCorpService.checkUnique(vo);
+
+        //3.如果违反唯一性校验 抛出信息
+        if (StringUtils.isNotBlank(exception)) {
+            return ResultUtils.failure(exception);
+        }
+
+        //4. 初始化相关的操作信息，如果是修改 如果是保存客户，
+        CustomerCorpAllVO resVO = customerCorpService.save(vo);
+        return ResultUtils.successWithData(resVO);
     }
 
     /**
-     * 删除单位客户
+     * 删除单位客户 （只有生效才可以删除）
      *
-     * @param data 客户主键
-     * @return com.leasing.common.base.web.ResResult
+     * @param data 单位客户
+     * @return 删除成功
      */
     @PostMapping(value = "/delete")
-    public ResResult corpDelete(String data) {
+    public ResResult delete(String data) {
+
         CustomerCorpAllVO vo = JSON.parseObject(data, CustomerCorpAllVO.class);
-        customerCorpService.delete(vo);
-        return ResultUtils.successWithData("");
+//        CustomerCorpAllVO vo = customerCorpService.findOneAllByPkCustomer("0001MG00000000029143");
+        //删除
+        Boolean flag = customerCorpService.delete(vo);
+        return flag ? ResultUtils.success("删除成功!") : ResultUtils.failure("客户已生效，不能删除！");
+    }
+
+
+    /**
+     * 客户生效前征信接口数据完整性校验 (提交时先调用)
+     *
+     * @param data 客户信息
+     */
+    @PostMapping(value = "/validateCredit")
+    public ResResult validateCredit(String data) {
+        CustomerCorpAllVO vo = JSON.parseObject(data, CustomerCorpAllVO.class);
+        //调用客户生效方法
+        customerCorpService.effect(vo);
+        return ResultUtils.success("操作成功！");
+    }
+
+    /**
+     * 客户生效
+     *
+     * @param data 客户信息
+     */
+    @PostMapping(value = "/effect")
+    public ResResult effect(String data) {
+//        CustomerCorpAllVO vo = JSON.parseObject(data, CustomerCorpAllVO.class);
+//        c7eaeec8d6b943b8a02c
+        CustomerCorpAllVO ddd = customerCorpService.findOneAllByPkCustomer("13af36bebc434a3cb0e9");
+        String temp = JSON.toJSONString(ddd);
+        CustomerCorpAllVO vo = JSON.parseObject(temp, CustomerCorpAllVO.class);
+        //调用客户生效方法
+        customerCorpService.effect(vo);
+        return ResultUtils.success("操作成功！");
     }
 
     /**
@@ -136,43 +215,5 @@ public class CustomerCorpController {
         CustomerAuthApplyVO vo = JSON.parseObject(data, CustomerAuthApplyVO.class);
         return customerCorpService.applyAuth(vo);
     }
-
-    /**
-     * 授权（可为多人开通权限）
-     *
-     * @param data 申请信息  data为List<CustomerAuthVO>
-     * @return
-     */
-    @PostMapping(value = "/doAuth")
-    public ResResult doAuth(String data) {
-        List<CustomerAuthVO> list = JSON.parseArray(data, CustomerAuthVO.class);
-        return customerCorpService.doApplyAuth(list);
-    }
-
-
-    /**
-     * 查询客户授权给了哪些用户
-     *
-     * @param pkCustomer 客户主键
-     * @return 已授权用户列表List<CustomerAuthVO>
-     */
-    @PostMapping(value = "/queryAuth")
-    public ResResult queryAuth(String pkCustomer) {
-
-        return customerCorpService.queryAuth(pkCustomer);
-    }
-
-    /**
-     * 收回授权
-     *
-     * @param data data为List<CustomerAuthVO>  在查询页面可以多选已经授权的用户
-     * @return
-     */
-    @PostMapping(value = "/recoverAuth")
-    public ResResult recoverAuth(String data) {
-        List<CustomerAuthVO> list = JSON.parseArray(data, CustomerAuthVO.class);
-        return customerCorpService.recoverAuth(list);
-    }
-
 
 }

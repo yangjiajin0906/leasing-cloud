@@ -4,6 +4,7 @@ import com.leasing.common.base.repository.BaseRepository;
 import com.leasing.customer.dao.dos.CustContactDO;
 import com.leasing.customer.dao.query.CustContactQuery;
 import com.leasing.customer.dao.vo.CustContactVO;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**

@@ -6,6 +6,7 @@ import com.leasing.common.enums.constant.PubEnumsConstant;
 import com.leasing.common.utils.base.DozerUtils;
 import com.leasing.customer.dao.dos.CustRelatedCompanyDO;
 import com.leasing.common.dto.customer.CustomerDTO;
+import com.leasing.customer.dao.dos.CustomerDO;
 import com.leasing.customer.dao.query.CustRelatedCompanyQuery;
 import com.leasing.customer.dao.repository.CustRelatedCompanyRepo;
 import com.leasing.customer.dao.vo.CustRelatedCompanyVO;
@@ -14,6 +15,7 @@ import com.leasing.customer.service.CustRelatedCompanyService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +26,7 @@ import java.util.Map;
  * @description:
  **/
 @Service("customer.CustRelatedCompanyServiceImpl")
+@Transactional
 public class CustRelatedCompanyServiceImpl implements CustRelatedCompanyService {
 
     @Resource
@@ -45,13 +48,18 @@ public class CustRelatedCompanyServiceImpl implements CustRelatedCompanyService 
     }
 
     @Override
-    public void deleteByCustomer(CustomerVO customerVO) {
-
+    public void deleteByCustomer(String pkCustomer) {
+        repo.batchDelete(pkCustomer);
     }
 
     @Override
-    public void deleteForTypes(String pkCustomer, Short BillType, Short executiveType) {
-        repo.deleteForType(pkCustomer, PubEnumsConstant.RELATION_EXECUTIVE, PubEnumsConstant.EXECUTIVE_LEGAL);
+    public void batchDelete(String pkCustomer, Short biitype, Short executiveType) {
+        repo.batchDelete(pkCustomer, biitype, executiveType);
+    }
+
+    @Override
+    public void batchDelete(String pkCustomer, Short billtype) {
+        repo.batchDelete(pkCustomer, billtype);
     }
 
     @Override
@@ -60,12 +68,25 @@ public class CustRelatedCompanyServiceImpl implements CustRelatedCompanyService 
     }
 
     @Override
-    public List<Map> getCustRelatedCompany(String pkCustomer, Short billTyp) {
-        return repo.getCustRelatedCompany(pkCustomer, billTyp);
+    public List<CustRelatedCompanyVO> getCustRelatedCompany(String pkCustomer, Short billTyp) {
+        CustomerDTO dto = new CustomerDTO(pkCustomer);
+        return repo.getCustRelatedCompany(dto, billTyp);
     }
 
     @Override
-    public List<Map> getCustRelatedCompany(String pkCustomer, Short billTyp, Short executiveType) {
-        return repo.getCustRelatedCompany(pkCustomer, billTyp, executiveType);
+    public List<CustRelatedCompanyVO> getCustRelatedCompany(String pkCustomer, Short billTyp, Short executiveType) {
+        CustomerDTO dto = new CustomerDTO(pkCustomer);
+        return repo.getCustRelatedCompany(dto, billTyp, executiveType);
+    }
+
+    @Override
+    public CustRelatedCompanyDO findById(String pk) {
+        return repo.findOne(pk);
+    }
+
+    @Override
+    public List<CustRelatedCompanyVO> findByPkCustomer(String pkCustomer) {
+        CustomerDTO dto = new CustomerDTO(pkCustomer);
+        return repo.getCustRelatedCompany(dto);
     }
 }

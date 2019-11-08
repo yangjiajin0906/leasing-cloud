@@ -20,4 +20,7 @@ import java.util.List;
 @Repository
 public interface CustShareHoldersRepo extends BaseRepository<CustShareHoldersDO, CustShareHoldersQuery, CustShareHoldersVO,String> {
 
+
+    @Query(value = "select b from CustShareHoldersDO b where b.pkCustomer = :pkCustomer")
+    List<CustShareHoldersDO> findShareHoldersByPkCustomer(@Param("pkCustomer") String pkCustomer);
 }
