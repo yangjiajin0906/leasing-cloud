@@ -6,7 +6,11 @@ package com.leasing.common.base.entity;
  * @author:lvcna@yonyou.com
  * @description:
  **/
-public class BaseRefVO extends AbstractBaseEntity {
+public abstract class BaseRefVO extends AbstractBaseEntity {
+
+    public abstract String[] getFieldCode();
+
+    public abstract String[] getFieldName();
 
     //编码
     private String code;

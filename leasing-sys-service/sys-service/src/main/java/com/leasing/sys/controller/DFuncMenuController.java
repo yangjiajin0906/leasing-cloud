@@ -61,7 +61,7 @@ public class DFuncMenuController {
 //        Pagination page=new Pagination();
 //        page.setCurPage(Integer.parseInt(String.valueOf(map.get("pageIndex"))));
 //        page.setPageSize(Integer.parseInt(String.valueOf(map.get("pageSize"))));
-        PageQueryData<DFuncMenuVO> result = dFuncMenuService.getMenuList();
+        List<DFuncMenuVO> result = dFuncMenuService.getMenuList();
         return ResultUtils.successWithData(result);
     }
 

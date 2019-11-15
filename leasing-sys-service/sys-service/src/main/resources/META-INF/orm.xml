@@ -110,6 +110,35 @@
         </query>
     </named-query>
 
+<!--    <named-query name="orgRefTreeQuery">-->
+<!--        <query>-->
+<!--            select p from OrgrefVO p-->
+<!--            start with p.pkOrg = '1003'-->
+<!--            connected by p.parentPk = prior p.pkOrg-->
+<!--            order by pkOrg-->
+<!--        </query>-->
+<!--    </named-query>-->
+
+<!--    <named-query name="orgRefTreeQuery.count">-->
+<!--        <query>-->
+<!--            select count(p.pk_org) from sm_org p-->
+<!--            start with p.pkOrg = '1003'-->
+<!--            connected by p.parentPk = prior p.pkOrg-->
+<!--        </query>-->
+<!--    </named-query>-->
+
+    <named-native-query name="orgRefJPQLQuery">
+        <query>
+            select p from OrgrefVO p order by pkOrg
+        </query>
+    </named-native-query>
+
+    <named-native-query name="orgRefJPQLQuery.count">
+        <query>
+            select count(p.pkOrg) from OrgrefVO p
+        </query>
+    </named-native-query>
+
     <named-query name="DFuncMenuVO.findFuncmenuVO">
         <query>
             select s from DFuncMenuVO s

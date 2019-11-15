@@ -16,6 +16,15 @@ import javax.persistence.Table;
 @Table(name = "yls_event_type")
 public class EventTypeRefVO extends BaseRefVO {
     @Override
+    public String[] getFieldCode(){
+        return new String[] {"eventCode","eventName"};
+    }
+
+    @Override
+    public String[] getFieldName(){
+        return new String[] {"事件类别编码","事件类别名称"};
+    }
+    @Override
     public String getPk(){return pkEventType;}
     @Override
     public void setPk(String pkEventType){this.pkEventType = pkEventType;}

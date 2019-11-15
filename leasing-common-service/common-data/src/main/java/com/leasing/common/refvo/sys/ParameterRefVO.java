@@ -14,6 +14,15 @@ import java.beans.ConstructorProperties;
 
 @Value
 public class ParameterRefVO extends BaseRefVO{
+    @Override
+    public String[] getFieldCode(){
+        return new String[] {"paramCode","paramName"};
+    }
+
+    @Override
+    public String[] getFieldName(){
+        return new String[] {"参数编号","参数名称"};
+    }
 
     /**
      * 参数名称
