@@ -139,9 +139,9 @@ public class CustomerDO extends FileBaseBusinessDO {
     private String homeAddr;
 
     /**
-     * 年固定收入（元）
+     * 单位名称
      */
-    @Excel(name = "年固定收入（元）", orderNum = "27")
+    @Excel(name = "单位名称", orderNum = "27")
     private String employerName;
 
     /**
@@ -165,13 +165,13 @@ public class CustomerDO extends FileBaseBusinessDO {
     /**
      * 本地居住年限（年）
      */
-    @Excel(name = "单位性质", orderNum = "31")
+    @Excel(name = "本地居住年限（年）", orderNum = "31")
     private Integer lengthLocalResidence;
 
     /**
      * 是否有房产
      */
-    @Excel(name = "单位性质", orderNum = "32")
+    @Excel(name = "是否有房产", orderNum = "32")
     private Integer realEstate;
 
     /**
@@ -291,7 +291,7 @@ public class CustomerDO extends FileBaseBusinessDO {
     /**
      * 配偶证件类型
      */
-    @Excel(name = "联系人与承租人关系", orderNum = "52")
+    @Excel(name = "配偶证件类型", orderNum = "52")
     private Integer spouseIdentityType;
 
     /**
@@ -316,7 +316,7 @@ public class CustomerDO extends FileBaseBusinessDO {
      * 配偶文化程度
      */
     @Excel(name = "配偶文化程度", orderNum = "56")
-    private String spouseLevelEducation;
+    private Integer spouseLevelEducation;
 
     /**
      * 配偶工作单位名称
@@ -469,7 +469,7 @@ public class CustomerDO extends FileBaseBusinessDO {
     public CustomerDO() {
     }
 
-    public CustomerDO(String pkCustomer, String customerCode, String customerName, Integer identityType, String identityNo, String birthday, String issuingAuthority, Integer validTerm, Integer age, Integer sex, Integer levelOfEducation, String contact, Integer marryStatus, String childrenStatus, String childrenSchoolStatus, String industryType, Integer officalTitle, String job, String permanentAddress, String homeAddr, String employerName, String employerAddress, String employerNature, Integer lengthOfService, Integer lengthLocalResidence, Integer realEstate, String titleHolder, BigDecimal realEstateAreaS, String realEstateHome, String detailedAddress, String realEstateProperties, String realEstateArea, BigDecimal fixedAnnualIncome, String creditTime, String creditObjType, String creditResult, String creditReasonDescribe, String creditRating, String creditCode, String creditGenerateTime, String linkmanName, String linkmanContact, Integer linkmanLesseeRelationship, String linkmanAddress, String spouseName, Integer spouseIdentityType, String spouseIdentityNo, Integer spouseAge, String spouseContact, String spouseLevelEducation, String spouseEmployerName, String spouseEmployerPhone, String spouseEmployerAddress, String spouseEmployerNature, String guarantorName, Integer guarantorIdentityType, String guarantorIdentityNo, String guarantorBirthday, Integer guarantorSex, Integer guarantorAge, String guarantorContact, String guarantorLesseeRelationship, BigDecimal guarantorAnnualIncome, Integer guarantorMarryStatus, String guarantorAddress, String guarantorEmployerName, String guarantorEmployerAddress, String guarantorEmployerPhone, String guarantorDescribe, String cardholderName, String cardNo, String bank, String bankNo, Integer billstatus, String pkOperator, String operateDate, String operateTime, String pkOrg, String pkDept, String ts) {
+    public CustomerDO(String pkCustomer, String customerCode, String customerName, Integer identityType, String identityNo, String birthday, String issuingAuthority, Integer validTerm, Integer age, Integer sex, Integer levelOfEducation, String contact, Integer marryStatus, String childrenStatus, String childrenSchoolStatus, String industryType, Integer officalTitle, String job, String permanentAddress, String homeAddr, String employerName, String employerAddress, String employerNature, Integer lengthOfService, Integer lengthLocalResidence, Integer realEstate, String titleHolder, BigDecimal realEstateAreaS, String realEstateHome, String detailedAddress, String realEstateProperties, String realEstateArea, BigDecimal fixedAnnualIncome, String creditTime, String creditObjType, String creditResult, String creditReasonDescribe, String creditRating, String creditCode, String creditGenerateTime, String linkmanName, String linkmanContact, Integer linkmanLesseeRelationship, String linkmanAddress, String spouseName, Integer spouseIdentityType, String spouseIdentityNo, Integer spouseAge, String spouseContact, Integer spouseLevelEducation, String spouseEmployerName, String spouseEmployerPhone, String spouseEmployerAddress, String spouseEmployerNature, String guarantorName, Integer guarantorIdentityType, String guarantorIdentityNo, String guarantorBirthday, Integer guarantorSex, Integer guarantorAge, String guarantorContact, String guarantorLesseeRelationship, BigDecimal guarantorAnnualIncome, Integer guarantorMarryStatus, String guarantorAddress, String guarantorEmployerName, String guarantorEmployerAddress, String guarantorEmployerPhone, String guarantorDescribe, String cardholderName, String cardNo, String bank, String bankNo) {
         this.pkCustomer = pkCustomer;
         this.customerCode = customerCode;
         this.customerName = customerName;
@@ -543,11 +543,6 @@ public class CustomerDO extends FileBaseBusinessDO {
         this.cardNo = cardNo;
         this.bank = bank;
         this.bankNo = bankNo;
-        this.pkOperator = pkOperator;
-        this.operateDate = operateDate;
-        this.operateTime = operateTime;
-        this.pkOrg = pkOrg;
-        this.pkDept = pkDept;
     }
 
     /**
@@ -883,7 +878,7 @@ public class CustomerDO extends FileBaseBusinessDO {
      * @param employerName 单位名称 年固定收入（元）
      */
     public void setEmployerName(String employerName) {
-        this.employerName = employerName == null ? null : employerName.trim();
+        this.employerName = employerName;
     }
 
     /**
@@ -1338,7 +1333,7 @@ public class CustomerDO extends FileBaseBusinessDO {
      * 配偶文化程度
      * @return SPOUSE_LEVEL_EDUCATION 配偶文化程度
      */
-    public String getSpouseLevelEducation() {
+    public Integer getSpouseLevelEducation() {
         return spouseLevelEducation;
     }
 
@@ -1346,8 +1341,8 @@ public class CustomerDO extends FileBaseBusinessDO {
      * 配偶文化程度
      * @param spouseLevelEducation 配偶文化程度
      */
-    public void setSpouseLevelEducation(String spouseLevelEducation) {
-        this.spouseLevelEducation = spouseLevelEducation == null ? null : spouseLevelEducation.trim();
+    public void setSpouseLevelEducation(Integer spouseLevelEducation) {
+        this.spouseLevelEducation = spouseLevelEducation;
     }
 
     /**

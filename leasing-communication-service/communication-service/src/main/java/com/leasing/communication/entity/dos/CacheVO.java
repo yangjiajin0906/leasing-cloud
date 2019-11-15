@@ -15,6 +15,11 @@ public class CacheVO<T> implements Serializable {
      * 唯一标示
      */
     private String id;
+
+    /**
+     * 标记
+     */
+    private Integer tag;
     /**
      * 编码
      */
@@ -37,6 +42,14 @@ public class CacheVO<T> implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Integer getTag() {
+        return tag;
+    }
+
+    public void setTag(Integer tag) {
+        this.tag = tag;
     }
 
     public String getCode() {

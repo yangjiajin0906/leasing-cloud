@@ -2,23 +2,18 @@ package com.leasing.communication.controller;
 
 import com.leasing.communication.entity.Address;
 import com.leasing.communication.entity.Person;
-import com.leasing.communication.entity.dos.CacheVO;
+import com.leasing.communication.entity.dos.*;
 import com.leasing.communication.utils.EasyPoiUtils;
-import org.apache.tomcat.util.http.fileupload.disk.DiskFileItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.gridfs.GridFsTemplate;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,8 +34,25 @@ public class TestController {
     @Autowired
     RedisTemplate<String,Object> redisTemplate;
 
-    @Autowired
-    private GridFsTemplate gridFsTemplate;
+    /**
+     * @description 导出
+     * @author Yangjiajin
+     * @date 2019/11/8 14:21
+     * @param [response]
+     * @return void
+     */
+    @RequestMapping("export")
+    public void export(HttpServletResponse response){
+        //模拟从数据库获取需要导出的数据
+        List<Person> personList = new ArrayList<>();
+        for (int i =1; i<10; i++){
+            Person person = new Person("路飞"+i,Short.valueOf("2")
+                    ,"5sa54da5sdaaa"+i,"2019-11-1"+i,"2019-11-1"+i,"100"+i,"sdadas25d5sf5sdf5sd"+i);
+            personList.add(person);
+        }
+        //导出操作
+        EasyPoiUtils.exportExcel(personList,"花名册","草帽一伙",Person.class,"海贼王.xls",response);
+    }
 
     /**
      * @description 导入
@@ -51,7 +63,7 @@ public class TestController {
      */
     @RequestMapping("importExcel")
     public void importExcel(){
-        String filePath = "E:\\海贼王.xlsx";
+        String filePath = "E:\\excel\\海贼王.xls";
         //解析excel，
         List<Person> personList = EasyPoiUtils.importExcel(filePath,1,1,Person.class);
         //也可以使用MultipartFile,使用 FileUtil.importExcel(MultipartFile file, Integer titleRows, Integer headerRows, Class<T> pojoClass)导入
@@ -70,70 +82,112 @@ public class TestController {
         System.out.println(list.get(0).getData().size());
     }
 
-    public static void main(String[] args) {
-        List<String> list = new ArrayList<String>();
-        list.add("one");
-        list.add("two");
-        list.add("three");
-        list.add("four");
-        list.add("five");
-        list.add("six");
-        list.add("seven");
-        int ftest = 3;//每次取的数据
-        int size = list.size();
-        int temp = size / ftest + 1;
-        boolean special = size % ftest == 0;
-        List<String> cutList = null;
-        for (int i = 0; i < temp; i++) {
-            if (i == temp - 1) {
+
+    @RequestMapping("importExcel4")
+    public void importExcel4(){
+        Long startTime = new Date().getTime();
+        String filePath = "E:\\excel\\海贼王test.xlsx";
+        //解析excel，
+        List<Address> personList = EasyPoiUtils.importExcel(filePath,1,1,Address.class);
+        //TODO 保存数据库
+        int aSingle = 10000; //单次处理一万条数据
+        int size = personList.size();
+        int theTotalNumber = size / aSingle + 1; //总共处理次数
+        boolean special = size % aSingle == 0; //是否整除
+        List<Address> cutList = null;
+        for (int i = 0; i < theTotalNumber; i++) {
+            if (i == theTotalNumber - 1) {
                 if (special) {
                     break;
                 }
-                cutList = list.subList(ftest * i, size);
+                cutList = personList.subList(aSingle * i, size);
             } else {
-                cutList = list.subList(ftest * i, ftest * (i + 1));
+                cutList = personList.subList(aSingle * i, aSingle * (i + 1));
             }
-            System.out.println("第" + (i + 1) + "组：" + cutList.toString());
+            System.out.println("第" + (i + 1) + "组：" + cutList.size());
+            this.saveMongo(cutList);
         }
+        Long endTime = new Date().getTime();
+        System.out.println("导入了【"+personList.size()+"】行数据，共计用时"+(endTime-startTime)/1000 + "s");
     }
 
-    @RequestMapping("importExcel2")
-    public void importExcel2(){
+    private void saveMongo(List<Address> list){
+        CacheVO<Address> cacheVO = new CacheVO<>();
+        cacheVO.setId("Address"+new Date().getTime());
+        cacheVO.setTag(0);
+        cacheVO.setData(list);
+        mongoTemplate.save(cacheVO,"address");
+    }
+
+    @RequestMapping("getData")
+    public void getData(){
         Long startTime = new Date().getTime();
-        String filePath = "E:\\海贼王test.xlsx";
+        Query query = new Query(Criteria.where("tag").is(0));
+        List<CacheVO> list = mongoTemplate.find(query, CacheVO.class,"address");
+        Long endTime = new Date().getTime();
+        System.out.println("查询出【"+list.size()+"】行数据，共计用时"+(endTime-startTime)/1000 + "s");
+    }
+
+    @RequestMapping("update")
+    public void update(){
+        Long startTime = new Date().getTime();
+        Query query = new Query(Criteria.where("tag").is(0));
+        Update update = new Update().inc("tag", 1);
+        mongoTemplate.updateMulti(query, update,CacheVO.class,"address");
+        Long endTime = new Date().getTime();
+        System.out.println("共计用时"+(endTime-startTime)/1000 + "s");
+    }
+
+    @RequestMapping("importExcelXLS")
+    public void importExcelXLS(){
+        Long startTime = new Date().getTime();
+        String filePath = "E:\\excel\\海贼王test.xls";
         //解析excel，
         List<Address> personList = EasyPoiUtils.importExcel(filePath,1,1,Address.class);
         //也可以使用MultipartFile,使用 FileUtil.importExcel(MultipartFile file, Integer titleRows, Integer headerRows, Class<T> pojoClass)导入
         System.out.println("导入数据一共【"+personList.size()+"】行");
         //TODO 保存数据库
-        CacheVO<Address> cacheVO = new CacheVO<>();
-        cacheVO.setId("Address"+new Date().getTime());
-        cacheVO.setData(personList);
-        redisTemplate.opsForValue().set(cacheVO.getId(),cacheVO);
-
-        CacheVO cacheVO1 = (CacheVO)redisTemplate.opsForValue().get(cacheVO.getId());
-        List<Person> person = cacheVO1.getData();
         Long endTime = new Date().getTime();
         System.out.println("导入了【"+personList.size()+"】行数据，共计用时"+(endTime-startTime)/1000 + "s");
     }
 
-    @RequestMapping("importExcel3")
-    public void importExcel3(MultipartFile mFile){
+
+    /**
+     * @description 导出
+     * @author Yangjiajin
+     * @date 2019/11/8 14:21
+     * @param [response]
+     * @return void
+     */
+    @RequestMapping("exportXLS")
+    public void exportXLS(HttpServletResponse response){
         Long startTime = new Date().getTime();
-        String filePath = "E:\\海贼王test.xlsx";
-        File file = new File(filePath);
+        //模拟从数据库获取需要导出的数据
+        List<Address> personList = new ArrayList<>();
+        for (int i =1; i<100000; i++){
+            Address address = new Address("id"+i,"type"+i,"name"+i,new Date(),"name"+i,"name"+i
+                    ,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i
+                    ,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i
+                    ,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i
+                    ,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i
+                    ,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i,"name"+i);
+            personList.add(address);
+        }
+        //导出操作
+        EasyPoiUtils.exportExcel(personList,"花名册","草帽一伙",Address.class,"海贼王test.xls",response);
+        Long endTime = new Date().getTime();
+        System.out.println("导出了【"+personList.size()+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
+    }
+
+    @RequestMapping("importExcelXLSX")
+    public void importExcelXLSX(){
+        Long startTime = new Date().getTime();
+        String filePath = "E:\\excel\\海贼王test.xlsx";
         //解析excel，
-        List<Address> personList = EasyPoiUtils.importExcel(mFile,1,1,Address.class);
+        List<Address> personList = EasyPoiUtils.importExcel(filePath,1,1,Address.class);
         //也可以使用MultipartFile,使用 FileUtil.importExcel(MultipartFile file, Integer titleRows, Integer headerRows, Class<T> pojoClass)导入
         System.out.println("导入数据一共【"+personList.size()+"】行");
         //TODO 保存数据库
-        CacheVO<Address> cacheVO = new CacheVO<>();
-        cacheVO.setId("Address"+new Date().getTime());
-        cacheVO.setData(personList);
-        redisTemplate.opsForValue().set(cacheVO.getId(),cacheVO);
-
-        CacheVO cacheVO1 = (CacheVO)redisTemplate.opsForValue().get(cacheVO.getId());
-        List<Person> person = cacheVO1.getData();
         Long endTime = new Date().getTime();
         System.out.println("导入了【"+personList.size()+"】行数据，共计用时"+(endTime-startTime)/1000 + "s");
     }
@@ -145,8 +199,8 @@ public class TestController {
      * @param [response]
      * @return void
      */
-    @RequestMapping("export2")
-    public void export2(HttpServletResponse response){
+    @RequestMapping("exportXLSX")
+    public void exportXLSX(HttpServletResponse response){
         Long startTime = new Date().getTime();
         //模拟从数据库获取需要导出的数据
         List<Address> personList = new ArrayList<>();
@@ -165,24 +219,23 @@ public class TestController {
         System.out.println("导出了【"+personList.size()+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }
 
-
-    /**
-     * @description 导出
-     * @author Yangjiajin
-     * @date 2019/11/8 14:21
-     * @param [response]
-     * @return void
-     */
-    @RequestMapping("export")
-    public void export(HttpServletResponse response){
-        //模拟从数据库获取需要导出的数据
-        List<Person> personList = new ArrayList<>();
-        for (int i =1; i<10; i++){
-            Person person = new Person("路飞"+i,Short.valueOf("2")
-            ,"5sa54da5sdaaa"+i,"2019-11-1"+i,"2019-11-1"+i,"100"+i,"sdadas25d5sf5sdf5sd"+i);
-            personList.add(person);
-        }
-        //导出操作
-        EasyPoiUtils.exportExcel(personList,"花名册","草帽一伙",Person.class,"海贼王.xlsx",response);
+    @RequestMapping("importExcelXLSXTest")
+    public void importExcelXLSXTest(){
+        String filePath = "E:\\excel\\客户test.xlsx";
+        String filePath2 = "E:\\excel\\收款信息test.xlsx";
+        String filePath3 = "E:\\excel\\付款信息test.xlsx";
+        String filePath4 = "E:\\excel\\票据信息test.xlsx";
+        String filePath5 = "E:\\excel\\合同信息test.xls";
+        String filePath6 = "E:\\excel\\租金计划test.xls";
+        //解析excel，
+        List<CustomerDO> personList = EasyPoiUtils.importExcel(filePath,1,1,CustomerDO.class);
+        List<CapitalDO> personList2 = EasyPoiUtils.importExcel(filePath2,1,1,CapitalDO.class);
+        List<WithdrawDO> personList3 = EasyPoiUtils.importExcel(filePath3,1,1,WithdrawDO.class);
+        List<InvoiceApplyDO> personList4 = EasyPoiUtils.importExcel(filePath4,1,1,InvoiceApplyDO.class);
+        List<ContractDO> personList5 = EasyPoiUtils.importExcel(filePath5,1,1,ContractDO.class);
+        List<InoutPlanDO> personList6 = EasyPoiUtils.importExcel(filePath6,1,1,InoutPlanDO.class);
+        //也可以使用MultipartFile,使用 FileUtil.importExcel(MultipartFile file, Integer titleRows, Integer headerRows, Class<T> pojoClass)导入
+        System.out.println("导入数据一共【"+personList.size()+"】行");
     }
+
 }

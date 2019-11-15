@@ -1,6 +1,6 @@
 package com.leasing.communication;
 
-import com.leasing.communication.common.base.repository.support.BaseRepositoryImpl;
+import com.leasing.common.base.repository.support.BaseRepositoryImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
