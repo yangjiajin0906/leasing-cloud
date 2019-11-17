@@ -40,6 +40,10 @@ public class Pagination implements Serializable {
 
     private int pageSize;
 
+    private int pageCount;
+
+    private int total;
+
     public int getCurPage() {
         return curPage;
     }
@@ -56,6 +60,21 @@ public class Pagination implements Serializable {
         this.pageSize = pageSize;
     }
 
+    public int getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(int pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
 
     /**
      * 获取分页开始记录数

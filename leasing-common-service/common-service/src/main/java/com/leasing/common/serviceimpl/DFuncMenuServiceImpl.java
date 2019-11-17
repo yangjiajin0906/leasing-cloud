@@ -24,10 +24,7 @@ public class DFuncMenuServiceImpl implements DFuncMenuService {
     DFuncMenuRepo dFuncMenuRepo;
 
     @Override
-    public PageQueryData<DFuncMenuVO>getMenuList(){
-        Pagination pagination = new Pagination();
-        pagination.setCurPage(1);
-        pagination.setPageSize(50);
+    public List<DFuncMenuVO>getMenuList(){
         DFuncMenuQuery queryvo =new DFuncMenuQuery();
 //        queryvo.setFuncName("参数");
         String jqpl="select s from DFuncMenuVO s" +
@@ -37,7 +34,7 @@ public class DFuncMenuServiceImpl implements DFuncMenuService {
                 "            left join fetch s.pkDept d" +
                 "            left join fetch s.pkOperator t" +
                 "   where s.ifPower = '1' and s.ifEnabled = '0' order by s.ts desc";
-        PageQueryData<DFuncMenuVO> list = dFuncMenuRepo.pageQuery(pagination,queryvo,"getDFuncmenuList");
+        List<DFuncMenuVO> list = dFuncMenuRepo.pageQuery(queryvo,"getDFuncmenuList");
         return list;
 
     }
