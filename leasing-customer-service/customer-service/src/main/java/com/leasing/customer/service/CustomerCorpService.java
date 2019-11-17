@@ -3,11 +3,9 @@ package com.leasing.customer.service;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
+import com.leasing.customer.dao.dos.CustomerDO;
 import com.leasing.customer.dao.query.CustomerCorpQuery;
-import com.leasing.customer.dao.vo.CustomerAuthApplyVO;
-import com.leasing.customer.dao.vo.CustomerAuthVO;
-import com.leasing.customer.dao.vo.CustomerCorpAllVO;
-import com.leasing.customer.dao.vo.CustomerCorpVO;
+import com.leasing.customer.dao.vo.*;
 
 import java.util.List;
 import java.util.Map;
@@ -18,11 +16,26 @@ import java.util.Map;
 public interface CustomerCorpService {
 
     /**
-     * 根据客户主键删除客户
+     * 校验客户是否已存在
+     * @param vo 客户
+     * @return true ? 存在: 不存在
+     */
+    boolean validateCustomerUnique(CustomerCorpAllVO vo);
+
+    /**
+     * 检查客户唯一性
+     *
+     * @param vo 客户
+     * @return 错误信息
+     */
+    String checkUnique(CustomerCorpAllVO vo);
+
+    /**
+     * 根据客户主键删除客户(仅支持客户未生效前的删除)
      *
      * @param vo 客户主键
      */
-    ResResult delete(CustomerCorpAllVO vo);
+    Boolean delete(CustomerCorpAllVO vo);
 
     /**
      * 批量删除客户
@@ -50,7 +63,6 @@ public interface CustomerCorpService {
     CustomerCorpAllVO findOneAllByCustomerName(String customerName);
 
 
-
     /**
      * 分页查询列表
      *
@@ -66,7 +78,7 @@ public interface CustomerCorpService {
      *
      * @param vo CustomerCorpAllVO
      */
-    void save(CustomerCorpAllVO vo);
+    CustomerCorpAllVO save(CustomerCorpAllVO vo);
 
     /**
      * 保存
@@ -74,6 +86,12 @@ public interface CustomerCorpService {
     void save(CustomerCorpVO vo);
 
 
+    /**
+     * 生成客户编码
+     *
+     * @return 客户编码
+     */
+    String getCustomerCode();
 
 
     /**
@@ -100,27 +118,29 @@ public interface CustomerCorpService {
      */
     ResResult applyAuth(CustomerAuthApplyVO vo);
 
+    /**
+     * 征信接口数据完整性校验
+     * @param vo 客户
+     * @return 校验结果 true: 通过 ： false:  失败
+     */
+    boolean validateCredit(CustomerCorpAllVO vo);
 
     /**
-     * 授权
+     * 客户生效
+     * 1.设置billStatus 为 审核状态
+     * 2.设置生效日期
+     * 3.调用保存接口
      *
-     * @param vos 授权信息
-     * @return com.leasing.common.base.web.ResResult
+     * @param vo 客户信息
      */
-    ResResult doApplyAuth(List<CustomerAuthVO> vos);
-
-    /**
-     *  根据客户查询客户授权给哪些用户
-     * @param pkCustomer 客户主键
-     * @return 用户列表
-     */
-    ResResult queryAuth(String pkCustomer);
+    void effect(CustomerCorpAllVO vo);
 
 
     /**
-     * 取消授权
-     * @param list
-     * @return
+     * 校验客户股东信息和高管信息是否为空
+     *
+     * @param vo 客户信息
+     * @return true: 不为空 false: 空
      */
-    ResResult recoverAuth(List<CustomerAuthVO> list);
+    boolean checkShareAndCust(CustomerCorpAllVO vo);
 }

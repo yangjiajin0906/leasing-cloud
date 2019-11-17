@@ -1,8 +1,8 @@
 package com.leasing.common.entity.common.vo;
 
 import com.leasing.common.base.entity.BaseBusinessVO;
-import com.leasing.common.dto.sys.ParameterDTO;
 import com.leasing.common.entity.common.dos.CoderuleTypeDO;
+import com.leasing.common.entity.sys.dto.ParameterDTO;
 import com.leasing.common.vo.foundation.UserVO;
 
 import javax.persistence.*;

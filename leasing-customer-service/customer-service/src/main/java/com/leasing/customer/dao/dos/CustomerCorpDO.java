@@ -34,6 +34,10 @@ public class CustomerCorpDO extends BaseDO {
      */
 
     private String customerProperty;
+    /**
+     * 客户性质(内部)
+     */
+    private String customerPropertyIn;
 
 
     /**
@@ -573,6 +577,14 @@ public class CustomerCorpDO extends BaseDO {
 
     public void setCustomerProperty(String customerProperty) {
         this.customerProperty = customerProperty;
+    }
+
+    public String getCustomerPropertyIn() {
+        return customerPropertyIn;
+    }
+
+    public void setCustomerPropertyIn(String customerPropertyIn) {
+        this.customerPropertyIn = customerPropertyIn;
     }
 
     public String getEconomicType() {

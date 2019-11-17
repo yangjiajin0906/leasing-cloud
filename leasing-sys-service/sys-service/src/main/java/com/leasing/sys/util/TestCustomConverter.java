@@ -1,8 +1,8 @@
 package com.leasing.sys.util;
 
 import com.leasing.common.base.entity.AbstractBaseEntity;
-import com.leasing.sys.entity.dos.DFuncMenuDO;
-import com.leasing.sys.entity.vo.DFuncMenuVO;
+import com.leasing.common.entity.common.dos.DFuncMenuDO;
+import com.leasing.common.entity.common.vo.DFuncMenuVO;
 import org.dozer.CustomConverter;
 import org.dozer.MappingException;
 

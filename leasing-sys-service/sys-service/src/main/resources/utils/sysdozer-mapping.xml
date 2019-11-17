@@ -6,14 +6,14 @@
 <!--    <configuration>-->
 <!--        <custom-converters>-->
 <!--        <converter type="com.leasing.sys.util.TestCustomConverter">-->
-<!--            <class-a>com.leasing.sys.entity.vo.DFuncMenuVO</class-a>-->
-<!--            <class-b>com.leasing.sys.entity.dos.DFuncMenuDO</class-b>-->
+<!--            <class-a>com.leasing.common.entity.common.vo.DFuncMenuVO</class-a>-->
+<!--            <class-b>com.leasing.common.entity.common.dos.DFuncMenuDO</class-b>-->
 <!--        </converter>-->
 <!--        </custom-converters>-->
 <!--    </configuration>-->
     <mapping  wildcard="true">    <!--wildcard为false时指定field域中属性赋值 -->
-        <class-a>com.leasing.sys.entity.vo.DFuncMenuVO</class-a>      <!-- 出现的tableName和attributeNames 均有get无需map-null -->
-        <class-b>com.leasing.sys.entity.dos.DFuncMenuDO</class-b>   <!-- 对象名称不用mapping注解出现的错误转换 VO转DO无错-->
+        <class-a>com.leasing.common.entity.common.vo.DFuncMenuVO</class-a>      <!-- 出现的tableName和attributeNames 均有get无需map-null -->
+        <class-b>com.leasing.common.entity.common.dos.DFuncMenuDO</class-b>   <!-- 对象名称不用mapping注解出现的错误转换 VO转DO无错-->
         <field>
             <a>pkParent.pkFuncmenu</a>
             <b>pkParent</b>
@@ -38,7 +38,7 @@
 
     <mapping wildcard="true" map-null="false"> <!--map-null指定false排除空值映射 -->
         <class-a>java.util.Map</class-a>
-        <class-b>com.leasing.sys.entity.vo.DFuncMenuVO</class-b>
+        <class-b>com.leasing.common.entity.common.vo.DFuncMenuVO</class-b>
         <field>
             <a>pkParent</a>
             <b>pkParent.pkFuncmenu</b>

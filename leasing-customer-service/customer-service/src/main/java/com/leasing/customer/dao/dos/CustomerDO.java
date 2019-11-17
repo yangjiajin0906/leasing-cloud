@@ -23,161 +23,167 @@ public class CustomerDO extends BaseBusinessDO {
     @Id
 //    @GeneratedValue(generator = "id_generator")
 //    @GenericGenerator(name = "id_generator",strategy = "com.haramasu.simple_jpa.test.generator.MyGenerator")
-    public String pkCustomer;
+    private String pkCustomer;
 
     /**
      * 版本号
      */
-    public Integer versionNum;
+    private Integer versionNum;
 
 
     /**
      * 客户类别
      */
 
-    public Short customerType;
+    private Short customerType;
 
 
     /**
      * 客户编号
      */
-    public String customerCode;
+    private String customerCode;
 
 
     /**
      * 客户名称
      */
-    public String customerName;
+    private String customerName;
 
     /**
      * 客户英文名
      */
-    public String customerEngName;
+    private String customerEngName;
+
+
+    /**
+     * 客户经理
+     */
+    private String customerManager;
 
     /**
      * 证件类型
      */
-    public Short identityType;
+    private Short identityType;
 
     /**
      * 证件号码
      */
-    public String identityNo;
+    private String identityNo;
 
     /**
      * 客户状态
      */
-    public Short customerStatus;
+    private Short customerStatus;
 
     /**
      * 是否黑名单
      */
-    public Short ifBlackList;
+    private Short ifBlackList;
 
     /**
      * 冻结处理方式
      */
-    public Short freezeTreatment;
+    private Short freezeTreatment;
 
     /**
      * 变更状态
      */
-    public Short alteraStatus;
+    private Short alteraStatus;
 
     /**
      * 最新变更人
      */
-    public String pkOperatorLst;
+    private String pkOperatorLst;
 
 
     /**
      * 最新变更日期
      */
-    public String operateDateLst;
+    private String operateDateLst;
 
 
     /**
      * 最新变更时间
      */
-    public String operateTimeLst;
+    private String operateTimeLst;
 
     /**
      * 记账日期
      */
-    public String operateDate;
+    private String operateDate;
 
 
     /**
      * 记账时间
      */
-    public String operateTime;
+    private String operateTime;
 
 
     /**
      * 复核人
      */
-    public String pkChecker;
+    private String pkChecker;
 
     /**
      * 复核日期
      */
-    public String checkDate;
+    private String checkDate;
 
 
     /**
      * 复核时间
      */
-    public String checkTime;
+    private String checkTime;
 
 
     /**
      * 授权人
      */
-    public String pkGrantor;
+    private String pkGrantor;
 
     /**
      * 授权日期
      */
-    public String grantDate;
+    private String grantDate;
 
 
     /**
      * 授权时间
      */
-    public String grantTime;
+    private String grantTime;
 
     /**
      * 生效日期
      */
-    public String effectiveDate;
+    private String effectiveDate;
 
     /**
      * 机构信用代码”   用于征信接口    ADD by jiaoshy   2017-04-05
      */
-    public String orgCreditCode;
+    private String orgCreditCode;
 
     /**
      * 注册登记号类型   用于征信接口  ADD by jiaoshy  2017-04-05
      */
-    public Short ifWarrantCust;
+    private Short ifWarrantCust;
 
     /**
      * 是否最新
      */
-    public Short ifNew;
+    private Short ifNew;
 
 
     /**
      * @usage 201403聚信增加
      * @description 主数据编码
      */
-    public String mdbCode;
+    private String mdbCode;
 
 
     /**
      * 20180911 是否CRM系统推送客户
      */
-    public Short ifCrmPush;
+    private Short ifCrmPush;
 
     public String getPkCustomer() {
         return pkCustomer;
@@ -217,6 +223,14 @@ public class CustomerDO extends BaseBusinessDO {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public String getCustomerManager() {
+        return customerManager;
+    }
+
+    public void setCustomerManager(String customerManager) {
+        this.customerManager = customerManager;
     }
 
     public String getCustomerEngName() {

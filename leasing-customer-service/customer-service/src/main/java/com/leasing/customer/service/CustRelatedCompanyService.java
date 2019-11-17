@@ -9,6 +9,7 @@ import com.leasing.customer.dao.vo.CustRelatedCompanyVO;
 import com.leasing.customer.dao.vo.CustomerVO;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @project:leasing-cloud
@@ -42,10 +43,52 @@ public interface CustRelatedCompanyService {
      */
     void save(CustRelatedCompanyDO custRelatedCompanyDO);
 
-    void deleteByCustomer(CustomerVO customerVO);
+    void deleteByCustomer(String pkCustomer);
+
+    /**
+     * 根据客户主键/关系类型/高管人员类别 删除
+     *
+     * @param pkCustomer    客户主键
+     * @param billtype      关系类型
+     * @param executiveType 高管人员类别
+     */
+    void batchDelete(String pkCustomer, Short billtype, Short executiveType);
+
+    /**
+     * 根据客户主键/关系类型/高管人员类别 删除
+     *
+     * @param pkCustomer 客户主键
+     * @param billtype   关系类型
+     */
+    void batchDelete(String pkCustomer, Short billtype);
 
 
     void deleteByCustomer(List<CustomerVO> customerVO);
 
+    List<CustRelatedCompanyVO> getCustRelatedCompany(String pkCustomer, Short billtype);
 
+    /**
+     * @param pkCustomer    客户主键
+     * @param billtype      人员类别
+     * @param executiveType 高管类别
+     * @return
+     */
+    List<CustRelatedCompanyVO> getCustRelatedCompany(String pkCustomer, Short billtype, Short executiveType);
+
+    /**
+     * 根据主键查询
+     *
+     * @param pk 主键
+     * @return CustRelatedCompanyDO
+     */
+    CustRelatedCompanyDO findById(String pk);
+
+
+    /**
+     * 根据客户主键查询高管信息
+     *
+     * @param pkCustomer 客户主键
+     * @return 高管列表
+     */
+    List<CustRelatedCompanyVO> findByPkCustomer(String pkCustomer);
 }

@@ -11,4 +11,5 @@ import org.springframework.data.jpa.domain.Specification;
  **/
 public class CustRelatedCompanyQuery extends BaseQuery {
 
+
 }

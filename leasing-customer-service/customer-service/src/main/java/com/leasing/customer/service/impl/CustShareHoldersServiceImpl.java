@@ -3,6 +3,7 @@ package com.leasing.customer.service.impl;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.dto.customer.CustomerDTO;
+import com.leasing.customer.dao.dos.CustShareHoldersDO;
 import com.leasing.customer.dao.query.CustShareHoldersQuery;
 import com.leasing.customer.dao.repository.CustShareHoldersRepo;
 import com.leasing.customer.dao.vo.CustShareHoldersVO;
@@ -26,5 +27,10 @@ public class CustShareHoldersServiceImpl implements CustShareHoldersService {
     @Override
     public PageQueryData<CustShareHoldersVO> pageQuery(Pagination pagination, CustShareHoldersQuery query) {
         return repo.pageQuery(pagination, query, "CustShareHoldersPageQuery");
+    }
+
+    @Override
+    public List<CustShareHoldersDO> getCustShareHolders(String pkCustomer) {
+        return repo.findShareHoldersByPkCustomer(pkCustomer);
     }
 }

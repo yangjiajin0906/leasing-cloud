@@ -90,7 +90,7 @@ public class ParamTypeServiceImpl implements ParamTypeService {
     }
 
     @Override
-    public List<ParameterVO> findByParamTypeAndParamValue(String paramType, String paramValue) {
+    public List<ParameterVO> findByParamTypeAndParamValue(Integer paramType, String paramValue) {
         return paramTypeRepo.findByParamTypeAndParamValue(paramType, paramValue);
     }
 }

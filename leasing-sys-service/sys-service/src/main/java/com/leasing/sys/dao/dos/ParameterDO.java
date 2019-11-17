@@ -1,10 +1,6 @@
 package com.leasing.sys.dao.dos;
 
 import com.leasing.common.base.entity.BaseDO;
-import com.leasing.common.base.entity.BaseEntity;
-import com.leasing.common.dto.sys.ParamTypeDTO;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 

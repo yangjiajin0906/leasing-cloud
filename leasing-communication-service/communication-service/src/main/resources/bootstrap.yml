@@ -1,0 +1,23 @@
+spring:
+    cloud:
+        config:
+             name: application,bootstrap
+             profile: communication,db
+             discovery:
+                  enabled: true
+                  serviceId: leasing-config-server
+
+spring.jpa.show-sql: true
+#spring.jpa.properties.hibernate.format_sql: true
+
+
+eureka:
+  port:
+    8800
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${eureka.port}/eureka/

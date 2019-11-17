@@ -89,7 +89,7 @@ public class ParamTypeUtils {
      * @param [paramType, paramValue]
      * @return
      */
-    public static List<ParameterVO> findByParamTypeAndParamValue(String paramType,  String paramValue){
+    public static List<ParameterVO> findByParamTypeAndParamValue(Integer paramType,  String paramValue){
         return paramTypeUtils.paramTypeService.findByParamTypeAndParamValue(paramType, paramValue);
     }
 }

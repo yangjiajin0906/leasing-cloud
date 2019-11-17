@@ -1,5 +1,8 @@
 package com.leasing.customer.service.impl;
 
+import com.leasing.common.enums.base.Billstatus;
+import com.leasing.common.utils.base.DateUtils;
+import com.leasing.common.utils.base.DozerUtils;
 import com.leasing.customer.dao.dos.CustomerDO;
 import com.leasing.customer.dao.repository.CustomerRepo;
 import com.leasing.customer.dao.vo.CustomerCorpAllVO;
@@ -8,8 +11,8 @@ import com.leasing.customer.service.CustomerService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.swing.*;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,15 +35,27 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public CustomerDO findOneByPkCustomer(String pkCustomer) {
+        return customerRepo.findOne(pkCustomer);
+    }
+
+    @Override
+    public CustomerDO findOneByCustomerName(String customerName) {
+        return customerRepo.findByCustomerName(customerName);
+    }
+
+    @Override
     public void batchDelete(List<String> pks) {
 
         customerRepo.batchDeleteByPks(pks);
     }
 
     @Override
-    public List<CustomerVO> queryCustomerStatusByName(String customerName, Short customerStatus, Short customerType) {
-        return customerRepo.queryCustomerStatusByName(customerName, customerStatus, customerType);
+    public CustomerVO queryCustomerStatusByName(String customerName, Short customerStatus, Short customerType) {
+        List<CustomerVO> list = customerRepo.queryCustomerStatusByName(customerName, customerStatus, customerType);
+        return (list != null && list.size() > 0) ? list.get(0) : null;
     }
+
 
     /**
      * 保存或修改客户信息
@@ -49,12 +64,12 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     public void save(CustomerVO vo) {
-        //todo vo转do
-        save(new CustomerDO());
+        this.save(DozerUtils.convert(vo, CustomerDO.class));
     }
 
     /**
      * 校验客户名称是否重复
+     *
      * @param customerName 客户名称
      * @return int
      */
@@ -65,6 +80,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     /**
      * 校验客户证件号码是否重复
+     *
      * @param identityNo 客户证件号
      * @return int
      */

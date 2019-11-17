@@ -19,6 +19,8 @@ public interface CustomerRepo extends BaseRepository<CustomerDO, CustomerQuery, 
     @Query(name = "CustomerVO.countCustomerName")
     int countCustomerName(@Param("customerName") String customerName);
 
+    @Query(value = "select b from CustomerDO  b where b.customerName =:customerName")
+    CustomerDO findByCustomerName(@Param("customerName") String customerName);
 
     // 查询指定证件号
     @Query(name = "CustomerVO.countIdentityNo")

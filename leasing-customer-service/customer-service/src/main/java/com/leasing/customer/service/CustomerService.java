@@ -17,10 +17,38 @@ public interface CustomerService {
 
     void deleteByPkCustomer(String pkCustomer);
 
+    /**
+     * 根据客户单位客户主键查询客户
+     *
+     * @param pkCustomer 单位客户主键
+     * @return CustomerDO
+     */
+    CustomerDO findOneByPkCustomer(String pkCustomer);
+
+    /**
+     * 根据客户名称查询客户
+     *
+     * @param customerName 客户名称
+     * @return 客户
+     */
+    CustomerDO findOneByCustomerName(String customerName);
+
+    /**
+     * 根据客户主键批量删除客户
+     *
+     * @param pks 客户主键集合
+     */
     void batchDelete(List<String> pks);
 
-    List<CustomerVO> queryCustomerStatusByName(String customerName, Short CustomerStatus, Short CustomerType);
-
+    /**
+     * 根据客户名称查询客户状态
+     *
+     * @param customerName   客户名称
+     * @param CustomerStatus 客户状态（冻结、解冻）
+     * @param CustomerType   客户类型
+     * @return 客户列表
+     */
+    CustomerVO queryCustomerStatusByName(String customerName, Short CustomerStatus, Short CustomerType);
 
     /**
      * 修改客户信息

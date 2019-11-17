@@ -15,6 +15,23 @@
             left join fetch s.pkOrg o
             left join fetch s.pkDept d
             left join fetch s.pkOperator t
+            where s.ifPower = '1' and s.ifEnabled = '0' order by s.ts desc
+        </query>
+    </named-query>
+
+    <named-query name="getDFuncmenuList">
+        <query>
+            select s from DFuncMenuVO s
+            left join fetch s.pkParent l
+            left join fetch s.pkSystem p
+            left join fetch s.pkOrg o
+            left join fetch s.pkDept d
+            left join fetch s.pkOperator t
+        </query>
+    </named-query>
+    <named-query name="getDFuncmenuList.count">
+        <query>
+            select count(s) from DFuncMenuVO s
         </query>
     </named-query>
 
@@ -93,6 +110,35 @@
         </query>
     </named-query>
 
+<!--    <named-query name="orgRefTreeQuery">-->
+<!--        <query>-->
+<!--            select p from OrgrefVO p-->
+<!--            start with p.pkOrg = '1003'-->
+<!--            connected by p.parentPk = prior p.pkOrg-->
+<!--            order by pkOrg-->
+<!--        </query>-->
+<!--    </named-query>-->
+
+<!--    <named-query name="orgRefTreeQuery.count">-->
+<!--        <query>-->
+<!--            select count(p.pk_org) from sm_org p-->
+<!--            start with p.pkOrg = '1003'-->
+<!--            connected by p.parentPk = prior p.pkOrg-->
+<!--        </query>-->
+<!--    </named-query>-->
+
+    <named-native-query name="orgRefJPQLQuery">
+        <query>
+            select p from OrgrefVO p order by pkOrg
+        </query>
+    </named-native-query>
+
+    <named-native-query name="orgRefJPQLQuery.count">
+        <query>
+            select count(p.pkOrg) from OrgrefVO p
+        </query>
+    </named-native-query>
+
     <named-query name="DFuncMenuVO.findFuncmenuVO">
         <query>
             select s from DFuncMenuVO s
@@ -135,7 +181,13 @@
         <column-result name="paramName"/>
     </sql-result-set-mapping>
 
-
+    <named-query name="LoginClientRepo.validateUser">
+        <query>
+            select u from UserVO u
+            left join fetch u.pkOrg
+            where u.pkUserdeCode = ?1 and u.pkOrg.pkOrg = ?2 and u.password = ?3
+        </query>
+    </named-query>
 
 
 </entity-mappings>
