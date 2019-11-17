@@ -1,6 +1,9 @@
 package com.leasing.communication.service;
 
 import com.leasing.communication.entity.dos.CapitalDO;
+import com.leasing.communication.entity.dos.CustomerDO;
+
+import java.util.List;
 
 /**
  * @project:leasing-cloud
@@ -15,6 +18,13 @@ public interface CapitalService {
      * @return
      */
     CapitalDO save(CapitalDO vo);
+
+    /**
+     * 批量保存方法
+     * @param vo
+     * @return
+     */
+    void save(List<CapitalDO> list);
 
     /**
      * 删除方法

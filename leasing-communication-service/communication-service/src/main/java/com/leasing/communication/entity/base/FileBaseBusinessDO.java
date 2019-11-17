@@ -1,6 +1,6 @@
 package com.leasing.communication.entity.base;
 
-import com.leasing.common.base.entity.BaseEntity;
+import com.leasing.common.base.entity.BaseDO;
 
 import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @description: 文件导入导出业务基类DO
  **/
 @MappedSuperclass
-public abstract class FileBaseBusinessDO extends BaseEntity implements Serializable {
+public abstract class FileBaseBusinessDO extends BaseDO implements Serializable {
     /**
      * 单据状态
      */

@@ -1,7 +1,7 @@
 package com.leasing.communication.entity;
 
-import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.leasing.communication.entity.base.FileBaseBusinessDO;
+import com.leasing.communication.interfaces.ExcelTag;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -10,25 +10,26 @@ import java.util.Date;
  * @project:leasing-cloud
  * @date:2019/11/7
  * @author:Yjj@yonyou.com
- * @description:
+ * @description: poi实体对象
  **/
 public class Person extends FileBaseBusinessDO {
-    @Excel(name = "姓名", orderNum = "7")
+
+    @ExcelTag(tag = "姓名")
     private String name;
 
-    @Excel(name = "性别", replace = {"男_1", "女_2"}, orderNum = "8")
+    @ExcelTag(tag = "性别")
     private Integer sex;
 
-    @Excel(name = "生日", exportFormat = "yyyy-MM-dd HH:mm:ss", importFormat = "yyyy-MM-dd HH:mm:ss", orderNum = "9")
+    @ExcelTag(tag = "生日")
     private Date birthday;
 
-    @Excel(name = "金额",orderNum = "10")
+    @ExcelTag(tag = "金额")
     private BigDecimal totalAmount;
 
-    @Excel(name = "汇率", orderNum = "11")
+    @ExcelTag(tag = "税率")
     private Double ratio;
 
-    @Excel(name = "服务费收入基数", orderNum = "12")
+    @ExcelTag(tag = "哈哈")
     public Long srvfeeBase;
 
     @Override

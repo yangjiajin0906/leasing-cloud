@@ -184,7 +184,7 @@ public class CustomerDO extends FileBaseBusinessDO {
      * 房产面积（平方米）
      */
     @Excel(name = "房产面积（平方米）", orderNum = "34")
-    private BigDecimal realEstateAreaS;
+    private BigDecimal theHousingArea;
 
     /**
      * 房产所在地
@@ -469,7 +469,7 @@ public class CustomerDO extends FileBaseBusinessDO {
     public CustomerDO() {
     }
 
-    public CustomerDO(String pkCustomer, String customerCode, String customerName, Integer identityType, String identityNo, String birthday, String issuingAuthority, Integer validTerm, Integer age, Integer sex, Integer levelOfEducation, String contact, Integer marryStatus, String childrenStatus, String childrenSchoolStatus, String industryType, Integer officalTitle, String job, String permanentAddress, String homeAddr, String employerName, String employerAddress, String employerNature, Integer lengthOfService, Integer lengthLocalResidence, Integer realEstate, String titleHolder, BigDecimal realEstateAreaS, String realEstateHome, String detailedAddress, String realEstateProperties, String realEstateArea, BigDecimal fixedAnnualIncome, String creditTime, String creditObjType, String creditResult, String creditReasonDescribe, String creditRating, String creditCode, String creditGenerateTime, String linkmanName, String linkmanContact, Integer linkmanLesseeRelationship, String linkmanAddress, String spouseName, Integer spouseIdentityType, String spouseIdentityNo, Integer spouseAge, String spouseContact, Integer spouseLevelEducation, String spouseEmployerName, String spouseEmployerPhone, String spouseEmployerAddress, String spouseEmployerNature, String guarantorName, Integer guarantorIdentityType, String guarantorIdentityNo, String guarantorBirthday, Integer guarantorSex, Integer guarantorAge, String guarantorContact, String guarantorLesseeRelationship, BigDecimal guarantorAnnualIncome, Integer guarantorMarryStatus, String guarantorAddress, String guarantorEmployerName, String guarantorEmployerAddress, String guarantorEmployerPhone, String guarantorDescribe, String cardholderName, String cardNo, String bank, String bankNo) {
+    public CustomerDO(String pkCustomer, String customerCode, String customerName, Integer identityType, String identityNo, String birthday, String issuingAuthority, Integer validTerm, Integer age, Integer sex, Integer levelOfEducation, String contact, Integer marryStatus, String childrenStatus, String childrenSchoolStatus, String industryType, Integer officalTitle, String job, String permanentAddress, String homeAddr, String employerName, String employerAddress, String employerNature, Integer lengthOfService, Integer lengthLocalResidence, Integer realEstate, String titleHolder, BigDecimal theHousingArea, String realEstateHome, String detailedAddress, String realEstateProperties, String realEstateArea, BigDecimal fixedAnnualIncome, String creditTime, String creditObjType, String creditResult, String creditReasonDescribe, String creditRating, String creditCode, String creditGenerateTime, String linkmanName, String linkmanContact, Integer linkmanLesseeRelationship, String linkmanAddress, String spouseName, Integer spouseIdentityType, String spouseIdentityNo, Integer spouseAge, String spouseContact, Integer spouseLevelEducation, String spouseEmployerName, String spouseEmployerPhone, String spouseEmployerAddress, String spouseEmployerNature, String guarantorName, Integer guarantorIdentityType, String guarantorIdentityNo, String guarantorBirthday, Integer guarantorSex, Integer guarantorAge, String guarantorContact, String guarantorLesseeRelationship, BigDecimal guarantorAnnualIncome, Integer guarantorMarryStatus, String guarantorAddress, String guarantorEmployerName, String guarantorEmployerAddress, String guarantorEmployerPhone, String guarantorDescribe, String cardholderName, String cardNo, String bank, String bankNo) {
         this.pkCustomer = pkCustomer;
         this.customerCode = customerCode;
         this.customerName = customerName;
@@ -497,7 +497,7 @@ public class CustomerDO extends FileBaseBusinessDO {
         this.lengthLocalResidence = lengthLocalResidence;
         this.realEstate = realEstate;
         this.titleHolder = titleHolder;
-        this.realEstateAreaS = realEstateAreaS;
+        this.theHousingArea = theHousingArea;
         this.realEstateHome = realEstateHome;
         this.detailedAddress = detailedAddress;
         this.realEstateProperties = realEstateProperties;
@@ -979,18 +979,18 @@ public class CustomerDO extends FileBaseBusinessDO {
 
     /**
      * 房产面积（平方米）
-     * @return REAL_ESTATE_AREA_S 房产面积（平方米）
+     * @return THE_HOUSING_AREA 房产面积（平方米）
      */
-    public BigDecimal getRealEstateAreaS() {
-        return realEstateAreaS;
+    public BigDecimal getTheHousingArea() {
+        return theHousingArea;
     }
 
     /**
      * 房产面积（平方米）
-     * @param realEstateAreaS 房产面积（平方米）
+     * @param theHousingArea 房产面积（平方米）
      */
-    public void setRealEstateAreaS(BigDecimal realEstateAreaS) {
-        this.realEstateAreaS = realEstateAreaS;
+    public void setTheHousingArea(BigDecimal theHousingArea) {
+        this.theHousingArea = theHousingArea;
     }
 
     /**

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Service("communication.CapitalServiceImpl")
@@ -17,6 +18,11 @@ public class CapitalServiceImpl implements CapitalService {
     @Override
     public CapitalDO save(CapitalDO vo) {
         return capitalRepo.saveEntity(vo);
+    }
+
+    @Override
+    public void save(List<CapitalDO> list) {
+        capitalRepo.saveAll(list);
     }
 
     @Override

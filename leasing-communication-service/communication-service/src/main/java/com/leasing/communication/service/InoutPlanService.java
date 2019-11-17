@@ -1,6 +1,9 @@
 package com.leasing.communication.service;
 
+import com.leasing.communication.entity.dos.ContractDO;
 import com.leasing.communication.entity.dos.InoutPlanDO;
+
+import java.util.List;
 
 /**
  * @project:leasing-cloud
@@ -15,6 +18,13 @@ public interface InoutPlanService {
      * @return
      */
     InoutPlanDO save(InoutPlanDO vo);
+
+    /**
+     * 批量保存方法
+     * @param vo
+     * @return
+     */
+    void save(List<InoutPlanDO> list);
 
     /**
      * 删除方法

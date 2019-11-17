@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Service("communication.InoutPlanServiceImpl")
@@ -18,6 +19,11 @@ public class InoutPlanServiceImpl implements InoutPlanService {
     @Override
     public InoutPlanDO save(InoutPlanDO vo) {
         return inoutPlanRepo.saveEntity(vo);
+    }
+
+    @Override
+    public void save(List<InoutPlanDO> list) {
+        inoutPlanRepo.saveAll(list);
     }
 
     @Override

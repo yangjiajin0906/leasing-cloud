@@ -1,6 +1,9 @@
 package com.leasing.communication.service;
 
+import com.leasing.communication.entity.dos.InvoiceApplyDO;
 import com.leasing.communication.entity.dos.WithdrawDO;
+
+import java.util.List;
 
 /**
  * @project:leasing-cloud
@@ -15,6 +18,13 @@ public interface WithdrawService {
      * @return
      */
     WithdrawDO save(WithdrawDO vo);
+
+    /**
+     * 批量保存方法
+     * @param vo
+     * @return
+     */
+    void save(List<WithdrawDO> list);
 
     /**
      * 删除方法

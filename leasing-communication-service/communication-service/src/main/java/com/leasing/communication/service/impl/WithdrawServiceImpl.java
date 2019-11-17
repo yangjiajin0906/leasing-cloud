@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Service("communication.WithdrawServiceImpl")
@@ -18,6 +19,11 @@ public class WithdrawServiceImpl implements WithdrawService {
     @Override
     public WithdrawDO save(WithdrawDO vo) {
         return withdrawRepo.saveEntity(vo);
+    }
+
+    @Override
+    public void save(List<WithdrawDO> list) {
+        withdrawRepo.saveAll(list);
     }
 
     @Override

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @Service("communication.ContractServiceImpl")
@@ -17,6 +18,11 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public ContractDO save(ContractDO vo) {
         return contractRepo.saveEntity(vo);
+    }
+
+    @Override
+    public void save(List<ContractDO> list) {
+        contractRepo.saveAll(list);
     }
 
     @Override
