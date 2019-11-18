@@ -13,5 +13,5 @@ import org.springframework.stereotype.Repository;
  * @description: 2c客户信息导入
  **/
 @Repository
-public interface CustomerRepo extends BaseRepository<CustomerDO,BaseQuery,BaseVO,String> {
+public interface CustomerRepo extends BaseRepository<CustomerDO,BaseQuery,CustomerDO,String> {
 }

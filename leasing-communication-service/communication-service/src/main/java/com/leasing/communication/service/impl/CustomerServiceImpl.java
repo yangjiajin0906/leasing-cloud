@@ -1,7 +1,10 @@
 package com.leasing.communication.service.impl;
 
+import com.leasing.common.base.repository.support.PageQueryData;
+import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.communication.entity.dos.CacheVO;
 import com.leasing.communication.entity.dos.CustomerDO;
+import com.leasing.communication.entity.query.CustomerQuery;
 import com.leasing.communication.repository.CustomerRepo;
 import com.leasing.communication.service.CustomerService;
 import com.leasing.communication.utils.EasyPoiUtils;
@@ -93,5 +96,10 @@ public class CustomerServiceImpl implements CustomerService{
     @Override
     public CustomerDO findOne(String pk) {
         return customerRepo.findOne(pk);
+    }
+
+    @Override
+    public PageQueryData<CustomerDO> ListCustomerDO(Pagination pagination, CustomerQuery customerQuery, String queryName){
+        return customerRepo.pageQuery(pagination,customerQuery,queryName);
     }
 }

@@ -26,18 +26,21 @@ public class PageQueryData<T> implements Serializable {
     /**
      * 总页数
      */
-    private long pageSize;
+    private long pageCount;
+
+
+
 
 
     public PageQueryData(Page<T> page){
         this.pageData = page.getContent();
-        this.pageSize = page.getTotalPages();
+        this.pageCount = page.getTotalPages();
         this.total = page.getTotalElements();
     }
 
     public PageQueryData(long total,long pageSize,List<T> pageData){
         this.total = total;
-        this.pageSize = pageSize;
+        this.pageCount = pageSize;
         this.pageData = pageData;
     }
 
@@ -60,11 +63,12 @@ public class PageQueryData<T> implements Serializable {
         this.total = total;
     }
 
-    public long getPageSize() {
-        return pageSize;
+
+    public long getPageCount() {
+        return pageCount;
     }
 
-    public void setPageSize(long pageSize) {
-        this.pageSize = pageSize;
+    public void setPageCount(long pageCount) {
+        this.pageCount = pageCount;
     }
 }

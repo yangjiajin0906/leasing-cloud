@@ -208,4 +208,14 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
         List result = entityManager.createQuery(jpql).getResultList();
         return result;
     }
+
+    @Override
+    public PageQueryRefData<V> pageQueryRefData(Pagination pagination, Q query, String queryName) {
+        PageQueryData<V> pageQueryData = this.pageQuerySupport(pagination, query, queryName,false);
+        PageQueryRefData<V> pageQueryRefData = new PageQueryRefData<>();
+        pageQueryRefData.setPageData(pageQueryData.getPageData());
+        pageQueryRefData.setTotal(pageQueryData.getTotal());
+        pageQueryData.setPageCount(pageQueryData.getPageCount());;
+        return pageQueryRefData;
+    }
 }

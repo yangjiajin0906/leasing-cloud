@@ -1,6 +1,9 @@
 package com.leasing.communication.service;
 
+import com.leasing.common.base.repository.support.PageQueryData;
+import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.communication.entity.dos.CustomerDO;
+import com.leasing.communication.entity.query.CustomerQuery;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -13,6 +16,14 @@ import java.util.List;
  **/
 public interface CustomerService {
     /**
+     * 客户列表分页信息查询
+     * @param pagination 分页条件
+     * @param customerQuery 查询条件
+     * @param queryName JPQL名称
+     * @return
+     */
+    PageQueryData<CustomerDO> ListCustomerDO(Pagination pagination, CustomerQuery customerQuery, String queryName);
+    /**
      * 保存方法
      * @param vo
      * @return
@@ -21,7 +32,7 @@ public interface CustomerService {
 
     /**
      * 批量保存方法
-     * @param vo
+     * @param
      * @return
      */
     void save(List<CustomerDO> list);
@@ -37,7 +48,7 @@ public interface CustomerService {
      * @description 校验数据
      * @author Yangjiajin
      * @date 2019/11/15 17:53
-     * @param [list]
+     * @param
      * @return java.util.List<com.leasing.communication.entity.dos.CustomerDO>
      */
     List<CustomerDO> checkData(List<CustomerDO> list);

@@ -456,20 +456,26 @@ public class CustomerDO extends FileBaseBusinessDO {
     @Excel(name = "开户行号", orderNum = "78")
     private String bankNo;
 
+    /**
+     * 手机号
+     */
+    @Excel(name = "手机号", orderNum = "79")
+    private String iphoneNo;
+
     @Override
     public String getPk() {
         return pkCustomer;
     }
 
     @Override
-    public void setPk(String pk) {
-        this.pkCustomer = pk;
+    public void setPk(String pkCustomer) {
+        this.pkCustomer = pkCustomer;
     }
 
     public CustomerDO() {
     }
 
-    public CustomerDO(String pkCustomer, String customerCode, String customerName, Integer identityType, String identityNo, String birthday, String issuingAuthority, Integer validTerm, Integer age, Integer sex, Integer levelOfEducation, String contact, Integer marryStatus, String childrenStatus, String childrenSchoolStatus, String industryType, Integer officalTitle, String job, String permanentAddress, String homeAddr, String employerName, String employerAddress, String employerNature, Integer lengthOfService, Integer lengthLocalResidence, Integer realEstate, String titleHolder, BigDecimal theHousingArea, String realEstateHome, String detailedAddress, String realEstateProperties, String realEstateArea, BigDecimal fixedAnnualIncome, String creditTime, String creditObjType, String creditResult, String creditReasonDescribe, String creditRating, String creditCode, String creditGenerateTime, String linkmanName, String linkmanContact, Integer linkmanLesseeRelationship, String linkmanAddress, String spouseName, Integer spouseIdentityType, String spouseIdentityNo, Integer spouseAge, String spouseContact, Integer spouseLevelEducation, String spouseEmployerName, String spouseEmployerPhone, String spouseEmployerAddress, String spouseEmployerNature, String guarantorName, Integer guarantorIdentityType, String guarantorIdentityNo, String guarantorBirthday, Integer guarantorSex, Integer guarantorAge, String guarantorContact, String guarantorLesseeRelationship, BigDecimal guarantorAnnualIncome, Integer guarantorMarryStatus, String guarantorAddress, String guarantorEmployerName, String guarantorEmployerAddress, String guarantorEmployerPhone, String guarantorDescribe, String cardholderName, String cardNo, String bank, String bankNo) {
+    public CustomerDO(String pkCustomer, String customerCode, String customerName, Integer identityType, String identityNo, String birthday, String issuingAuthority, Integer validTerm, Integer age, Integer sex, Integer levelOfEducation, String contact, Integer marryStatus, String childrenStatus, String childrenSchoolStatus, String industryType, Integer officalTitle, String job, String permanentAddress, String homeAddr, String employerName, String employerAddress, String employerNature, Integer lengthOfService, Integer lengthLocalResidence, Integer realEstate, String titleHolder, BigDecimal theHousingArea, String realEstateHome, String detailedAddress, String realEstateProperties, String realEstateArea, BigDecimal fixedAnnualIncome, String creditTime, String creditObjType, String creditResult, String creditReasonDescribe, String creditRating, String creditCode, String creditGenerateTime, String linkmanName, String linkmanContact, Integer linkmanLesseeRelationship, String linkmanAddress, String spouseName, Integer spouseIdentityType, String spouseIdentityNo, Integer spouseAge, String spouseContact, Integer spouseLevelEducation, String spouseEmployerName, String spouseEmployerPhone, String spouseEmployerAddress, String spouseEmployerNature, String guarantorName, Integer guarantorIdentityType, String guarantorIdentityNo, String guarantorBirthday, Integer guarantorSex, Integer guarantorAge, String guarantorContact, String guarantorLesseeRelationship, BigDecimal guarantorAnnualIncome, Integer guarantorMarryStatus, String guarantorAddress, String guarantorEmployerName, String guarantorEmployerAddress, String guarantorEmployerPhone, String guarantorDescribe, String cardholderName, String cardNo, String bank, String bankNo,String iphoneNo) {
         this.pkCustomer = pkCustomer;
         this.customerCode = customerCode;
         this.customerName = customerName;
@@ -543,6 +549,7 @@ public class CustomerDO extends FileBaseBusinessDO {
         this.cardNo = cardNo;
         this.bank = bank;
         this.bankNo = bankNo;
+        this.iphoneNo = iphoneNo;
     }
 
     /**
@@ -1711,5 +1718,13 @@ public class CustomerDO extends FileBaseBusinessDO {
      */
     public void setBankNo(String bankNo) {
         this.bankNo = bankNo == null ? null : bankNo.trim();
+    }
+
+    public String getIphoneNo() {
+        return iphoneNo;
+    }
+
+    public void setIphoneNo(String iphoneNo) {
+        this.iphoneNo = iphoneNo;
     }
 }
