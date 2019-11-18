@@ -1,6 +1,10 @@
 package com.leasing.communication.service.impl;
 
+import com.leasing.common.base.repository.support.PageQueryData;
+import com.leasing.common.base.repository.support.Pagination;
+import com.leasing.common.utils.base.ObjectUtil;
 import com.leasing.communication.entity.dos.ContractDO;
+import com.leasing.communication.entity.queryVO.ContractQueryVO;
 import com.leasing.communication.repository.ContractRepo;
 import com.leasing.communication.service.ContractService;
 import org.springframework.stereotype.Service;
@@ -38,5 +42,27 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public ContractDO findOne(String pk) {
         return contractRepo.findOne(pk);
+    }
+
+    @Override
+    public PageQueryData pageData(ContractQueryVO contractQueryVO, Pagination pagination) {
+        ContractDO contractDO = new ContractDO();
+        createDO(contractDO);
+//        contractRepo.save(contractDO);
+        List list = contractRepo.findAll();
+        PageQueryData pageQueryData = new PageQueryData();
+        pageQueryData.setPageData(list);
+        pageQueryData.setTotal(100);
+        pageQueryData.setPageSize(10);
+        return pageQueryData;
+    }
+
+    public void createDO(ContractDO contractDO){
+        contractDO.setPkContract("11111111111111111111");
+        contractDO.setContCode("888-00");
+        contractDO.setBusinessName(0);
+        contractDO.setContEndDate("2019-09-09");
+        contractDO.setMarketIrr(ObjectUtil.toBigDecimal("0.98"));
+
     }
 }

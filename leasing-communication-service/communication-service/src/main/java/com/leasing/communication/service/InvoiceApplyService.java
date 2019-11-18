@@ -1,7 +1,11 @@
 package com.leasing.communication.service;
 
+import com.leasing.common.base.repository.support.PageQueryData;
+import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.communication.entity.dos.InoutPlanDO;
 import com.leasing.communication.entity.dos.InvoiceApplyDO;
+import com.leasing.communication.entity.queryVO.ContractQueryVO;
+import com.leasing.communication.entity.queryVO.InvoiceQueryVO;
 
 import java.util.List;
 
@@ -43,4 +47,12 @@ public interface InvoiceApplyService {
      * @return
      */
     InvoiceApplyDO findOne(String pk);
+
+    /**
+     * 分页查询
+     * @param contractQueryVO
+     * @param pagination
+     * @return
+     */
+    PageQueryData pageData(InvoiceQueryVO contractQueryVO, Pagination pagination);
 }
