@@ -28,6 +28,10 @@ import java.util.NoSuchElementException;
  * @description: easypoi poi 导入导出工具类
  **/
 public class EasyPoiUtils {
+
+    private final static String xls = "xls";
+    private final static String xlsx = "xlsx";
+
     /**
      * @description 导出
      * @author Yangjiajin
@@ -41,7 +45,11 @@ public class EasyPoiUtils {
         defaultExport(list, pojoClass, fileName, response, exportParams);
     }
     public static void exportExcel(List<?> list, String title, String sheetName, Class<?> pojoClass,String fileName, HttpServletResponse response){
-        defaultExport(list, pojoClass, fileName, response, new ExportParams(title, sheetName));
+        if(fileName.endsWith(xlsx)){
+            defaultExport(list, pojoClass, fileName, response, new ExportParams(title, sheetName, ExcelType.XSSF));
+        }else{
+            defaultExport(list, pojoClass, fileName, response, new ExportParams(title, sheetName, ExcelType.HSSF));
+        }
     }
     public static void exportExcel(List<Map<String, Object>> list, String fileName, HttpServletResponse response){
         defaultExport(list, fileName, response);
@@ -65,7 +73,7 @@ public class EasyPoiUtils {
         }
     }
     private static void defaultExport(List<Map<String, Object>> list, String fileName, HttpServletResponse response) {
-        Workbook workbook = ExcelExportUtil.exportExcel(list, ExcelType.HSSF);
+        Workbook workbook = ExcelExportUtil.exportExcel(list, ExcelType.XSSF);
         if (workbook != null);
         downLoadExcel(fileName, response, workbook);
     }

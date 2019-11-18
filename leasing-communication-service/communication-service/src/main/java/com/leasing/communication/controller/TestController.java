@@ -2,9 +2,15 @@ package com.leasing.communication.controller;
 
 import com.leasing.communication.entity.Address;
 import com.leasing.communication.entity.Person;
-import com.leasing.communication.entity.dos.*;
+import com.leasing.communication.entity.dos.CacheVO;
+import com.leasing.communication.entity.dos.CustomerDO;
+import com.leasing.communication.entity.dos.InvoiceApplyDO;
+import com.leasing.communication.enums.Type;
 import com.leasing.communication.service.CustomerService;
 import com.leasing.communication.utils.EasyPoiUtils;
+import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.tomcat.util.http.fileupload.FileItemFactory;
+import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -14,10 +20,14 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,8 +64,7 @@ public class TestController {
         //模拟从数据库获取需要导出的数据
         List<Person> personList = new ArrayList<>();
         for (int i =1; i<10; i++){
-            Person person = new Person("路飞"+i,Short.valueOf("2")
-                    ,"5sa54da5sdaaa"+i,"2019-11-1"+i,"2019-11-1"+i,"100"+i,"sdadas25d5sf5sdf5sd"+i);
+            Person person = new Person("路飞"+i,Integer.valueOf("1"),"2019-11-1",new BigDecimal("10000"),Double.valueOf("100"),Long.valueOf("1"));
             personList.add(person);
         }
         //导出操作
@@ -249,6 +258,7 @@ public class TestController {
 
     @RequestMapping("importCustomerInfo2")
     public void importCustomerInfo2(MultipartFile file){
+
         Long startTime = new Date().getTime();
         String filePath = "E:\\excel\\客户.xls";
         //解析excel
@@ -321,5 +331,77 @@ public class TestController {
         Long endTime = new Date().getTime();
         System.out.println("导入了【"+list.size()+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }
+
+    /**
+     * @description 导出
+     * @author Yangjiajin
+     * @date 2019/11/8 14:21
+     * @param [response]
+     * @return void
+     */
+    @RequestMapping("exportPoi")
+    public void exportPoi(HttpServletResponse response){
+        //模拟从数据库获取需要导出的数据
+        List<Person> personList = new ArrayList<>();
+        for (int i =1; i<10; i++){
+            Person person = new Person("路飞"+i,Integer.valueOf("1"),"2019-11-1",new BigDecimal("10000"),Double.valueOf("100"),Long.valueOf("1"));
+            personList.add(person);
+        }
+        //导出操作
+        //ExcelUtil.exportExcel("Person",personList,Person.class, Type.XLS_X,response);
+    }
+
+    /**
+     * @description 导入
+     * @author Yangjiajin
+     * @date 2019/11/8 14:21
+     * @param [response]
+     * @return void
+     */
+//    @RequestMapping("importPoi")
+//    public void importPoi(MultipartFile file){
+//        file = getMulFileByPath("E:\\excel\\客户.xlsx");
+//        //导入操作
+//        List<Person> personList = ExcelUtil.importExcel(file,Person.class);
+//        System.out.println(personList.size());
+//    }
+
+//    private static MultipartFile getMulFileByPath(String picPath) {
+//        FileItem fileItem = createFileItem(picPath);
+//        MultipartFile mfile = new CommonsMultipartFile(fileItem);
+//        return mfile;
+//    }
+
+    private static FileItem createFileItem(String filePath)
+    {
+        FileItemFactory factory = new DiskFileItemFactory(16, null);
+        String textFieldName = "textField";
+        int num = filePath.lastIndexOf(".");
+        String extFile = filePath.substring(num);
+        FileItem item = factory.createItem(textFieldName, "text/plain", true,
+                "MyFileName" + extFile);
+        File newfile = new File(filePath);
+        int bytesRead = 0;
+        byte[] buffer = new byte[8192];
+        try
+        {
+            FileInputStream fis = new FileInputStream(newfile);
+            OutputStream os = item.getOutputStream();
+            while ((bytesRead = fis.read(buffer, 0, 8192))
+                    != -1)
+            {
+                os.write(buffer, 0, bytesRead);
+            }
+            os.close();
+            fis.close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return item;
+    }
+
+
 
 }
