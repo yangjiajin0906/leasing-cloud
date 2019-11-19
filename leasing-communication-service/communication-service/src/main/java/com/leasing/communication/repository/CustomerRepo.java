@@ -1,9 +1,8 @@
 package com.leasing.communication.repository;
 
 import com.leasing.common.base.entity.BaseQuery;
-import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.base.repository.BaseRepository;
-import com.leasing.communication.entity.dos.CustomerDO;
+import com.leasing.communication.entity.dos.Customer2DO;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,5 +12,5 @@ import org.springframework.stereotype.Repository;
  * @description: 2c客户信息导入
  **/
 @Repository
-public interface CustomerRepo extends BaseRepository<CustomerDO,BaseQuery,CustomerDO,String> {
+public interface CustomerRepo extends BaseRepository<Customer2DO,BaseQuery,Customer2DO,String> {
 }

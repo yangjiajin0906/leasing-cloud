@@ -1,10 +1,9 @@
 package com.leasing.communication.entity;
 
 import com.leasing.communication.entity.base.FileBaseBusinessDO;
-import com.leasing.communication.interfaces.ExcelTag;
+import com.leasing.communication.utils.Excel;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * @project:leasing-cloud
@@ -14,22 +13,22 @@ import java.util.Date;
  **/
 public class Person extends FileBaseBusinessDO {
 
-    @ExcelTag(tag = "姓名")
+    @Excel(orderNum = 1, titleName = "名字")
     private String name;
 
-    @ExcelTag(tag = "性别")
+    @Excel(orderNum = 1, titleName = "性别")
     private Integer sex;
 
-    @ExcelTag(tag = "生日")
-    private Date birthday;
+    @Excel(orderNum = 1, titleName = "生日")
+    private String birthday;
 
-    @ExcelTag(tag = "金额")
+    @Excel(orderNum = 1, titleName = "金额")
     private BigDecimal totalAmount;
 
-    @ExcelTag(tag = "税率")
+    @Excel(orderNum = 1, titleName = "税率")
     private Double ratio;
 
-    @ExcelTag(tag = "哈哈")
+    @Excel(orderNum = 1, titleName = "哈哈")
     public Long srvfeeBase;
 
     @Override
@@ -44,14 +43,13 @@ public class Person extends FileBaseBusinessDO {
 
     public Person() {}
 
-    public Person(String name, Short billstatus, String pkOperator, String operateDate, String operateTime, String pkOrg, String pkDept) {
+    public Person(String name, Integer sex, String birthday, BigDecimal totalAmount, Double ratio, Long srvfeeBase) {
         this.name = name;
-        this.pkOperator = pkOperator;
-        this.operateDate = operateDate;
-        this.operateTime = operateTime;
-        this.pkOrg = pkOrg;
-        this.pkDept = pkDept;
-        this.billstatus = billstatus;
+        this.sex = sex;
+        this.birthday = birthday;
+        this.totalAmount = totalAmount;
+        this.ratio = ratio;
+        this.srvfeeBase = srvfeeBase;
     }
 
     public String getName() {
@@ -70,11 +68,11 @@ public class Person extends FileBaseBusinessDO {
         this.sex = sex;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
