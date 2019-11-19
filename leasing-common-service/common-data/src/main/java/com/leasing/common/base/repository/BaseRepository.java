@@ -1,16 +1,14 @@
 package com.leasing.common.base.repository;
 
-import com.leasing.common.base.entity.BaseQuery;
+import com.leasing.common.base.entity.BaseRefVO;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.PageQueryRefData;
 import com.leasing.common.base.repository.support.Pagination;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.support.JpaRepositoryImplementation;
 import org.springframework.data.repository.NoRepositoryBean;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 
 /**
@@ -110,14 +108,7 @@ public interface BaseRepository<T, Q, V, ID> extends JpaRepositoryImplementation
      */
     List findByJPQL(String jpql);
 
-    /**
-     * 分页查询表参照,根据动态JPQL查询集合
-     * @param pagination
-     * @param query
-     * @param queryName
-     * @return
-     */
-    PageQueryRefData<V> pageQueryRefData(Pagination pagination, Q query, String queryName);
 
+    <S extends BaseRefVO> PageQueryRefData<S> pageQueryRefData(Pagination pagination, Q query, String queryName, S entity);
 
 }
