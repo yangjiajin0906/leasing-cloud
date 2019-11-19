@@ -26,7 +26,8 @@ public class PubRefServiceImpl implements PubRefService {
 
     @Override
     public PageQueryRefData<OrgrefVO> findOrgTableRef(Pagination pagination, OrgQuery orgQuery,String queryName){
-        PageQueryRefData<OrgrefVO> pageQueryRefData = orgRefRepo.pageQueryRefData(pagination, orgQuery, queryName);
+        OrgrefVO orgrefVO = new OrgrefVO();
+        PageQueryRefData<OrgrefVO> pageQueryRefData = orgRefRepo.pageQueryRefData(pagination, orgQuery, queryName, orgrefVO);
         return pageQueryRefData;
     }
 

@@ -1,9 +1,6 @@
 package com.leasing.common.base.repository.support;
 
-import com.leasing.common.base.entity.BaseDO;
-import com.leasing.common.base.entity.BaseEntity;
-import com.leasing.common.base.entity.BaseQuery;
-import com.leasing.common.base.entity.BaseVO;
+import com.leasing.common.base.entity.*;
 import com.leasing.common.base.repository.BaseRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -149,9 +146,15 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
         if(pagination == null){    //不分页处理
             pagination = new Pagination(0,Integer.parseInt(String.valueOf(total)));
         }
+        int totalpage = 0;
+        if(Integer.parseInt(String.valueOf(total)) % pagination.getPageSize() == 0){
+            totalpage = Integer.parseInt(String.valueOf(total)) / pagination.getPageSize();
+        }else{
+            totalpage = Integer.parseInt(String.valueOf(total)) / pagination.getPageSize() + 1;
+        }
         queryResult.setFirstResult(pagination.getFirstResult()).setMaxResults(pagination.getPageSize());
         List result = queryResult.getResultList();
-        PageQueryData pageQueryData = new PageQueryData(total, pagination.getPageSize(), result);
+        PageQueryData pageQueryData = new PageQueryData(total, totalpage, result);
         return pageQueryData;
     }
 
@@ -210,12 +213,12 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
     }
 
     @Override
-    public PageQueryRefData<V> pageQueryRefData(Pagination pagination, Q query, String queryName) {
+    public <S extends BaseRefVO> PageQueryRefData<S> pageQueryRefData(Pagination pagination, Q query, String queryName, S entity) {
         PageQueryData<V> pageQueryData = this.pageQuerySupport(pagination, query, queryName,false);
-        PageQueryRefData<V> pageQueryRefData = new PageQueryRefData<>();
+        PageQueryRefData<S> pageQueryRefData = new PageQueryRefData(entity);
         pageQueryRefData.setPageData(pageQueryData.getPageData());
         pageQueryRefData.setTotal(pageQueryData.getTotal());
-        pageQueryData.setPageCount(pageQueryData.getPageCount());;
+        pageQueryRefData.setPageCount(pageQueryData.getPageCount());
         return pageQueryRefData;
     }
 }

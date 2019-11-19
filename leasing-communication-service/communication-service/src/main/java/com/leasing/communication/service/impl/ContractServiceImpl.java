@@ -53,7 +53,7 @@ public class ContractServiceImpl implements ContractService {
         PageQueryData pageQueryData = new PageQueryData();
         pageQueryData.setPageData(list);
         pageQueryData.setTotal(100);
-        pageQueryData.setPageSize(10);
+        pageQueryData.setPageCount(10);
         return pageQueryData;
     }
 
