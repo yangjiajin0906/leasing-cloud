@@ -1,104 +1,86 @@
 package com.leasing.customer.dao.vo;
 
 import com.leasing.common.base.entity.BaseVO;
-import com.leasing.common.dto.customer.CustomerDTO;
-import com.leasing.common.entity.sys.dto.ParameterDTO;
 import com.leasing.common.vo.foundation.OrgVO;
 import com.leasing.common.vo.foundation.UserVO;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * @project:leasing-cloud
- * @date:2019-10-30
+ * @date:2019-11-13
  * @author:zhangzhhn@yonyou.com
- * @description: 高管信息
+ * @description: 在手合同
  **/
 @Entity
-@Table(name = "YLS_CUST_RELATED_COMPANY")
-public class CustExecutiveInformationVO extends BaseVO {
+@Table(name = "yls_contract_hands")
+public class ContractHandsVO extends BaseVO {
+
     /**
      * 主键
      */
     @Id
-    private String pkCustRelatedCompany;
+    private String pkContractHands;
 
 
     /**
-     * 客户主键
+     * 主表主键
      */
-    @ManyToOne
-    @JoinColumn(name = "pkCustomer")
-    private CustomerDTO pkCustomer;
+    private String pkCustomer;
 
     /**
-     * 关联客户编号 家族成员姓名
+     * 客户名称
      */
-    @ManyToOne
-    @JoinColumn(name = "pkCustomerRef")
-    private CustomerDTO pkCustomerRef;
-
-    /**
-     * 关系分类
-     */
-    private Short relationClass;
+    private String customerName;
 
 
     /**
-     * 客户关系
+     * 客户编号
      */
-    @ManyToOne
-    @JoinColumn(name = "relationRole")
-    private ParameterDTO relationRole;
+    private String customerCode;
 
 
     /**
-     * 其他关系类型
+     * 项目名称
      */
-    private Short billtype;
-
-    /**
-     * 高管人员类别
-     */
-    private Short executiveType;
+    private String projectName;
 
 
     /**
-     * 工作简历
+     * 合同金额（万元）
      */
-    private String jobResume;
+    private BigDecimal contractCash;
 
 
     /**
-     * 家族关系
+     * 开始日期
      */
-    private Short familyRelation;
+    private String startDate;
 
 
     /**
-     * 关联家族企业名称
+     * 截止日期
      */
-    @ManyToOne
-    @JoinColumn(name = "memberContainsCorp")
-    private CustomerDTO memberContainsCorp;
+    private String endDate;
+
+
+    /**
+     * 目前工程进度
+     */
+    private String projectSituation;
+
+
+    /**
+     * 回款情况
+     */
+    private String backcashSituation;
 
 
     /**
      * 备注
      */
     private String memo;
-
-    /**
-     * 关联家族企业名称(虚拟字段,数据库中没此字段)
-     */
-    @Transient
-    private String customerName;
-
-    /**
-     * 关联家族企业类别(虚拟字段,数据库中没此字段)
-     */
-    @Transient
-    private Short customerType;
 
 
     /**
@@ -108,20 +90,20 @@ public class CustExecutiveInformationVO extends BaseVO {
 
 
     /**
-     * 记账人
+     * 操作人
      */
     @ManyToOne
     @JoinColumn(name = "pkOperator")
     private UserVO pkOperator;
 
     /**
-     * 记账日期
+     * 操作日期
      */
     private String operateDate;
 
 
     /**
-     * 记账时间
+     * 操作时间
      */
     private String operateTime;
 
@@ -171,93 +153,20 @@ public class CustExecutiveInformationVO extends BaseVO {
     @JoinColumn(name = "pkOrg")
     private OrgVO pkOrg;
 
-
-    public String getPkCustRelatedCompany() {
-        return pkCustRelatedCompany;
+    public String getPkContractHands() {
+        return pkContractHands;
     }
 
-    public void setPkCustRelatedCompany(String pkCustRelatedCompany) {
-        this.pkCustRelatedCompany = pkCustRelatedCompany;
+    public void setPkContractHands(String pkContractHands) {
+        this.pkContractHands = pkContractHands;
     }
 
-    public CustomerDTO getPkCustomer() {
+    public String getPkCustomer() {
         return pkCustomer;
     }
 
-    public void setPkCustomer(CustomerDTO pkCustomer) {
+    public void setPkCustomer(String pkCustomer) {
         this.pkCustomer = pkCustomer;
-    }
-
-    public CustomerDTO getPkCustomerRef() {
-        return pkCustomerRef;
-    }
-
-    public void setPkCustomerRef(CustomerDTO pkCustomerRef) {
-        this.pkCustomerRef = pkCustomerRef;
-    }
-
-    public Short getRelationClass() {
-        return relationClass;
-    }
-
-    public void setRelationClass(Short relationClass) {
-        this.relationClass = relationClass;
-    }
-
-    public ParameterDTO getRelationRole() {
-        return relationRole;
-    }
-
-    public void setRelationRole(ParameterDTO relationRole) {
-        this.relationRole = relationRole;
-    }
-
-    public Short getBilltype() {
-        return billtype;
-    }
-
-    public void setBilltype(Short billtype) {
-        this.billtype = billtype;
-    }
-
-    public Short getExecutiveType() {
-        return executiveType;
-    }
-
-    public void setExecutiveType(Short executiveType) {
-        this.executiveType = executiveType;
-    }
-
-    public String getJobResume() {
-        return jobResume;
-    }
-
-    public void setJobResume(String jobResume) {
-        this.jobResume = jobResume;
-    }
-
-    public Short getFamilyRelation() {
-        return familyRelation;
-    }
-
-    public void setFamilyRelation(Short familyRelation) {
-        this.familyRelation = familyRelation;
-    }
-
-    public CustomerDTO getMemberContainsCorp() {
-        return memberContainsCorp;
-    }
-
-    public void setMemberContainsCorp(CustomerDTO memberContainsCorp) {
-        this.memberContainsCorp = memberContainsCorp;
-    }
-
-    public String getMemo() {
-        return memo;
-    }
-
-    public void setMemo(String memo) {
-        this.memo = memo;
     }
 
     public String getCustomerName() {
@@ -268,12 +177,68 @@ public class CustExecutiveInformationVO extends BaseVO {
         this.customerName = customerName;
     }
 
-    public Short getCustomerType() {
-        return customerType;
+    public String getCustomerCode() {
+        return customerCode;
     }
 
-    public void setCustomerType(Short customerType) {
-        this.customerType = customerType;
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
+    }
+
+    public String getProjectName() {
+        return projectName;
+    }
+
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
+
+    public BigDecimal getContractCash() {
+        return contractCash;
+    }
+
+    public void setContractCash(BigDecimal contractCash) {
+        this.contractCash = contractCash;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getProjectSituation() {
+        return projectSituation;
+    }
+
+    public void setProjectSituation(String projectSituation) {
+        this.projectSituation = projectSituation;
+    }
+
+    public String getBackcashSituation() {
+        return backcashSituation;
+    }
+
+    public void setBackcashSituation(String backcashSituation) {
+        this.backcashSituation = backcashSituation;
+    }
+
+    public String getMemo() {
+        return memo;
+    }
+
+    public void setMemo(String memo) {
+        this.memo = memo;
     }
 
     public Short getBillstatus() {
@@ -366,11 +331,11 @@ public class CustExecutiveInformationVO extends BaseVO {
 
     @Override
     public String getPk() {
-        return pkCustRelatedCompany;
+        return pkContractHands;
     }
 
     @Override
     public void setPk(String pk) {
-        this.pkCustRelatedCompany = pk;
+        this.pkContractHands = pk;
     }
 }

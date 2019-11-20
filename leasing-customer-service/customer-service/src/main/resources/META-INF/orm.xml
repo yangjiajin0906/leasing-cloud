@@ -164,5 +164,104 @@
         <query>select count(a.pkMedicalQualify) from CustMedicalQualifyVO a</query>
     </named-query>
 
+    <!--************************************************单位客户资产信息CustAssetsVO*************************************************************-->
+
+    <!--单位客户资产分页查询-->
+    <named-query name="custAssetsPageQuery">
+        <query>select a from CustAssetsVO a</query>
+    </named-query>
+    <!--单位客户资产分页查询-->
+    <named-query name="custAssetsPageQuery.count">
+        <query>select count(a.pkCustAssets) from CustAssetsVO a </query>
+    </named-query>
+
+    <!--************************************************其他融资CustExternalFinanceVO*************************************************************-->
+
+    <!--其他融资分页查询-->
+    <named-query name="custExternalFinancePageQuery">
+        <query>select a from CustExternalFinanceVO a</query>
+    </named-query>
+    <!--其他融资分页查询-->
+    <named-query name="custExternalFinancePageQuery.count">
+        <query>select count(a.pkCustExternalFinance) from CustExternalFinanceVO a </query>
+    </named-query>
+
+    <!--************************************************债券发行CustBondIssueVO*************************************************************-->
+
+    <!--其他融资分页查询-->
+    <named-query name="custBondIssuePageQuery">
+        <query>select a from CustBondIssueVO a</query>
+    </named-query>
+    <!--其他融资分页查询-->
+    <named-query name="custBondIssuePageQuery.count">
+        <query>select count(a.pkCustBondIssue) from CustBondIssueVO a </query>
+    </named-query>
+
+    <!--************************************************保证情况CustPledgeVO*************************************************************-->
+
+    <!--保证情况分页查询-->
+    <named-query name="custPledgePageQuery">
+        <query>select a from CustPledgeVO a</query>
+    </named-query>
+    <!--保证情况分页查询-->
+    <named-query name="custPledgePageQuery.count">
+        <query>select count(a.pkCustPledge) from CustPledgeVO a </query>
+    </named-query>
+
+    <!--************************************************上下游客户CustUpdownVO*************************************************************-->
+
+    <!--上下游客户分页查询-->
+    <named-query name="custUpdownPageQuery">
+        <query>select a from CustUpdownVO a</query>
+    </named-query>
+    <!--上下游客户分页查询-->
+    <named-query name="custUpdownPageQuery.count">
+        <query>select count(a.pkCustUpdown) from CustUpdownVO a </query>
+    </named-query>
+
+    <!--************************************************上下游客户contractHandsVO*************************************************************-->
+
+    <!--上下游客户分页查询-->
+    <named-query name="contractHandsPageQuery">
+        <query>select a from ContractHandsVO a</query>
+    </named-query>
+    <!--上下游客户分页查询-->
+    <named-query name="contractHandsPageQuery.count">
+        <query>select count(a.pkContractHands) from ContractHandsVO a </query>
+    </named-query>
+
+    <!--************************************************指标分析IndexAnalysisVO*************************************************************-->
+
+    <!--指标分析分页查询-->
+    <named-query name="indexAnalysisPageQuery">
+        <query>select a from IndexAnalysisVO a</query>
+    </named-query>
+    <!--指标分析分页查询-->
+    <named-query name="indexAnalysisPageQuery.count">
+        <query>select count(a.pkIndexAnalysis) from IndexAnalysisVO a </query>
+    </named-query>
+
+    <!--************************************************上下游客户AnalysisCashVO*************************************************************-->
+
+    <!--上下游客户分页查询-->
+    <named-query name="analysisCashPageQuery">
+        <query>select a from AnalysisCashVO a</query>
+    </named-query>
+    <!--上下游客户分页查询-->
+    <named-query name="analysisCashPageQuery.count">
+        <query>select count(a.pkAnalysisCash) from AnalysisCashVO a </query>
+    </named-query>
+
+
+    <!--************************************************上下游客户AnalysisBalanceVO*************************************************************-->
+
+    <!--上下游客户分页查询-->
+    <named-query name="analysisBalancePageQuery">
+        <query>select a from AnalysisBalanceVO a</query>
+    </named-query>
+    <!--上下游客户分页查询-->
+    <named-query name="analysisBalancePageQuery.count">
+        <query>select count(a.pkAnalysisBalance) from AnalysisBalanceVO a </query>
+    </named-query>
 
 </entity-mappings>

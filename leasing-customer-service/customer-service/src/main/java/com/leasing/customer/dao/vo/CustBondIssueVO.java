@@ -3,102 +3,81 @@ package com.leasing.customer.dao.vo;
 import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.dto.customer.CustomerDTO;
 import com.leasing.common.entity.sys.dto.ParameterDTO;
+import com.leasing.common.vo.foundation.CurrtypeVO;
 import com.leasing.common.vo.foundation.OrgVO;
 import com.leasing.common.vo.foundation.UserVO;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * @project:leasing-cloud
- * @date:2019-10-30
+ * @date:2019-11-13
  * @author:zhangzhhn@yonyou.com
- * @description: 高管信息
+ * @description: 债券发行
  **/
 @Entity
-@Table(name = "YLS_CUST_RELATED_COMPANY")
-public class CustExecutiveInformationVO extends BaseVO {
+@Table(name = "yls_cust_bond_issue")
+public class CustBondIssueVO extends BaseVO {
+
     /**
      * 主键
      */
     @Id
-    private String pkCustRelatedCompany;
+    private String pkCustBondIssue;
 
 
     /**
-     * 客户主键
+     * 主表主键
      */
     @ManyToOne
     @JoinColumn(name = "pkCustomer")
     private CustomerDTO pkCustomer;
 
     /**
-     * 关联客户编号 家族成员姓名
+     * 发行日期
+     */
+    private String issueDate;
+
+
+    /**
+     * 债券类型
      */
     @ManyToOne
-    @JoinColumn(name = "pkCustomerRef")
-    private CustomerDTO pkCustomerRef;
-
-    /**
-     * 关系分类
-     */
-    private Short relationClass;
+    @JoinColumn(name = "bondType")
+    private ParameterDTO bondType;
 
 
     /**
-     * 客户关系
+     * 币种
      */
     @ManyToOne
-    @JoinColumn(name = "relationRole")
-    private ParameterDTO relationRole;
+    @JoinColumn(name = "pkCurrtype")
+    private CurrtypeVO pkCurrtype;
 
 
     /**
-     * 其他关系类型
+     * 发行金额
      */
-    private Short billtype;
-
-    /**
-     * 高管人员类别
-     */
-    private Short executiveType;
+    private BigDecimal planCash;
 
 
     /**
-     * 工作简历
+     * 兑现日期
      */
-    private String jobResume;
+    private String cashDate;
 
 
     /**
-     * 家族关系
+     * 利息
      */
-    private Short familyRelation;
-
-
-    /**
-     * 关联家族企业名称
-     */
-    @ManyToOne
-    @JoinColumn(name = "memberContainsCorp")
-    private CustomerDTO memberContainsCorp;
+    private BigDecimal interest;
 
 
     /**
      * 备注
      */
     private String memo;
-
-    /**
-     * 关联家族企业名称(虚拟字段,数据库中没此字段)
-     */
-    @Transient
-    private String customerName;
-
-    /**
-     * 关联家族企业类别(虚拟字段,数据库中没此字段)
-     */
-    @Transient
-    private Short customerType;
 
 
     /**
@@ -171,13 +150,12 @@ public class CustExecutiveInformationVO extends BaseVO {
     @JoinColumn(name = "pkOrg")
     private OrgVO pkOrg;
 
-
-    public String getPkCustRelatedCompany() {
-        return pkCustRelatedCompany;
+    public String getPkCustBondIssue() {
+        return pkCustBondIssue;
     }
 
-    public void setPkCustRelatedCompany(String pkCustRelatedCompany) {
-        this.pkCustRelatedCompany = pkCustRelatedCompany;
+    public void setPkCustBondIssue(String pkCustBondIssue) {
+        this.pkCustBondIssue = pkCustBondIssue;
     }
 
     public CustomerDTO getPkCustomer() {
@@ -188,68 +166,52 @@ public class CustExecutiveInformationVO extends BaseVO {
         this.pkCustomer = pkCustomer;
     }
 
-    public CustomerDTO getPkCustomerRef() {
-        return pkCustomerRef;
+    public String getIssueDate() {
+        return issueDate;
     }
 
-    public void setPkCustomerRef(CustomerDTO pkCustomerRef) {
-        this.pkCustomerRef = pkCustomerRef;
+    public void setIssueDate(String issueDate) {
+        this.issueDate = issueDate;
     }
 
-    public Short getRelationClass() {
-        return relationClass;
+    public ParameterDTO getBondType() {
+        return bondType;
     }
 
-    public void setRelationClass(Short relationClass) {
-        this.relationClass = relationClass;
+    public void setBondType(ParameterDTO bondType) {
+        this.bondType = bondType;
     }
 
-    public ParameterDTO getRelationRole() {
-        return relationRole;
+    public CurrtypeVO getPkCurrtype() {
+        return pkCurrtype;
     }
 
-    public void setRelationRole(ParameterDTO relationRole) {
-        this.relationRole = relationRole;
+    public void setPkCurrtype(CurrtypeVO pkCurrtype) {
+        this.pkCurrtype = pkCurrtype;
     }
 
-    public Short getBilltype() {
-        return billtype;
+    public BigDecimal getPlanCash() {
+        return planCash;
     }
 
-    public void setBilltype(Short billtype) {
-        this.billtype = billtype;
+    public void setPlanCash(BigDecimal planCash) {
+        this.planCash = planCash;
     }
 
-    public Short getExecutiveType() {
-        return executiveType;
+    public String getCashDate() {
+        return cashDate;
     }
 
-    public void setExecutiveType(Short executiveType) {
-        this.executiveType = executiveType;
+    public void setCashDate(String cashDate) {
+        this.cashDate = cashDate;
     }
 
-    public String getJobResume() {
-        return jobResume;
+    public BigDecimal getInterest() {
+        return interest;
     }
 
-    public void setJobResume(String jobResume) {
-        this.jobResume = jobResume;
-    }
-
-    public Short getFamilyRelation() {
-        return familyRelation;
-    }
-
-    public void setFamilyRelation(Short familyRelation) {
-        this.familyRelation = familyRelation;
-    }
-
-    public CustomerDTO getMemberContainsCorp() {
-        return memberContainsCorp;
-    }
-
-    public void setMemberContainsCorp(CustomerDTO memberContainsCorp) {
-        this.memberContainsCorp = memberContainsCorp;
+    public void setInterest(BigDecimal interest) {
+        this.interest = interest;
     }
 
     public String getMemo() {
@@ -258,22 +220,6 @@ public class CustExecutiveInformationVO extends BaseVO {
 
     public void setMemo(String memo) {
         this.memo = memo;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public Short getCustomerType() {
-        return customerType;
-    }
-
-    public void setCustomerType(Short customerType) {
-        this.customerType = customerType;
     }
 
     public Short getBillstatus() {
@@ -366,11 +312,11 @@ public class CustExecutiveInformationVO extends BaseVO {
 
     @Override
     public String getPk() {
-        return pkCustRelatedCompany;
+        return pkCustBondIssue;
     }
 
     @Override
     public void setPk(String pk) {
-        this.pkCustRelatedCompany = pk;
+        this.pkCustBondIssue = pk;
     }
 }

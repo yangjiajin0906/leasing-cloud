@@ -99,18 +99,18 @@ public class CustomerCorpController {
      */
     @PostMapping(value = "/save")
     public ResResult save(String data) {
-//        CustomerCorpAllVO vo = JSON.parseObject(data, CustomerCorpAllVO.class);
+        CustomerCorpAllVO vo = JSON.parseObject(data, CustomerCorpAllVO.class);
 
-        CustomerCorpAllVO ddd = customerCorpService.findOneAllByPkCustomer("0001MG00000000028981");
-        String temp = JSON.toJSONString(ddd);
-        CustomerCorpAllVO vo = JSON.parseObject(temp, CustomerCorpAllVO.class);
-        vo.setCustomerName("我爱北京天安门");
-
-        vo.setNationalTax("125117014516483921");
-        vo.setLandTax("125117014516483921");
-        vo.setLicenseNo("125117014516483921");
-        vo.setPkCustomer(null);
-        vo.setPkCustomerCorp(null);
+//        CustomerCorpAllVO ddd = customerCorpService.findOneAllByPkCustomer("0001MG00000000028981");
+//        String temp = JSON.toJSONString(ddd);
+//        CustomerCorpAllVO vo = JSON.parseObject(temp, CustomerCorpAllVO.class);
+//        vo.setCustomerName("我爱北京天安门");
+//
+//        vo.setNationalTax("125117014516483921");
+//        vo.setLandTax("125117014516483921");
+//        vo.setLicenseNo("125117014516483921");
+//        vo.setPkCustomer(null);
+//        vo.setPkCustomerCorp(null);
 
 
         //1.校验客户是否存在
@@ -183,11 +183,11 @@ public class CustomerCorpController {
      */
     @PostMapping(value = "/effect")
     public ResResult effect(String data) {
-//        CustomerCorpAllVO vo = JSON.parseObject(data, CustomerCorpAllVO.class);
+        CustomerCorpAllVO vo = JSON.parseObject(data, CustomerCorpAllVO.class);
 //        c7eaeec8d6b943b8a02c
-        CustomerCorpAllVO ddd = customerCorpService.findOneAllByPkCustomer("13af36bebc434a3cb0e9");
-        String temp = JSON.toJSONString(ddd);
-        CustomerCorpAllVO vo = JSON.parseObject(temp, CustomerCorpAllVO.class);
+//        CustomerCorpAllVO ddd = customerCorpService.findOneAllByPkCustomer("13af36bebc434a3cb0e9");
+//        String temp = JSON.toJSONString(ddd);
+//        CustomerCorpAllVO vo = JSON.parseObject(temp, CustomerCorpAllVO.class);
         //调用客户生效方法
         customerCorpService.effect(vo);
         return ResultUtils.success("操作成功！");
