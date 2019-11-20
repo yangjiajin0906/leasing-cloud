@@ -1,0 +1,46 @@
+{
+  "orginalFile": {
+    "fileData": "",
+    "fileUrl": "",
+    "filename": "88.pdf",
+    "inFileAccessPassword": "",
+    "localPath": "D://88.pdf",
+    "sourceType": "1"
+  },
+  "sealCertList": [],
+  "securitySeals": {
+    "barcodes": [],
+    "muSeals": [],
+    "openMuSeals": [],
+    "textInfos": [],
+    "waterAndImages": [{
+      "cert": null,
+      "imageStr": "",
+      "imgFactor": "1",
+      "localPath": "D://test1.bmp",
+      "positionParam": {
+        "keyWord": null,
+        "positionType": "0",
+        "sealAreaPosition": null,
+        "sealPosition": {
+          "coordinateOrigin": "",
+          "locateMode": "",
+          "locateMove": "",
+          "pageNum": "",
+          "pageType": "0",
+          "xPosition": "250",
+          "yPosition": "100"
+        }
+      },
+      "sealCertDat": null,
+      "sourceType": "1"
+    }]
+  },
+  "signedFile": {
+    "fileName": "tt.pdf",
+    "saveType": "2",
+    "signedFileData": "",
+    "signedFileUrl": "",
+    "signedPath": "D://tt.pdf"
+  }
+}

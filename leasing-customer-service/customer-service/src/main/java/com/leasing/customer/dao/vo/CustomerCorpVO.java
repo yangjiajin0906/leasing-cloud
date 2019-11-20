@@ -2,7 +2,7 @@ package com.leasing.customer.dao.vo;
 
 
 import com.leasing.common.base.entity.BaseVO;
-import com.leasing.common.dto.sys.ParameterDTO;
+import com.leasing.common.entity.sys.dto.ParameterDTO;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 

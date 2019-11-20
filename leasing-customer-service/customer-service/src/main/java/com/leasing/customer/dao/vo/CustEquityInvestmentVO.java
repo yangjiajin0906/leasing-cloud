@@ -2,7 +2,7 @@ package com.leasing.customer.dao.vo;
 
 import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.dto.customer.CustomerDTO;
-import com.leasing.common.dto.sys.ParameterDTO;
+import com.leasing.common.entity.sys.dto.ParameterDTO;
 import com.leasing.common.vo.foundation.CurrtypeVO;
 import com.leasing.common.vo.foundation.OrgVO;
 import com.leasing.common.vo.foundation.UserVO;

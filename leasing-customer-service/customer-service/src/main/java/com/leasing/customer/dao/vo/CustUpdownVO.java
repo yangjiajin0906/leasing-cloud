@@ -7,36 +7,51 @@ import com.leasing.common.vo.foundation.OrgVO;
 import com.leasing.common.vo.foundation.UserVO;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * @project:leasing-cloud
- * @date:2019-10-30
+ * @date:2019-11-13
  * @author:zhangzhhn@yonyou.com
- * @description: 高管信息
+ * @description: 上下游客户
  **/
 @Entity
-@Table(name = "YLS_CUST_RELATED_COMPANY")
-public class CustExecutiveInformationVO extends BaseVO {
+@Table(name = "yls_cust_updown")
+public class CustUpdownVO extends BaseVO {
     /**
      * 主键
      */
     @Id
-    private String pkCustRelatedCompany;
+    private String pkCustUpdown;
 
 
     /**
-     * 客户主键
+     * 主表主键
      */
     @ManyToOne
     @JoinColumn(name = "pkCustomer")
     private CustomerDTO pkCustomer;
 
     /**
-     * 关联客户编号 家族成员姓名
+     * 关联客户编号
      */
     @ManyToOne
     @JoinColumn(name = "pkCustomerRef")
     private CustomerDTO pkCustomerRef;
+
+
+    /**
+     * 关联客户名称
+     */
+    @Transient
+    private String customerName;
+
+    /**
+     * 关联客户类别
+     */
+    @Transient
+    private Short customerType;
+
 
     /**
      * 关系分类
@@ -53,52 +68,45 @@ public class CustExecutiveInformationVO extends BaseVO {
 
 
     /**
-     * 其他关系类型
+     * 供应（销售）产品/商品名称
      */
-    private Short billtype;
-
-    /**
-     * 高管人员类别
-     */
-    private Short executiveType;
+    private String supplyProduct;
 
 
     /**
-     * 工作简历
+     * 供应（销售）额
      */
-    private String jobResume;
+    private BigDecimal supplyAmount;
 
 
     /**
-     * 家族关系
+     * 供应（销售）比例
      */
-    private Short familyRelation;
+    private BigDecimal supplyScale;
 
 
     /**
-     * 关联家族企业名称
+     * 结算方式及周期
      */
-    @ManyToOne
-    @JoinColumn(name = "memberContainsCorp")
-    private CustomerDTO memberContainsCorp;
+    private String settleMemo;
+
+
+    /**
+     * 应付金额
+     */
+    private BigDecimal planCash;
+
+
+    /**
+     * 上下游类别
+     */
+    private Short updownType;
 
 
     /**
      * 备注
      */
     private String memo;
-
-    /**
-     * 关联家族企业名称(虚拟字段,数据库中没此字段)
-     */
-    @Transient
-    private String customerName;
-
-    /**
-     * 关联家族企业类别(虚拟字段,数据库中没此字段)
-     */
-    @Transient
-    private Short customerType;
 
 
     /**
@@ -171,13 +179,17 @@ public class CustExecutiveInformationVO extends BaseVO {
     @JoinColumn(name = "pkOrg")
     private OrgVO pkOrg;
 
+    /**
+     * 合同主键
+     */
+    private String pkContract;
 
-    public String getPkCustRelatedCompany() {
-        return pkCustRelatedCompany;
+    public String getPkCustUpdown() {
+        return pkCustUpdown;
     }
 
-    public void setPkCustRelatedCompany(String pkCustRelatedCompany) {
-        this.pkCustRelatedCompany = pkCustRelatedCompany;
+    public void setPkCustUpdown(String pkCustUpdown) {
+        this.pkCustUpdown = pkCustUpdown;
     }
 
     public CustomerDTO getPkCustomer() {
@@ -196,6 +208,22 @@ public class CustExecutiveInformationVO extends BaseVO {
         this.pkCustomerRef = pkCustomerRef;
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public Short getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(Short customerType) {
+        this.customerType = customerType;
+    }
+
     public Short getRelationClass() {
         return relationClass;
     }
@@ -212,44 +240,52 @@ public class CustExecutiveInformationVO extends BaseVO {
         this.relationRole = relationRole;
     }
 
-    public Short getBilltype() {
-        return billtype;
+    public String getSupplyProduct() {
+        return supplyProduct;
     }
 
-    public void setBilltype(Short billtype) {
-        this.billtype = billtype;
+    public void setSupplyProduct(String supplyProduct) {
+        this.supplyProduct = supplyProduct;
     }
 
-    public Short getExecutiveType() {
-        return executiveType;
+    public BigDecimal getSupplyAmount() {
+        return supplyAmount;
     }
 
-    public void setExecutiveType(Short executiveType) {
-        this.executiveType = executiveType;
+    public void setSupplyAmount(BigDecimal supplyAmount) {
+        this.supplyAmount = supplyAmount;
     }
 
-    public String getJobResume() {
-        return jobResume;
+    public BigDecimal getSupplyScale() {
+        return supplyScale;
     }
 
-    public void setJobResume(String jobResume) {
-        this.jobResume = jobResume;
+    public void setSupplyScale(BigDecimal supplyScale) {
+        this.supplyScale = supplyScale;
     }
 
-    public Short getFamilyRelation() {
-        return familyRelation;
+    public String getSettleMemo() {
+        return settleMemo;
     }
 
-    public void setFamilyRelation(Short familyRelation) {
-        this.familyRelation = familyRelation;
+    public void setSettleMemo(String settleMemo) {
+        this.settleMemo = settleMemo;
     }
 
-    public CustomerDTO getMemberContainsCorp() {
-        return memberContainsCorp;
+    public BigDecimal getPlanCash() {
+        return planCash;
     }
 
-    public void setMemberContainsCorp(CustomerDTO memberContainsCorp) {
-        this.memberContainsCorp = memberContainsCorp;
+    public void setPlanCash(BigDecimal planCash) {
+        this.planCash = planCash;
+    }
+
+    public Short getUpdownType() {
+        return updownType;
+    }
+
+    public void setUpdownType(Short updownType) {
+        this.updownType = updownType;
     }
 
     public String getMemo() {
@@ -258,22 +294,6 @@ public class CustExecutiveInformationVO extends BaseVO {
 
     public void setMemo(String memo) {
         this.memo = memo;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public Short getCustomerType() {
-        return customerType;
-    }
-
-    public void setCustomerType(Short customerType) {
-        this.customerType = customerType;
     }
 
     public Short getBillstatus() {
@@ -364,13 +384,21 @@ public class CustExecutiveInformationVO extends BaseVO {
         this.pkOrg = pkOrg;
     }
 
+    public String getPkContract() {
+        return pkContract;
+    }
+
+    public void setPkContract(String pkContract) {
+        this.pkContract = pkContract;
+    }
+
     @Override
     public String getPk() {
-        return pkCustRelatedCompany;
+        return pkCustUpdown;
     }
 
     @Override
     public void setPk(String pk) {
-        this.pkCustRelatedCompany = pk;
+        this.pkCustUpdown = pk;
     }
 }
