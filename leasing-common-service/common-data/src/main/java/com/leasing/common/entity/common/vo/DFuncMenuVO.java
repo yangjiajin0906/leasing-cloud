@@ -49,7 +49,8 @@ public class DFuncMenuVO extends BaseBusinessVO {
 
     private String icon;
 
-    private Short collected;
+    @org.hibernate.annotations.Type(type="yes_no")
+    private Boolean collected;
 
     @Transient
     private List<DFuncMenuVO> children;
@@ -142,11 +143,11 @@ public class DFuncMenuVO extends BaseBusinessVO {
         this.icon = icon;
     }
 
-    public Short getCollected() {
+    public Boolean getCollected() {
         return collected;
     }
 
-    public void setCollected(Short collected) {
+    public void setCollected(Boolean collected) {
         this.collected = collected;
     }
 
