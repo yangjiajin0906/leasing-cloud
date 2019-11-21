@@ -20,8 +20,8 @@ public class Customer2DO extends FileBaseBusinessDO {
     /**
      * 主键
      */
-    @Excel(titleName = "主键", orderNum = 7)
     @Id
+    @Excel(titleName = "主键", orderNum = 7)
     private String pkCustomer;
 
     /**

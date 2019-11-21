@@ -1,7 +1,8 @@
 package com.leasing.communication.entity.dos;
 
-import cn.afterturn.easypoi.excel.annotation.Excel;
+
 import com.leasing.communication.entity.base.FileBaseBusinessDO;
+import com.leasing.communication.utils.Excel;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,167 +16,167 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="yc_capital")
-public class CapitalDO extends FileBaseBusinessDO {
+public class Capital2DO extends FileBaseBusinessDO {
     /**
      * 主键
      */
-    @Excel(name = "主键", orderNum = "10")
     @Id
+    @Excel(titleName = "主键", orderNum = 10)
     private String pkCapitalGatherAccount;
 
     /**
      * 合同编号
      */
-    @Excel(name = "合同编号", orderNum = "11")
+    @Excel(titleName = "合同编号", orderNum = 11)
     private String contCode;
 
     /**
      * 合同名称
      */
-    @Excel(name = "合同名称", orderNum = "12")
+    @Excel(titleName = "合同名称", orderNum = 12)
     private String contName;
 
     /**
      * 客户名称
      */
-    @Excel(name = "客户名称", orderNum = "13")
+    @Excel(titleName = "客户名称", orderNum = 13)
     private String customerName;
 
     /**
      * 单位名称
      */
-    @Excel(name = "单位名称", orderNum = "14")
+    @Excel(titleName = "单位名称", orderNum = 14)
     private String employerName;
 
     /**
      * 起租日期
      */
-    @Excel(name = "起租日期", orderNum = "15")
+    @Excel(titleName = "起租日期", orderNum = 15)
     private String rentDate;
 
     /**
      * 租赁方式
      */
-    @Excel(name = "租赁方式", orderNum = "16")
+    @Excel(titleName = "租赁方式", orderNum = 16)
     private Integer leaseType;
 
     /**
      * 事件类别
      */
-    @Excel(name = "事件类别", orderNum = "17")
+    @Excel(titleName = "事件类别", orderNum = 17)
     private Integer eventType;
 
     /**
      * 期次
      */
-    @Excel(name = "期次", orderNum = "18")
+    @Excel(titleName = "期次", orderNum = 18)
     private Integer periodTime;
 
     /**
      * 应收日期
      */
-    @Excel(name = "应收日期", orderNum = "19")
+    @Excel(titleName = "应收日期", orderNum = 19)
     private String receivableDate;
 
     /**
      * 应收金额
      */
-    @Excel(name = "应收金额", orderNum = "20")
+    @Excel(titleName = "应收金额", orderNum = 20)
     private BigDecimal receivableAmount;
 
     /**
      * 应收本金
      */
-    @Excel(name = "应收本金", orderNum = "21")
+    @Excel(titleName = "应收本金", orderNum = 21)
     private BigDecimal receivableCorpus;
 
     /**
      * 应收利息
      */
-    @Excel(name = "应收利息", orderNum = "22")
+    @Excel(titleName = "应收利息", orderNum = 22)
     private BigDecimal receivableInterest;
 
     /**
      * 剩余本金
      */
-    @Excel(name = "剩余本金", orderNum = "23")
+    @Excel(titleName = "剩余本金", orderNum = 23)
     private BigDecimal surplusCorpus;
 
     /**
      * 到账金额
      */
-    @Excel(name = "到账金额", orderNum = "24")
+    @Excel(titleName = "到账金额", orderNum = 24)
     private BigDecimal intoAccountAmount;
 
     /**
      * 到账日期
      */
-    @Excel(name = "到账日期", orderNum = "25")
+    @Excel(titleName = "到账日期", orderNum = 25)
     private String intoAccountDate;
 
     /**
      * 核销状态
      */
-    @Excel(name = "核销状态", orderNum = "26")
+    @Excel(titleName = "核销状态", orderNum = 26)
     private Integer verificationState;
 
     /**
      * 核销日期
      */
-    @Excel(name = "核销日期", orderNum = "27")
+    @Excel(titleName = "核销日期", orderNum = 27)
     private String verificationDate;
 
     /**
      * 收款银行
      */
-    @Excel(name = "收款银行", orderNum = "28")
+    @Excel(titleName = "收款银行", orderNum = 28)
     private String gatherBank;
 
     /**
      * 收款账号
      */
-    @Excel(name = "收款账号", orderNum = "29")
+    @Excel(titleName = "收款账号", orderNum = 29)
     private String gatherAccount;
 
     /**
      * 核销金额
      */
-    @Excel(name = "核销金额", orderNum = "30")
+    @Excel(titleName = "核销金额", orderNum = 30)
     private BigDecimal gatherBalance;
 
     /**
      * 应收余额
      */
-    @Excel(name = "应收余额", orderNum = "31")
+    @Excel(titleName = "应收余额", orderNum = 31)
     private BigDecimal receivableBalance;
 
     /**
      * 实收本金
      */
-    @Excel(name = "实收本金", orderNum = "32")
+    @Excel(titleName = "实收本金", orderNum = 32)
     private BigDecimal paidinCorpus;
 
     /**
      * 实收利息
      */
-    @Excel(name = "实收利息", orderNum = "33")
+    @Excel(titleName = "实收利息", orderNum = 33)
     private BigDecimal paidinInterest;
 
     /**
      * 是否逾期
-     */@Excel(name = "是否逾期", orderNum = "34")
+     */@Excel(titleName = "是否逾期", orderNum = 34)
     private Integer ifOverdue;
 
     /**
      * 币种
      */
-    @Excel(name = "币种", orderNum = "35")
+    @Excel(titleName = "币种", orderNum = 35)
     private String pkCurrency;
 
     /**
      * 公司主体
      */
-    @Excel(name = "公司主体", orderNum = "36")
+    @Excel(titleName = "公司主体", orderNum = 36)
     private String companyBody;
 
     @Override
@@ -620,10 +621,10 @@ public class CapitalDO extends FileBaseBusinessDO {
         this.companyBody = companyBody == null ? null : companyBody.trim();
     }
 
-    public CapitalDO() {
+    public Capital2DO() {
     }
 
-    public CapitalDO(String pkCapitalGatherAccount, String contCode, String contName, String customerName, String employerName, String rentDate, Integer leaseType, Integer eventType, Integer periodTime, String receivableDate, BigDecimal receivableAmount, BigDecimal receivableCorpus, BigDecimal receivableInterest, BigDecimal surplusCorpus, BigDecimal intoAccountAmount, String intoAccountDate, Integer verificationState, String verificationDate, String gatherBank, String gatherAccount, BigDecimal gatherBalance, BigDecimal receivableBalance, BigDecimal paidinCorpus, BigDecimal paidinInterest, Integer ifOverdue, String pkCurrency, String companyBody) {
+    public Capital2DO(String pkCapitalGatherAccount, String contCode, String contName, String customerName, String employerName, String rentDate, Integer leaseType, Integer eventType, Integer periodTime, String receivableDate, BigDecimal receivableAmount, BigDecimal receivableCorpus, BigDecimal receivableInterest, BigDecimal surplusCorpus, BigDecimal intoAccountAmount, String intoAccountDate, Integer verificationState, String verificationDate, String gatherBank, String gatherAccount, BigDecimal gatherBalance, BigDecimal receivableBalance, BigDecimal paidinCorpus, BigDecimal paidinInterest, Integer ifOverdue, String pkCurrency, String companyBody) {
         this.pkCapitalGatherAccount = pkCapitalGatherAccount;
         this.contCode = contCode;
         this.contName = contName;

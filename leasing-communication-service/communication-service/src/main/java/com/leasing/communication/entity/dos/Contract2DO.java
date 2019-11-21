@@ -1,12 +1,14 @@
 package com.leasing.communication.entity.dos;
 
-import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.leasing.communication.entity.base.FileBaseBusinessDO;
+import com.leasing.communication.enums.DecimalType;
+import com.leasing.communication.utils.Excel;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+
 /**
  * @description 2c合同DO
  * @author Yangjiajin
@@ -14,216 +16,222 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="yc_contract")
-public class ContractDO extends FileBaseBusinessDO {
+public class Contract2DO extends FileBaseBusinessDO {
     /**
      * 主键
      */
-	@Excel(name = "主键", orderNum = "10")
     @Id
+    @Excel(titleName = "主键", orderNum = 10)
     private String pkContract;
 
     /**
      * 合同状态
      */
-    @Excel(name = "合同状态",orderNum = "11")
+    @Excel(titleName = "合同状态",orderNum = 11)
     private Integer contStatus;
 
     /**
      * 业务名称
      */
-    @Excel(name = "业务名称",orderNum = "12")
+    @Excel(titleName = "业务名称",orderNum = 12)
     private Integer businessName;
 
     /**
      * 集团名称
      */
-    @Excel(name = "集团名称", orderNum = "13")
+    @Excel(titleName = "集团名称", orderNum = 13)
     private String groupName;
 
     /**
      * 合同编号
      */
-    @Excel(name = "合同编号", orderNum = "14")
+    @Excel(titleName = "合同编号", orderNum = 14)
     private String contCode;
 
     /**
      * 客户名称
      */
-    @Excel(name = "客户名称", orderNum = "15")
+    @Excel(titleName = "客户名称", orderNum = 15)
     private String customerName;
 
     /**
      * 客户身份证号
      */
-    @Excel(name = "客户身份证号", orderNum = "16")
+    @Excel(titleName = "客户身份证号", orderNum = 16)
     private String identityNo;
 
     /**
      * 起租流程
      */
-    @Excel(name = "起租流程",  orderNum = "17")
+    @Excel(titleName = "起租流程",  orderNum = 17)
     private Integer leaseFlow;
 
     /**
      * 合同签订日
      */
-    @Excel(name = "合同签订日", orderNum = "18")
+    @Excel(titleName = "合同签订日", orderNum = 18)
     private String contSignedDate;
 
     /**
      * 合同投放日
      */
-    @Excel(name = "合同投放日", orderNum = "19")
+    @Excel(titleName = "合同投放日", orderNum = 19)
     private String contLoan;
 
     /**
      * 合同实际起租日
      */
-    @Excel(name = "合同实际起租日",orderNum = "20")
+    @Excel(titleName = "合同实际起租日",orderNum = 20)
     private String leaseDateFact;
 
     /**
      * 合同结束日期
      */
-    @Excel(name = "合同结束日期",orderNum = "21")
+    @Excel(titleName = "合同结束日期",orderNum = 21)
     private String contEndDate;
 
     /**
      * 还款频率
      */
-    @Excel(name = "还款频率",orderNum = "22")
+    @Excel(titleName = "还款频率",orderNum = 22)
     private Integer refundFrequency;
 
     /**
      * 还款结构
      */
-    @Excel(name = "还款结构",orderNum = "23")
+    @Excel(titleName = "还款结构",orderNum = 23)
     private Integer refundStructure;
 
     /**
      * 租金总计
      */
-    @Excel(name = "租金总计",orderNum = "24")
+    @Excel(titleName = "租金总计",orderNum = 24)
     private BigDecimal leaseCashSum;
 
     /**
      * 本金金额
      */
-    @Excel(name = "本金金额",orderNum = "25")
+    @Excel(titleName = "本金金额",orderNum = 25)
     private BigDecimal corpusAmount;
 
     /**
      * 利息金额
      */
-    @Excel(name = "利息金额",orderNum = "26")
+    @Excel(titleName = "利息金额",orderNum = 26)
     private BigDecimal interestAmount;
 
     /**
      * 租赁方式
      */
-    @Excel(name = "租赁方式", orderNum = "27")
+    @Excel(titleName = "租赁方式", orderNum = 27)
     private Integer leaseType;
 
     /**
      * 市场IRR
      */
-    @Excel(name = "市场IRR",orderNum = "28")
+    @Excel(titleName = "市场IRR",orderNum = 28, type = @Excel.CellType(
+            decimalType = DecimalType.SIX
+    ))
     private BigDecimal marketIrr;
 
     /**
      * 会计IRR
      */
-    @Excel(name = "会计IRR",orderNum = "29")
+    @Excel(titleName = "会计IRR",orderNum = 29, type = @Excel.CellType(
+            decimalType = DecimalType.SIX
+    ))
     private BigDecimal financeIrr;
 
     /**
      * 客户所属地区
      */
-    @Excel(name = "客户所属地区", orderNum = "30")
+    @Excel(titleName = "客户所属地区", orderNum = 30)
     private Integer customerRegion;
 
     /**
      * 收票类型
      */
-    @Excel(name = "收票类型", orderNum = "31")
+    @Excel(titleName = "收票类型", orderNum = 31)
     private Integer ticketType;
 
     /**
      * 供应商名称
      */
-    @Excel(name = "供应商名称",orderNum = "32")
+    @Excel(titleName = "供应商名称",orderNum = 32)
     private String supplierName;
 
     /**
      * 供应商银行账号
      */
-    @Excel(name = "供应商银行账号",orderNum = "33")
+    @Excel(titleName = "供应商银行账号",orderNum = 33)
     private String supplierBankAccount;
 
     /**
      * 出租人名称
      */
-    @Excel(name = "出租人名称",orderNum = "34")
+    @Excel(titleName = "出租人名称",orderNum = 34)
     private String lessorName;
 
     /**
      * 租金回收方式
      */
-    @Excel(name = "租金回收方式",orderNum = "35")
+    @Excel(titleName = "租金回收方式",orderNum = 35)
     private Integer leaseRecycling;
 
     /**
      * 收款银行账号
      */
-    @Excel(name = "收款银行账号",orderNum = "36")
+    @Excel(titleName = "收款银行账号",orderNum = 36)
     private String gatherBankAccount;
 
     /**
      * 收款银行开户行
      */
-    @Excel(name = "收款银行开户行",orderNum = "37")
+    @Excel(titleName = "收款银行开户行",orderNum = 37)
     private String gatherOpenBank;
 
     /**
      * 是否有平台方保证金增信
      */
-    @Excel(name = "是否有平台方保证金增信",orderNum = "38")
+    @Excel(titleName = "是否有平台方保证金增信",orderNum = 38)
     private Integer ifDepositCredit;
 
     /**
      * 合作平台方
      */
-    @Excel(name = "合作平台方",orderNum = "39")
+    @Excel(titleName = "合作平台方",orderNum = 39)
     private String cooperationPlatform;
 
     /**
      * 保证金额度/保证金比例
      */
-    @Excel(name = "保证金额度/保证金比例",orderNum = "40")
+    @Excel(titleName = "保证金额度/保证金比例",orderNum = 40, type = @Excel.CellType(
+            decimalType = DecimalType.SIX
+    ))
     private BigDecimal depositRatio;
 
     /**
      * 运营商套餐金额
      */
-    @Excel(name = "运营商套餐金额",orderNum = "41")
+    @Excel(titleName = "运营商套餐金额",orderNum = 41)
     private BigDecimal operatorAmount;
 
     /**
      * 运营商套餐期限
      */
-    @Excel(name = "运营商套餐期限",orderNum = "42")
+    @Excel(titleName = "运营商套餐期限",orderNum = 42)
     private Integer operatorDeadline;
 
     /**
      * 终端名称
      */
-    @Excel(name = "终端名称",orderNum = "43")
+    @Excel(titleName = "终端名称",orderNum = 43)
     private String terminalName;
 
     /**
      * 终端型号
      */
-    @Excel(name = "终端型号",orderNum = "44")
+    @Excel(titleName = "终端型号",orderNum = 44)
     private String terminalType;
 
     @Override
@@ -796,10 +804,10 @@ public class ContractDO extends FileBaseBusinessDO {
         this.terminalType = terminalType == null ? null : terminalType.trim();
     }
 
-    public ContractDO() {
+    public Contract2DO() {
     }
 
-    public ContractDO(String pkContract, Integer contStatus, Integer businessName, String groupName, String contCode, String customerName, String identityNo, Integer leaseFlow, String contSignedDate, String contLoan, String leaseDateFact, String contEndDate, Integer refundFrequency, Integer refundStructure, BigDecimal leaseCashSum, BigDecimal corpusAmount, BigDecimal interestAmount, Integer leaseType, BigDecimal marketIrr, BigDecimal financeIrr, Integer customerRegion, Integer ticketType, String supplierName, String supplierBankAccount, String lessorName, Integer leaseRecycling, String gatherBankAccount, String gatherOpenBank, Integer ifDepositCredit, String cooperationPlatform, BigDecimal depositRatio, BigDecimal operatorAmount, Integer operatorDeadline, String terminalName, String terminalType) {
+    public Contract2DO(String pkContract, Integer contStatus, Integer businessName, String groupName, String contCode, String customerName, String identityNo, Integer leaseFlow, String contSignedDate, String contLoan, String leaseDateFact, String contEndDate, Integer refundFrequency, Integer refundStructure, BigDecimal leaseCashSum, BigDecimal corpusAmount, BigDecimal interestAmount, Integer leaseType, BigDecimal marketIrr, BigDecimal financeIrr, Integer customerRegion, Integer ticketType, String supplierName, String supplierBankAccount, String lessorName, Integer leaseRecycling, String gatherBankAccount, String gatherOpenBank, Integer ifDepositCredit, String cooperationPlatform, BigDecimal depositRatio, BigDecimal operatorAmount, Integer operatorDeadline, String terminalName, String terminalType) {
         this.pkContract = pkContract;
         this.contStatus = contStatus;
         this.businessName = businessName;
