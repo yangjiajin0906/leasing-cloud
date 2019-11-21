@@ -3,6 +3,7 @@ package com.leasing.communication.entity.dos;
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.leasing.communication.entity.base.FileBaseBusinessDO;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -21,6 +22,7 @@ public class WithdrawDO extends FileBaseBusinessDO {
      */
     @Excel(name = "付款信息主键", orderNum = "10")
     @Id
+    @Column(name = "pk_withdraw_repayment_C")
     private String pkWithdrawRepaymentC;
 
     /**
