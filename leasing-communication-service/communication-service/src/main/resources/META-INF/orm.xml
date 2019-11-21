@@ -16,5 +16,17 @@
         </query>
     </named-query>
 
+    <named-query name="leaseAccruedRepo.pageQuery">
+        <query>
+            select c from LeaseAccruedDO c
+        </query>
+    </named-query>
+
+    <named-query name="leaseAccruedRepo.pageQuery.count">
+        <query>
+            select count(c.pkLeaseAccrued) from LeaseAccruedDO c
+        </query>
+    </named-query>
+
 
 </entity-mappings>

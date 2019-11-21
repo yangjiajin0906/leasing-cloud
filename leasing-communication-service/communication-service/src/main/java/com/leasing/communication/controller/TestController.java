@@ -272,7 +272,7 @@ public class TestController {
         //模拟从数据库获取需要导出的数据
         List<CustomerDO> personList = new ArrayList<>();
         for (int i =1; i<60000; i++){
-            CustomerDO customer = new CustomerDO("0001MG0000" + i,"0114" + i
+            CustomerDO customer = new CustomerDO(null,"0114" + i
                     ,"客户" + i, i,"86929488-"+i, "1988-01-23", "签发机关"+i
                     ,i,2+i,0,i,"1385555777"+i,1,"子女情况"+i
                     ,"子女上学情况"+i,"行业类型"+i,i,"高薪职业"+i
@@ -298,7 +298,7 @@ public class TestController {
         }
         int size = personList.size();
         //导出操作
-        EasyPoiUtils.exportExcel(personList,"客户信息","客户",CustomerDO.class,"客户.xlsx",response);
+        EasyPoiUtils.exportExcel(personList,"客户信息","客户",CustomerDO.class,"客户.xls",response);
         Long endTime = new Date().getTime();
         System.out.println("导出了【"+size+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }
@@ -310,7 +310,7 @@ public class TestController {
      * @param [list]
      * @return void
      */
-    private void saveOracle(List<Customer2DO> list){
+    private void saveOracle(List<CustomerDO> list){
         customerService.save(list);
     }
 
@@ -324,7 +324,7 @@ public class TestController {
     @RequestMapping("importCustomerInfoTest")
     public void importCustomerInfoTest(String filePath){
         Long startTime = new Date().getTime();
-        filePath = "E:\\excel\\客户.xlsx";
+        filePath = "E:\\excel\\客户.xls";
         //解析excel
         List<CustomerDO> list = EasyPoiUtils.importExcel(filePath,1,1,CustomerDO.class);
         Long endTime = new Date().getTime();
