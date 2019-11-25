@@ -21,7 +21,6 @@ public class Customer2DO extends FileBaseBusinessDO {
      * 主键
      */
     @Id
-    @Excel(titleName = "主键", orderNum = 7)
     private String pkCustomer;
 
     /**

@@ -13,7 +13,6 @@ import java.math.BigDecimal;
  **/
 public class Person extends FileBaseBusinessDO {
 
-    @Excel(orderNum = 1, titleName = "名字")
     private String name;
 
     @Excel(orderNum = 1, titleName = "性别")
