@@ -1,5 +1,7 @@
 package com.leasing.sys.controller;
 
+import com.leasing.common.base.web.ResResult;
+import com.leasing.common.utils.base.ResultUtils;
 import com.leasing.common.vo.foundation.UserVO;
 import com.leasing.sys.service.LoginService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @project:leasing-cloud
@@ -29,9 +32,9 @@ public class LoginController {
      * @return com.leasing.common.vo.foundation.UserVO
      */
     @RequestMapping(value = "/login")
-    public UserVO login(String data){
-        UserVO userVO = loginClientService.login(data);
-        return userVO;
+    public ResResult login(@RequestBody String data, HttpServletRequest request){
+        UserVO userVO = loginClientService.login(data,request);
+        return ResultUtils.successWithData(userVO);
     }
 
     /**
@@ -42,8 +45,8 @@ public class LoginController {
      * @return void
      */
     @RequestMapping(value = "/logout")
-    public void logout(@RequestBody String data){
-        loginClientService.logout(data);
+    public void logout(@RequestBody String data, HttpServletRequest request){
+        loginClientService.logout(data,request);
     }
 
 }
