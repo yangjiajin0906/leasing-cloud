@@ -33,7 +33,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2) throws Exception {
         //登录的接口放行
-        if (arg0.getRequestURI().contains("/login") || arg0.getRequestURI().contains("/register")
+        if (arg0.getRequestURI().contains("/login") || arg0.getRequestURI().contains("/listSystem")
                 || arg0.getRequestURI().contains("/error") || arg0.getRequestURI().contains("/static")) {
             return true;
         }

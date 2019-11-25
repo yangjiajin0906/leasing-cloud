@@ -1,5 +1,6 @@
 package com.leasing.sys.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.base.DozerUtils;
@@ -9,6 +10,7 @@ import com.leasing.common.entity.common.dos.DFuncMenuDO;
 import com.leasing.common.entity.common.vo.DFuncMenuVO;
 import com.leasing.common.service.DFuncMenuService;
 import com.leasing.common.service.SystemService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -56,12 +58,13 @@ public class DFuncMenuController {
      */
     @RequestMapping(value = "/getMenuList")
     //@RequestBody String pagination
-    public ResResult getMenuList(){
-//        Map<String,Object> map = JSONObject.parseObject(pagination);
-//        Pagination page=new Pagination();
-//        page.setCurPage(Integer.parseInt(String.valueOf(map.get("pageIndex"))));
-//        page.setPageSize(Integer.parseInt(String.valueOf(map.get("pageSize"))));
-        List<DFuncMenuVO> result = dFuncMenuService.getMenuList();
+    public ResResult getMenuList(@RequestBody String data){
+        JSONObject json = JSONObject.parseObject(data);
+        String systemPk = "";
+        if(json!=null && json.get("currentSystem") != null && !StringUtils.isEmpty(json.get("currentSystem").toString())){
+            systemPk = json.get("currentSystem").toString();
+        }
+        List<DFuncMenuVO> result = dFuncMenuService.getMenuList(systemPk);
         return ResultUtils.successWithData(result);
     }
 

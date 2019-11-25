@@ -2,9 +2,13 @@ package com.leasing.common.serviceimpl;
 
 import com.leasing.common.entity.common.dos.SystemDO;
 import com.leasing.common.base.repository.SystemRepository;
+import com.leasing.common.entity.common.query.SystemQuery;
+import com.leasing.common.entity.common.vo.SystemVO;
 import com.leasing.common.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @project:leasing-cloud
@@ -21,4 +25,7 @@ public class SystemServiceImpl implements SystemService {
     public SystemDO findOne(String pk){
         return  systemRepository.findOne(pk);
     }
+
+    @Override
+    public List<SystemVO> ListSystem(){return systemRepository.pageQuery(new SystemQuery(),"ListSystem");}
 }

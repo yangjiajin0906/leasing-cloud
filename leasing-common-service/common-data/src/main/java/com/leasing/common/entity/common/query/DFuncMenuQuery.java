@@ -2,6 +2,7 @@ package com.leasing.common.entity.common.query;
 
 import com.leasing.common.annotation.QueryCondition;
 import com.leasing.common.base.entity.BaseQuery;
+import com.leasing.common.entity.common.vo.SystemVO;
 import com.leasing.common.enums.MatchType;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -22,6 +23,9 @@ public class DFuncMenuQuery extends BaseQuery {
     @QueryCondition(func = MatchType.like,field = "s.funcName")
     private String funcName;
 
+    @QueryCondition(field = "s.pkSystem")
+    private SystemVO pkSystem;
+
     public String getFuncCode() {
         return funcCode;
     }
@@ -38,4 +42,11 @@ public class DFuncMenuQuery extends BaseQuery {
         this.funcName = funcName;
     }
 
+    public SystemVO getPkSystem() {
+        return pkSystem;
+    }
+
+    public void setPkSystem(SystemVO pkSystem) {
+        this.pkSystem = pkSystem;
+    }
 }

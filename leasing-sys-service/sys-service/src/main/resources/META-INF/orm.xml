@@ -189,5 +189,20 @@
         </query>
     </named-query>
 
+    <named-query name="ListSystem">
+        <query>
+            select s from SystemVO s
+            left join fetch s.pkOrg o
+            left join fetch s.pkDept d
+            left join fetch s.pkOperator t
+        </query>
+    </named-query>
+
+    <named-query name="ListSystem.count">
+        <query>
+            select count(s.pkSystem) from SystemVO s
+        </query>
+    </named-query>
+
 
 </entity-mappings>
