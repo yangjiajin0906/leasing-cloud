@@ -23,11 +23,10 @@ import java.util.List;
  * @description:
  **/
 @RestController
-@RequestMapping(value = "/leasing/communication/file")
-public class FileUploadController {
+@RequestMapping(value = "/leasing/communication/testFile")
+public class TestFileController {
 
-    private final org.slf4j.Logger logger = LoggerFactory.getLogger(getClass());
-
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(TestFileController.class);
     /**
      * 通过文件名解析文件
      */
@@ -35,12 +34,12 @@ public class FileUploadController {
     @ResponseBody
     public String download() throws IOException {
         Long startTime = new Date().getTime();
-        OSSObject ossObject = AliyunOssUtil.downloadFile("temp/2019-11-22/CUSTOMER.xls");
+        OSSObject ossObject = AliyunOssUtil.downloadFile("2019-11-22/CUSTOMER.xls");
         InputStream inputStream = ossObject.getObjectContent();
         //解析excel
         List<Customer2DO> list = ExcelUtil.importExcel(inputStream,Customer2DO.class,"CUSTOMER.xls");
         Long endTime = new Date().getTime();
-        System.out.println("导入了【"+list.size()+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
+        logger.info("导入了【"+list.size()+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
         inputStream.close();
         return "success";
     }
@@ -51,7 +50,7 @@ public class FileUploadController {
     @RequestMapping("/testListFile")
     @ResponseBody
     public String testListFile() {
-        List<OSSObject> list = AliyunOssUtil.listFile();
+        List<OSSObject> list = AliyunOssUtil.listFile("temp/2019-11-22/");
         return "success";
     }
 
