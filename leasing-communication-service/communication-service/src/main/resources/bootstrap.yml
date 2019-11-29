@@ -8,6 +8,11 @@ spring:
                   serviceId: leasing-config-server
     jpa:
       show-sql: true
+      hibernate:
+        enable_lazy_load_no_trans: true
+        ddl-auto: none
+        naming:
+          physical-strategy: com.leasing.communication.utils.JpaNamingStrategy # 自己定义的加载策略
 
 # OSS
 aliyun:

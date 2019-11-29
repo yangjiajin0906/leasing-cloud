@@ -73,6 +73,100 @@ public class ExcelUtil {
      */
     private final static String E = "e";
 
+    /**
+     * 传入文本对象输出list集合（导入）
+     *
+     * @param file  流文件
+     * @param clazz 要转义成的类对象
+     * @return
+     */
+    public static <T> List<T> importExcel(InputStream is, Class<T> clazz, String fileName) {
+        // 获得HSSFWorkbook工作薄对象
+        Workbook workbook = getWorkBook(is,fileName);
+        List<T> list = new ArrayList<T>();
+        //获取对象总数量
+        Field[] fields = getSortFields(clazz);
+        //对象字段排序
+//        Arrays.sort(fields, (a, b) -> {
+//            return a.getAnnotation(Excel.class).orderNum() - b.getAnnotation(Excel.class).orderNum();
+//        });
+        if (workbook != null) {
+            //sheet工作表
+            Sheet sheet = null;
+            // 获取当前sheet工作表的列总数
+            int firstLine = 0;
+            // 获得当前sheet的开始行
+            int firstRowNum = 0;
+            // 获得当前sheet的结束行
+            int lastRowNum = 0;
+            //临时对象
+            Object obj;
+            // 取出对应注解
+            Excel excel = null;
+            //每个单元格
+            Cell cell = null;
+            //每个值
+            Object value = null;
+            for (int sheetNum = 0; sheetNum < workbook.getNumberOfSheets(); sheetNum++) {
+                // 获得当前sheet工作表
+                sheet = workbook.getSheetAt(sheetNum);
+                if (sheet == null || sheet.getLastRowNum() == 0) {
+                    continue;
+                }
+                // 获取当前sheet工作表的列总数
+                firstLine = sheet.getRow(0).getPhysicalNumberOfCells();
+                if (fields.length != firstLine) {
+                    throw new BizException(ErrorCode.SYS_EXCEPTION.getCode(), ROW_NUM_ERROR);
+                }
+                // 获得当前sheet的开始行
+                firstRowNum = sheet.getFirstRowNum();
+                // 获得当前sheet的结束行
+                lastRowNum = sheet.getLastRowNum();
+                // 循环所有行
+                for (int rowNum = firstRowNum; rowNum <= lastRowNum; rowNum++) {
+                    // 获得当前行
+                    Row row = sheet.getRow(rowNum);
+                    if (row == null) {
+                        continue;
+                    }
+                    try {
+                        obj = clazz.newInstance();
+                    } catch (IllegalAccessException | InstantiationException e) {
+                        log.error("【excel导入】clazz映射地址：{},{}", clazz.getCanonicalName(), "excel导入异常！");
+                        throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel导入异常", e);
+                    }
+                    for (int cellNum = 0; cellNum < firstLine; cellNum++) {
+                        // 取出对应注解
+                        excel = fields[cellNum].getAnnotation(Excel.class);
+                        cell = row.getCell(cellNum);
+                        if (rowNum == 0) {
+                            // 第一行 判断表头名称
+                            if (cell == null || StringUtils.isEmpty(cell.getStringCellValue()) || !cell.getStringCellValue().equals(excel.titleName())) {
+                                throw new BizException(ErrorCode.SYS_EXCEPTION.getCode(), NAME_ERROR);
+                            }
+                            continue;
+                        }
+                        value = getCellValue(cell);
+                        // 判断注解是否允许空值
+                        if (!excel.empty()) {
+                            if (value == null || "".equals(value)) {
+                                throw new BizException(ErrorCode.SYS_EXCEPTION.getCode(), excel.titleName() + "不能为空");
+                            }
+                        }
+                        // 根绝类型 实体类赋值
+                        createBean(fields[cellNum], obj, value);
+                    }
+                    if (rowNum == 0) {
+                        // 表头不做记录
+                        continue;
+                    }
+                    list.add((T) obj);
+                }
+            }
+        }
+        return list;
+    }
+
 
     /**
      * 传入文本对象输出list集合（导入）
@@ -90,25 +184,41 @@ public class ExcelUtil {
         //获取对象总数量
         Field[] fields = getSortFields(clazz);
         //对象字段排序
-        Arrays.sort(fields, (a, b) -> {
-            return a.getAnnotation(Excel.class).orderNum() - b.getAnnotation(Excel.class).orderNum();
-        });
+//        Arrays.sort(fields, (a, b) -> {
+//            return a.getAnnotation(Excel.class).orderNum() - b.getAnnotation(Excel.class).orderNum();
+//        });
         if (workbook != null) {
+            //sheet工作表
+            Sheet sheet = null;
+            // 获取当前sheet工作表的列总数
+            int firstLine = 0;
+            // 获得当前sheet的开始行
+            int firstRowNum = 0;
+            // 获得当前sheet的结束行
+            int lastRowNum = 0;
+            //临时对象
+            Object obj;
+            // 取出对应注解
+            Excel excel = null;
+            //每个单元格
+            Cell cell = null;
+            //每个值
+            Object value = null;
             for (int sheetNum = 0; sheetNum < workbook.getNumberOfSheets(); sheetNum++) {
                 // 获得当前sheet工作表
-                Sheet sheet = workbook.getSheetAt(sheetNum);
+                sheet = workbook.getSheetAt(sheetNum);
                 if (sheet == null || sheet.getLastRowNum() == 0) {
                     continue;
                 }
                 // 获取当前sheet工作表的列总数
-                int firstLine = sheet.getRow(0).getPhysicalNumberOfCells();
+                firstLine = sheet.getRow(0).getPhysicalNumberOfCells();
                 if (fields.length != firstLine) {
                     throw new BizException(ErrorCode.SYS_EXCEPTION.getCode(), ROW_NUM_ERROR);
                 }
                 // 获得当前sheet的开始行
-                int firstRowNum = sheet.getFirstRowNum();
+                firstRowNum = sheet.getFirstRowNum();
                 // 获得当前sheet的结束行
-                int lastRowNum = sheet.getLastRowNum();
+                lastRowNum = sheet.getLastRowNum();
                 // 循环所有行
                 for (int rowNum = firstRowNum; rowNum <= lastRowNum; rowNum++) {
                     // 获得当前行
@@ -116,20 +226,16 @@ public class ExcelUtil {
                     if (row == null) {
                         continue;
                     }
-                    Object obj;
                     try {
                         obj = clazz.newInstance();
-                    } catch (IllegalAccessException e) {
-                        log.error("【excel导入】clazz映射地址：{},{}", clazz.getCanonicalName(), "excel导入异常！");
-                        throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel导入异常", e);
-                    } catch (InstantiationException e) {
+                    } catch (IllegalAccessException | InstantiationException e) {
                         log.error("【excel导入】clazz映射地址：{},{}", clazz.getCanonicalName(), "excel导入异常！");
                         throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel导入异常", e);
                     }
                     for (int cellNum = 0; cellNum < firstLine; cellNum++) {
                         // 取出对应注解
-                        Excel excel = fields[cellNum].getAnnotation(Excel.class);
-                        Cell cell = row.getCell(cellNum);
+                        excel = fields[cellNum].getAnnotation(Excel.class);
+                        cell = row.getCell(cellNum);
                         if (rowNum == 0) {
                             // 第一行 判断表头名称
                             if (cell == null || StringUtils.isEmpty(cell.getStringCellValue()) || !cell.getStringCellValue().equals(excel.titleName())) {
@@ -137,7 +243,7 @@ public class ExcelUtil {
                             }
                             continue;
                         }
-                        Object value = getCellValue(cell);
+                        value = getCellValue(cell);
                         // 判断注解是否允许空值
                         if (!excel.empty()) {
                             if (value == null || "".equals(value)) {
@@ -312,18 +418,22 @@ public class ExcelUtil {
         Map<String, CellStyle> hashMap = new HashMap<>();
         try {
             if (flag) {
+                Object obj = null;
+                Row row = null;
+                Field field = null;
+                Object o = null;
+                Cell cell = null;
                 // 开始生成excel
                 for (int rowIndex = 1; rowIndex <= list.size(); rowIndex++) {
-                    Object obj = list.get(rowIndex - 1);
-                    Field[] sortFields = getSortFields(obj.getClass());
-                    //创建第 rowIndex 行）
-                    Row row = sheet.createRow(rowIndex);
-                    for (int i = 0; i < sortFields.length; i++) {
-                        Field field = sortFields[i];
+                    obj = list.get(rowIndex - 1);
+                    //创建第 rowIndex 行
+                    row = sheet.createRow(rowIndex);
+                    for (int i = 0; i < fields.length; i++) {
+                        field = fields[i];
                         if (!field.isAccessible()) {
                             field.setAccessible(true);
                         }
-                        Object o = new PropertyDescriptor(field.getName(), clazz).getReadMethod().invoke(obj);
+                        o = new PropertyDescriptor(field.getName(), clazz).getReadMethod().invoke(obj);
                         if (!field.getAnnotation(Excel.class).empty() && o == null) {
                             log.error("【excel导出】class映射地址：{},空指针参数：{},{}", clazz.getCanonicalName(), field.getName(), "数据集空指针");
                             return false;
@@ -340,7 +450,7 @@ public class ExcelUtil {
             return true;
         } catch (IOException e) {
             throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel导出异常", e);
-        } catch (IllegalAccessException e) {
+        }catch (IllegalAccessException e) {
             throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel导出异常", e);
         } catch (InvocationTargetException e) {
             throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel导出异常", e);
@@ -364,12 +474,12 @@ public class ExcelUtil {
             return;
         } else if (value instanceof String) {
             cell.setCellValue(value.toString());
-        } else if (value instanceof Integer
-                || value instanceof BigDecimal
+        } else if (value instanceof Integer) {
+            cell.setCellValue(value.toString());
+        } else if (value instanceof BigDecimal
                 || value instanceof Double
                 || value instanceof Float
-                || value instanceof Long
-                || value instanceof Short) {
+                || value instanceof Long) {
             if (field.getAnnotation(Excel.class).type().IsMoney()) {
                 // 判断类型
                 BigDecimal bi1 = new BigDecimal(value.toString());
@@ -570,6 +680,14 @@ public class ExcelUtil {
     private static Field[] getSortFields(Class clazz) {
         //获取对象总数量
         Field[] fields = clazz.getDeclaredFields();
+        List<Field> list = new ArrayList();
+        for (int i = 0; i<fields.length; i++){
+            if(fields[i].isAnnotationPresent(Excel.class)){
+                list.add(fields[i]);
+            }
+        }
+        fields = list.toArray(new Field[list.size()]);
+
         if (fields == null || fields.length == 0) {
             log.error("【excel导入】clazz映射地址：{},{}", clazz.getCanonicalName(), "实体空异常！");
             throw new BizException(ErrorCode.SYS_EXCEPTION.getCode(), BEAN_ERROR);
@@ -580,9 +698,9 @@ public class ExcelUtil {
                 throw new BizException(ErrorCode.SYS_EXCEPTION.getCode(), ANNOTATION_ERROR);
             }
         }
-        Arrays.sort(fields, (a, b) -> {
-            return a.getAnnotation(Excel.class).orderNum() - b.getAnnotation(Excel.class).orderNum();
-        });
+//        Arrays.sort(fields, (a, b) -> {
+//            return a.getAnnotation(Excel.class).orderNum() - b.getAnnotation(Excel.class).orderNum();
+//        });
         return fields;
     }
 
@@ -681,6 +799,46 @@ public class ExcelUtil {
             }
         } catch (IOException e) {
             throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel 转换 HSSFWorkbook 异常！", e);
+        }finally {
+            try {
+                if(is == null){
+                    is.close();
+                }
+            }catch (Exception e){
+                throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel 转换 HSSFWorkbook 异常！", e);
+            }
+        }
+        return workbook;
+    }
+
+    /**
+     * 由文件生成 poi Workbook
+     *
+     * @param is
+     * @param fileName
+     * @return
+     */
+    private static Workbook getWorkBook(InputStream is, String fileName) {
+        Workbook workbook = null;
+        // 获取excel文件的io流
+        try {
+            if (fileName.endsWith(XLS)) {
+                // 2003
+                workbook = new HSSFWorkbook(is);
+            } else if (fileName.endsWith(XLS_X)) {
+                // 2007
+                workbook = new XSSFWorkbook(is);
+            }
+        } catch (IOException e) {
+            throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel 转换 HSSFWorkbook 异常！", e);
+        }finally {
+            try {
+                if(is == null){
+                    is.close();
+                }
+            }catch (Exception e){
+                throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "输入流关闭异常！", e);
+            }
         }
         return workbook;
     }

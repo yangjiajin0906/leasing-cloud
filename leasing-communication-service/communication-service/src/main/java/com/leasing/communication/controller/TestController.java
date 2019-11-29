@@ -430,7 +430,7 @@ public class TestController {
         Long startTime = new Date().getTime();
         //模拟从数据库获取需要导出的数据
         List<Customer2DO> personList = new ArrayList<>();
-        for (int i =1; i<60000; i++){
+        for (int i =1; i<20000; i++){
             Customer2DO customer = new Customer2DO(null,"0114" + i
                     ,"客户" + i, i,"86929488-"+i, "1988-01-23", "签发机关"+i
                     ,i,2+i,0,i,"1385555777"+i,1,"子女情况"+i

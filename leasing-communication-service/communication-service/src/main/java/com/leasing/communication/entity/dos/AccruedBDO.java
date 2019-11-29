@@ -20,7 +20,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="yls_lease_accrued_b")
-public class LeaseAccruedBDO extends BaseDO {
+public class AccruedBDO extends BaseDO {
 
     /**
      * 主键
@@ -90,7 +90,7 @@ public class LeaseAccruedBDO extends BaseDO {
     /**
      * 类LeaseAccruedBVO的构造方法
      */
-    public LeaseAccruedBDO() {
+    public AccruedBDO() {
     }
 
     public String getPkLeaseAccruedB() {

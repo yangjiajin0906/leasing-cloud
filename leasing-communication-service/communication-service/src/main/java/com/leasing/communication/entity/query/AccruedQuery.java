@@ -8,6 +8,6 @@ import com.leasing.common.base.entity.BaseQuery;
  * @author:Yjj@yonyou.com
  * @description:2c 月末计提查询VO
  **/
-public class LeaseAccruedQuery extends BaseQuery {
+public class AccruedQuery extends BaseQuery {
 
 }

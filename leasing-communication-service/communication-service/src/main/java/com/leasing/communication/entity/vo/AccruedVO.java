@@ -1,11 +1,16 @@
-package com.leasing.communication.entity.dos;
+package com.leasing.communication.entity.vo;
 
 
+import com.leasing.common.base.entity.BaseBusinessVO;
 import com.leasing.common.base.entity.BaseDO;
+import com.leasing.common.vo.foundation.OrgDTO;
+import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.communication.entity.dos.AccruedBDO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
+
 /**
  * Title: 租赁账户管理系统<br>
  * Description: 计提主表(中投)类<br>
@@ -17,7 +22,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="yls_lease_accrued")
-public class LeaseAccruedDO extends BaseDO {
+public class AccruedVO extends BaseBusinessVO {
 
     /**
      * 主键
@@ -64,12 +69,16 @@ public class LeaseAccruedDO extends BaseDO {
     /**
      * 计提单位
      */
-    public String pkCorp;
+    @ManyToOne
+    @JoinColumn(name = "pkCorp")
+    public OrgDTO pkCorp;
 
     /**
      * 复核员主键
      */
-    public String pkChecker;
+    @ManyToOne
+    @JoinColumn(name = "pkChecker")
+    public UserVO pkChecker;
 
     /**
      * 复核日期
@@ -83,37 +92,16 @@ public class LeaseAccruedDO extends BaseDO {
     public String checkTime;
 
     /**
-     * 单据状态
-     */
-    public Short billstatus;
-
-    /**
-     * 操作人
-     */
-    public String pkOperator;
-    /**
-     * 操作日期
-     */
-    public String operateDate;
-    /**
-     * 操作时间
-     */
-    public String operateTime;
-    /**
-     * 机构
-     */
-    public String pkOrg;
-
-    /**
      * 授权人主键
      */
-    public String pkGrantor;
+    @ManyToOne
+    @JoinColumn(name = "pkGrantor")
+    public UserVO pkGrantor;
 
     /**
      * 授权日期
      */
     public String grantDate;
-
 
     /**
      * 授权时间
@@ -123,13 +111,24 @@ public class LeaseAccruedDO extends BaseDO {
     /**
      * 计提子表(中投)
      */
-    @OneToMany(orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="pkLeaseAccrued")
-    public List<LeaseAccruedBDO> leaseAccruedB;
+    @OneToMany(orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="leaseAccruedB")
+    public List<AccruedBVO> leaseAccruedB;
+
+    @Override
+    public String getPk() {
+        return pkLeaseAccrued;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkLeaseAccrued = pk;
+    }
+
     /**
      * 类LeaseAccruedVO的构造方法
      */
-    public LeaseAccruedDO() {
+    public AccruedVO() {
     }
 
     public String getPkLeaseAccrued() {
@@ -188,19 +187,19 @@ public class LeaseAccruedDO extends BaseDO {
         this.contractType = contractType;
     }
 
-    public String getPkCorp() {
+    public OrgDTO getPkCorp() {
         return pkCorp;
     }
 
-    public void setPkCorp(String pkCorp) {
+    public void setPkCorp(OrgDTO pkCorp) {
         this.pkCorp = pkCorp;
     }
 
-    public String getPkChecker() {
+    public UserVO getPkChecker() {
         return pkChecker;
     }
 
-    public void setPkChecker(String pkChecker) {
+    public void setPkChecker(UserVO pkChecker) {
         this.pkChecker = pkChecker;
     }
 
@@ -220,11 +219,11 @@ public class LeaseAccruedDO extends BaseDO {
         this.checkTime = checkTime;
     }
 
-    public String getPkGrantor() {
+    public UserVO getPkGrantor() {
         return pkGrantor;
     }
 
-    public void setPkGrantor(String pkGrantor) {
+    public void setPkGrantor(UserVO pkGrantor) {
         this.pkGrantor = pkGrantor;
     }
 
@@ -244,62 +243,12 @@ public class LeaseAccruedDO extends BaseDO {
         this.grantTime = grantTime;
     }
 
-    public List<LeaseAccruedBDO> getLeaseAccruedB() {
+    public List<AccruedBVO> getLeaseAccruedB() {
         return leaseAccruedB;
     }
 
-    public void setLeaseAccruedB(List<LeaseAccruedBDO> leaseAccruedB) {
+    public void setLeaseAccruedB(List<AccruedBVO> leaseAccruedB) {
         this.leaseAccruedB = leaseAccruedB;
-    }
-
-    @Override
-    public String getPk() {
-        return pkLeaseAccrued;
-    }
-
-    @Override
-    public void setPk(String pk) {
-        this.pkLeaseAccrued = pk;
-    }
-
-    public String getPkOperator() {
-        return pkOperator;
-    }
-
-    public void setPkOperator(String pkOperator) {
-        this.pkOperator = pkOperator;
-    }
-
-    public String getOperateDate() {
-        return operateDate;
-    }
-
-    public void setOperateDate(String operateDate) {
-        this.operateDate = operateDate;
-    }
-
-    public String getOperateTime() {
-        return operateTime;
-    }
-
-    public void setOperateTime(String operateTime) {
-        this.operateTime = operateTime;
-    }
-
-    public String getPkOrg() {
-        return pkOrg;
-    }
-
-    public void setPkOrg(String pkOrg) {
-        this.pkOrg = pkOrg;
-    }
-
-    public Short getBillstatus() {
-        return billstatus;
-    }
-
-    public void setBillstatus(Short billstatus) {
-        this.billstatus = billstatus;
     }
 }
 
