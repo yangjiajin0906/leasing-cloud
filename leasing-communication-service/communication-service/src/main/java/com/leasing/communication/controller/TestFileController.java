@@ -1,21 +1,11 @@
 package com.leasing.communication.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.aliyun.oss.model.OSSObject;
-import com.leasing.communication.entity.dos.Customer2DO;
+import com.leasing.communication.entity.dos.CustomerDO;
 import com.leasing.communication.utils.AliyunOssUtil;
 import com.leasing.communication.utils.ExcelUtil;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
-import com.mongodb.DBCursor;
-import com.mongodb.Mongo;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.gridfs.GridFSFindIterable;
 import com.mongodb.client.gridfs.model.GridFSFile;
-import com.mongodb.gridfs.GridFS;
-import com.mongodb.gridfs.GridFSDBFile;
-import com.mongodb.operation.BatchCursor;
 import org.bson.types.ObjectId;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +30,6 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import static org.springframework.data.mongodb.core.query.Query.query;
-import static org.springframework.data.mongodb.gridfs.GridFsCriteria.whereFilename;
 
 /**
  * @project:leasing-cloud
@@ -69,7 +58,7 @@ public class TestFileController {
         OSSObject ossObject = AliyunOssUtil.downloadFile("2019-11-25/客户.xls");
         InputStream inputStream = ossObject.getObjectContent();
         //解析excel
-        List<Customer2DO> list = ExcelUtil.importExcel(inputStream,Customer2DO.class,"客户.xls");
+        List<CustomerDO> list = ExcelUtil.importExcel(inputStream,CustomerDO.class,"客户.xls");
         Long endTime = new Date().getTime();
         logger.info("导入了【"+list.size()+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
         inputStream.close();

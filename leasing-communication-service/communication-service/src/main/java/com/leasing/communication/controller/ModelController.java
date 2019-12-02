@@ -33,9 +33,9 @@ public class ModelController {
     public void exportCus(HttpServletResponse response){
         Long startTime = new Date().getTime();
         //模拟从数据库获取需要导出的数据
-        List<Customer2DO> personList = new ArrayList<>();
+        List<CustomerDO> personList = new ArrayList<>();
         for (int i =1; i<10; i++){
-            Customer2DO customer = new Customer2DO(null,"0114" + i
+            CustomerDO customer = new CustomerDO(null,"0114" + i
                     ,"客户" + i, i,"86929488-"+i, "1988-01-23", "签发机关"+i
                     ,i,2+i,0,i,"1385555777"+i,1,"子女情况"+i
                     ,"子女上学情况"+i,"行业类型"+i,i,"高薪职业"+i
@@ -61,7 +61,7 @@ public class ModelController {
         }
         int size = personList.size();
         //导出操作
-        ExcelUtil.exportExcel("CUSTOMER",personList,Customer2DO.class, Type.XLS,response);
+        ExcelUtil.exportExcel("CUSTOMER",personList,CustomerDO.class, Type.XLS,response);
         Long endTime = new Date().getTime();
         System.out.println("导出了【"+size+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }
@@ -77,9 +77,9 @@ public class ModelController {
     public void exportCon(HttpServletResponse response){
         Long startTime = new Date().getTime();
         //模拟从数据库获取需要导出的数据
-        List<Contract2DO> personList = new ArrayList<>();
+        List<ContractDO> personList = new ArrayList<>();
         for (int i =1; i<100000; i++){
-            Contract2DO contract2DO = new Contract2DO(null,1,1,"集团名称"+i
+            ContractDO contract2DO = new ContractDO(null,1,1,"集团名称"+i
                     ,"0001MG0000000006283"+i,"客户名称"+i,"15222119901104221"+i,1
                     ,"2013-11-01","2013-11-05","2013-11-10","2013-11-15"
                     ,1,1,new BigDecimal("1067704.00"),new BigDecimal("352539.00")
@@ -94,7 +94,7 @@ public class ModelController {
         }
         int size = personList.size();
         //导出操作
-        ExcelUtil.exportExcel("CONTRACT",personList,Contract2DO.class, Type.XLS_X,response);
+        ExcelUtil.exportExcel("CONTRACT",personList,ContractDO.class, Type.XLS_X,response);
         Long endTime = new Date().getTime();
         System.out.println("导出了【"+size+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }
@@ -110,9 +110,9 @@ public class ModelController {
     public void exportCap(HttpServletResponse response){
         Long startTime = new Date().getTime();
         //模拟从数据库获取需要导出的数据
-        List<Capital2DO> personList = new ArrayList<>();
+        List<CapitalDO> personList = new ArrayList<>();
         for (int i =1; i<10; i++){
-            Capital2DO capitalDO = new Capital2DO(null,"0001MG0000000006283"+i,"合同名称"+i,"客户名称"+i,"单位名称"+i
+            CapitalDO capitalDO = new CapitalDO(null,"0001MG0000000006283"+i,"合同名称"+i,"客户名称"+i,"单位名称"+i
                     ,"2014-04-04",1,1,1,"2014-04-06",new BigDecimal("1067704.00"),new BigDecimal("1007704.00"),new BigDecimal("60000.00"),new BigDecimal("1007704.00")
                     ,new BigDecimal("1067704.00"),"2014-05-04",1,"2014-05-04","招商银行"+i,"63252340050519"+i,new BigDecimal("1067704.00"),new BigDecimal("1067704.00"),new BigDecimal("1007704.00")
                     ,new BigDecimal("60000.00"),1,"0001MG0000000006283"+i,"中建投租赁股份有限公司");
@@ -121,7 +121,7 @@ public class ModelController {
         }
         int size = personList.size();
         //导出操作
-        ExcelUtil.exportExcel("CAPITAL",personList,Capital2DO.class, Type.XLS,response);
+        ExcelUtil.exportExcel("CAPITAL",personList,CapitalDO.class, Type.XLS,response);
         Long endTime = new Date().getTime();
         System.out.println("导出了【"+size+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }
@@ -137,9 +137,9 @@ public class ModelController {
     public void exportWit(HttpServletResponse response){
         Long startTime = new Date().getTime();
         //模拟从数据库获取需要导出的数据
-        List<Withdraw2DO> personList = new ArrayList<>();
+        List<WithdrawDO> personList = new ArrayList<>();
         for (int i =1; i<10; i++){
-            Withdraw2DO capitalDO = new Withdraw2DO(null,"0001MG0000000006283"+i
+            WithdrawDO capitalDO = new WithdrawDO(null,"0001MG0000000006283"+i
                     ,"合同名称"+i,"方超"+i,"63252340050519"+i
                     ,"北京望京支行"+i,"63252340050626"+i,"张三"+i
                     ,"单位名称"+i,"2014-04-06"
@@ -149,7 +149,7 @@ public class ModelController {
         }
         int size = personList.size();
         //导出操作
-        ExcelUtil.exportExcel("WITHDRAW",personList,Withdraw2DO.class, Type.XLS,response);
+        ExcelUtil.exportExcel("WITHDRAW",personList,WithdrawDO.class, Type.XLS,response);
         Long endTime = new Date().getTime();
         System.out.println("导出了【"+size+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }
@@ -165,9 +165,9 @@ public class ModelController {
     public void exportInv(HttpServletResponse response){
         Long startTime = new Date().getTime();
         //模拟从数据库获取需要导出的数据
-        List<InvoiceApply2DO> personList = new ArrayList<>();
+        List<InvoiceApplyDO> personList = new ArrayList<>();
         for (int i =1; i<10; i++){
-            InvoiceApply2DO capitalDO = new InvoiceApply2DO(null,"0001MG0000000006283"+i,"合同名称"+i,"发票抬头"+i,"17593064038563753"+i
+            InvoiceApplyDO capitalDO = new InvoiceApplyDO(null,"0001MG0000000006283"+i,"合同名称"+i,"发票抬头"+i,"17593064038563753"+i
                     ,"北京"+i,"1514761642"+i,"北京望京支行"+i,"63252340050626"+i,"上海"+i,"张三"+i,"单位名称"+i,1,1
                     ,"2015-04-10",new BigDecimal("0.21"),new BigDecimal("9619.29"),new BigDecimal("312321.42"),1,1,"中建投租赁股份有限公司"
             );
@@ -175,7 +175,7 @@ public class ModelController {
         }
         int size = personList.size();
         //导出操作
-        ExcelUtil.exportExcel("INVOICEAPPLY",personList,InvoiceApply2DO.class, Type.XLS,response);
+        ExcelUtil.exportExcel("INVOICEAPPLY",personList,InvoiceApplyDO.class, Type.XLS,response);
         Long endTime = new Date().getTime();
         System.out.println("导出了【"+size+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }
@@ -191,9 +191,9 @@ public class ModelController {
     public void exportIno(HttpServletResponse response){
         Long startTime = new Date().getTime();
         //模拟从数据库获取需要导出的数据
-        List<InoutPlan2DO> personList = new ArrayList<>();
+        List<InoutPlanDO> personList = new ArrayList<>();
         for (int i =1; i<10; i++){
-            InoutPlan2DO capitalDO = new InoutPlan2DO(null, "CONT_CODE" + i, i, i, i, "2019-01-23"
+            InoutPlanDO capitalDO = new InoutPlanDO(null, "CONT_CODE" + i, i, i, i, "2019-01-23"
                     , new BigDecimal("78.55"), new BigDecimal("99.33"), new BigDecimal("67.89"), "2019-01-23", new BigDecimal("444.44")
                     , new BigDecimal("123.45"), new BigDecimal("666.98"), new BigDecimal("456.98"), new BigDecimal("55.77")
                     , "CHNFGHSERFFFGHFRDSED");
@@ -201,7 +201,7 @@ public class ModelController {
         }
         int size = personList.size();
         //导出操作
-        ExcelUtil.exportExcel("INOUTPLAN",personList,InoutPlan2DO.class, Type.XLS,response);
+        ExcelUtil.exportExcel("INOUTPLAN",personList,InoutPlanDO.class, Type.XLS,response);
         Long endTime = new Date().getTime();
         System.out.println("导出了【"+size+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }

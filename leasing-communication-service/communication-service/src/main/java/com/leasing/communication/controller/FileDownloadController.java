@@ -41,7 +41,7 @@ public class FileDownloadController {
      * @author Yangjiajin
      * @date 2019/11/25 11:54
      * @param fileName 文件名称
-     * @return Customer2DO
+     * @return CustomerDO
      */
     public String  downloadFileCon(String fileName) throws IOException {
         fileDownloadService.downloadFileCon(fileName);
@@ -53,7 +53,7 @@ public class FileDownloadController {
      * @author Yangjiajin
      * @date 2019/11/25 11:54
      * @param fileName 文件名称
-     * @return Customer2DO
+     * @return CustomerDO
      */
     public String  downloadFileWit(String fileName) throws IOException {
         fileDownloadService.downloadFileWit(fileName);
@@ -65,7 +65,7 @@ public class FileDownloadController {
      * @author Yangjiajin
      * @date 2019/11/25 11:54
      * @param fileName 文件名称
-     * @return Customer2DO
+     * @return CustomerDO
      */
     public String  downloadFileCap(String fileName) throws IOException {
         fileDownloadService.downloadFileCap(fileName);
@@ -77,7 +77,7 @@ public class FileDownloadController {
      * @author Yangjiajin
      * @date 2019/11/25 11:54
      * @param fileName 文件名称
-     * @return Customer2DO
+     * @return CustomerDO
      */
     public String  downloadFileInv(String fileName) throws IOException {
         fileDownloadService.downloadFileInv(fileName);
@@ -89,7 +89,7 @@ public class FileDownloadController {
      * @author Yangjiajin
      * @date 2019/11/25 11:54
      * @param fileName 文件名称
-     * @return Customer2DO
+     * @return CustomerDO
      */
     public String  downloadFileIno(String fileName) throws IOException {
         fileDownloadService.downloadFileIno(fileName);
