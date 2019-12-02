@@ -1,7 +1,7 @@
 package com.leasing.communication.entity.dos;
 
-import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.leasing.communication.entity.base.FileBaseBusinessDO;
+import com.leasing.communication.utils.Excel;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,98 +19,98 @@ public class InoutPlanDO extends FileBaseBusinessDO {
     /**
      * 租金计划主键
      */
-    @Excel(name = "租金计划主键", orderNum = "10")
     @Id
+    @Excel(titleName = "主键", orderNum = 10)
     private String pkInoutPlan;
 
     /**
      * 合同编号
      */
-    @Excel(name = "合同编号", orderNum = "11")
+    @Excel(titleName = "合同编号", orderNum = 11)
     private String contCode;
 
     /**
      * 租赁方式
      */
-    @Excel(name = "租赁方式",orderNum = "12")
+    @Excel(titleName = "租赁方式",orderNum = 12)
     private Integer leaseType;
 
     /**
      * 事件类别
      */
-    @Excel(name = "事件类别",orderNum = "13")
+    @Excel(titleName = "事件类别",orderNum = 13)
     private Integer rentEventType;
 
     /**
      * 计划期次
      */
-    @Excel(name = "计划期次", orderNum = "14")
+    @Excel(titleName = "计划期次", orderNum = 14)
     private Integer planLeaseTime;
 
     /**
      * 计划日期
      */
-    @Excel(name = "计划日期", orderNum = "15")
+    @Excel(titleName = "计划日期", orderNum = 15)
     private String planDate;
 
     /**
      * 计划金额
      */
-    @Excel(name = "计划金额", orderNum = "16")
+    @Excel(titleName = "计划金额", orderNum = 16)
     private BigDecimal planAmount;
 
     /**
      * 计划本金
      */
-    @Excel(name = "计划本金", orderNum = "17")
+    @Excel(titleName = "计划本金", orderNum = 17)
     private BigDecimal planLeaseCorpus;
 
     /**
      * 计划利息
      */
-    @Excel(name = "计划利息", orderNum = "18")
+    @Excel(titleName = "计划利息", orderNum = 18)
     private BigDecimal planInterest;
 
     /**
      * 实收日期
      */
-    @Excel(name = "实收日期", orderNum = "19")
+    @Excel(titleName = "实收日期", orderNum = 19)
     private String datePaidin;
 
     /**
      * 实收金额
      */
-    @Excel(name = "实收金额", orderNum = "20")
+    @Excel(titleName = "实收金额", orderNum = 20)
     private BigDecimal amountPaidin;
 
     /**
      * 实收本金
      */
-    @Excel(name = "实收本金", orderNum = "21")
+    @Excel(titleName = "实收本金", orderNum = 21)
     private BigDecimal corpusPaidin;
 
     /**
      * 实收利息
      */
-    @Excel(name = "实收利息", orderNum = "22")
+    @Excel(titleName = "实收利息", orderNum = 22)
     private BigDecimal interestPaidin;
 
     /**
      * 剩余金额
      */
-    @Excel(name = "剩余金额", orderNum = "23")
+    @Excel(titleName = "剩余金额", orderNum = 23)
     private BigDecimal amountBalance;
 
     /**
      * 剩余本金
      */
-    @Excel(name = "剩余本金", orderNum = "24")
+    @Excel(titleName = "剩余本金", orderNum = 24)
     private BigDecimal corpusBalance;
 
     /**
      * 币种(参照)
      */
-    @Excel(name = "币种",orderNum = "25")
+    @Excel(titleName = "币种",orderNum = 25)
     private String pkCurrency;
 
     @Override
@@ -376,6 +376,28 @@ public class InoutPlanDO extends FileBaseBusinessDO {
      * @param pkCurrency 币种
      */
     public void setPkCurrency(String pkCurrency) {
+        this.pkCurrency = pkCurrency;
+    }
+
+    public InoutPlanDO() {
+    }
+
+    public InoutPlanDO(String pkInoutPlan, String contCode, Integer leaseType, Integer rentEventType, Integer planLeaseTime, String planDate, BigDecimal planAmount, BigDecimal planLeaseCorpus, BigDecimal planInterest, String datePaidin, BigDecimal amountPaidin, BigDecimal corpusPaidin, BigDecimal interestPaidin, BigDecimal amountBalance, BigDecimal corpusBalance, String pkCurrency) {
+        this.pkInoutPlan = pkInoutPlan;
+        this.contCode = contCode;
+        this.leaseType = leaseType;
+        this.rentEventType = rentEventType;
+        this.planLeaseTime = planLeaseTime;
+        this.planDate = planDate;
+        this.planAmount = planAmount;
+        this.planLeaseCorpus = planLeaseCorpus;
+        this.planInterest = planInterest;
+        this.datePaidin = datePaidin;
+        this.amountPaidin = amountPaidin;
+        this.corpusPaidin = corpusPaidin;
+        this.interestPaidin = interestPaidin;
+        this.amountBalance = amountBalance;
+        this.corpusBalance = corpusBalance;
         this.pkCurrency = pkCurrency;
     }
 }
