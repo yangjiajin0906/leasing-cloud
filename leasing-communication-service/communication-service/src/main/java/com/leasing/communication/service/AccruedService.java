@@ -33,4 +33,36 @@ public interface AccruedService {
      * @return com.leasing.communication.entity.vo.AccruedVO
      */
     AccruedVO onAdd(String pkOrg, String currentMonth, List<AccruedVO> list);
+
+    /**
+     * 保存方法
+     * @param vo
+     * @return
+     */
+    AccruedDO save(AccruedDO vo);
+
+    /**
+     * 删除方法
+     * @param vo
+     */
+    void delete(AccruedDO vo);
+
+    /**
+     * 更新方法
+     * @param vo
+     */
+    AccruedDO update(AccruedDO vo);
+
+    /**
+     * 单体查询
+     * @return
+     */
+    AccruedDO findOne(String pk);
+
+    /**
+     * 查询单个VO（包含子表）
+     * @return
+     */
+    AccruedVO findByPk(String pk);
+
 }

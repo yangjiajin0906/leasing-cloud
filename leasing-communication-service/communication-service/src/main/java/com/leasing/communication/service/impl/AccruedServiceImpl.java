@@ -68,13 +68,13 @@ public class AccruedServiceImpl implements AccruedService {
      * @return
      */
     private void checkData(String pkOrg, String currentData, List<AccruedVO> list){
-//        for (AccruedVO accruedVO : list) {
-//            if (pkOrg.equals(accruedVO.getPkCorp().getPkOrg())) {
-//                //暂存或审核中 不可以计提
-//                if (Billstatus.INITALIZE.getShort().equals(accruedVO.getBillstatus()) || Billstatus.APPROVING.getShort().equals(accruedVO.getBillstatus()))
-//                    throw new BaseException("存在未处理数据，请处理完毕再次计提");
-//            }
-//        }
+        for (AccruedVO accruedVO : list) {
+            if (pkOrg.equals(accruedVO.getPkCorp().getPkOrg())) {
+                //暂存或审核中 不可以计提
+                if (Billstatus.INITALIZE.getShort().equals(accruedVO.getBillstatus()) || Billstatus.APPROVING.getShort().equals(accruedVO.getBillstatus()))
+                    throw new BaseException("存在未处理数据，请处理完毕再次计提");
+            }
+        }
         //最后计提月份
         String lastAccrued = leaseAccruedRepo.getLastAccruedMonth(pkOrg, Short.valueOf("9"), Short.valueOf("1"));
         if (StringUtils.isNotBlank(lastAccrued)) {
@@ -201,5 +201,30 @@ public class AccruedServiceImpl implements AccruedService {
         String yearAndMonth = date.substring(0, 7);
         date = yearAndMonth + "-01";
         return UFDate.getDate(date);
+    }
+
+    @Override
+    public AccruedDO save(AccruedDO vo) {
+        return leaseAccruedRepo.saveEntity(vo);
+    }
+
+    @Override
+    public void delete(AccruedDO vo) {
+        leaseAccruedRepo.delete(vo);
+    }
+
+    @Override
+    public AccruedDO update(AccruedDO vo) {
+        return leaseAccruedRepo.updateEntity(vo);
+    }
+
+    @Override
+    public AccruedDO findOne(String pk) {
+        return leaseAccruedRepo.findOne(pk);
+    }
+
+    @Override
+    public AccruedVO findByPk(String pk) {
+        return null;
     }
 }

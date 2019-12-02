@@ -19,54 +19,54 @@ public interface FileDownloadService {
      * @author Yangjiajin
      * @date 2019/11/25 11:54
      * @param fileName 文件名称
-     * @return Customer2DO
+     * @return CustomerDO
      */
-    List<Customer2DO> downloadFileCus(String fileName) throws IOException;
+    List<CustomerDO> downloadFileCus(String fileName) throws IOException;
 
     /**
      * @description 处理合同文件
      * @author Yangjiajin
      * @date 2019/11/25 11:54
      * @param fileName 文件名称
-     * @return Customer2DO
+     * @return CustomerDO
      */
-    List<Contract2DO> downloadFileCon(String fileName) throws IOException;
+    List<ContractDO> downloadFileCon(String fileName) throws IOException;
 
     /**
      * @description 处理付款文件
      * @author Yangjiajin
      * @date 2019/11/25 11:54
      * @param fileName 文件名称
-     * @return Customer2DO
+     * @return CustomerDO
      */
-    List<Withdraw2DO> downloadFileWit(String fileName) throws IOException;
+    List<WithdrawDO> downloadFileWit(String fileName) throws IOException;
 
     /**
      * @description 处理收款文件
      * @author Yangjiajin
      * @date 2019/11/25 11:54
      * @param fileName 文件名称
-     * @return Customer2DO
+     * @return CustomerDO
      */
-    List<Capital2DO> downloadFileCap(String fileName) throws IOException;
+    List<CapitalDO> downloadFileCap(String fileName) throws IOException;
 
     /**
      * @description 处理票据文件
      * @author Yangjiajin
      * @date 2019/11/25 11:54
      * @param fileName 文件名称
-     * @return Customer2DO
+     * @return CustomerDO
      */
-    List<InvoiceApply2DO> downloadFileInv(String fileName) throws IOException;
+    List<InvoiceApplyDO> downloadFileInv(String fileName) throws IOException;
 
     /**
      * @description 处理租金计划文件
      * @author Yangjiajin
      * @date 2019/11/25 11:54
      * @param fileName 文件名称
-     * @return Customer2DO
+     * @return CustomerDO
      */
-    List<InoutPlan2DO> downloadFileIno(String fileName) throws IOException;
+    List<InoutPlanDO> downloadFileIno(String fileName) throws IOException;
 
     /**
      * @description 通过 文件全路径 批量处理文件

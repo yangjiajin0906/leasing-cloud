@@ -33,38 +33,38 @@ public class FileDownloadServiceImpl implements FileDownloadService {
     private GridFsTemplate gridFsTemplate;
 
     @Override
-    public List<Customer2DO> downloadFileCus(String fileName) throws IOException {
+    public List<CustomerDO> downloadFileCus(String fileName) throws IOException {
         OSSObject ossObject = AliyunOssUtil.downloadFile(fileName);
         InputStream inputStream = ossObject.getObjectContent();
         //解析excel
-        List<Customer2DO> list = ExcelUtil.importExcel(inputStream,Customer2DO.class,fileName);
+        List<CustomerDO> list = ExcelUtil.importExcel(inputStream,CustomerDO.class,fileName);
         ossObject.close();
         inputStream.close();
         return list;
     }
 
     @Override
-    public List<Contract2DO> downloadFileCon(String fileName) throws IOException {
+    public List<ContractDO> downloadFileCon(String fileName) throws IOException {
         return null;
     }
 
     @Override
-    public List<Withdraw2DO> downloadFileWit(String fileName) throws IOException {
+    public List<WithdrawDO> downloadFileWit(String fileName) throws IOException {
         return null;
     }
 
     @Override
-    public List<Capital2DO> downloadFileCap(String fileName) throws IOException {
+    public List<CapitalDO> downloadFileCap(String fileName) throws IOException {
         return null;
     }
 
     @Override
-    public List<InvoiceApply2DO> downloadFileInv(String fileName) throws IOException {
+    public List<InvoiceApplyDO> downloadFileInv(String fileName) throws IOException {
         return null;
     }
 
     @Override
-    public List<InoutPlan2DO> downloadFileIno(String fileName) throws IOException {
+    public List<InoutPlanDO> downloadFileIno(String fileName) throws IOException {
         return null;
     }
 
