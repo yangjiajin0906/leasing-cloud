@@ -50,6 +50,24 @@
         </query>
     </named-query>
 
+    <named-query name="WithdrawPageQuery">
+        <query>select b from WithdrawVO b </query>
+    </named-query>
+
+
+    <named-query name="WithdrawPageQuery.count">
+        <query>select count(b) from WithdrawVO b </query>
+    </named-query>
+
+    <named-query name="WithdrawPageDetailQuery">
+        <query>select b from WithdrawDetailVO b </query>
+    </named-query>
+
+
+    <named-query name="WithdrawPageDetailQuery.count">
+        <query>select count(b) from WithdrawDetailVO b </query>
+    </named-query>
+
     <named-native-query name="accruedRepo.getGlSyssettledYearMonth" result-set-mapping="getGlSyssettledYearMonth">
         <query>
             select gs.settledyear,gs.settledperiod

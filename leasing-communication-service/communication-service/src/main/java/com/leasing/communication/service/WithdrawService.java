@@ -3,7 +3,10 @@ package com.leasing.communication.service;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.communication.entity.dos.WithdrawDO;
+import com.leasing.communication.entity.dos.WithdrawDetailDO;
 import com.leasing.communication.entity.query.WithdrawQueryVO;
+import com.leasing.communication.entity.vo.WithdrawDetailVO;
+import com.leasing.communication.entity.vo.WithdrawVO;
 
 import java.util.List;
 
@@ -15,6 +18,7 @@ import java.util.List;
  **/
 public interface WithdrawService {
 
+    void gatherWithdraw(String batchNo);
     /**
      * 分页查询
      *
@@ -22,7 +26,14 @@ public interface WithdrawService {
      * @param queryVO    查询条件
      * @return 分页列表
      */
-    PageQueryData<WithdrawDO> pageQuery(Pagination pagination, WithdrawQueryVO queryVO);
+    PageQueryData<WithdrawVO> pageQuery(Pagination pagination, WithdrawQueryVO queryVO);
+
+    /**
+     *
+     * 根据批次号查询子表
+     * @return 子表列表
+     */
+    List<WithdrawDetailDO> queryDetailByBatchNo(String batchNo);
 
     /**
      * 保存方法

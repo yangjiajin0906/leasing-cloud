@@ -1,9 +1,9 @@
 package com.leasing.communication.repository;
 
 import com.leasing.common.base.entity.BaseQuery;
-import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.base.repository.BaseRepository;
 import com.leasing.communication.entity.dos.WithdrawDO;
+import com.leasing.communication.entity.vo.WithdrawVO;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,5 +13,8 @@ import org.springframework.stereotype.Repository;
  * @description: 2c付款信息导入
  **/
 @Repository
-public interface WithdrawRepo extends BaseRepository<WithdrawDO,BaseQuery,BaseVO,String> {
+public interface WithdrawRepo extends BaseRepository<WithdrawDO, BaseQuery, WithdrawVO, String> {
+
+
+
 }

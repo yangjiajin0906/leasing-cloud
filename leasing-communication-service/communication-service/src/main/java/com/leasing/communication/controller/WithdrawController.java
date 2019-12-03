@@ -46,4 +46,12 @@ public class WithdrawController {
         return ResultUtils.successWithData(pageQueryData);
 
     }
+
+
+    @PostMapping(value = "/gatherWithdraw")
+    public ResResult gatherWithdraw() {
+        withdrawService.gatherWithdraw("0000000000000001");
+        return ResultUtils.successWithData(null);
+    }
+
 }
