@@ -2,11 +2,9 @@ package com.leasing.customer.service.impl;
 
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
-import com.leasing.common.enums.constant.PubEnumsConstant;
-import com.leasing.common.utils.base.DozerUtils;
+import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.customer.dao.dos.CustRelatedCompanyDO;
-import com.leasing.common.dto.customer.CustomerDTO;
-import com.leasing.customer.dao.dos.CustomerDO;
+import com.leasing.common.entity.customer.dto.CustomerDTO;
 import com.leasing.customer.dao.query.CustRelatedCompanyQuery;
 import com.leasing.customer.dao.repository.CustRelatedCompanyRepo;
 import com.leasing.customer.dao.vo.CustRelatedCompanyVO;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @project:leasing-cloud

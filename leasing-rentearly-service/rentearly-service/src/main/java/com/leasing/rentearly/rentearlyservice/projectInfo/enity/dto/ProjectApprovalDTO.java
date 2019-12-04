@@ -2,9 +2,7 @@ package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.leasing.common.base.entity.BaseDTO;
-import com.leasing.common.base.entity.BaseEntity;
-import com.leasing.common.base.entity.BaseRefVO;
-import com.leasing.common.vo.foundation.OrgVO;
+import com.leasing.common.entity.foundation.vo.OrgVO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

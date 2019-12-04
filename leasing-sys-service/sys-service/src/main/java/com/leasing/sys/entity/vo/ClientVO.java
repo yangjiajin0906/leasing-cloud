@@ -1,6 +1,6 @@
 package com.leasing.sys.entity.vo;
 
-import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.common.entity.foundation.vo.UserVO;
 
 import javax.persistence.*;
 import java.io.Serializable;

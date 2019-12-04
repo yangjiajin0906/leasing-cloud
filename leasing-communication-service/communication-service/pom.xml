@@ -70,6 +70,13 @@
 			<!--<artifactId>poi-ooxml</artifactId>-->
 			<!--<version>3.6</version>-->
 		<!--</dependency>-->
+		<!-- poi依赖,处理Excel相关操作-->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>4.1.0</version>
+		</dependency>
+		<!-- poi依赖,处理Excel相关操作-->
 		<dependency>
 		<groupId>commons-fileupload</groupId>
 		<artifactId>commons-fileupload</artifactId>
@@ -132,10 +139,10 @@
 		</dependency>
 		<!--本地依赖代码包end-->
 
-		<dependency> <!--添加热部署依赖 -->
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-		</dependency>
+		<!--<dependency> &lt;!&ndash;添加热部署依赖 &ndash;&gt;-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-devtools</artifactId>-->
+		<!--</dependency>-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>

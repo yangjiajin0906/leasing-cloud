@@ -1,11 +1,9 @@
 package com.leasing.common.base.repository.refpository;
 import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.base.repository.BaseRepository;
-import com.leasing.common.ref.base.OrgrefVO;
-import com.leasing.common.vo.foundation.OrgDTO;
+import com.leasing.common.refvo.base.OrgrefVO;
+import com.leasing.common.entity.foundation.vo.OrgDTO;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * @project:leasing-cloud

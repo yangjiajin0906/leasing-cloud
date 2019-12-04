@@ -2,7 +2,6 @@ package com.leasing.customer.service.impl;
 
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
-import com.leasing.common.dto.customer.CustomerDTO;
 import com.leasing.customer.dao.dos.CustShareHoldersDO;
 import com.leasing.customer.dao.query.CustShareHoldersQuery;
 import com.leasing.customer.dao.repository.CustShareHoldersRepo;

@@ -3,7 +3,7 @@ package com.leasing.customer.dao.vo;
 
 
 import com.leasing.common.base.entity.BaseBusinessVO;
-import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.common.entity.foundation.vo.UserVO;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 

@@ -2,7 +2,7 @@ package com.leasing.customer.dao.vo;
 
 import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.entity.sys.dto.ParameterDTO;
-import com.leasing.common.vo.foundation.AreaclVO;
+import com.leasing.common.entity.foundation.vo.AreaclVO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

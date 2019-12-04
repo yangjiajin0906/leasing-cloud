@@ -3,7 +3,7 @@ package com.leasing.customer.controller;
 import com.alibaba.fastjson.JSON;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
-import com.leasing.common.utils.base.ResultUtils;
+import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.customer.dao.query.CustBondIssueQuery;
 import com.leasing.customer.service.CustBondIssueService;
 import org.springframework.web.bind.annotation.PostMapping;

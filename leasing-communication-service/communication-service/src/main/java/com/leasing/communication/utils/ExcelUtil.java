@@ -3,8 +3,9 @@ package com.leasing.communication.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.leasing.communication.enums.ErrorCode;
-import com.leasing.communication.enums.Type;
+import com.leasing.common.base.annotation.Excel;
+import com.leasing.common.enums.excel.ExcelErrorEnum;
+import com.leasing.common.enums.excel.ExcelType;
 import com.leasing.communication.exception.BizException;
 import com.leasing.communication.exception.SystemException;
 import lombok.extern.slf4j.Slf4j;
@@ -29,15 +30,7 @@ import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/**
- * <p>
- * excel 工具类
- * </p>
- *
- * @author <a href="mailto:yangyanrui@yidianlife.com">xiaoyang</a>
- * @version V0.0.1
- * @date 2019年09月12日
- */
+
 @Slf4j
 public class ExcelUtil {
     /**
@@ -103,7 +96,7 @@ public class ExcelUtil {
                 // 获取当前sheet工作表的列总数
                 int firstLine = sheet.getRow(0).getPhysicalNumberOfCells();
                 if (fields.length != firstLine) {
-                    throw new BizException(ErrorCode.SYS_EXCEPTION.getCode(), ROW_NUM_ERROR);
+                    throw new BizException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), ROW_NUM_ERROR);
                 }
                 // 获得当前sheet的开始行
                 int firstRowNum = sheet.getFirstRowNum();
@@ -120,11 +113,11 @@ public class ExcelUtil {
                     try {
                         obj = clazz.newInstance();
                     } catch (IllegalAccessException e) {
-                        log.error("【excel导入】clazz映射地址：{},{}", clazz.getCanonicalName(), "excel导入异常！");
-                        throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel导入异常", e);
+
+                        throw new SystemException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), "excel导入异常", e);
                     } catch (InstantiationException e) {
-                        log.error("【excel导入】clazz映射地址：{},{}", clazz.getCanonicalName(), "excel导入异常！");
-                        throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel导入异常", e);
+
+                        throw new SystemException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), "excel导入异常", e);
                     }
                     for (int cellNum = 0; cellNum < firstLine; cellNum++) {
                         // 取出对应注解
@@ -133,7 +126,7 @@ public class ExcelUtil {
                         if (rowNum == 0) {
                             // 第一行 判断表头名称
                             if (cell == null || StringUtils.isEmpty(cell.getStringCellValue()) || !cell.getStringCellValue().equals(excel.titleName())) {
-                                throw new BizException(ErrorCode.SYS_EXCEPTION.getCode(), NAME_ERROR);
+                                throw new BizException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), NAME_ERROR);
                             }
                             continue;
                         }
@@ -141,7 +134,7 @@ public class ExcelUtil {
                         // 判断注解是否允许空值
                         if (!excel.empty()) {
                             if (value == null || "".equals(value)) {
-                                throw new BizException(ErrorCode.SYS_EXCEPTION.getCode(), excel.titleName() + "不能为空");
+                                throw new BizException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), excel.titleName() + "不能为空");
                             }
                         }
                         // 根绝类型 实体类赋值
@@ -168,7 +161,7 @@ public class ExcelUtil {
      * @return
      */
     public static <T> Boolean exportTemplate(String excelName, Class<T> clazz, HttpServletResponse response) {
-        return exportExcel(excelName, null, clazz, Type.XLS, response, false);
+        return exportExcel(excelName, null, clazz, ExcelType.XLS, response, false);
     }
 
     /**
@@ -181,7 +174,7 @@ public class ExcelUtil {
      * @param <T>
      * @return
      */
-    public static <T> Boolean exportTemplate(String excelName, Class<T> clazz, Type type, HttpServletResponse response) {
+    public static <T> Boolean exportTemplate(String excelName, Class<T> clazz, ExcelType type, HttpServletResponse response) {
         return exportExcel(excelName, null, clazz, type, response, false);
     }
 
@@ -196,7 +189,7 @@ public class ExcelUtil {
      * @return
      */
     public static <T> Boolean exportExcel(String excelName, List<T> list, Class<T> clazz, HttpServletResponse response) {
-        return exportExcel(excelName, list, clazz, Type.XLS, response, true);
+        return exportExcel(excelName, list, clazz, ExcelType.XLS, response, true);
     }
 
     /**
@@ -210,7 +203,7 @@ public class ExcelUtil {
      * @param <T>
      * @return
      */
-    public static <T> Boolean exportExcel(String excelName, List<T> list, Class<T> clazz, Type type, HttpServletResponse response) {
+    public static <T> Boolean exportExcel(String excelName, List<T> list, Class<T> clazz, ExcelType type, HttpServletResponse response) {
         return exportExcel(excelName, list, clazz, type, response, true);
     }
 
@@ -225,7 +218,7 @@ public class ExcelUtil {
      * @return
      */
     public static <T> Boolean exportExcel(String excelName, Class<T> clazz, List<Map<String, Object>> list, HttpServletResponse response) {
-        return exportExcel(excelName, clazz, list, Type.XLS, response, true);
+        return exportExcel(excelName, clazz, list, ExcelType.XLS, response, true);
     }
 
     /**
@@ -239,7 +232,7 @@ public class ExcelUtil {
      * @param <T>
      * @return
      */
-    public static <T> Boolean exportExcel(String excelName, Class<T> clazz, List<Map<String, Object>> list, Type type, HttpServletResponse response) {
+    public static <T> Boolean exportExcel(String excelName, Class<T> clazz, List<Map<String, Object>> list, ExcelType type, HttpServletResponse response) {
         return exportExcel(excelName, clazz, list, type, response, false);
     }
 
@@ -255,9 +248,9 @@ public class ExcelUtil {
      * @param <T>
      * @return
      */
-    private static <T> Boolean exportExcel(String excelName, Class<T> clazz, List<Map<String, Object>> list, Type type, HttpServletResponse response, boolean flag) {
+    private static <T> Boolean exportExcel(String excelName, Class<T> clazz, List<Map<String, Object>> list, ExcelType type, HttpServletResponse response, boolean flag) {
         if (list == null || list.size() == 0) {
-            log.error("【excel导出】{}", "excel导出数据空异常！");
+
             return false;
         }
         List<T> ts = JSONArray.parseArray(JSON.toJSONString(list), clazz);
@@ -276,17 +269,17 @@ public class ExcelUtil {
      * @param <T>
      * @return
      */
-    private static <T> Boolean exportExcel(String excelName, List<T> list, Class<T> clazz, Type type, HttpServletResponse response, boolean flag) {
+    private static <T> Boolean exportExcel(String excelName, List<T> list, Class<T> clazz, ExcelType type, HttpServletResponse response, boolean flag) {
         if (flag) {
             // 非模版导出，判断数据是否为空！
             if (list == null || list.size() == 0) {
-                log.error("【excel导出】{}", "excel导出数据空异常！");
+
                 return false;
             }
         }
         // 设置默认文件名为当前时间：年月日时分秒
         if (StringUtils.isEmpty(excelName)) {
-            log.info("【excel导出】{}", "excel导出未设置文件名，默认使用时间戳代替！");
+
             excelName = new SimpleDateFormat("yyyyMMdd HHmmss").format(new Date());
         }
         createResponse(excelName, response, type);
@@ -301,7 +294,6 @@ public class ExcelUtil {
                 workbook = new XSSFWorkbook();
                 break;
             default:
-                log.error("【excel导出】{}", "excel类型错误，只支持xls与xlsx！");
                 return false;
         }
         // 创建一个工作表sheet 默认是表名是sheet0
@@ -325,7 +317,7 @@ public class ExcelUtil {
                         }
                         Object o = new PropertyDescriptor(field.getName(), clazz).getReadMethod().invoke(obj);
                         if (!field.getAnnotation(Excel.class).empty() && o == null) {
-                            log.error("【excel导出】class映射地址：{},空指针参数：{},{}", clazz.getCanonicalName(), field.getName(), "数据集空指针");
+
                             return false;
                         }
                         setValue(getCell(workbook, hashMap, row, i, o, field), o, field);
@@ -339,13 +331,13 @@ public class ExcelUtil {
             outputStream.close();
             return true;
         } catch (IOException e) {
-            throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel导出异常", e);
+            throw new SystemException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), "excel导出异常", e);
         } catch (IllegalAccessException e) {
-            throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel导出异常", e);
+            throw new SystemException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), "excel导出异常", e);
         } catch (InvocationTargetException e) {
-            throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel导出异常", e);
+            throw new SystemException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), "excel导出异常", e);
         } catch (IntrospectionException e) {
-            throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel导出异常", e);
+            throw new SystemException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), "excel导出异常", e);
         }
     }
 
@@ -495,7 +487,7 @@ public class ExcelUtil {
      * @param excelName
      * @param response
      */
-    private static void createResponse(String excelName, HttpServletResponse response, Type type) {
+    private static void createResponse(String excelName, HttpServletResponse response, ExcelType type) {
         // 设置response头信息
         //        response.reset();
         // 改成输出excel文件
@@ -512,12 +504,12 @@ public class ExcelUtil {
                             + new String(URLEncoder.encode(excelName, "UTF-8").getBytes("UTF-8"), "ISO8859-1") + ".xlsx");
                     break;
                 default:
-                    log.error("【excel导出】{}", "excel类型错误，只支持xls与xlsx！");
-                    throw new BizException(ErrorCode.SYS_EXCEPTION.getCode(), "excel类型错误，只支持xls与xlsx！");
+
+                    throw new BizException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), "excel类型错误，只支持xls与xlsx！");
             }
         } catch (UnsupportedEncodingException e) {
-            log.error("【excel导出】{}", "设置response信息异常！");
-            throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "设置response信息异常！", e);
+
+            throw new SystemException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), "设置response信息异常！", e);
         }
     }
 
@@ -556,8 +548,8 @@ public class ExcelUtil {
                 field.set(newInstance, value);
             }
         } catch (IllegalAccessException e) {
-            log.error("【excel导入】clazz映射地址：{},{},{}", newInstance, "excel实体赋值类型转换异常！", e);
-            throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel实体赋值类型转换异常", e);
+
+            throw new SystemException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), "excel实体赋值类型转换异常", e);
         }
     }
 
@@ -571,13 +563,13 @@ public class ExcelUtil {
         //获取对象总数量
         Field[] fields = clazz.getDeclaredFields();
         if (fields == null || fields.length == 0) {
-            log.error("【excel导入】clazz映射地址：{},{}", clazz.getCanonicalName(), "实体空异常！");
-            throw new BizException(ErrorCode.SYS_EXCEPTION.getCode(), BEAN_ERROR);
+
+            throw new BizException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), BEAN_ERROR);
         }
         for (Field field : fields) {
             if (!field.isAnnotationPresent(Excel.class)) {
-                log.error("【excel导入】clazz映射地址：{},{}", clazz.getCanonicalName(), "实体空Excel注解异常！");
-                throw new BizException(ErrorCode.SYS_EXCEPTION.getCode(), ANNOTATION_ERROR);
+
+                throw new BizException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), ANNOTATION_ERROR);
             }
         }
         Arrays.sort(fields, (a, b) -> {
@@ -619,7 +611,7 @@ public class ExcelUtil {
                 }
                 // 防止科学计数进入
                 if (String.valueOf(cell.getNumericCellValue()).toLowerCase().contains(E)) {
-                    throw new BizException(ErrorCode.SYS_EXCEPTION.getCode(), "excel数据类型错误，请将数字转文本类型！！");
+                    throw new BizException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), "excel数据类型错误，请将数字转文本类型！！");
                 }
                 if ((int) cell.getNumericCellValue() != cell.getNumericCellValue()) {
                     // double 类型
@@ -680,7 +672,7 @@ public class ExcelUtil {
                 workbook = new XSSFWorkbook(is);
             }
         } catch (IOException e) {
-            throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "excel 转换 HSSFWorkbook 异常！", e);
+            throw new SystemException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), "excel 转换 HSSFWorkbook 异常！", e);
         }
         return workbook;
     }
@@ -694,14 +686,14 @@ public class ExcelUtil {
     private static void checkFile(MultipartFile file) {
         // 判断文件是否存在
         if (null == file) {
-            throw new BizException(ErrorCode.SYS_EXCEPTION.getCode(), FILE_NOT_ERROR);
+            throw new BizException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), FILE_NOT_ERROR);
         }
         // 获得文件名
         //String fileName = file.getOriginalFilename();
         String fileName = file.getName();
         // 判断文件是否是excel文件
         if (!fileName.endsWith(XLS) && !fileName.endsWith(XLS_X)) {
-            throw new BizException(ErrorCode.SYS_EXCEPTION.getCode(), fileName + "不是excel文件");
+            throw new BizException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), fileName + "不是excel文件");
         }
     }
 }

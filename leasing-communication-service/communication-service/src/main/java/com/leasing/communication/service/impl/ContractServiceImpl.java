@@ -4,7 +4,7 @@ import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.utils.base.ObjectUtil;
 import com.leasing.communication.entity.dos.ContractDO;
-import com.leasing.communication.entity.queryVO.ContractQueryVO;
+import com.leasing.communication.entity.query.ContractQuery;
 import com.leasing.communication.repository.ContractRepo;
 import com.leasing.communication.service.ContractService;
 import org.springframework.stereotype.Service;
@@ -45,7 +45,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public PageQueryData pageData(ContractQueryVO contractQueryVO, Pagination pagination) {
+    public PageQueryData pageData(ContractQuery contractQueryVO, Pagination pagination) {
         ContractDO contractDO = new ContractDO();
         createDO(contractDO);
 //        contractRepo.save(contractDO);

@@ -4,15 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.enums.constant.PubEnumsConstant;
-import com.leasing.common.exception.BaseException;
-import com.leasing.common.utils.base.BaseBusinessUtils;
-import com.leasing.common.utils.base.ResultUtils;
+import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.customer.dao.dos.CustomerDO;
 import com.leasing.customer.dao.query.CustomerCorpQuery;
 import com.leasing.customer.dao.vo.CustomerAuthApplyVO;
-import com.leasing.customer.dao.vo.CustomerAuthVO;
 import com.leasing.customer.dao.vo.CustomerCorpAllVO;
-import com.leasing.customer.dao.vo.CustomerVO;
 import com.leasing.customer.service.CustomerCorpService;
 import com.leasing.customer.service.CustomerService;
 import org.apache.commons.lang.StringUtils;
@@ -21,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @project:leasing-cloud

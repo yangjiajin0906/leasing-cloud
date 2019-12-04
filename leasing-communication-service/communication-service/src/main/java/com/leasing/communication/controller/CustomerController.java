@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
-import com.leasing.common.utils.base.ResultUtils;
+import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.communication.entity.dos.CustomerDO;
 import com.leasing.communication.entity.query.CustomerQuery;
 import com.leasing.communication.service.CustomerService;
@@ -16,11 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 /**

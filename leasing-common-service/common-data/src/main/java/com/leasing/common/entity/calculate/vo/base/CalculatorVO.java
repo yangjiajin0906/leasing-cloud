@@ -1,15 +1,15 @@
 package com.leasing.common.entity.calculate.vo.base;
 
 import com.leasing.common.base.entity.BaseBusinessVO;
-import com.leasing.common.dto.customer.CustomerDTO;
+import com.leasing.common.entity.customer.dto.CustomerDTO;
 import com.leasing.common.entity.calculate.dos.InoutPlanPDO;
 import com.leasing.common.entity.calculate.dos.LeaseLoanPlanDO;
 import com.leasing.common.entity.calculate.dos.LeaseRulePDO;
 import com.leasing.common.entity.calculate.dto.IRRConvertParamDTO;
 import com.leasing.common.entity.calculate.dto.InterrateRefDTO;
 import com.leasing.common.entity.calculate.dto.LimitPlanRefDTO;
-import com.leasing.common.vo.foundation.CurrtypeVO;
-import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.common.entity.foundation.vo.CurrtypeVO;
+import com.leasing.common.entity.foundation.vo.UserVO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

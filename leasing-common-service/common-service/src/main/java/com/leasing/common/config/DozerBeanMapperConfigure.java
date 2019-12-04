@@ -22,7 +22,8 @@ public enum  DozerBeanMapperConfigure {
         mapper=new DozerBeanMapper();
         List<String> mappingfiles=new ArrayList<>();
 //        mappingfiles.add("utils/sysdozer-mapping.xml");
-        mappingfiles.add("META-INF/rentEarlyDozer-mapping.xml");
+//        mappingfiles.add("META-INF/rentEarlyDozer-mapping.xml");
+        mappingfiles.add("META-INF/consumer-dozer-mapping.xml");
         mapper.setMappingFiles(mappingfiles);
     }
 

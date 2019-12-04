@@ -2,12 +2,12 @@ package com.leasing.customer.dao.vo;
 
 import com.leasing.common.base.entity.BaseBusinessVO;
 import com.leasing.common.dto.customer.ContractDTO;
-import com.leasing.common.dto.customer.CustomerDTO;
+import com.leasing.common.entity.customer.dto.CustomerDTO;
 import com.leasing.common.dto.customer.LesseeProtocolDTO;
 import com.leasing.common.dto.customer.ProjectInfoDTO;
 import com.leasing.common.entity.sys.dto.ParameterDTO;
-import com.leasing.common.vo.foundation.CurrtypeVO;
-import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.common.entity.foundation.vo.CurrtypeVO;
+import com.leasing.common.entity.foundation.vo.UserVO;
 import com.leasing.customer.dao.dos.CustAssetsDO;
 
 import javax.persistence.*;

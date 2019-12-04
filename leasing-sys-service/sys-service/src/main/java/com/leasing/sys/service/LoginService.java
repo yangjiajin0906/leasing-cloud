@@ -1,6 +1,6 @@
 package com.leasing.sys.service;
 
-import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.common.entity.foundation.vo.UserVO;
 import com.leasing.sys.entity.dto.ClientDO;
 import com.leasing.sys.entity.vo.ClientVO;
 
@@ -16,7 +16,7 @@ public interface LoginService {
      * @author Yangjiajin
      * @date 2019/11/5 17:53
      * @param [userCode, pwd, pkOrg]
-     * @return com.leasing.common.vo.foundation.UserVO
+     * @return com.leasing.common.entity.foundation.vo.UserVO
      */
     UserVO validateUser(String pkUserdeCode, String pkOrg, String pwd);
 
@@ -70,7 +70,7 @@ public interface LoginService {
      * @author Yangjiajin
      * @date 2019/11/7 10:27
      * @param [data]
-     * @return com.leasing.common.vo.foundation.UserVO
+     * @return com.leasing.common.entity.foundation.vo.UserVO
      */
     UserVO login(String data);
 

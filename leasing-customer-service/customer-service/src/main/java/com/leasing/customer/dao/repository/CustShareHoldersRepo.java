@@ -1,7 +1,6 @@
 package com.leasing.customer.dao.repository;
 
 import com.leasing.common.base.repository.BaseRepository;
-import com.leasing.common.dto.customer.CustomerDTO;
 import com.leasing.customer.dao.dos.CustShareHoldersDO;
 import com.leasing.customer.dao.query.CustShareHoldersQuery;
 import com.leasing.customer.dao.vo.CustShareHoldersVO;

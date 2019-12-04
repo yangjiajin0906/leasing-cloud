@@ -3,8 +3,8 @@ package com.leasing.rentearly.rentearlyservice.projectInfo.enity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.leasing.common.base.entity.BaseVO;
-import com.leasing.common.vo.foundation.DeptVO;
-import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.common.entity.foundation.vo.DeptVO;
+import com.leasing.common.entity.foundation.vo.UserVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto.*;
 import org.hibernate.annotations.GenericGenerator;
 

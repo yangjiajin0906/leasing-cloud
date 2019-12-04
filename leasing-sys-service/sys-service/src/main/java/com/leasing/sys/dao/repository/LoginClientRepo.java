@@ -2,7 +2,7 @@ package com.leasing.sys.dao.repository;
 
 import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.base.repository.BaseRepository;
-import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.common.entity.foundation.vo.UserVO;
 import com.leasing.sys.entity.dto.ClientDO;
 import com.leasing.sys.entity.vo.ClientVO;
 import org.springframework.data.jpa.repository.Query;

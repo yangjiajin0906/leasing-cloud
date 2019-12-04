@@ -1,11 +1,9 @@
 package com.leasing.common.entity.common.dos;
 
 import com.leasing.common.base.entity.BaseBusinessDO;
-import com.leasing.common.vo.foundation.UserVO;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @project:leasing-cloud

@@ -4,9 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
-import com.leasing.common.utils.base.ResultUtils;
-import com.leasing.communication.entity.queryVO.ContractQueryVO;
-import com.leasing.communication.entity.queryVO.InvoiceQueryVO;
+import com.leasing.common.utils.sys.ResultUtils;
+import com.leasing.communication.entity.query.InvoiceQuery;
 import com.leasing.communication.service.InvoiceApplyService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,7 +40,7 @@ public class InvoiceController {
     public ResResult queryForGrid(@RequestParam(required = false, defaultValue = "1", name = "page") Integer page,
                                   @RequestParam(required = false, defaultValue = "20", name = "pageSize") Integer pageSize,
                                   @RequestParam(required = false, name = "data") String data) {
-        InvoiceQueryVO projectQueryVO = JSON.parseObject(data, InvoiceQueryVO.class);
+        InvoiceQuery projectQueryVO = JSON.parseObject(data, InvoiceQuery.class);
         Pagination pagination = new Pagination(page, pageSize);
         PageQueryData pageQueryData = invoiceApplyService.pageData(projectQueryVO, pagination);
         return ResultUtils.successWithData(pageQueryData);

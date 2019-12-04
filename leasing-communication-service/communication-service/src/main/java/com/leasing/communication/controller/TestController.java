@@ -1,12 +1,12 @@
 package com.leasing.communication.controller;
 
+import com.leasing.common.enums.excel.ExcelType;
 import com.leasing.communication.entity.Address;
 import com.leasing.communication.entity.Person;
 import com.leasing.communication.entity.dos.CacheVO;
 import com.leasing.communication.entity.dos.Customer2DO;
 import com.leasing.communication.entity.dos.CustomerDO;
 import com.leasing.communication.entity.dos.InvoiceApplyDO;
-import com.leasing.communication.enums.Type;
 import com.leasing.communication.service.CustomerService;
 import com.leasing.communication.utils.EasyPoiUtils;
 import com.leasing.communication.utils.ExcelUtil;
@@ -310,7 +310,7 @@ public class TestController {
      * @param [list]
      * @return void
      */
-    private void saveOracle(List<Customer2DO> list){
+    private void saveOracle(List<CustomerDO> list){
         customerService.save(list);
     }
 
@@ -367,7 +367,7 @@ public class TestController {
             personList.add(person);
         }
         //导出操作
-        ExcelUtil.exportExcel("Person",personList,Person.class, Type.XLS_X,response);
+        ExcelUtil.exportExcel("Person",personList,Person.class, ExcelType.XLS_X,response);
     }
 
     /**
@@ -420,7 +420,7 @@ public class TestController {
         }
         int size = personList.size();
         //导出操作
-        ExcelUtil.exportExcel("CUSTOMER",personList,Customer2DO.class, Type.XLS,response);
+        ExcelUtil.exportExcel("CUSTOMER",personList,Customer2DO.class, ExcelType.XLS,response);
         Long endTime = new Date().getTime();
         System.out.println("导出了【"+size+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }
@@ -457,7 +457,7 @@ public class TestController {
         }
         int size = personList.size();
         //导出操作
-        ExcelUtil.exportExcel("CUSTOMER",personList,Customer2DO.class, Type.XLS_X,response);
+        ExcelUtil.exportExcel("CUSTOMER",personList,Customer2DO.class, ExcelType.XLS_X,response);
         Long endTime = new Date().getTime();
         System.out.println("导出了【"+size+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }

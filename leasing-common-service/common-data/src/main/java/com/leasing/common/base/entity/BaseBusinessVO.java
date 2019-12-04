@@ -1,8 +1,8 @@
 package com.leasing.common.base.entity;
 
-import com.leasing.common.vo.foundation.DeptVO;
-import com.leasing.common.vo.foundation.OrgDTO;
-import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.common.entity.foundation.vo.DeptVO;
+import com.leasing.common.entity.foundation.vo.OrgDTO;
+import com.leasing.common.entity.foundation.vo.UserVO;
 
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;

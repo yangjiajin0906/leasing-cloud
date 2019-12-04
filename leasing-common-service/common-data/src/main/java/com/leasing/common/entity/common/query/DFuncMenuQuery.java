@@ -1,13 +1,8 @@
 package com.leasing.common.entity.common.query;
 
-import com.leasing.common.annotation.QueryCondition;
+import com.leasing.common.base.annotation.QueryCondition;
 import com.leasing.common.base.entity.BaseQuery;
-import com.leasing.common.enums.MatchType;
-import org.springframework.data.jpa.domain.Specification;
-
-import javax.persistence.criteria.Predicate;
-import java.util.ArrayList;
-import java.util.List;
+import com.leasing.common.enums.base.MatchType;
 
 /**
  * @project:leasing-cloud

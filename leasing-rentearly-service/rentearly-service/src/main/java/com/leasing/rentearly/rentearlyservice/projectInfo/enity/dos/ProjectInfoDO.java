@@ -1,15 +1,9 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dos;
 
-import com.leasing.common.annotation.QueryCondition;
 import com.leasing.common.base.entity.BaseDO;
-import com.leasing.common.enums.MatchType;
-import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.*;
-import javax.persistence.criteria.Predicate;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @project:leasing-cloud

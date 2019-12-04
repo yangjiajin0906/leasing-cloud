@@ -3,13 +3,11 @@ package com.leasing.customer.service;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.customer.dao.dos.CustRelatedCompanyDO;
-import com.leasing.common.dto.customer.CustomerDTO;
 import com.leasing.customer.dao.query.CustRelatedCompanyQuery;
 import com.leasing.customer.dao.vo.CustRelatedCompanyVO;
 import com.leasing.customer.dao.vo.CustomerVO;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @project:leasing-cloud

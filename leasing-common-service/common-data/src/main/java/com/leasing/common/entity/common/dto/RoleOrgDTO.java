@@ -1,13 +1,9 @@
 package com.leasing.common.entity.common.dto;
 
 import com.leasing.common.base.entity.BaseDTO;
-import com.leasing.common.base.entity.BaseEntity;
-import com.leasing.common.vo.foundation.OrgDTO;
-import com.leasing.common.vo.foundation.RoleVO;
+import com.leasing.common.entity.foundation.vo.OrgDTO;
+import com.leasing.common.entity.foundation.vo.RoleVO;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.List;
 
 /**

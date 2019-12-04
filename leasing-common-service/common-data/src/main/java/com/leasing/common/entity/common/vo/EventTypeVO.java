@@ -1,7 +1,7 @@
 package com.leasing.common.entity.common.vo;
 
 import com.leasing.common.base.entity.BaseBusinessVO;
-import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.common.entity.foundation.vo.UserVO;
 
 import javax.persistence.*;
 

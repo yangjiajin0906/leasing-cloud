@@ -2,7 +2,7 @@ spring:
   data:
     mongodb:
       uri: mongodb://192.168.249.87:27017/jic-sys-config
-      #      uri: mongodb://127.0.0.1:27017/jic-sys-config
+#      uri: mongodb://127.0.0.1:27017/jic-sys-config
       password:
       username:
   datasource:

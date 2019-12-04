@@ -6,7 +6,7 @@ import com.leasing.common.base.web.ResResult;
 
 import com.leasing.common.entity.sys.dto.ParamTypeDTO;
 import com.leasing.common.refvo.sys.ParameterRefVO;
-import com.leasing.common.utils.base.ResultUtils;
+import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.sys.dao.dos.ParamTypeDO;
 import com.leasing.sys.dao.dos.ParameterDO;
 import com.leasing.sys.dao.query.ParameterQuery;

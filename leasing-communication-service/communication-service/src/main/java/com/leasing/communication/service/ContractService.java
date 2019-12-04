@@ -2,9 +2,8 @@ package com.leasing.communication.service;
 
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
-import com.leasing.communication.entity.dos.CapitalDO;
 import com.leasing.communication.entity.dos.ContractDO;
-import com.leasing.communication.entity.queryVO.ContractQueryVO;
+import com.leasing.communication.entity.query.ContractQuery;
 
 import java.util.List;
 
@@ -53,5 +52,5 @@ public interface ContractService {
      * @param pagination
      * @return
      */
-    PageQueryData pageData(ContractQueryVO contractQueryVO, Pagination pagination);
+    PageQueryData pageData(ContractQuery contractQueryVO, Pagination pagination);
 }

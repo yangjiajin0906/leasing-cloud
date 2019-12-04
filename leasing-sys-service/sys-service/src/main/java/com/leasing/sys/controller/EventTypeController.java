@@ -1,15 +1,15 @@
 package com.leasing.sys.controller;
 
 import com.leasing.common.base.repository.support.PageQueryData;
-import com.leasing.common.service.EventTypeService;
+import com.leasing.common.service.sys.EventTypeService;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.entity.common.dos.EventTypeDO;
 import com.leasing.common.entity.common.dto.EventTypeDTO;
 import com.leasing.common.entity.common.vo.EventTypeVO;
-import com.leasing.common.utils.base.DozerUtils;
-import com.leasing.common.utils.base.EventTypeUtil;
-import com.leasing.common.utils.base.ResultUtils;
-import com.leasing.common.vo.foundation.OrgDTO;
+import com.leasing.common.utils.tools.DozerUtils;
+import com.leasing.common.utils.sys.EventTypeUtil;
+import com.leasing.common.utils.sys.ResultUtils;
+import com.leasing.common.entity.foundation.vo.OrgDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

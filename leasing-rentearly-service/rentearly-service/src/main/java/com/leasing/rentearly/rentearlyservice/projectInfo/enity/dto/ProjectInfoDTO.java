@@ -1,6 +1,6 @@
 package com.leasing.rentearly.rentearlyservice.projectInfo.enity.dto;
 
-import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.common.entity.foundation.vo.UserVO;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

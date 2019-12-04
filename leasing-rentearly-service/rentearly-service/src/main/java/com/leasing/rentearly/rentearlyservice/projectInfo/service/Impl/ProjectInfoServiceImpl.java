@@ -2,21 +2,17 @@ package com.leasing.rentearly.rentearlyservice.projectInfo.service.Impl;
 
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
-import com.leasing.common.utils.base.DozerUtils;
+import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.ProjectInfoVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.dos.ProjectInfoDO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.enity.queryVO.ProjectQueryVO;
 import com.leasing.rentearly.rentearlyservice.projectInfo.repository.ProjectInfoRepository;
 import com.leasing.rentearly.rentearlyservice.projectInfo.service.ProjectInfoService;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @project:leasing-cloud

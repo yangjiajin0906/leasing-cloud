@@ -1,8 +1,8 @@
 package com.leasing.common.entity.common.vo;
 
 import com.leasing.common.base.entity.BaseEntity;
-import com.leasing.common.vo.foundation.OrgDTO;
-import com.leasing.common.vo.foundation.RoleVO;
+import com.leasing.common.entity.foundation.vo.OrgDTO;
+import com.leasing.common.entity.foundation.vo.RoleVO;
 
 
 import javax.persistence.*;

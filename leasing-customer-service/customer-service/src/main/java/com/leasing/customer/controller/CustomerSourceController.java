@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
-import com.leasing.common.utils.base.ResultUtils;
+import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.customer.dao.query.CustRelatedCompanyQuery;
 import com.leasing.customer.dao.vo.CustRelatedCompanyVO;
 import com.leasing.customer.service.CustRelatedCompanyService;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @project:leasing-cloud

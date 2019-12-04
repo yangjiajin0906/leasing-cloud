@@ -1,7 +1,9 @@
 package com.leasing.common.utils.base;
 
 import com.leasing.common.base.entity.BaseVO;
-import com.leasing.common.base.repository.CoderuleTypeRepo;
+import com.leasing.common.base.repository.BaseRepository;
+import com.leasing.common.base.repository.support.BaseEntityRepository;
+import com.leasing.common.repository.sys.CoderuleTypeRepo;
 import com.leasing.common.exception.BaseException;
 import org.springframework.stereotype.Component;
 
@@ -18,15 +20,21 @@ import java.util.List;
 @Component
 public class BaseBusinessUtils {
 
-    @Resource                           //自动装配必须要添加一个非基本库的存储接口 此处随便添加了一个指定类型的存储库接口
-    private CoderuleTypeRepo coderuleTypeRepo;
+    @Resource
+    BaseEntityRepository baseEntityRepository;
 
-    private static BaseBusinessUtils baseBusinessUtils;
+    public static BaseBusinessUtils baseBusinessUtils;
 
     @PostConstruct
     public void init(){
         baseBusinessUtils = this;
     }
+
+    public static BaseBusinessUtils getInstance(){
+        return baseBusinessUtils;
+    }
+
+
 
 
     /**
@@ -51,7 +59,7 @@ public class BaseBusinessUtils {
         String pk = vo.getPk() == null ? "" : "vo.id <> '" + vo.getPk() + "' and ";
         String jqpl = " select vo.id from " + vo.getClass().getName() + " vo where " + pk + strCond
                 + ((where != null && !"".equals(where)) ? " and " + where : "" );
-        List list = baseBusinessUtils.coderuleTypeRepo.findByJPQL(jqpl);
+        List list = baseBusinessUtils.baseEntityRepository.findByJPQL(jqpl);
         if(list.size()>0){
             return true;
         }
@@ -83,6 +91,19 @@ public class BaseBusinessUtils {
         strCond = strCond + ")";
         return strCond;
     }
+
+    /**
+     * 根据JPQL查询
+     * @param t
+     * @param sql
+     * @param <T>
+     * @return
+     */
+    public static <T> List<T> findListByJpql(Class<T> t,String sql){
+        List<T> result = baseBusinessUtils.baseEntityRepository.findByJPQL(sql);
+        return result;
+    }
+
 
     /**
      * 主键生成策略接口

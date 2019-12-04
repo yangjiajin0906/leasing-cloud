@@ -1,9 +1,8 @@
 package com.leasing.customer.dao.query;
 
-import com.leasing.common.annotation.QueryCondition;
+import com.leasing.common.base.annotation.QueryCondition;
 import com.leasing.common.base.entity.BaseQuery;
-import com.leasing.common.enums.MatchType;
-import org.springframework.data.jpa.domain.Specification;
+import com.leasing.common.enums.base.MatchType;
 
 /**
  * @project:leasing-cloud

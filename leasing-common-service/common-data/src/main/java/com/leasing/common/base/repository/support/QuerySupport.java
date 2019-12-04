@@ -1,6 +1,6 @@
 package com.leasing.common.base.repository.support;
 
-import com.leasing.common.annotation.QueryCondition;
+import com.leasing.common.base.annotation.QueryCondition;
 import com.leasing.common.base.entity.BaseQuery;
 import org.apache.commons.lang.StringUtils;
 

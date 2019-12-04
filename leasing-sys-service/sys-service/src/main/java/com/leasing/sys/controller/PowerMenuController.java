@@ -1,17 +1,17 @@
 package com.leasing.sys.controller;
 
-import com.leasing.common.base.repository.RoleOrgRepo;
-import com.leasing.common.base.repository.UserRepo;
+import com.leasing.common.repository.sys.RoleOrgRepo;
+import com.leasing.common.repository.sys.UserRepo;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.entity.common.dos.PowerMenuDO;
 import com.leasing.common.entity.common.dto.RoleOrgDTO;
 import com.leasing.common.entity.common.vo.DFuncMenuVO;
 import com.leasing.common.entity.common.vo.PowerMenuVO;
-import com.leasing.common.service.DFuncMenuService;
-import com.leasing.common.service.PowerMenuService;
-import com.leasing.common.utils.base.ResultUtils;
-import com.leasing.common.vo.foundation.RoleOrgVO;
-import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.common.service.sys.DFuncMenuService;
+import com.leasing.common.service.sys.PowerMenuService;
+import com.leasing.common.utils.sys.ResultUtils;
+import com.leasing.common.entity.foundation.vo.RoleOrgVO;
+import com.leasing.common.entity.foundation.vo.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -2,7 +2,7 @@ package com.leasing.customer.dao.repository;
 
 import com.leasing.common.base.repository.BaseRepository;
 import com.leasing.customer.dao.dos.CustRelatedCompanyDO;
-import com.leasing.common.dto.customer.CustomerDTO;
+import com.leasing.common.entity.customer.dto.CustomerDTO;
 import com.leasing.customer.dao.query.CustRelatedCompanyQuery;
 import com.leasing.customer.dao.vo.CustRelatedCompanyVO;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @project:leasing-cloud

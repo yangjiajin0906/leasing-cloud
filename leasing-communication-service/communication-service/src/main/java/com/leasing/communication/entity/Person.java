@@ -1,7 +1,7 @@
 package com.leasing.communication.entity;
 
 import com.leasing.communication.entity.base.FileBaseBusinessDO;
-import com.leasing.communication.utils.Excel;
+import com.leasing.common.base.annotation.Excel;
 
 import java.math.BigDecimal;
 

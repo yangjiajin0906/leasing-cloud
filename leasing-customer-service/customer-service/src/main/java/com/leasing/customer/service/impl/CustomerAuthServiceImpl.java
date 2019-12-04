@@ -2,7 +2,7 @@ package com.leasing.customer.service.impl;
 
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
-import com.leasing.common.utils.base.DozerUtils;
+import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.customer.dao.dos.CustomerAuthDO;
 import com.leasing.customer.dao.query.CustomerAuthQuery;
 import com.leasing.customer.dao.repository.CustomerAuthRepo;

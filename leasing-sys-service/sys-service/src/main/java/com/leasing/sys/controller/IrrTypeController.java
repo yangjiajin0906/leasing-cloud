@@ -1,15 +1,14 @@
 package com.leasing.sys.controller;
 
-import com.leasing.common.base.repository.IrrTypeRepo;
 import com.leasing.common.base.repository.support.PageQueryData;
-import com.leasing.common.service.IrrTypeService;
+import com.leasing.common.service.sys.IrrTypeService;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.entity.common.dos.IrrEventSetDO;
 import com.leasing.common.entity.common.dos.IrrTypeDO;
 import com.leasing.common.entity.common.vo.IrrTypeVO;
-import com.leasing.common.utils.base.DozerUtils;
-import com.leasing.common.utils.base.ResultUtils;
-import com.leasing.common.vo.foundation.OrgDTO;
+import com.leasing.common.utils.tools.DozerUtils;
+import com.leasing.common.utils.sys.ResultUtils;
+import com.leasing.common.entity.foundation.vo.OrgDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

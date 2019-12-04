@@ -1,17 +1,13 @@
 package com.leasing.customer.service.impl;
 
-import com.leasing.common.enums.base.Billstatus;
-import com.leasing.common.utils.base.DateUtils;
-import com.leasing.common.utils.base.DozerUtils;
+import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.customer.dao.dos.CustomerDO;
 import com.leasing.customer.dao.repository.CustomerRepo;
-import com.leasing.customer.dao.vo.CustomerCorpAllVO;
 import com.leasing.customer.dao.vo.CustomerVO;
 import com.leasing.customer.service.CustomerService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.swing.*;
 import javax.transaction.Transactional;
 import java.util.List;
 

@@ -4,7 +4,7 @@ import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.utils.base.ObjectUtil;
 import com.leasing.communication.entity.dos.InvoiceApplyDO;
-import com.leasing.communication.entity.queryVO.InvoiceQueryVO;
+import com.leasing.communication.entity.query.InvoiceQuery;
 import com.leasing.communication.repository.InvoiceApplyRepo;
 import com.leasing.communication.service.InvoiceApplyService;
 import org.springframework.stereotype.Service;
@@ -54,7 +54,7 @@ public class InvoiceApplyServiceImpl implements InvoiceApplyService {
     }
 
     @Override
-    public PageQueryData pageData(InvoiceQueryVO contractQueryVO, Pagination pagination) {
+    public PageQueryData pageData(InvoiceQuery contractQueryVO, Pagination pagination) {
 //        List list = invoiceApplyRepo.findAll();
         InvoiceApplyDO invoiceApplyDO = new InvoiceApplyDO();
         invoiceApplyDO.setBankAccount("cec");

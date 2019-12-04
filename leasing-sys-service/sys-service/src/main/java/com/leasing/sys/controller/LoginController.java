@@ -1,6 +1,6 @@
 package com.leasing.sys.controller;
 
-import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.common.entity.foundation.vo.UserVO;
 import com.leasing.sys.service.LoginService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +26,7 @@ public class LoginController {
      * @author Yangjiajin
      * @date 2019/11/6 10:36
      * @param [data]
-     * @return com.leasing.common.vo.foundation.UserVO
+     * @return com.leasing.common.entity.foundation.vo.UserVO
      */
     @RequestMapping(value = "/login")
     public UserVO login(String data){

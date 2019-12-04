@@ -1,6 +1,6 @@
 package com.leasing.sys.service.impl;
 
-import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.common.entity.foundation.vo.UserVO;
 import com.leasing.sys.dao.repository.LoginClientRepo;
 import com.leasing.sys.entity.dto.ClientDO;
 import com.leasing.sys.entity.vo.ClientVO;
