@@ -38,7 +38,7 @@ public class ExcelTestController {
     @Resource
     CbContractService cbContractService;
 
-    @Value("${test}")
+    @Value("${test:default_name}")
     String test;
 
     @Value("${my.test.aaa:default_name}")

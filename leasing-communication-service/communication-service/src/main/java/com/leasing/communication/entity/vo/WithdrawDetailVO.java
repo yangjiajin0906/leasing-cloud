@@ -2,7 +2,6 @@ package com.leasing.communication.entity.vo;
 
 import com.leasing.common.base.entity.BaseBusinessVO;
 import com.leasing.common.entity.foundation.vo.CurrtypeVO;
-import com.leasing.common.vo.foundation.CurrtypeVO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

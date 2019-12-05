@@ -8,11 +8,6 @@ import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.communication.entity.query.WithdrawDetailQuery;
 import com.leasing.communication.entity.vo.WithdrawDetailVO;
 import com.leasing.communication.service.WithdrawDetailService;
-import com.leasing.common.utils.base.ResultUtils;
-import com.leasing.communication.entity.query.WithdrawDetailQuery;
-import com.leasing.communication.entity.vo.WithdrawDetailVO;
-import com.leasing.communication.service.WithdrawDetailService;
-import com.leasing.communication.service.WithdrawService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

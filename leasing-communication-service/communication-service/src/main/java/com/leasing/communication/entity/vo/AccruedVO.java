@@ -4,12 +4,6 @@ package com.leasing.communication.entity.vo;
 import com.leasing.common.base.entity.BaseBusinessVO;
 import com.leasing.common.entity.customer.dto.OrgDTO;
 import com.leasing.common.entity.foundation.vo.UserVO;
-
-import com.leasing.common.base.entity.BaseDO;
-import com.leasing.common.entity.foundation.vo.OrgDTO;
-import com.leasing.common.entity.foundation.vo.UserVO;
-import com.leasing.communication.entity.dos.AccruedBDO;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;

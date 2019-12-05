@@ -5,10 +5,6 @@ import com.leasing.common.base.annotation.QueryCondition;
 import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.enums.base.MatchType;
 
-import com.leasing.common.annotation.QueryCondition;
-import com.leasing.common.base.entity.BaseQuery;
-import com.leasing.common.enums.MatchType;
-
 /**
  * @project:leasing-cloud
  * @date:2019-11-20

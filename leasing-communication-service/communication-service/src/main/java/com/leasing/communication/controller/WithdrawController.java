@@ -5,7 +5,6 @@ import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.sys.ResultUtils;
-import com.leasing.common.utils.base.ResultUtils;
 import com.leasing.communication.entity.query.WithdrawQueryVO;
 import com.leasing.communication.service.WithdrawService;
 import org.springframework.web.bind.annotation.PostMapping;
