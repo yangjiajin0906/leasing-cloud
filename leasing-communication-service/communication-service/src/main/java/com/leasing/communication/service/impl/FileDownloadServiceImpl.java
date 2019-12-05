@@ -4,7 +4,6 @@ import com.aliyun.oss.model.OSSObject;
 import com.leasing.communication.entity.dos.*;
 import com.leasing.communication.service.FileDownloadService;
 import com.leasing.communication.utils.AliyunOssUtil;
-import com.leasing.communication.utils.ExcelUtil;
 import com.mongodb.client.gridfs.model.GridFSFile;
 import org.bson.types.ObjectId;
 import org.slf4j.LoggerFactory;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,7 +37,7 @@ public class FileDownloadServiceImpl implements FileDownloadService {
         OSSObject ossObject = AliyunOssUtil.downloadFile(fileName);
         InputStream inputStream = ossObject.getObjectContent();
         //解析excel
-        List<CustomerDO> list = ExcelUtil.importExcel(inputStream,CustomerDO.class,fileName);
+        List<CustomerDO> list = new ArrayList<>();
         ossObject.close();
         inputStream.close();
         return list;

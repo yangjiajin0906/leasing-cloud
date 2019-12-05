@@ -6,8 +6,8 @@ import com.leasing.common.entity.customer.dto.OrgDTO;
 import com.leasing.common.entity.foundation.vo.UserVO;
 
 import com.leasing.common.base.entity.BaseDO;
-import com.leasing.common.vo.foundation.OrgDTO;
-import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.common.entity.foundation.vo.OrgDTO;
+import com.leasing.common.entity.foundation.vo.UserVO;
 import com.leasing.communication.entity.dos.AccruedBDO;
 
 import javax.persistence.*;

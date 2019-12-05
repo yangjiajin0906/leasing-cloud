@@ -5,7 +5,6 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.OSSException;
 import com.aliyun.oss.model.*;
 import com.leasing.communication.config.AliyunOSSConfig;
-import com.leasing.communication.entity.dos.Customer2DO;
 import org.slf4j.LoggerFactory;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Component;
