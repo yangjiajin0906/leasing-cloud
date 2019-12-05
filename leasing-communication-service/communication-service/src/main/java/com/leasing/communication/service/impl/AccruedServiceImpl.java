@@ -3,13 +3,16 @@ package com.leasing.communication.service.impl;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.enums.base.Billstatus;
+import com.leasing.common.enums.constant.PubEnumsConstant;
 import com.leasing.common.exception.BaseException;
+import com.leasing.common.utils.base.DateUtils;
 import com.leasing.common.utils.base.ObjectUtil;
 import com.leasing.common.utils.base.UFDate;
 import com.leasing.communication.entity.dos.AccruedDO;
 import com.leasing.communication.entity.query.AccruedQuery;
 import com.leasing.communication.entity.vo.AccrualForAccruedPageRefVO;
 import com.leasing.communication.entity.vo.AccruedBVO;
+import com.leasing.communication.entity.vo.AccruedChildVO;
 import com.leasing.communication.entity.vo.AccruedVO;
 import com.leasing.communication.repository.AccruedRepo;
 import com.leasing.communication.service.AccruedService;
@@ -37,7 +40,7 @@ public class AccruedServiceImpl implements AccruedService {
     AccruedRepo leaseAccruedRepo;
 
     @Override
-    public PageQueryData<AccruedDO> pageQuery(Pagination pagination, AccruedQuery leaseAccruedQuery, String queryName) {
+    public PageQueryData<AccruedVO> pageQuery(Pagination pagination, AccruedQuery leaseAccruedQuery, String queryName) {
         return leaseAccruedRepo.pageQuery(pagination, leaseAccruedQuery, queryName);
     }
 
@@ -46,14 +49,15 @@ public class AccruedServiceImpl implements AccruedService {
         //校验
         this.checkData(pkOrg, currentData, list);
         String currentMonth = currentData.substring(0, 7);
-        List<AccrualForAccruedPageRefVO> listRef = leaseAccruedRepo.findAccrualForAccrued(currentMonth);
+        List<AccrualForAccruedPageRefVO> listRef = leaseAccruedRepo.findAccrualForAccrued(currentMonth, pkOrg);
         //构造计提vo
         AccruedVO vo = new AccruedVO();
         vo.setBillstatus(Short.valueOf("20"));//暂存
         vo.setPkOrg(null);
+        vo.setPkCorp(null);
         vo.setPkOperator(null);
-        vo.setOperateDate(null);
-        vo.setOperateTime(null);
+        vo.setOperateDate(DateUtils.getCurDate());
+        vo.setOperateTime(DateUtils.getCurDateTime());
         vo.setContractType(Short.valueOf("1"));//非电信
         vo.setAccrualMonth(currentMonth);//计提月份
         vo = convertVO(vo,listRef);
@@ -155,7 +159,7 @@ public class AccruedServiceImpl implements AccruedService {
             if (vo.getAccrualMonth().equals(pageRefVO.getMonth())) {
                 AccruedBVO bvo = new AccruedBVO();
                 bvo.setPkAccrualC(pageRefVO.getPkAccrual());
-                bvo.setPkLeaseAccrued(vo);
+                bvo.setPkLeaseAccrued(vo.getPkLeaseAccrued());
                 bvo.setPkContract(pageRefVO.getPkContract());// 合同
                 bvo.setPkCustomer(pageRefVO.getPkCustomer());// 客户
                 bvo.setAssetsClassify(pageRefVO.getAssetsClassify());// 资产五级分类
@@ -205,6 +209,11 @@ public class AccruedServiceImpl implements AccruedService {
 
     @Override
     public AccruedDO save(AccruedDO vo) {
+        vo.setBillstatus(Billstatus.INITALIZE.getShort());
+        String currentMonth = vo.getAccrualMonth().substring(0, 7);
+        vo.setAccrualMonth(currentMonth);
+        vo.setOperateTime(DateUtils.getCurDateTime());
+        vo.setOperateDate(DateUtils.getCurDate());
         return leaseAccruedRepo.saveEntity(vo);
     }
 
@@ -224,7 +233,52 @@ public class AccruedServiceImpl implements AccruedService {
     }
 
     @Override
-    public AccruedVO findByPk(String pk) {
+    public AccruedChildVO findByPk(String pk) {
+        return leaseAccruedRepo.findByPk(pk);
+    }
+
+    @Override
+    public AccruedVO submit(AccruedVO vo) {
+        AccruedDO dos = leaseAccruedRepo.findOne(vo.getPkLeaseAccrued());
+        dos.setBillstatus(Billstatus.APPROVING.getShort());
+        leaseAccruedRepo.updateEntity(dos);
+        /** *****************发凭证********************** */
+
+        return vo;
+    }
+
+    @Override
+    public AccruedVO exeCheck(AccruedVO vo) {
+        AccruedDO dos = leaseAccruedRepo.findOne(vo.getPkLeaseAccrued());
+        dos.setBillstatus(Billstatus.APPROVE.getShort());
+        dos.setPkChecker(null);
+        dos.setCheckDate(null);
+        dos.setCheckTime(null);
+        leaseAccruedRepo.updateEntity(dos);
+        /** *****************发凭证********************** */
+
+        //回写计提表的计提标识
+        this.updateAccruedFlag(vo, PubEnumsConstant.IF_YES);
+        //回写非此计提月的计提标识
+        //this.updateAccrualBefore(vo.getPk_lease_accrued(), vo.getAccrual_month(),PubEnumsConstant.IF_YES);
+        //审核会计平台数据
+        //checkVoucher(vo);
+        return null;
+    }
+    /**
+     * @description 回写计提表的计提标识
+     * @author Yangjiajin
+     * @date 2019/12/4 14:19
+     * @param vo
+     * @return com.leasing.communication.entity.vo.AccruedVO
+     */
+    private void updateAccruedFlag(AccruedVO vo, final Short if_begin){
+        List<AccruedBVO> list = vo.getLeaseAccruedB();
+
+    }
+
+    @Override
+    public AccruedVO queryVoucher(AccruedVO vo) {
         return null;
     }
 }

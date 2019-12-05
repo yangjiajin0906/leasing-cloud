@@ -226,7 +226,7 @@ public class AccrualForAccruedPageRefVO {
      */
     @ManyToOne()
     @JoinColumn(name="pkContract")
-    public ContractCRefVO pkContract;
+    public ContractDTO pkContract;
 
     /**
      * 资产五级分类
@@ -418,11 +418,11 @@ public class AccrualForAccruedPageRefVO {
         this.pkCustomer = pkCustomer;
     }
 
-    public ContractCRefVO getPkContract() {
+    public ContractDTO getPkContract() {
         return pkContract;
     }
 
-    public void setPkContract(ContractCRefVO pkContract) {
+    public void setPkContract(ContractDTO pkContract) {
         this.pkContract = pkContract;
     }
 

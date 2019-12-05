@@ -4,9 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
+import com.leasing.common.entity.customer.dto.OrgDTO;
 import com.leasing.common.utils.sys.ResultUtils;
+import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.communication.entity.dos.AccruedDO;
 import com.leasing.communication.entity.query.AccruedQuery;
+import com.leasing.communication.entity.vo.AccruedChildVO;
 import com.leasing.communication.entity.vo.AccruedVO;
 import com.leasing.communication.service.AccruedService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,16 +35,34 @@ public class AccruedController {
     @RequestMapping(value = "/queryForGrid")
     public ResResult pageQuery(@RequestBody(required = false) String data){
         AccruedQuery leaseAccruedQuery = new AccruedQuery();
-        Pagination pagination = new Pagination(1, 100);
-        PageQueryData<AccruedDO> pageQueryData = leaseAccruedService.pageQuery(pagination,leaseAccruedQuery,"accruedRepo.pageQuery");
+        Pagination pagination = new Pagination(1, 50);
+        PageQueryData<AccruedVO> pageQueryData = leaseAccruedService.pageQuery(pagination,leaseAccruedQuery,"accruedRepo.pageQuery");
         return ResultUtils.successWithData(pageQueryData);
+    }
+
+    @RequestMapping(value = "/findOne")
+    public ResResult findOne(@RequestBody(required = false) String data){
+        AccruedChildVO vo = JSON.parseObject(data, AccruedChildVO.class);
+        vo = leaseAccruedService.findByPk(vo.getPk());
+        return ResultUtils.successWithData(vo);
     }
 
     @RequestMapping(value = "/onAdd")
     public ResResult onAdd(@RequestBody(required = false) String data){
         AccruedVO vo = JSON.parseObject(data,AccruedVO.class);
-        List<AccruedVO> list = null;
-        vo = leaseAccruedService.onAdd("1003","2019-05", list);
+        OrgDTO org = vo.getPkOrg();
+        List<AccruedVO> list = new ArrayList<>();
+        vo = leaseAccruedService.onAdd(vo.getPkOrg().getRefpk(),vo.getAccrualMonth(), list);
+        vo.setPkOrg(org);
         return ResultUtils.successWithData(vo);
+    }
+
+    @RequestMapping(value = "/save")
+    public ResResult save(@RequestBody(required = false) String data){
+        AccruedVO vo = JSON.parseObject(data,AccruedVO.class);
+        AccruedDO dos = DozerUtils.convert(vo,AccruedDO.class);
+        dos = leaseAccruedService.save(dos);
+        dos.setPkOrg("1003");
+        return ResultUtils.successWithData(dos);
     }
 }
