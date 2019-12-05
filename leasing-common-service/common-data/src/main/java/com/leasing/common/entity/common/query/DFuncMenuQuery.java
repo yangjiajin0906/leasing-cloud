@@ -4,12 +4,6 @@ import com.leasing.common.base.annotation.QueryCondition;
 import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.enums.base.MatchType;
 import com.leasing.common.entity.common.vo.SystemVO;
-import com.leasing.common.enums.MatchType;
-import org.springframework.data.jpa.domain.Specification;
-
-import javax.persistence.criteria.Predicate;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @project:leasing-cloud

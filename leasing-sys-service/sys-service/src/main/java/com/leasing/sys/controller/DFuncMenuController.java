@@ -10,8 +10,6 @@ import com.leasing.common.entity.common.dos.DFuncMenuDO;
 import com.leasing.common.entity.common.vo.DFuncMenuVO;
 import com.leasing.common.service.sys.DFuncMenuService;
 import com.leasing.common.service.sys.SystemService;
-import com.leasing.common.service.DFuncMenuService;
-import com.leasing.common.service.SystemService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 

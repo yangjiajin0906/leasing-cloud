@@ -2,8 +2,7 @@ package com.leasing.sys.controller;
 
 import com.leasing.common.entity.foundation.vo.UserVO;
 import com.leasing.common.base.web.ResResult;
-import com.leasing.common.utils.base.ResultUtils;
-import com.leasing.common.vo.foundation.UserVO;
+import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.sys.service.LoginService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

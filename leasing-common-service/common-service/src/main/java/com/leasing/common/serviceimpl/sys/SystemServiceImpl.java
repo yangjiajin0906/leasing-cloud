@@ -1,10 +1,8 @@
 package com.leasing.common.serviceimpl.sys;
 
 import com.leasing.common.entity.common.dos.SystemDO;
-import com.leasing.common.base.repository.SystemRepository;
 import com.leasing.common.entity.common.query.SystemQuery;
 import com.leasing.common.entity.common.vo.SystemVO;
-import com.leasing.common.service.SystemService;
 import com.leasing.common.repository.sys.SystemRepository;
 import com.leasing.common.service.sys.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
