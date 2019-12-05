@@ -1,17 +1,11 @@
 package com.leasing.common.serviceimpl.sys;
 
 import com.leasing.common.repository.sys.SystemRepository;
-import com.leasing.common.base.repository.SystemRepository;
-import com.leasing.common.base.repository.support.PageQueryData;
-import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.entity.common.dos.DFuncMenuDO;
 import com.leasing.common.entity.common.query.DFuncMenuQuery;
 import com.leasing.common.entity.common.vo.DFuncMenuVO;
 import com.leasing.common.entity.common.vo.SystemVO;
-import com.leasing.common.base.repository.DFuncMenuRepo;
-import com.leasing.common.entity.common.vo.SystemVO;
 import com.leasing.common.repository.sys.DFuncMenuRepo;
-import com.leasing.common.repository.sys.SystemRepository;
 import com.leasing.common.service.sys.DFuncMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
