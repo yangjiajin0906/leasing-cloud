@@ -1,6 +1,8 @@
 package com.leasing.sys.service.impl;
 
 import com.leasing.common.entity.foundation.vo.UserVO;
+import com.alibaba.fastjson.JSONObject;
+import com.leasing.common.vo.foundation.UserVO;
 import com.leasing.sys.dao.repository.LoginClientRepo;
 import com.leasing.sys.entity.dto.ClientDO;
 import com.leasing.sys.entity.vo.ClientVO;
@@ -8,9 +10,12 @@ import com.leasing.sys.repository.DiySessionRepo;
 import com.leasing.sys.service.LoginService;
 import com.leasing.sys.util.DiySession;
 import com.leasing.sys.util.Encode;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 /**
@@ -60,11 +65,20 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public UserVO login(String data) {
-        String token = "DIY-1573096948527-0d8a4d78";
-        UserVO userVO = validateUser("heyuanyuan","1003",new Encode().encode("1"));
-        if(userVO != null){
-            checkSession(userVO, token);
+    public UserVO login(String data, HttpServletRequest request) {
+        JSONObject json = JSONObject.parseObject(data);
+        String username = "";
+        String password = "";
+        if(json!=null && json.get("username") != null && !StringUtils.isEmpty(json.get("username").toString())){
+            username = json.get("username").toString();
+        }
+        if(json!=null && json.get("password") != null && !StringUtils.isEmpty(json.get("password").toString())) {
+            password = json.get("password").toString();
+        }
+        UserVO userVO = validateUser(username,"1003", new Encode().encode(password));
+        if(userVO != null){   //验证通过存在该用户 则存入session
+            HttpSession session = request.getSession();
+            session.setAttribute("user", userVO);
         }
         return userVO;
     }
@@ -101,7 +115,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public void logout(String token) {
-        diySessionRepo.delete(token);
+    public void logout(String data, HttpServletRequest request) {
+        request.getSession().removeAttribute("user");
     }
 }

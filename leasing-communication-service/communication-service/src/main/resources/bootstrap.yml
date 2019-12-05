@@ -6,10 +6,22 @@ spring:
              discovery:
                   enabled: true
                   serviceId: leasing-config-server
+    jpa:
+      show-sql: true
+      hibernate:
+        enable_lazy_load_no_trans: true
+        ddl-auto: none
+        naming:
+          physical-strategy: com.leasing.communication.utils.JpaNamingStrategy # 自己定义的加载策略
 
-spring.jpa.show-sql: true
-#spring.jpa.properties.hibernate.format_sql: true
-
+# OSS
+aliyun:
+  oss:
+    endPoint: https://oss-cn-beijing.aliyuncs.com
+    accessKeyId: LTAI4FgC365NswjYUznrALNs
+    accessKeySecret: RJrO84HQdYSHprEhnmcNcsGhglxIJs
+    bucketName: jicl-test #这个自己创建bucket时的命名
+    fileHost: temp
 
 eureka:
   port:

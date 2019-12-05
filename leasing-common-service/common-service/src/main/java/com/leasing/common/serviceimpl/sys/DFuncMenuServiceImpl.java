@@ -1,8 +1,14 @@
 package com.leasing.common.serviceimpl.sys;
 
+import com.leasing.common.base.repository.SystemRepository;
+import com.leasing.common.base.repository.support.PageQueryData;
+import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.entity.common.dos.DFuncMenuDO;
 import com.leasing.common.entity.common.query.DFuncMenuQuery;
 import com.leasing.common.entity.common.vo.DFuncMenuVO;
+import com.leasing.common.base.repository.DFuncMenuRepo;
+import com.leasing.common.entity.common.vo.SystemVO;
+import com.leasing.common.service.DFuncMenuService;
 import com.leasing.common.repository.sys.DFuncMenuRepo;
 import com.leasing.common.service.sys.DFuncMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +27,16 @@ public class DFuncMenuServiceImpl implements DFuncMenuService {
     @Autowired
     DFuncMenuRepo dFuncMenuRepo;
 
+    @Autowired
+    SystemRepository systemRepository;
+
     @Override
-    public List<DFuncMenuVO>getMenuList(){
+    public List<DFuncMenuVO>getMenuList(String systemPk){
         DFuncMenuQuery queryvo =new DFuncMenuQuery();
-//        queryvo.setFuncName("参数");
-        String jqpl="select s from DFuncMenuVO s" +
-                "            left join fetch s.pkParent l" +
-                "            left join fetch s.pkSystem p" +
-                "            left join fetch s.pkOrg o" +
-                "            left join fetch s.pkDept d" +
-                "            left join fetch s.pkOperator t" +
-                "   where s.ifPower = '1' and s.ifEnabled = '0' order by s.ts desc";
+        SystemVO systemVO = systemRepository.findOne(systemPk,SystemVO.class);
+        if(systemVO != null){
+            queryvo.setPkSystem(systemVO);
+        }
         List<DFuncMenuVO> list = dFuncMenuRepo.pageQuery(queryvo,"getDFuncmenuList");
         return list;
 

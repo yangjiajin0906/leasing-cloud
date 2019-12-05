@@ -34,6 +34,10 @@ public class SystemVO extends BaseBusinessVO {
 
     public SystemVO(){}
 
+    public SystemVO(String pkSystem){
+        this.pkSystem = pkSystem;
+    }
+
     public String getPkSystem() {
         return pkSystem;
     }

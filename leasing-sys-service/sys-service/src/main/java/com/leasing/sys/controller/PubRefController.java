@@ -9,6 +9,11 @@ import com.leasing.common.entity.common.query.OrgQuery;
 import com.leasing.common.refvo.base.OrgrefVO;
 import com.leasing.common.service.sys.PubRefService;
 import com.leasing.common.utils.sys.ResultUtils;
+import com.leasing.common.ref.base.OrgrefVO;
+import com.leasing.common.ref.base.PublicRefVO;
+import com.leasing.common.service.PubRefService;
+import com.leasing.common.utils.base.DataParseUtils;
+import com.leasing.common.utils.base.ResultUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,37 +35,16 @@ public class PubRefController {
     //表结构参照
     @RequestMapping(value = "/queryOrg")
     public ResResult queryOrg(@RequestBody(required = false) String data){
-        JSONObject json = JSONObject.parseObject(data);
-        OrgQuery orgQuery = new OrgQuery();
-        Pagination pagination = new Pagination(1, 5);
-        if(json!=null && json.get("wherecondition") != null && !StringUtils.isEmpty(json.get("wherecondition").toString())){
-            orgQuery = JSON.parseObject(json.get("wherecondition").toString(),OrgQuery.class);
-        }
-        if(json!=null && json.get("pagination") != null && !StringUtils.isEmpty(json.get("pagination").toString())) {
-            pagination = JSON.parseObject(json.get("pagination").toString(),Pagination.class);
-        }
+        Pagination pagination = DataParseUtils.jsonToBean(data, "pagination", Pagination.class);
+        OrgQuery orgQuery = DataParseUtils.jsonToBean(data, "where", OrgQuery.class);
         PageQueryRefData<OrgrefVO> pageQueryRefData = pubRefService.findOrgTableRef(pagination,orgQuery,"orgRefJPQLQuery");
-//        PageQueryData<OrgrefVO> list = orgRepo.pageQuery(pagination,orgQuery,"orgRefJPQLQuery");
-//        PublicRefVO refVO = new PublicRefVO();
-//        refVO.setStrFieldCode(vo.getFieldCode());
-//        refVO.setStrFieldName(vo.getFieldName());
-//        refVO.setData(list.getPageData());
-//        pagination.setTotal(Integer.parseInt(String.valueOf(list.getTotal())));
-//        int number = pagination.getTotal()%Integer.parseInt(String.valueOf(list.getPageSize()));
-//        int count = pagination.getTotal()/Integer.parseInt(String.valueOf(list.getPageSize()));
-//        pagination.setPageCount(number == 0 ? count : count+1);
-//        refVO.setPage(pagination);
         return ResultUtils.successWithData(pageQueryRefData);
     }
 
     //树节点参照
     @RequestMapping(value = "/queryTreeOrg")
     public ResResult queryTreeOrg(@RequestBody(required = false) String data){
-        JSONObject json = JSONObject.parseObject(data);
-        OrgQuery orgQuery = new OrgQuery();
-        if(json!=null && json.get("wherecondition") != null && !StringUtils.isEmpty(json.get("wherecondition").toString())){
-            orgQuery = JSON.parseObject(json.get("wherecondition").toString(),OrgQuery.class);
-        }
+        OrgQuery orgQuery = DataParseUtils.jsonToBean(data, "where", OrgQuery.class);
         List<OrgrefVO> resultlist = pubRefService.findOrgTreeRef(orgQuery,"orgRefJPQLQuery");
         return ResultUtils.successWithData(resultlist);
     }

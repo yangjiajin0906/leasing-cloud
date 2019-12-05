@@ -4,7 +4,6 @@ import com.leasing.common.enums.excel.ExcelType;
 import com.leasing.communication.entity.Address;
 import com.leasing.communication.entity.Person;
 import com.leasing.communication.entity.dos.CacheVO;
-import com.leasing.communication.entity.dos.Customer2DO;
 import com.leasing.communication.entity.dos.CustomerDO;
 import com.leasing.communication.entity.dos.InvoiceApplyDO;
 import com.leasing.communication.service.CustomerService;
@@ -244,7 +243,7 @@ public class TestController {
 //        String filePath5 = "E:\\excel\\合同信息test.xls";
 //        String filePath6 = "E:\\excel\\租金计划test.xls";
         //解析excel，
-//        List<Customer2DO> personList = EasyPoiUtils.importExcel(filePath,1,1,Customer2DO.class);
+//        List<CustomerDO> personList = EasyPoiUtils.importExcel(filePath,1,1,CustomerDO.class);
 //        List<CapitalDO> personList2 = EasyPoiUtils.importExcel(filePath2,1,1,CapitalDO.class);
 //        List<WithdrawDO> personList3 = EasyPoiUtils.importExcel(filePath3,1,1,WithdrawDO.class);
         List<InvoiceApplyDO> personList4 = EasyPoiUtils.importExcel(filePath4,1,1,InvoiceApplyDO.class);
@@ -261,7 +260,7 @@ public class TestController {
         Long startTime = new Date().getTime();
         String filePath = "E:\\excel\\客户.xls";
         //解析excel
-        List<Customer2DO> cList = EasyPoiUtils.importExcel(filePath,1,1,Customer2DO.class);
+        List<CustomerDO> cList = EasyPoiUtils.importExcel(filePath,1,1,CustomerDO.class);
         Long endTime = new Date().getTime();
         System.out.println("导入了【"+cList.size()+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }
@@ -272,7 +271,7 @@ public class TestController {
         //模拟从数据库获取需要导出的数据
         List<CustomerDO> personList = new ArrayList<>();
         for (int i =1; i<60000; i++){
-            CustomerDO customer = new CustomerDO("0001MG0000" + i,"0114" + i
+            CustomerDO customer = new CustomerDO(null,"0114" + i
                     ,"客户" + i, i,"86929488-"+i, "1988-01-23", "签发机关"+i
                     ,i,2+i,0,i,"1385555777"+i,1,"子女情况"+i
                     ,"子女上学情况"+i,"行业类型"+i,i,"高薪职业"+i
@@ -298,7 +297,7 @@ public class TestController {
         }
         int size = personList.size();
         //导出操作
-        EasyPoiUtils.exportExcel(personList,"客户信息","客户",CustomerDO.class,"客户.xlsx",response);
+        EasyPoiUtils.exportExcel(personList,"客户信息","客户",CustomerDO.class,"客户.xls",response);
         Long endTime = new Date().getTime();
         System.out.println("导出了【"+size+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }
@@ -324,7 +323,7 @@ public class TestController {
     @RequestMapping("importCustomerInfoTest")
     public void importCustomerInfoTest(String filePath){
         Long startTime = new Date().getTime();
-        filePath = "E:\\excel\\客户.xlsx";
+        filePath = "E:\\excel\\客户.xls";
         //解析excel
         List<CustomerDO> list = EasyPoiUtils.importExcel(filePath,1,1,CustomerDO.class);
         Long endTime = new Date().getTime();
@@ -346,7 +345,7 @@ public class TestController {
         InputStream inputStream = new FileInputStream(file);
         multipartFile = new MockMultipartFile(file.getName(), inputStream);
         //解析excel
-        List<Customer2DO> list = EasyPoiUtils.importExcel(multipartFile,1,1,Customer2DO.class);
+        List<CustomerDO> list = EasyPoiUtils.importExcel(multipartFile,1,1,CustomerDO.class);
         Long endTime = new Date().getTime();
         System.out.println("导入了【"+list.size()+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }
@@ -392,9 +391,9 @@ public class TestController {
     public void exportCusPoi(HttpServletResponse response){
         Long startTime = new Date().getTime();
         //模拟从数据库获取需要导出的数据
-        List<Customer2DO> personList = new ArrayList<>();
+        List<CustomerDO> personList = new ArrayList<>();
         for (int i =1; i<60000; i++){
-            Customer2DO customer = new Customer2DO(null,"0114" + i
+            CustomerDO customer = new CustomerDO(null,"0114" + i
                     ,"客户" + i, i,"86929488-"+i, "1988-01-23", "签发机关"+i
                     ,i,2+i,0,i,"1385555777"+i,1,"子女情况"+i
                     ,"子女上学情况"+i,"行业类型"+i,i,"高薪职业"+i
@@ -429,9 +428,9 @@ public class TestController {
     public void exportCusPoi2(HttpServletResponse response){
         Long startTime = new Date().getTime();
         //模拟从数据库获取需要导出的数据
-        List<Customer2DO> personList = new ArrayList<>();
-        for (int i =1; i<60000; i++){
-            Customer2DO customer = new Customer2DO(null,"0114" + i
+        List<CustomerDO> personList = new ArrayList<>();
+        for (int i =1; i<20000; i++){
+            CustomerDO customer = new CustomerDO(null,"0114" + i
                     ,"客户" + i, i,"86929488-"+i, "1988-01-23", "签发机关"+i
                     ,i,2+i,0,i,"1385555777"+i,1,"子女情况"+i
                     ,"子女上学情况"+i,"行业类型"+i,i,"高薪职业"+i
@@ -477,7 +476,7 @@ public class TestController {
         InputStream inputStream = new FileInputStream(file);
         multipartFile = new MockMultipartFile(file.getName(), inputStream);
         //解析excel
-        List<Customer2DO> list = ExcelUtil.importExcel(multipartFile,Customer2DO.class);
+        List<CustomerDO> list = ExcelUtil.importExcel(multipartFile,CustomerDO.class);
         Long endTime = new Date().getTime();
         System.out.println("导入了【"+list.size()+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }
@@ -497,7 +496,7 @@ public class TestController {
         InputStream inputStream = new FileInputStream(file);
         multipartFile = new MockMultipartFile(file.getName(), inputStream);
         //解析excel
-        List<Customer2DO> list = ExcelUtil.importExcel(multipartFile,Customer2DO.class);
+        List<CustomerDO> list = ExcelUtil.importExcel(multipartFile,CustomerDO.class);
         Long endTime = new Date().getTime();
         System.out.println("导入了【"+list.size()+"】行数据，共计用时"+(endTime-startTime)/1000 + "秒");
     }

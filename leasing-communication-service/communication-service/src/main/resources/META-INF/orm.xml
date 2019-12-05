@@ -16,5 +16,71 @@
         </query>
     </named-query>
 
+    <named-query name="accruedRepo.pageQuery">
+        <query>
+            select c from AccruedDO c
+        </query>
+    </named-query>
+
+    <named-query name="accruedRepo.pageQuery.count">
+        <query>
+            select count(c.pkLeaseAccrued) from AccruedDO c
+        </query>
+    </named-query>
+
+    <named-query name="accruedRepo.findAccrualForAccrued">
+        <query>
+            select vo from AccrualForAccruedPageRefVO vo
+            left join fetch vo.pkCustomer c
+            left join fetch vo.pkContract co
+            left join fetch vo.pkCurrtype cu
+            where vo.pkLesseeProtocol is null
+            and (vo.assetsClassify is null or vo.assetsClassify in (0,1))
+            and (vo.month &lt;=?1 and vo.month >= vo.mon and vo.ifBegin = 1 )
+            <!--and (vo.pkContract.contStatus = 2 or vo.pkContract.contStatus = 3)-->
+            <!--and vo.pkContract.pkAcctOrg = ?2-->
+        </query>
+    </named-query>
+
+    <named-query name="accruedRepo.getLastAccruedMonth">
+        <query>
+            select max(accrualMonth) as accrualMonth
+            from AccruedDO
+            where pkCorp = ?1 and billstatus = ?2 and contractType = ?3
+        </query>
+    </named-query>
+
+    <named-query name="WithdrawPageQuery">
+        <query>select b from WithdrawVO b </query>
+    </named-query>
+
+
+    <named-query name="WithdrawPageQuery.count">
+        <query>select count(b) from WithdrawVO b </query>
+    </named-query>
+
+    <named-query name="WithdrawPageDetailQuery">
+        <query>select b from WithdrawDetailVO b </query>
+    </named-query>
+
+
+    <named-query name="WithdrawPageDetailQuery.count">
+        <query>select count(b) from WithdrawDetailVO b </query>
+    </named-query>
+
+    <named-native-query name="accruedRepo.getGlSyssettledYearMonth" result-set-mapping="getGlSyssettledYearMonth">
+        <query>
+            select gs.settledyear,gs.settledperiod
+            from gl_syssettled gs
+            left join bd_glorgbook bg on gs.pk_glorgbook = bg.pk_glorgbook
+            left join bd_glorg glo on bg.pk_glorg = glo.pk_glorg
+            where glo.pk_entityorg = ?1
+        </query>
+    </named-native-query>
+
+    <sql-result-set-mapping name="getGlSyssettledYearMonth">
+        <column-result name="settledyear" />
+        <column-result name="settledperiod" />
+    </sql-result-set-mapping>
 
 </entity-mappings>

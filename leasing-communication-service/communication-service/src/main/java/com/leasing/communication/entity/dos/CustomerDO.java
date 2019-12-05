@@ -1,7 +1,7 @@
 package com.leasing.communication.entity.dos;
 
-import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.leasing.communication.entity.base.FileBaseBusinessDO;
+import com.leasing.communication.utils.Excel;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,446 +20,445 @@ public class CustomerDO extends FileBaseBusinessDO {
     /**
      * 主键
      */
-    @Excel(name = "主键", orderNum = "7")
     @Id
     private String pkCustomer;
 
     /**
      * 客户编码
      */
-    @Excel(name = "客户编码", orderNum = "8")
+    @Excel(titleName = "客户编码", orderNum = 8)
     private String customerCode;
 
     /**
      * 客户名称
      */
-    @Excel(name = "客户名称", orderNum = "9")
+    @Excel(titleName = "客户名称", orderNum = 9)
     private String customerName;
 
     /**
      * 证件类型
      */
-    @Excel(name = "证件类型", orderNum = "10")
+    @Excel(titleName = "证件类型", orderNum = 10)
     private Integer identityType;
 
     /**
      * 证件号码
      */
-    @Excel(name = "证件号码", orderNum = "11")
+    @Excel(titleName = "证件号码", orderNum = 11)
     private String identityNo;
 
     /**
      * 出生日期
      */
-    @Excel(name = "出生日期", orderNum = "12")
+    @Excel(titleName = "出生日期", orderNum = 12)
     private String birthday;
 
     /**
      * 签发机关
      */
-    @Excel(name = "签发机关", orderNum = "13")
+    @Excel(titleName = "签发机关", orderNum = 13)
     private String issuingAuthority;
 
     /**
      * 有效期限
      */
-    @Excel(name = "有效期限", orderNum = "14")
+    @Excel(titleName = "有效期限", orderNum = 14)
     private Integer validTerm;
 
     /**
      * 年龄
      */
-    @Excel(name = "年龄", orderNum = "15")
+    @Excel(titleName = "年龄", orderNum = 15)
     private Integer age;
 
     /**
      * 性别
      */
-    @Excel(name = "性别", orderNum = "16")
+    @Excel(titleName = "性别", orderNum = 16)
     private Integer sex;
 
     /**
      * 文化程度
      */
-    @Excel(name = "文化程度", orderNum = "17")
+    @Excel(titleName = "文化程度", orderNum = 17)
     private Integer levelOfEducation;
 
     /**
      * 联系方式
      */
-    @Excel(name = "联系方式", orderNum = "18")
+    @Excel(titleName = "联系方式", orderNum = 18)
     private String contact;
 
     /**
      * 婚姻状况
      */
-    @Excel(name = "婚姻状况", orderNum = "19")
+    @Excel(titleName = "婚姻状况", orderNum = 19)
     private Integer marryStatus;
 
     /**
      * 子女情况
      */
-    @Excel(name = "子女情况", orderNum = "20")
+    @Excel(titleName = "子女情况", orderNum = 20)
     private String childrenStatus;
 
     /**
      * 子女上学情况
      */
-    @Excel(name = "子女上学情况", orderNum = "21")
+    @Excel(titleName = "子女上学情况", orderNum = 21)
     private String childrenSchoolStatus;
 
     /**
      * 行业类型
      */
-    @Excel(name = "行业类型", orderNum = "22")
+    @Excel(titleName = "行业类型", orderNum = 22)
     private String industryType;
 
     /**
      * 职称
      */
-    @Excel(name = "职称", orderNum = "23")
+    @Excel(titleName = "职称", orderNum = 23)
     private Integer officalTitle;
 
     /**
      * 职业
      */
-    @Excel(name = "职业", orderNum = "24")
+    @Excel(titleName = "职业", orderNum = 24)
     private String job;
 
     /**
      * 户籍地址
      */
-    @Excel(name = "户籍地址", orderNum = "25")
+    @Excel(titleName = "户籍地址", orderNum = 25)
     private String permanentAddress;
 
     /**
      * 居住地址
      */
-    @Excel(name = "居住地址", orderNum = "26")
+    @Excel(titleName = "居住地址", orderNum = 26)
     private String homeAddr;
 
     /**
      * 单位名称
      */
-    @Excel(name = "单位名称", orderNum = "27")
+    @Excel(titleName = "单位名称", orderNum = 27)
     private String employerName;
 
     /**
      * 单位地址
      */
-    @Excel(name = "单位地址", orderNum = "28")
+    @Excel(titleName = "单位地址", orderNum = 28)
     private String employerAddress;
 
     /**
      * 单位性质
      */
-    @Excel(name = "单位性质", orderNum = "29")
+    @Excel(titleName = "单位性质", orderNum = 29)
     private String employerNature;
 
     /**
      * 本单位工作年限
      */
-    @Excel(name = "本单位工作年限", orderNum = "30")
+    @Excel(titleName = "本单位工作年限", orderNum = 30)
     private Integer lengthOfService;
 
     /**
      * 本地居住年限（年）
      */
-    @Excel(name = "本地居住年限（年）", orderNum = "31")
+    @Excel(titleName = "本地居住年限（年）", orderNum = 31)
     private Integer lengthLocalResidence;
 
     /**
      * 是否有房产
      */
-    @Excel(name = "是否有房产", orderNum = "32")
+    @Excel(titleName = "是否有房产", orderNum = 32)
     private Integer realEstate;
 
     /**
      * 产权所有人
      */
-    @Excel(name = "产权所有人", orderNum = "33")
+    @Excel(titleName = "产权所有人", orderNum = 33)
     private String titleHolder;
 
     /**
      * 房产面积（平方米）
      */
-    @Excel(name = "房产面积（平方米）", orderNum = "34")
+    @Excel(titleName = "房产面积（平方米）", orderNum = 34)
     private BigDecimal theHousingArea;
 
     /**
      * 房产所在地
      */
-    @Excel(name = "房产所在地", orderNum = "35")
+    @Excel(titleName = "房产所在地", orderNum = 35)
     private String realEstateHome;
 
     /**
      * 详细地址
      */
-    @Excel(name = "详细地址", orderNum = "36")
+    @Excel(titleName = "详细地址", orderNum = 36)
     private String detailedAddress;
 
     /**
      * 房产性质
      */
-    @Excel(name = "房产性质", orderNum = "37")
+    @Excel(titleName = "房产性质", orderNum = 37)
     private String realEstateProperties;
 
     /**
      * 房产区域
      */
-    @Excel(name = "房产区域", orderNum = "38")
+    @Excel(titleName = "房产区域", orderNum = 38)
     private String realEstateArea;
 
     /**
      * 年固定收入（元）
      */
-    @Excel(name = "年固定收入（元）", orderNum = "39")
+    @Excel(titleName = "年固定收入（元）", orderNum = 39)
     private BigDecimal fixedAnnualIncome;
 
     /**
      * 征信时间
      */
-    @Excel(name = "征信时间", orderNum = "40")
+    @Excel(titleName = "征信时间", orderNum = 40)
     private String creditTime;
 
     /**
      * 征信对象类型
      */
-    @Excel(name = "征信对象类型", orderNum = "41")
+    @Excel(titleName = "征信对象类型", orderNum = 41)
     private String creditObjType;
 
     /**
      * 征信结果
      */
-    @Excel(name = "征信结果", orderNum = "42")
+    @Excel(titleName = "征信结果", orderNum = 42)
     private String creditResult;
 
     /**
      * 征信原因描述
      */
-    @Excel(name = "征信原因描述", orderNum = "43")
+    @Excel(titleName = "征信原因描述", orderNum = 43)
     private String creditReasonDescribe;
 
     /**
      * 征信评分
      */
-    @Excel(name = "征信评分", orderNum = "44")
+    @Excel(titleName = "征信评分", orderNum = 44)
     private String creditRating;
 
     /**
      * 征信编号
      */
-    @Excel(name = "征信编号", orderNum = "45")
+    @Excel(titleName = "征信编号", orderNum = 45)
     private String creditCode;
 
     /**
      * 征信生成时间
      */
-    @Excel(name = "征信生成时间", orderNum = "46")
+    @Excel(titleName = "征信生成时间", orderNum = 46)
     private String creditGenerateTime;
 
     /**
      * 联系人姓名
      */
-    @Excel(name = "联系人姓名", orderNum = "47")
+    @Excel(titleName = "联系人姓名", orderNum = 47)
     private String linkmanName;
 
     /**
      * 联系人联系方式
      */
-    @Excel(name = "联系人联系方式", orderNum = "48")
+    @Excel(titleName = "联系人联系方式", orderNum = 48)
     private String linkmanContact;
 
     /**
      * 联系人与承租人关系
      */
-    @Excel(name = "联系人与承租人关系", orderNum = "49")
+    @Excel(titleName = "联系人与承租人关系", orderNum = 49)
     private Integer linkmanLesseeRelationship;
 
     /**
      * 联系人居住地址
      */
-    @Excel(name = "联系人居住地址", orderNum = "50")
+    @Excel(titleName = "联系人居住地址", orderNum = 50)
     private String linkmanAddress;
 
     /**
      * 配偶姓名
      */
-    @Excel(name = "配偶姓名", orderNum = "51")
+    @Excel(titleName = "配偶姓名", orderNum = 51)
     private String spouseName;
 
     /**
      * 配偶证件类型
      */
-    @Excel(name = "配偶证件类型", orderNum = "52")
+    @Excel(titleName = "配偶证件类型", orderNum = 52)
     private Integer spouseIdentityType;
 
     /**
      * 配偶证件号码
      */
-    @Excel(name = "配偶证件号码", orderNum = "53")
+    @Excel(titleName = "配偶证件号码", orderNum = 53)
     private String spouseIdentityNo;
 
     /**
      * 配偶年龄
      */
-    @Excel(name = "配偶年龄", orderNum = "54")
+    @Excel(titleName = "配偶年龄", orderNum = 54)
     private Integer spouseAge;
 
     /**
      * 配偶联系方式
      */
-    @Excel(name = "配偶联系方式", orderNum = "55")
+    @Excel(titleName = "配偶联系方式", orderNum = 55)
     private String spouseContact;
 
     /**
      * 配偶文化程度
      */
-    @Excel(name = "配偶文化程度", orderNum = "56")
+    @Excel(titleName = "配偶文化程度", orderNum = 56)
     private Integer spouseLevelEducation;
 
     /**
      * 配偶工作单位名称
      */
-    @Excel(name = "配偶工作单位名称", orderNum = "57")
+    @Excel(titleName = "配偶工作单位名称", orderNum = 57)
     private String spouseEmployerName;
 
     /**
      * 配偶单位电话
      */
-    @Excel(name = "配偶单位电话", orderNum = "58")
+    @Excel(titleName = "配偶单位电话", orderNum = 58)
     private String spouseEmployerPhone;
 
     /**
      * 配偶单位地址
      */
-    @Excel(name = "配偶单位地址", orderNum = "59")
+    @Excel(titleName = "配偶单位地址", orderNum = 59)
     private String spouseEmployerAddress;
 
     /**
      * 配偶单位性质
      */
-    @Excel(name = "配偶单位性质", orderNum = "60")
+    @Excel(titleName = "配偶单位性质", orderNum = 60)
     private String spouseEmployerNature;
 
     /**
      * 担保人姓名
      */
-    @Excel(name = "担保人姓名", orderNum = "61")
+    @Excel(titleName = "担保人姓名", orderNum = 61)
     private String guarantorName;
 
     /**
      * 担保人证件类型
      */
-    @Excel(name = "担保人证件类型", orderNum = "62")
+    @Excel(titleName = "担保人证件类型", orderNum = 62)
     private Integer guarantorIdentityType;
 
     /**
      * 担保人证件号
      */
-    @Excel(name = "担保人证件号", orderNum = "63")
+    @Excel(titleName = "担保人证件号", orderNum = 63)
     private String guarantorIdentityNo;
 
     /**
      * 担保人出生日期
      */
-    @Excel(name = "担保人出生日期", orderNum = "64")
+    @Excel(titleName = "担保人出生日期", orderNum = 64)
     private String guarantorBirthday;
 
     /**
      * 担保人性别
      */
-    @Excel(name = "担保人性别", orderNum = "65")
+    @Excel(titleName = "担保人性别", orderNum = 65)
     private Integer guarantorSex;
 
     /**
      * 担保人年龄
      */
-    @Excel(name = "担保人年龄", orderNum = "66")
+    @Excel(titleName = "担保人年龄", orderNum = 66)
     private Integer guarantorAge;
 
     /**
      * 担保人联系方式
      */
-    @Excel(name = "担保人联系方式", orderNum = "67")
+    @Excel(titleName = "担保人联系方式", orderNum = 67)
     private String guarantorContact;
 
     /**
      * 担保人与承租人关系
      */
-    @Excel(name = "担保人与承租人关系", orderNum = "68")
+    @Excel(titleName = "担保人与承租人关系", orderNum = 68)
     private String guarantorLesseeRelationship;
 
     /**
      * 担保人年收入
      */
-    @Excel(name = "担保人年收入", orderNum = "69")
+    @Excel(titleName = "担保人年收入", orderNum = 69)
     private BigDecimal guarantorAnnualIncome;
 
     /**
      * 担保人婚姻状况
      */
-    @Excel(name = "担保人婚姻状况", orderNum = "70")
+    @Excel(titleName = "担保人婚姻状况", orderNum = 70)
     private Integer guarantorMarryStatus;
 
     /**
      * 担保人居住地址
      */
-    @Excel(name = "担保人居住地址", orderNum = "71")
+    @Excel(titleName = "担保人居住地址", orderNum = 71)
     private String guarantorAddress;
 
     /**
      * 担保人单位名称
      */
-    @Excel(name = "担保人单位名称", orderNum = "72")
+    @Excel(titleName = "担保人单位名称", orderNum = 72)
     private String guarantorEmployerName;
 
     /**
      * 担保人单位地址
      */
-    @Excel(name = "担保人单位地址", orderNum = "73")
+    @Excel(titleName = "担保人单位地址", orderNum = 73)
     private String guarantorEmployerAddress;
 
     /**
      * 担保人单位电话
      */
-    @Excel(name = "担保人单位电话", orderNum = "74")
+    @Excel(titleName = "担保人单位电话", orderNum = 74)
     private String guarantorEmployerPhone;
 
     /**
      * 担保人担保能力说明
      */
-    @Excel(name = "担保人担保能力说明", orderNum = "74")
+    @Excel(titleName = "担保人担保能力说明", orderNum = 74)
     private String guarantorDescribe;
 
     /**
      * 持卡人姓名
      */
-    @Excel(name = "持卡人姓名", orderNum = "75")
+    @Excel(titleName = "持卡人姓名", orderNum = 75)
     private String cardholderName;
 
     /**
      * 卡号
      */
-    @Excel(name = "卡号", orderNum = "76")
+    @Excel(titleName = "卡号", orderNum = 76)
     private String cardNo;
 
     /**
      * 开户银行
      */
-    @Excel(name = "开户银行", orderNum = "77")
+    @Excel(titleName = "开户银行", orderNum = 77)
     private String bank;
 
     /**
      * 开户行号
      */
-    @Excel(name = "开户行号", orderNum = "78")
+    @Excel(titleName = "开户行号", orderNum = 78)
     private String bankNo;
 
     /**
      * 手机号
      */
-    @Excel(name = "手机号", orderNum = "79")
+    @Excel(titleName = "手机号", orderNum = 79)
     private String iphoneNo;
 
     @Override
@@ -475,7 +474,7 @@ public class CustomerDO extends FileBaseBusinessDO {
     public CustomerDO() {
     }
 
-    public CustomerDO(String pkCustomer, String customerCode, String customerName, Integer identityType, String identityNo, String birthday, String issuingAuthority, Integer validTerm, Integer age, Integer sex, Integer levelOfEducation, String contact, Integer marryStatus, String childrenStatus, String childrenSchoolStatus, String industryType, Integer officalTitle, String job, String permanentAddress, String homeAddr, String employerName, String employerAddress, String employerNature, Integer lengthOfService, Integer lengthLocalResidence, Integer realEstate, String titleHolder, BigDecimal theHousingArea, String realEstateHome, String detailedAddress, String realEstateProperties, String realEstateArea, BigDecimal fixedAnnualIncome, String creditTime, String creditObjType, String creditResult, String creditReasonDescribe, String creditRating, String creditCode, String creditGenerateTime, String linkmanName, String linkmanContact, Integer linkmanLesseeRelationship, String linkmanAddress, String spouseName, Integer spouseIdentityType, String spouseIdentityNo, Integer spouseAge, String spouseContact, Integer spouseLevelEducation, String spouseEmployerName, String spouseEmployerPhone, String spouseEmployerAddress, String spouseEmployerNature, String guarantorName, Integer guarantorIdentityType, String guarantorIdentityNo, String guarantorBirthday, Integer guarantorSex, Integer guarantorAge, String guarantorContact, String guarantorLesseeRelationship, BigDecimal guarantorAnnualIncome, Integer guarantorMarryStatus, String guarantorAddress, String guarantorEmployerName, String guarantorEmployerAddress, String guarantorEmployerPhone, String guarantorDescribe, String cardholderName, String cardNo, String bank, String bankNo,String iphoneNo) {
+    public CustomerDO(String pkCustomer, String customerCode, String customerName, Integer identityType, String identityNo, String birthday, String issuingAuthority, Integer validTerm, Integer age, Integer sex, Integer levelOfEducation, String contact, Integer marryStatus, String childrenStatus, String childrenSchoolStatus, String industryType, Integer officalTitle, String job, String permanentAddress, String homeAddr, String employerName, String employerAddress, String employerNature, Integer lengthOfService, Integer lengthLocalResidence, Integer realEstate, String titleHolder, BigDecimal theHousingArea, String realEstateHome, String detailedAddress, String realEstateProperties, String realEstateArea, BigDecimal fixedAnnualIncome, String creditTime, String creditObjType, String creditResult, String creditReasonDescribe, String creditRating, String creditCode, String creditGenerateTime, String linkmanName, String linkmanContact, Integer linkmanLesseeRelationship, String linkmanAddress, String spouseName, Integer spouseIdentityType, String spouseIdentityNo, Integer spouseAge, String spouseContact, Integer spouseLevelEducation, String spouseEmployerName, String spouseEmployerPhone, String spouseEmployerAddress, String spouseEmployerNature, String guarantorName, Integer guarantorIdentityType, String guarantorIdentityNo, String guarantorBirthday, Integer guarantorSex, Integer guarantorAge, String guarantorContact, String guarantorLesseeRelationship, BigDecimal guarantorAnnualIncome, Integer guarantorMarryStatus, String guarantorAddress, String guarantorEmployerName, String guarantorEmployerAddress, String guarantorEmployerPhone, String guarantorDescribe, String cardholderName, String cardNo, String bank, String bankNo, String iphoneNo) {
         this.pkCustomer = pkCustomer;
         this.customerCode = customerCode;
         this.customerName = customerName;

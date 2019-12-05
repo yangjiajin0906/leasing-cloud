@@ -4,6 +4,8 @@ import com.leasing.common.entity.foundation.vo.UserVO;
 import com.leasing.sys.entity.dto.ClientDO;
 import com.leasing.sys.entity.vo.ClientVO;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @project:leasing-cloud
  * @date:2019/11/5
@@ -72,7 +74,7 @@ public interface LoginService {
      * @param [data]
      * @return com.leasing.common.entity.foundation.vo.UserVO
      */
-    UserVO login(String data);
+    UserVO login(String data, HttpServletRequest request);
 
     /**
      * @description 系统注销
@@ -81,5 +83,5 @@ public interface LoginService {
      * @param [data]
      * @return void
      */
-    void logout(String token);
+    void logout(String data, HttpServletRequest request);
 }

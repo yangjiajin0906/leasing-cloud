@@ -1,6 +1,5 @@
 package com.leasing.communication.entity.dos;
 
-
 import com.leasing.communication.entity.base.FileBaseBusinessDO;
 import com.leasing.common.base.annotation.Excel;
 
@@ -10,19 +9,22 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 
 /**
- * @description 2c付款信息DO
- * @author Yangjiajin
- * @date 2019/11/12 11:03
- */
+ * @project:leasing-cloud
+ * @date:2019-12-02
+ * @author:zhangzhhn@yonyou.com
+ * @description:
+ **/
 @Entity
-@Table(name="yc_withdraw")
-public class Withdraw2DO extends FileBaseBusinessDO {
+@Table(name="yc_withdraw_detail")
+public class WithdrawDetailDO extends FileBaseBusinessDO {
+
+
     /**
      * 付款信息主键
      */
     @Id
     @Excel(titleName = "主键", orderNum = 10)
-    private String pkWithdrawRepaymentC;
+    private String pkWithdrawDetail;
 
     /**
      * 合同编号
@@ -120,30 +122,65 @@ public class Withdraw2DO extends FileBaseBusinessDO {
     @Excel(titleName = "公司主体", orderNum = 26)
     private String companyMainBody;
 
+    /**
+     * 付款批次号
+     */
+    private String paymentBatchNo;
+
+    /**
+     * 合同签订日
+     */
+    private String contSignedDate;
+
+    /**
+     * 运营商套餐金额（月）
+     */
+    private BigDecimal operatorAmount;
+    /**
+     * 运营商套餐期限
+     */
+    private String operatorDeadline;
+
+    /**
+     * 终端名称
+     */
+    private String terminalName;
+
+    /**
+     * 终端型号
+     */
+    private String terminalType;
+
+    /**
+     * 主表主键
+     */
+    private String pkWithdraw;
+
+
     @Override
     public String getPk() {
-        return pkWithdrawRepaymentC;
+        return pkWithdrawDetail;
     }
 
     @Override
     public void setPk(String pk) {
-        this.pkWithdrawRepaymentC = pk;
+        this.pkWithdrawDetail = pk;
     }
 
     /**
      * 付款信息主键
      * @return PK_WITHDRAW_REPAYMENT_C 付款信息主键
      */
-    public String getPkWithdrawRepaymentC() {
-        return pkWithdrawRepaymentC;
+    public String getPkWithdrawDetail() {
+        return pkWithdrawDetail;
     }
 
     /**
      * 付款信息主键
-     * @param pkWithdrawRepaymentC 付款信息主键
+     * @param pkWithdrawDetail 付款信息主键
      */
-    public void setPkWithdrawRepaymentC(String pkWithdrawRepaymentC) {
-        this.pkWithdrawRepaymentC = pkWithdrawRepaymentC == null ? null : pkWithdrawRepaymentC.trim();
+    public void setPkWithdrawDetail(String pkWithdrawDetail) {
+        this.pkWithdrawDetail = pkWithdrawDetail == null ? null : pkWithdrawDetail.trim();
     }
 
     /**
@@ -402,11 +439,68 @@ public class Withdraw2DO extends FileBaseBusinessDO {
         this.companyMainBody = companyMainBody == null ? null : companyMainBody.trim();
     }
 
-    public Withdraw2DO() {
+    public String getPaymentBatchNo() {
+        return paymentBatchNo;
     }
 
-    public Withdraw2DO(String pkWithdrawRepaymentC, String contCode, String contName, String payeeName, String receivingAccount, String openingBank, String accountNumber, String customerName, String employerName, String dateFrom, BigDecimal contAmount, Integer leaseType, BigDecimal actualLoanAmount, String paymentAccount, String realPayDate, String pkCurrency, String companyMainBody) {
-        this.pkWithdrawRepaymentC = pkWithdrawRepaymentC;
+    public void setPaymentBatchNo(String paymentBatchNo) {
+        this.paymentBatchNo = paymentBatchNo;
+    }
+
+    public String getContSignedDate() {
+        return contSignedDate;
+    }
+
+    public void setContSignedDate(String contSignedDate) {
+        this.contSignedDate = contSignedDate;
+    }
+
+    public BigDecimal getOperatorAmount() {
+        return operatorAmount;
+    }
+
+    public void setOperatorAmount(BigDecimal operatorAmount) {
+        this.operatorAmount = operatorAmount;
+    }
+
+    public String getOperatorDeadline() {
+        return operatorDeadline;
+    }
+
+    public void setOperatorDeadline(String operatorDeadline) {
+        this.operatorDeadline = operatorDeadline;
+    }
+
+    public String getTerminalName() {
+        return terminalName;
+    }
+
+    public void setTerminalName(String terminalName) {
+        this.terminalName = terminalName;
+    }
+
+    public String getTerminalType() {
+        return terminalType;
+    }
+
+    public void setTerminalType(String terminalType) {
+        this.terminalType = terminalType;
+    }
+
+    public WithdrawDetailDO() {
+
+    }
+
+    public String getPkWithdraw() {
+        return pkWithdraw;
+    }
+
+    public void setPkWithdraw(String pkWithdraw) {
+        this.pkWithdraw = pkWithdraw;
+    }
+
+    public WithdrawDetailDO(String pkWithdrawDetail, String contCode, String contName, String payeeName, String receivingAccount, String openingBank, String accountNumber, String customerName, String employerName, String dateFrom, BigDecimal contAmount, Integer leaseType, BigDecimal actualLoanAmount, String paymentAccount, String realPayDate, String pkCurrency, String companyMainBody) {
+        this.pkWithdrawDetail = pkWithdrawDetail;
         this.contCode = contCode;
         this.contName = contName;
         this.payeeName = payeeName;
@@ -424,4 +518,5 @@ public class Withdraw2DO extends FileBaseBusinessDO {
         this.pkCurrency = pkCurrency;
         this.companyMainBody = companyMainBody;
     }
+
 }

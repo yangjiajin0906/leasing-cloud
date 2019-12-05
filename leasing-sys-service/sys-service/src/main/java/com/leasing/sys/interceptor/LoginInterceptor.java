@@ -1,5 +1,6 @@
 package com.leasing.sys.interceptor;
 
+import com.leasing.common.exception.BaseException;
 import com.leasing.sys.repository.DiySessionRepo;
 import com.leasing.sys.util.DiySession;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -31,62 +32,21 @@ public class LoginInterceptor implements HandlerInterceptor {
             throws Exception {}
     @Override
     public boolean preHandle(HttpServletRequest arg0, HttpServletResponse arg1, Object arg2) throws Exception {
-        //此处为不需要登录的接口放行
-        if (arg0.getRequestURI().contains("/login") || arg0.getRequestURI().contains("/register")
+        //登录的接口放行
+        if (arg0.getRequestURI().contains("/login") || arg0.getRequestURI().contains("/listSystem")
                 || arg0.getRequestURI().contains("/error") || arg0.getRequestURI().contains("/static")) {
             return true;
         }
-        //权限路径拦截
-        //PrintWriter resultWriter = arg1.getOutputStream();
-        // TODO: 有时候用PrintWriter 回报 getWriter() has already been called for this response
-        //换成ServletOutputStream就OK了
         arg1.setContentType("text/html;charset=utf-8");
         ServletOutputStream resultWriter = arg1.getOutputStream();
-        final String headerToken=arg0.getHeader("token");
-        //判断请求信息
-        if(null==headerToken||headerToken.trim().equals("")){
-            resultWriter.write("你没有token,需要登录".getBytes());
+        //判断session中是否存在当前登录用户  无则重定向回登录页
+        Object object = arg0.getSession().getAttribute("user");
+        if (null == object) {
+            resultWriter.write("306".getBytes());
             resultWriter.flush();
             resultWriter.close();
             return false;
         }
-        //解析Token信息
-        try {
-            //根据前台传过来的Token查找数据库Token
-            DiySession session = diySessionRepo.getSession(headerToken);
-
-            //数据库没有Token记录
-            if(null == session) {
-                resultWriter.write("我没有你的token？,需要登录".getBytes());
-                resultWriter.flush();
-                resultWriter.close();
-                return false;
-            }
-            //数据库Token与客户Token比较
-            if( !headerToken.equals(session.getToken()) ){
-                resultWriter.print("你的token修改过？,需要登录");
-                resultWriter.flush();
-                resultWriter.close();
-                return false;
-            }
-            //判断Token过期
-            Long tokenDate= session.getCreationTime();//session创建时间
-            int overTime=(int)(new Date().getTime()-tokenDate)/1000;
-            int maxInactiveInterval=session.getMaxInactiveInterval(); //过期时间
-            if(overTime > maxInactiveInterval){
-                resultWriter.write("你的token过期了？,需要登录".getBytes());
-                resultWriter.flush();
-                resultWriter.close();
-                return false;
-            }
-
-        } catch (Exception e) {
-            resultWriter.write("反正token不对,需要登录".getBytes());
-            resultWriter.flush();
-            resultWriter.close();
-            return false;
-        }
-        //最后才放行
         return true;
     }
 }

@@ -27,8 +27,9 @@ public enum DecimalType {
      * 五位
      */
     FIVE(5, "0.00000"),
+
     /**
-     * 五位
+     * 六位
      */
     SIX(6, "0.000000");
 
