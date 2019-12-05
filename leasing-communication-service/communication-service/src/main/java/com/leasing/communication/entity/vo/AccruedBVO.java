@@ -2,6 +2,7 @@ package com.leasing.communication.entity.vo;
 
 
 import com.leasing.common.base.entity.BaseDO;
+import com.leasing.common.entity.foundation.vo.CurrtypeVO;
 import com.leasing.common.vo.foundation.CurrtypeVO;
 import com.leasing.communication.entity.dto.CustomerDTO;
 

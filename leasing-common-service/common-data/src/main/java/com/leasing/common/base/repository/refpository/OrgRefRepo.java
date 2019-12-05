@@ -2,7 +2,7 @@ package com.leasing.common.base.repository.refpository;
 import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.base.repository.BaseRepository;
 import com.leasing.common.refvo.base.OrgrefVO;
-import com.leasing.common.entity.foundation.vo.OrgDTO;
+import com.leasing.common.entity.customer.dto.OrgDTO;
 import org.springframework.stereotype.Repository;
 
 /**

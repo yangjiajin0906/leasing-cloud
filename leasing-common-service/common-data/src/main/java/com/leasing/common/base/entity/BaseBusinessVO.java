@@ -1,7 +1,7 @@
 package com.leasing.common.base.entity;
 
 import com.leasing.common.entity.foundation.vo.DeptVO;
-import com.leasing.common.entity.foundation.vo.OrgDTO;
+import com.leasing.common.entity.customer.dto.OrgDTO;
 import com.leasing.common.entity.foundation.vo.UserVO;
 
 import javax.persistence.JoinColumn;

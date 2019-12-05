@@ -14,7 +14,7 @@ import com.leasing.common.utils.base.BaseBusinessUtils;
 import com.leasing.common.utils.sys.CodeRuleUtil;
 import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.common.utils.sys.ResultUtils;
-import com.leasing.common.entity.foundation.vo.OrgDTO;
+import com.leasing.common.entity.customer.dto.OrgDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

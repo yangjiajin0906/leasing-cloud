@@ -21,6 +21,8 @@ import org.springframework.util.Assert;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
@@ -32,6 +34,7 @@ import java.util.*;
  * @author:lvcna@yonyou.com
  * @description: Excel解析实现类
  **/
+@SuppressWarnings("Duplicates")
 @Service("common.ExcelHandingServiceImpl")
 @Transactional
 public class ExcelHandingServiceImpl implements ExcelHandingService {
@@ -49,6 +52,17 @@ public class ExcelHandingServiceImpl implements ExcelHandingService {
         return resultList;
     }
 
+    @Override
+    public List convertToBeanList(InputStream is, String fileName, Class clazz, Integer sheet, ExcelMatchType type)
+            throws IOException {
+        //获取Workbook对象
+        Workbook workbook = getWorkBook(is, fileName);
+        //获取@Excel注解的字段
+        List<Field> fieldList = getExcelFields(clazz);
+        //处理Excel数据返回实体类
+        List resultList = handleExcelData(fieldList, workbook, sheet, type, clazz);
+        return resultList;
+    }
 
 
     @Override
@@ -74,6 +88,17 @@ public class ExcelHandingServiceImpl implements ExcelHandingService {
     @Override
     public List convertToBeanList(MultipartFile file, Class clazz) {
         return convertToBeanList(file, clazz, ExcelMatchType.MatchTypeOrder);
+    }
+
+    @Override
+    public List convertToBeanList(InputStream is, String fileName, Class clazz)
+            throws IOException {
+        return convertToBeanList(is, fileName, clazz, 0, ExcelMatchType.MatchTypeOrder);
+    }
+    @Override
+    public List convertToBeanListName(InputStream is, String fileName, Class clazz)
+            throws IOException {
+        return convertToBeanList(is, fileName, clazz, 0, ExcelMatchType.MatchTypeName);
     }
 
     /**
@@ -112,14 +137,7 @@ public class ExcelHandingServiceImpl implements ExcelHandingService {
         InputStream is = null;
         try {
             is = file.getInputStream();
-            // 根据文件后缀名不同(xls和xlsx)获得不同的Workbook实现类对象
-            if (fileName.endsWith(ExcelType.XLS.getType())) {
-                workbook = new HSSFWorkbook(is);
-            } else if (fileName.endsWith(ExcelType.XLS_X.getType())) {
-                workbook = new XSSFWorkbook(is);
-            } else {
-                throw new RuntimeException(ExcelErrorEnum.FILE_INVALID_TYPE.getMsg());
-            }
+            workbook = getWorkBook(is, fileName);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(ExcelErrorEnum.FILE_STREAM_FAIL.getMsg());
@@ -134,6 +152,32 @@ public class ExcelHandingServiceImpl implements ExcelHandingService {
             } else {
                 throw new RuntimeException(ExcelErrorEnum.FILE_NOT_EXISTS.getMsg());
             }
+        }
+
+        return workbook;
+    }
+
+    /**
+     * 根据数据流获取Workbook对象,由调用方处理IO异常
+     * @param is
+     * @param fileName
+     * @return
+     * @throws IOException
+     */
+    private Workbook getWorkBook(InputStream is, String fileName) throws IOException {
+        // 校验文件对象
+        if(null == is){
+            throw new RuntimeException(ExcelErrorEnum.FILE_NOT_EXISTS.getMsg());
+        }
+        // 创建Workbook工作薄对象，表示整个excel
+        Workbook workbook = null;
+        // 获取excel文件的io流
+        if (fileName.endsWith(ExcelType.XLS.getType())) {
+            workbook = new HSSFWorkbook(is);
+        } else if (fileName.endsWith(ExcelType.XLS_X.getType())) {
+            workbook = new XSSFWorkbook(is);
+        } else {
+            throw new RuntimeException(ExcelErrorEnum.FILE_INVALID_TYPE.getMsg());
         }
         return workbook;
     }

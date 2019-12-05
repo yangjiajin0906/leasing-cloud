@@ -77,6 +77,100 @@ public class ExcelUtil {
     /**
      * 传入文本对象输出list集合（导入）
      *
+     * @param is  流文件
+     * @param clazz 要转义成的类对象
+     * @return
+     */
+    public static <T> List<T> importExcel(InputStream is, Class<T> clazz, String fileName) {
+        // 获得HSSFWorkbook工作薄对象
+        Workbook workbook = getWorkBook(is,fileName);
+        List<T> list = new ArrayList<T>();
+        //获取对象总数量
+        Field[] fields = getSortFields(clazz);
+        //对象字段排序
+//        Arrays.sort(fields, (a, b) -> {
+//            return a.getAnnotation(Excel.class).orderNum() - b.getAnnotation(Excel.class).orderNum();
+//        });
+        if (workbook != null) {
+            //sheet工作表
+            Sheet sheet = null;
+            // 获取当前sheet工作表的列总数
+            int firstLine = 0;
+            // 获得当前sheet的开始行
+            int firstRowNum = 0;
+            // 获得当前sheet的结束行
+            int lastRowNum = 0;
+            //临时对象
+            Object obj;
+            // 取出对应注解
+            Excel excel = null;
+            //每个单元格
+            Cell cell = null;
+            //每个值
+            Object value = null;
+            for (int sheetNum = 0; sheetNum < workbook.getNumberOfSheets(); sheetNum++) {
+                // 获得当前sheet工作表
+                sheet = workbook.getSheetAt(sheetNum);
+                if (sheet == null || sheet.getLastRowNum() == 0) {
+                    continue;
+                }
+                // 获取当前sheet工作表的列总数
+                firstLine = sheet.getRow(0).getPhysicalNumberOfCells();
+                if (fields.length != firstLine) {
+                    throw new BizException(1, ROW_NUM_ERROR);
+                }
+                // 获得当前sheet的开始行
+                firstRowNum = sheet.getFirstRowNum();
+                // 获得当前sheet的结束行
+                lastRowNum = sheet.getLastRowNum();
+                // 循环所有行
+                for (int rowNum = firstRowNum; rowNum <= lastRowNum; rowNum++) {
+                    // 获得当前行
+                    Row row = sheet.getRow(rowNum);
+                    if (row == null) {
+                        continue;
+                    }
+                    try {
+                        obj = clazz.newInstance();
+                    } catch (IllegalAccessException | InstantiationException e) {
+
+                        throw new SystemException(1, "excel导入异常", e);
+                    }
+                    for (int cellNum = 0; cellNum < firstLine; cellNum++) {
+                        // 取出对应注解
+                        excel = fields[cellNum].getAnnotation(Excel.class);
+                        cell = row.getCell(cellNum);
+                        if (rowNum == 0) {
+                            // 第一行 判断表头名称
+                            if (cell == null || StringUtils.isEmpty(cell.getStringCellValue()) || !cell.getStringCellValue().equals(excel.titleName())) {
+                                throw new BizException(1, NAME_ERROR);
+                            }
+                            continue;
+                        }
+                        value = getCellValue(cell);
+                        // 判断注解是否允许空值
+                        if (!excel.empty()) {
+                            if (value == null || "".equals(value)) {
+                                throw new BizException(1, excel.titleName() + "不能为空");
+                            }
+                        }
+                        // 根绝类型 实体类赋值
+                        createBean(fields[cellNum], obj, value);
+                    }
+                    if (rowNum == 0) {
+                        // 表头不做记录
+                        continue;
+                    }
+                    list.add((T) obj);
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 传入文本对象输出list集合（导入）
+     *
      * @param file  流文件
      * @param clazz 要转义成的类对象
      * @return
@@ -455,6 +549,10 @@ public class ExcelUtil {
             outputStream.close();
             return true;
         } catch (IOException e) {
+            throw new SystemException(1, "excel导出异常", e);
+        }catch (IllegalAccessException e) {
+            throw new SystemException(1, "excel导出异常", e);
+        }  catch (InvocationTargetException e) {
             throw new SystemException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), "excel导出异常", e);
         } catch (IllegalAccessException e) {
             throw new SystemException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), "excel导出异常", e);
@@ -849,6 +947,47 @@ public class ExcelUtil {
                 throw new SystemException(ErrorCode.SYS_EXCEPTION.getCode(), "输入流关闭异常！", e);
             }
             throw new SystemException(ExcelErrorEnum.SYS_EXCEPTION.getCode(), "excel 转换 HSSFWorkbook 异常！", e);
+            throw new SystemException(1, "excel 转换 HSSFWorkbook 异常！", e);
+        }finally {
+            try {
+                if(is == null){
+                    is.close();
+                }
+            }catch (Exception e){
+                throw new SystemException(1, "excel 转换 HSSFWorkbook 异常！", e);
+            }
+        }
+        return workbook;
+    }
+
+    /**
+     * 由文件生成 poi Workbook
+     *
+     * @param is
+     * @param fileName
+     * @return
+     */
+    private static Workbook getWorkBook(InputStream is, String fileName) {
+        Workbook workbook = null;
+        // 获取excel文件的io流
+        try {
+            if (fileName.endsWith(XLS)) {
+                // 2003
+                workbook = new HSSFWorkbook(is);
+            } else if (fileName.endsWith(XLS_X)) {
+                // 2007
+                workbook = new XSSFWorkbook(is);
+            }
+        } catch (IOException e) {
+            throw new SystemException(1, "excel 转换 HSSFWorkbook 异常！", e);
+        }finally {
+            try {
+                if(is == null){
+                    is.close();
+                }
+            }catch (Exception e){
+                throw new SystemException(1, "输入流关闭异常！", e);
+            }
         }
         return workbook;
     }

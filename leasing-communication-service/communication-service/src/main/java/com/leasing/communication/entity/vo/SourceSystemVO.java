@@ -2,7 +2,9 @@ package com.leasing.communication.entity.vo;
 
 import com.leasing.common.base.entity.BaseVO;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @project:leasing-cloud
@@ -10,6 +12,8 @@ import javax.persistence.Id;
  * @author:lvcna@yonyou.com
  * @description:
  **/
+@Entity
+@Table(name="yc_source_system")
 public class SourceSystemVO extends BaseVO {
 
     @Id

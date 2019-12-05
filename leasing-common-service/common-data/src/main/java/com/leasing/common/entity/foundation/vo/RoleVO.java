@@ -1,6 +1,7 @@
 package com.leasing.common.entity.foundation.vo;
 
 import com.leasing.common.base.entity.BaseEntity;
+import com.leasing.common.entity.customer.dto.OrgDTO;
 
 import javax.persistence.*;
 

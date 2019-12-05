@@ -1,4 +1,4 @@
-package com.leasing.common.entity.foundation.vo;
+package com.leasing.common.entity.customer.dto;
 
 import com.leasing.common.base.entity.BaseEntity;
 

@@ -4,6 +4,7 @@ import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.common.utils.tools.ExcelUtils;
 import com.leasing.communication.entity.dos.CbContractDO;
 import com.leasing.communication.entity.dto.CbContractImpDTO;
+import com.leasing.communication.entity.vo.CbContractVO;
 import com.leasing.communication.repository.CbContractRepo;
 import com.leasing.communication.service.CbContractService;
 import com.leasing.communication.utils.EntityCacheUtils;
@@ -40,6 +41,8 @@ public class CbContractServiceImpl implements CbContractService {
     public List<CbContractDO> dataConvert(List<CbContractImpDTO> list) {
         Map<String, String> areaclMap = EntityCacheUtils.cacheEntityField("AreaclVO", "areaclname",
                 "pkAreacl", CbContractDO.class);
+        Map<String, String> soruceSystemMap = EntityCacheUtils.cacheEntityField("SourceSystemVO", "systemCode",
+                "pkSourceSystem", CbContractDO.class);
         List<CbContractDO> contractDOS = new ArrayList<>();
         for(CbContractImpDTO dto : list){
             CbContractDO contractDO = DozerUtils.convert(dto, CbContractDO.class);
@@ -47,6 +50,7 @@ public class CbContractServiceImpl implements CbContractService {
             contractDO.setCustomerProvince(areaclMap.get(dto.getCustomerProvince()));
             contractDO.setCustomerCity(areaclMap.get(dto.getCustomerCity()));
             contractDO.setCustomerRegion(areaclMap.get(dto.getCustomerRegion()));
+            contractDO.setPkSystem(soruceSystemMap.get(dto.getSourceSystem()));
             contractDOS.add(contractDO);
         }
         return contractDOS;
@@ -55,5 +59,11 @@ public class CbContractServiceImpl implements CbContractService {
     @Override
     public void save(List<CbContractDO> list) {
         cbContractRepo.saveAll(list);
+    }
+
+    @Override
+    public List<CbContractVO> testQuery() {
+
+        return cbContractRepo.queryForPage();
     }
 }

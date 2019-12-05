@@ -1,7 +1,7 @@
 package com.leasing.common.entity.common.vo;
 
 import com.leasing.common.base.entity.BaseEntity;
-import com.leasing.common.entity.foundation.vo.OrgDTO;
+import com.leasing.common.entity.customer.dto.OrgDTO;
 import com.leasing.common.entity.foundation.vo.RoleVO;
 
 

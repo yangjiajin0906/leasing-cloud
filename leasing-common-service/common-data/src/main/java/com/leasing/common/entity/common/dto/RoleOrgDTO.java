@@ -1,7 +1,7 @@
 package com.leasing.common.entity.common.dto;
 
 import com.leasing.common.base.entity.BaseDTO;
-import com.leasing.common.entity.foundation.vo.OrgDTO;
+import com.leasing.common.entity.customer.dto.OrgDTO;
 import com.leasing.common.entity.foundation.vo.RoleVO;
 
 import java.util.List;

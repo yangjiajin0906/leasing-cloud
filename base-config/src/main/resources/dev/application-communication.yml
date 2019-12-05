@@ -14,3 +14,18 @@ eureka:
     fetch-registry: true
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${eureka.port}/eureka/
+
+#以下配置与业务逻辑属性有关,与技术框架配置无关
+#dozer配置文件路径
+dozer:
+  path: utils/communication-dozer-mapping.xml
+
+#阿里云OSS配置
+# OSS
+aliyun:
+  oss:
+    endPoint: https://oss-cn-beijing.aliyuncs.com
+    accessKeyId: LTAI4FgC365NswjYUznrALNs
+    accessKeySecret: RJrO84HQdYSHprEhnmcNcsGhglxIJs
+    bucketName: jicl-test
+    fileHost: temp

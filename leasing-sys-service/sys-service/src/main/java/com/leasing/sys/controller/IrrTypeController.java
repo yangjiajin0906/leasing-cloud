@@ -8,7 +8,7 @@ import com.leasing.common.entity.common.dos.IrrTypeDO;
 import com.leasing.common.entity.common.vo.IrrTypeVO;
 import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.common.utils.sys.ResultUtils;
-import com.leasing.common.entity.foundation.vo.OrgDTO;
+import com.leasing.common.entity.customer.dto.OrgDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,6 +1,8 @@
 package com.leasing.sys.controller;
 
+import com.leasing.common.base.web.ResResult;
 import com.leasing.common.entity.foundation.vo.UserVO;
+import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.base.ResultUtils;
 import com.leasing.common.vo.foundation.UserVO;
@@ -29,7 +31,7 @@ public class LoginController {
      * @description 登录
      * @author Yangjiajin
      * @date 2019/11/6 10:36
-     * @param [data]
+     * @param data
      * @return com.leasing.common.entity.foundation.vo.UserVO
      */
     @RequestMapping(value = "/login")
@@ -42,7 +44,7 @@ public class LoginController {
      * @description 注销
      * @author Yangjiajin
      * @date 2019/11/6 10:36
-     * @param []
+     * @param data
      * @return void
      */
     @RequestMapping(value = "/logout")

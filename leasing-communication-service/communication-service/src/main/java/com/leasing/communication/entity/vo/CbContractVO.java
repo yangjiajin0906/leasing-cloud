@@ -3,16 +3,14 @@ package com.leasing.communication.entity.vo;
 import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.entity.foundation.vo.AreaclVO;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
  * @project:leasing-cloud
  * @date:2019-12-3
  * @author:lvcna@yonyou.com
- * @description:
+ * @description: 2C合同VO对象
  **/
 @Entity
 @Table(name="yc_contract")
@@ -26,7 +24,7 @@ public class CbContractVO extends BaseVO {
     private Integer contStatus;
 
     /**
-     * 业务名称
+     * 业务类型
      */
     private Integer businessName;
 
@@ -118,16 +116,22 @@ public class CbContractVO extends BaseVO {
     /**
      * 客户所属省
      */
+    @ManyToOne
+    @JoinColumn(name = "customerProvince")
     private AreaclVO customerProvince;
 
     /**
      * 客户所属城市
      */
+    @ManyToOne
+    @JoinColumn(name = "customerCity")
     private AreaclVO customerCity;
 
     /**
      * 客户所属地区
      */
+    @ManyToOne
+    @JoinColumn(name = "customerRegion")
     private AreaclVO customerRegion;
 
     /**
@@ -208,7 +212,9 @@ public class CbContractVO extends BaseVO {
     /**
      * 来源系统
      */
-    private String pkSystem;
+    @ManyToOne
+    @JoinColumn(name = "pkSystem")
+    private SourceSystemVO pkSystem;
 
     /**
      * 资产五级分类
@@ -223,5 +229,325 @@ public class CbContractVO extends BaseVO {
     @Override
     public void setPk(String pk) {
 
+    }
+
+    public String getPkContract() {
+        return pkContract;
+    }
+
+    public void setPkContract(String pkContract) {
+        this.pkContract = pkContract;
+    }
+
+    public Integer getContStatus() {
+        return contStatus;
+    }
+
+    public void setContStatus(Integer contStatus) {
+        this.contStatus = contStatus;
+    }
+
+    public Integer getBusinessName() {
+        return businessName;
+    }
+
+    public void setBusinessName(Integer businessName) {
+        this.businessName = businessName;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public String getContCode() {
+        return contCode;
+    }
+
+    public void setContCode(String contCode) {
+        this.contCode = contCode;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getIdentityNo() {
+        return identityNo;
+    }
+
+    public void setIdentityNo(String identityNo) {
+        this.identityNo = identityNo;
+    }
+
+    public Integer getLeaseFlow() {
+        return leaseFlow;
+    }
+
+    public void setLeaseFlow(Integer leaseFlow) {
+        this.leaseFlow = leaseFlow;
+    }
+
+    public String getContSignedDate() {
+        return contSignedDate;
+    }
+
+    public void setContSignedDate(String contSignedDate) {
+        this.contSignedDate = contSignedDate;
+    }
+
+    public String getContLoan() {
+        return contLoan;
+    }
+
+    public void setContLoan(String contLoan) {
+        this.contLoan = contLoan;
+    }
+
+    public String getLeaseDateFact() {
+        return leaseDateFact;
+    }
+
+    public void setLeaseDateFact(String leaseDateFact) {
+        this.leaseDateFact = leaseDateFact;
+    }
+
+    public String getContEndDate() {
+        return contEndDate;
+    }
+
+    public void setContEndDate(String contEndDate) {
+        this.contEndDate = contEndDate;
+    }
+
+    public Integer getRefundFrequency() {
+        return refundFrequency;
+    }
+
+    public void setRefundFrequency(Integer refundFrequency) {
+        this.refundFrequency = refundFrequency;
+    }
+
+    public Integer getRefundStructure() {
+        return refundStructure;
+    }
+
+    public void setRefundStructure(Integer refundStructure) {
+        this.refundStructure = refundStructure;
+    }
+
+    public BigDecimal getLeaseCashSum() {
+        return leaseCashSum;
+    }
+
+    public void setLeaseCashSum(BigDecimal leaseCashSum) {
+        this.leaseCashSum = leaseCashSum;
+    }
+
+    public BigDecimal getCorpusAmount() {
+        return corpusAmount;
+    }
+
+    public void setCorpusAmount(BigDecimal corpusAmount) {
+        this.corpusAmount = corpusAmount;
+    }
+
+    public BigDecimal getInterestAmount() {
+        return interestAmount;
+    }
+
+    public void setInterestAmount(BigDecimal interestAmount) {
+        this.interestAmount = interestAmount;
+    }
+
+    public Integer getLeaseType() {
+        return leaseType;
+    }
+
+    public void setLeaseType(Integer leaseType) {
+        this.leaseType = leaseType;
+    }
+
+    public BigDecimal getMarketIrr() {
+        return marketIrr;
+    }
+
+    public void setMarketIrr(BigDecimal marketIrr) {
+        this.marketIrr = marketIrr;
+    }
+
+    public BigDecimal getFinanceIrr() {
+        return financeIrr;
+    }
+
+    public void setFinanceIrr(BigDecimal financeIrr) {
+        this.financeIrr = financeIrr;
+    }
+
+    public AreaclVO getCustomerProvince() {
+        return customerProvince;
+    }
+
+    public void setCustomerProvince(AreaclVO customerProvince) {
+        this.customerProvince = customerProvince;
+    }
+
+    public AreaclVO getCustomerCity() {
+        return customerCity;
+    }
+
+    public void setCustomerCity(AreaclVO customerCity) {
+        this.customerCity = customerCity;
+    }
+
+    public AreaclVO getCustomerRegion() {
+        return customerRegion;
+    }
+
+    public void setCustomerRegion(AreaclVO customerRegion) {
+        this.customerRegion = customerRegion;
+    }
+
+    public Integer getTicketType() {
+        return ticketType;
+    }
+
+    public void setTicketType(Integer ticketType) {
+        this.ticketType = ticketType;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
+
+    public String getSupplierBankAccount() {
+        return supplierBankAccount;
+    }
+
+    public void setSupplierBankAccount(String supplierBankAccount) {
+        this.supplierBankAccount = supplierBankAccount;
+    }
+
+    public String getLessorName() {
+        return lessorName;
+    }
+
+    public void setLessorName(String lessorName) {
+        this.lessorName = lessorName;
+    }
+
+    public Integer getLeaseRecycling() {
+        return leaseRecycling;
+    }
+
+    public void setLeaseRecycling(Integer leaseRecycling) {
+        this.leaseRecycling = leaseRecycling;
+    }
+
+    public String getGatherBankAccount() {
+        return gatherBankAccount;
+    }
+
+    public void setGatherBankAccount(String gatherBankAccount) {
+        this.gatherBankAccount = gatherBankAccount;
+    }
+
+    public String getGatherOpenBank() {
+        return gatherOpenBank;
+    }
+
+    public void setGatherOpenBank(String gatherOpenBank) {
+        this.gatherOpenBank = gatherOpenBank;
+    }
+
+    public Integer getIfDepositCredit() {
+        return ifDepositCredit;
+    }
+
+    public void setIfDepositCredit(Integer ifDepositCredit) {
+        this.ifDepositCredit = ifDepositCredit;
+    }
+
+    public String getCooperationPlatform() {
+        return cooperationPlatform;
+    }
+
+    public void setCooperationPlatform(String cooperationPlatform) {
+        this.cooperationPlatform = cooperationPlatform;
+    }
+
+    public BigDecimal getDepositRatio() {
+        return depositRatio;
+    }
+
+    public void setDepositRatio(BigDecimal depositRatio) {
+        this.depositRatio = depositRatio;
+    }
+
+    public BigDecimal getOperatorAmount() {
+        return operatorAmount;
+    }
+
+    public void setOperatorAmount(BigDecimal operatorAmount) {
+        this.operatorAmount = operatorAmount;
+    }
+
+    public Integer getOperatorDeadline() {
+        return operatorDeadline;
+    }
+
+    public void setOperatorDeadline(Integer operatorDeadline) {
+        this.operatorDeadline = operatorDeadline;
+    }
+
+    public String getTerminalName() {
+        return terminalName;
+    }
+
+    public void setTerminalName(String terminalName) {
+        this.terminalName = terminalName;
+    }
+
+    public String getTerminalType() {
+        return terminalType;
+    }
+
+    public void setTerminalType(String terminalType) {
+        this.terminalType = terminalType;
+    }
+
+    public String getDocUrl() {
+        return docUrl;
+    }
+
+    public void setDocUrl(String docUrl) {
+        this.docUrl = docUrl;
+    }
+
+    public SourceSystemVO getPkSystem() {
+        return pkSystem;
+    }
+
+    public void setPkSystem(SourceSystemVO pkSystem) {
+        this.pkSystem = pkSystem;
+    }
+
+    public Integer getAssetsClassify() {
+        return assetsClassify;
+    }
+
+    public void setAssetsClassify(Integer assetsClassify) {
+        this.assetsClassify = assetsClassify;
     }
 }

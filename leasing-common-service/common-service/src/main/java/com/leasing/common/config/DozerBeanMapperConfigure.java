@@ -16,14 +16,12 @@ import java.util.List;
 public enum  DozerBeanMapperConfigure {
     BEANMAPPER;
 
-    private DozerBeanMapper mapper=null;
+    private DozerBeanMapper mapper = null;
 
     private DozerBeanMapperConfigure(){
         mapper=new DozerBeanMapper();
         List<String> mappingfiles=new ArrayList<>();
-//        mappingfiles.add("utils/sysdozer-mapping.xml");
-//        mappingfiles.add("META-INF/rentEarlyDozer-mapping.xml");
-        mappingfiles.add("META-INF/consumer-dozer-mapping.xml");
+        mappingfiles.add(DozerConfig.path);
         mapper.setMappingFiles(mappingfiles);
     }
 

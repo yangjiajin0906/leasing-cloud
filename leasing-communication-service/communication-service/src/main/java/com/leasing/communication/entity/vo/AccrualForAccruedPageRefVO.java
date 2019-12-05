@@ -2,6 +2,7 @@ package com.leasing.communication.entity.vo;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.leasing.common.entity.foundation.vo.CurrtypeVO;
 import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.vo.foundation.CurrtypeVO;
 import com.leasing.communication.entity.dto.CustomerDTO;

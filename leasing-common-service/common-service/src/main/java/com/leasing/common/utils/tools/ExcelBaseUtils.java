@@ -22,6 +22,12 @@ public class ExcelBaseUtils {
     private final static String E = "e";
 
     /**
+     * 默认文件名字
+     */
+    public final static String DEFAULT_NAME_XLS = "temp.xls";
+    public final static String DEFAULT_NAME_XLSX = "temp.xlsx";
+
+    /**
      * 解析Excel Cell
      * @param cell
      * @return

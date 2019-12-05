@@ -20,7 +20,8 @@ import java.io.IOException;
 @RequestMapping(value = "/leasing/communication/fileDownload")
 public class FileDownloadController {
 
-    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(TestFileController.class);
+    private static final org.slf4j.Logger logger = LoggerFactory.getLogger(FileDownloadController.class);
+
 
     @Resource
     FileDownloadService fileDownloadService;

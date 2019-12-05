@@ -12,7 +12,7 @@ import com.leasing.common.base.repository.support.StringModalType;
 import com.leasing.common.entity.common.dos.DFuncMenuDO;
 import com.leasing.common.entity.common.vo.DFuncMenuVO;
 import com.leasing.common.entity.common.vo.SystemVO;
-import com.leasing.common.entity.foundation.vo.OrgDTO;
+import com.leasing.common.entity.customer.dto.OrgDTO;
 import com.leasing.common.entity.foundation.vo.RoleVO;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

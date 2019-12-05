@@ -7,7 +7,7 @@ import com.leasing.common.entity.common.query.RoleOrgQuery;
 import com.leasing.common.entity.common.vo.DFuncMenuVO;
 import com.leasing.common.entity.common.vo.PowerMenuVO;
 import com.leasing.common.entity.common.vo.SystemVO;
-import com.leasing.common.entity.foundation.vo.OrgDTO;
+import com.leasing.common.entity.customer.dto.OrgDTO;
 import com.leasing.common.entity.foundation.vo.RoleOrgVO;
 import com.leasing.common.entity.foundation.vo.RoleVO;
 import com.leasing.common.entity.foundation.vo.UserVO;

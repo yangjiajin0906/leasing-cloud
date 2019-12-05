@@ -2,6 +2,7 @@ package com.leasing.communication.service;
 
 import com.leasing.communication.entity.dos.CbContractDO;
 import com.leasing.communication.entity.dto.CbContractImpDTO;
+import com.leasing.communication.entity.vo.CbContractVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -21,5 +22,7 @@ public interface CbContractService {
 
 
     void save(List<CbContractDO> list);
+
+    List<CbContractVO> testQuery();
 
 }

@@ -24,9 +24,9 @@ import redis.clients.jedis.JedisPoolConfig;
 @Configuration
 public class RedisConfig {
 
-    @Value("${spring.redis.host}")
+    @Value("${spring.redis.host:redis host not found}")
     private String host;
-    @Value("${spring.redis.port}")
+    @Value("${spring.redis.port:redis port not found}")
     private int port;
 
     @Bean
