@@ -1,6 +1,5 @@
 package com.leasing.communication.entity.query;
 
-
 import com.leasing.common.base.annotation.QueryCondition;
 import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.enums.base.MatchType;
@@ -11,7 +10,7 @@ import com.leasing.common.enums.base.MatchType;
  * @author:zhangzhhn@yonyou.com
  * @description: 付款查询条件
  **/
-public class WithdrawQueryVO extends BaseQuery {
+public class CbWithdrawQuery extends BaseQuery {
 
     /**
      * 合同编号

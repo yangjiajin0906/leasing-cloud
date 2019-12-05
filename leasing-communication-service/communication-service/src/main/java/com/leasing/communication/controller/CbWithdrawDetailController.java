@@ -5,9 +5,9 @@ import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.sys.ResultUtils;
-import com.leasing.communication.entity.query.WithdrawDetailQuery;
-import com.leasing.communication.entity.vo.WithdrawDetailVO;
-import com.leasing.communication.service.WithdrawDetailService;
+import com.leasing.communication.entity.query.CbWithdrawDetailQuery;
+import com.leasing.communication.entity.vo.CbWithdrawDetailVO;
+import com.leasing.communication.service.CbWithdrawDetailService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,10 +21,10 @@ import javax.annotation.Resource;
  **/
 @RestController
 @RequestMapping(value = "communication.withdrawDetail")
-public class WithdrawDetailController {
+public class CbWithdrawDetailController {
 
     @Resource
-    private WithdrawDetailService service;
+    private CbWithdrawDetailService service;
 
 
     /**
@@ -36,8 +36,8 @@ public class WithdrawDetailController {
     @RequestMapping(value = "/list")
     public ResResult list(String query) {
         Pagination pagination = new Pagination(1, 50);
-        WithdrawDetailQuery detailQuery = JSON.parseObject(query, WithdrawDetailQuery.class);
-        PageQueryData<WithdrawDetailVO> list = service.pageQuery(pagination, detailQuery);
+        CbWithdrawDetailQuery detailQuery = JSON.parseObject(query, CbWithdrawDetailQuery.class);
+        PageQueryData<CbWithdrawDetailVO> list = service.pageQuery(pagination, detailQuery);
         return ResultUtils.successWithData(list);
     }
 }

@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  **/
 @Entity
 @Table(name="yc_withdraw_detail")
-public class WithdrawDetailVO extends BaseBusinessVO {
+public class CbWithdrawDetailVO extends BaseBusinessVO {
 
     /**
      * 付款信息主键

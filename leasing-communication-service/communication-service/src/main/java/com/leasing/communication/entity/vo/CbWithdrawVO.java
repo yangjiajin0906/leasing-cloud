@@ -1,30 +1,27 @@
-package com.leasing.communication.entity.dos;
+package com.leasing.communication.entity.vo;
 
+import com.leasing.common.base.entity.BaseBusinessVO;
+import com.leasing.common.entity.foundation.vo.CurrtypeVO;
 
-import com.leasing.common.base.annotation.Excel;
-
-import com.leasing.communication.entity.base.FileBaseBusinessDO;
-import com.leasing.common.base.annotation.Excel;
-
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
- * @description 2c付款信息DO
- * @author Yangjiajin
- * @date 2019/11/12 11:03
- */
+ * @project:leasing-cloud
+ * @date:2019-12-02
+ * @author:zhangzhhn@yonyou.com
+ * @description:
+ **/
 @Entity
 @Table(name="yc_withdraw")
-public class WithdrawDO extends FileBaseBusinessDO {
+public class CbWithdrawVO extends BaseBusinessVO {
+
+
     /**
      * 付款信息主键
      */
     @Id
-    @Excel(titleName = "主键", orderNum = 10)
     private String pkWithdraw;
 
     /**
@@ -35,69 +32,71 @@ public class WithdrawDO extends FileBaseBusinessDO {
     /**
      * 收款人
      */
-    @Excel(titleName = "收款人", orderNum = 13)
     private String payeeName;
 
     /**
      * 收款账号
      */
-    @Excel(titleName = "收款账号", orderNum = 14)
     private String receivingAccount;
 
     /**
      * 行号
      */
-    @Excel(titleName = "行号", orderNum = 16)
     private String accountNumber;
 
     /**
      * 银行开户行
      */
-    @Excel(titleName = "银行开户行", orderNum = 15)
     private String openingBank;
-
 
     /**
      * 合同金额
      */
-    @Excel(titleName = "合同金额", orderNum = 20)
     private BigDecimal contAmount;
 
     /**
      * 租赁方式
      */
-    @Excel(titleName = "租赁方式", orderNum = 21)
     private Integer leaseType;
 
     /**
      * 实际放款金额
      */
-    @Excel(titleName = "实际放款金额", orderNum = 22)
     private BigDecimal actualLoanAmount;
 
     /**
      * 付款账号
      */
-    @Excel(titleName = "付款账号", orderNum = 23)
     private String paymentAccount;
 
     /**
      * 实付日期
      */
-    @Excel(titleName = "实付日期", orderNum = 24)
     private String realPayDate;
 
     /**
      * 币种 (参照)
      */
-    @Excel(titleName = "币种", orderNum = 25)
-    private String pkCurrency;
+    @ManyToOne
+    @JoinColumn(name = "pkCurrency")
+    private CurrtypeVO pkCurrency;
 
     /**
      * 公司主体
      */
-    @Excel(titleName = "公司主体", orderNum = 26)
     private String companyMainBody;
+
+    private String pkSys;
+
+
+
+    /**
+     * 付款子表
+     */
+    @OneToMany(orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="pkWithdraw")
+    private List<CbWithdrawDetailVO> pkWithdrawDetail;
+
 
     @Override
     public String getPk() {
@@ -107,10 +106,6 @@ public class WithdrawDO extends FileBaseBusinessDO {
     @Override
     public void setPk(String pk) {
         this.pkWithdraw = pk;
-    }
-
-
-    public WithdrawDO() {
     }
 
     public String getPkWithdraw() {
@@ -201,11 +196,11 @@ public class WithdrawDO extends FileBaseBusinessDO {
         this.realPayDate = realPayDate;
     }
 
-    public String getPkCurrency() {
+    public CurrtypeVO getPkCurrency() {
         return pkCurrency;
     }
 
-    public void setPkCurrency(String pkCurrency) {
+    public void setPkCurrency(CurrtypeVO pkCurrency) {
         this.pkCurrency = pkCurrency;
     }
 
@@ -215,5 +210,21 @@ public class WithdrawDO extends FileBaseBusinessDO {
 
     public void setCompanyMainBody(String companyMainBody) {
         this.companyMainBody = companyMainBody;
+    }
+
+    public String getPkSys() {
+        return pkSys;
+    }
+
+    public void setPkSys(String pkSys) {
+        this.pkSys = pkSys;
+    }
+
+    public List<CbWithdrawDetailVO> getPkWithdrawDetail() {
+        return pkWithdrawDetail;
+    }
+
+    public void setPkWithdrawDetail(List<CbWithdrawDetailVO> pkWithdrawDetail) {
+        this.pkWithdrawDetail = pkWithdrawDetail;
     }
 }

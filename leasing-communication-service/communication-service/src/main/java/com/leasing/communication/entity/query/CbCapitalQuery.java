@@ -1,6 +1,5 @@
 package com.leasing.communication.entity.query;
 
-
 import com.leasing.common.base.annotation.QueryCondition;
 import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.enums.base.MatchType;
@@ -11,16 +10,16 @@ import com.leasing.common.enums.base.MatchType;
  * @author:zhangzhhn@yonyou.com
  * @description: 收款查询条件
  **/
-public class CapitalQueryVO extends BaseQuery {
+public class CbCapitalQuery extends BaseQuery {
 
-    @QueryCondition(func = MatchType.like,field = "contCode")
-    private String contCode;
+    @QueryCondition(func = MatchType.like,field = "b.capitalBatchNo")
+    private String capitalBatchNo;
 
-    public String getContCode() {
-        return contCode;
+    public String getCapitalBatchNo() {
+        return capitalBatchNo;
     }
 
-    public void setContCode(String contCode) {
-        this.contCode = contCode;
+    public void setCapitalBatchNo(String capitalBatchNo) {
+        this.capitalBatchNo = capitalBatchNo;
     }
 }

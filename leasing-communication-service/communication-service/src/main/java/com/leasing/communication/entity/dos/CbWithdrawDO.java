@@ -1,23 +1,21 @@
-package com.leasing.communication.entity.vo;
+package com.leasing.communication.entity.dos;
 
-import com.leasing.common.base.entity.BaseBusinessVO;
-import com.leasing.common.entity.foundation.vo.CurrtypeVO;
 
-import javax.persistence.*;
+import com.leasing.communication.entity.base.FileBaseBusinessDO;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.math.BigDecimal;
-import java.util.List;
 
 /**
- * @project:leasing-cloud
- * @date:2019-12-02
- * @author:zhangzhhn@yonyou.com
- * @description:
- **/
+ * @description 2c付款信息DO
+ * @author Yangjiajin
+ * @date 2019/11/12 11:03
+ */
 @Entity
 @Table(name="yc_withdraw")
-public class WithdrawVO extends BaseBusinessVO {
-
-
+public class CbWithdrawDO extends FileBaseBusinessDO {
     /**
      * 付款信息主键
      */
@@ -49,6 +47,7 @@ public class WithdrawVO extends BaseBusinessVO {
      */
     private String openingBank;
 
+
     /**
      * 合同金额
      */
@@ -77,26 +76,12 @@ public class WithdrawVO extends BaseBusinessVO {
     /**
      * 币种 (参照)
      */
-    @ManyToOne
-    @JoinColumn(name = "pkCurrency")
-    private CurrtypeVO pkCurrency;
+    private String pkCurrency;
 
     /**
      * 公司主体
      */
     private String companyMainBody;
-
-    private String pkSys;
-
-
-
-    /**
-     * 付款子表
-     */
-    @OneToMany(orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="pkWithdraw")
-    private List<WithdrawDetailVO> pkWithdrawDetail;
-
 
     @Override
     public String getPk() {
@@ -196,11 +181,11 @@ public class WithdrawVO extends BaseBusinessVO {
         this.realPayDate = realPayDate;
     }
 
-    public CurrtypeVO getPkCurrency() {
+    public String getPkCurrency() {
         return pkCurrency;
     }
 
-    public void setPkCurrency(CurrtypeVO pkCurrency) {
+    public void setPkCurrency(String pkCurrency) {
         this.pkCurrency = pkCurrency;
     }
 
@@ -210,21 +195,5 @@ public class WithdrawVO extends BaseBusinessVO {
 
     public void setCompanyMainBody(String companyMainBody) {
         this.companyMainBody = companyMainBody;
-    }
-
-    public String getPkSys() {
-        return pkSys;
-    }
-
-    public void setPkSys(String pkSys) {
-        this.pkSys = pkSys;
-    }
-
-    public List<WithdrawDetailVO> getPkWithdrawDetail() {
-        return pkWithdrawDetail;
-    }
-
-    public void setPkWithdrawDetail(List<WithdrawDetailVO> pkWithdrawDetail) {
-        this.pkWithdrawDetail = pkWithdrawDetail;
     }
 }

@@ -2,11 +2,10 @@ package com.leasing.communication.service;
 
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
-import com.leasing.communication.entity.dos.WithdrawDO;
-import com.leasing.communication.entity.dos.WithdrawDetailDO;
-import com.leasing.communication.entity.query.WithdrawQueryVO;
-import com.leasing.communication.entity.vo.WithdrawDetailVO;
-import com.leasing.communication.entity.vo.WithdrawVO;
+import com.leasing.communication.entity.dos.CbWithdrawDO;
+import com.leasing.communication.entity.dos.CbWithdrawDetailDO;
+import com.leasing.communication.entity.query.CbWithdrawQuery;
+import com.leasing.communication.entity.vo.CbWithdrawVO;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ import java.util.List;
  * @author:Yjj@yonyou.com
  * @description: 2c付款信息导入
  **/
-public interface WithdrawService {
+public interface CbWithdrawService {
 
     void gatherWithdraw(String batchNo);
     /**
@@ -26,14 +25,14 @@ public interface WithdrawService {
      * @param queryVO    查询条件
      * @return 分页列表
      */
-    PageQueryData<WithdrawVO> pageQuery(Pagination pagination, WithdrawQueryVO queryVO);
+    PageQueryData<CbWithdrawVO> pageQuery(Pagination pagination, CbWithdrawQuery queryVO);
 
     /**
      *
      * 根据批次号查询子表
      * @return 子表列表
      */
-    List<WithdrawDetailDO> queryDetailByBatchNo(String batchNo);
+    List<CbWithdrawDetailDO> queryDetailByBatchNo(String batchNo);
 
     /**
      * 保存方法
@@ -41,34 +40,34 @@ public interface WithdrawService {
      * @param vo
      * @return
      */
-    WithdrawDO save(WithdrawDO vo);
+    CbWithdrawDO save(CbWithdrawDO vo);
 
     /**
      * 批量保存方法
      *
-     * @param vo
+     * @param list
      * @return
      */
-    void save(List<WithdrawDO> list);
+    void save(List<CbWithdrawDO> list);
 
     /**
      * 删除方法
      *
      * @param vo
      */
-    void delete(WithdrawDO vo);
+    void delete(CbWithdrawDO vo);
 
     /**
      * 更新方法
      *
      * @param vo
      */
-    WithdrawDO update(WithdrawDO vo);
+    CbWithdrawDO update(CbWithdrawDO vo);
 
     /**
      * 单体查询
      *
      * @return
      */
-    WithdrawDO findOne(String pk);
+    CbWithdrawDO findOne(String pk);
 }

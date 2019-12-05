@@ -5,8 +5,8 @@
           http://dozer.sourceforge.net/schema/beanmapping.xsd">
 
     <mapping wildcard="true">    <!--wildcard为false时指定field域中属性赋值 -->
-        <class-a>com.leasing.communication.entity.vo.WithdrawDetailVO</class-a>      <!-- 出现的tableName和attributeNames 均有get无需map-null -->
-        <class-b>com.leasing.communication.entity.dos.WithdrawDO</class-b>   <!-- 对象名称不用mapping注解出现的错误转换 VO转DO无错-->
+        <class-a>com.leasing.communication.entity.vo.CbWithdrawDetailVO</class-a>      <!-- 出现的tableName和attributeNames 均有get无需map-null -->
+        <class-b>com.leasing.communication.entity.dos.CbWithdrawDO</class-b>   <!-- 对象名称不用mapping注解出现的错误转换 VO转DO无错-->
 
         <field>
             <a>pkDept.pkDeptdoc</a>

@@ -68,6 +68,25 @@
         <query>select count(b) from WithdrawDetailVO b </query>
     </named-query>
 
+
+    <named-query name="capitalPageQuery">
+        <query>select b from CbCapitalVO b </query>
+    </named-query>
+
+
+    <named-query name="capitalPageQuery.count">
+        <query>select count(b) from CbCapitalVO b </query>
+    </named-query>
+
+    <named-query name="capitalDetailPageQuery">
+        <query>select b from CbCapitalDetailVO b </query>
+    </named-query>
+
+
+    <named-query name="capitalDetailPageQuery.count">
+        <query>select count(b) from CbCapitalDetailVO b </query>
+    </named-query>
+
     <named-native-query name="accruedRepo.getGlSyssettledYearMonth" result-set-mapping="getGlSyssettledYearMonth">
         <query>
             select gs.settledyear,gs.settledperiod

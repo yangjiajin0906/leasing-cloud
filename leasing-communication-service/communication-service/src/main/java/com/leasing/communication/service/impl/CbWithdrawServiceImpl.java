@@ -3,14 +3,13 @@ package com.leasing.communication.service.impl;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.utils.base.BaseBusinessUtils;
-import com.leasing.communication.entity.dos.WithdrawDO;
-import com.leasing.communication.entity.dos.WithdrawDetailDO;
-import com.leasing.communication.entity.query.WithdrawQueryVO;
-import com.leasing.communication.entity.vo.WithdrawDetailVO;
-import com.leasing.communication.entity.vo.WithdrawVO;
-import com.leasing.communication.repository.WithdrawDetailRepo;
-import com.leasing.communication.repository.WithdrawRepo;
-import com.leasing.communication.service.WithdrawService;
+import com.leasing.communication.entity.dos.CbWithdrawDO;
+import com.leasing.communication.entity.dos.CbWithdrawDetailDO;
+import com.leasing.communication.entity.query.CbWithdrawQuery;
+import com.leasing.communication.entity.vo.CbWithdrawVO;
+import com.leasing.communication.repository.CbWithdrawDetailRepo;
+import com.leasing.communication.repository.CbWithdrawRepo;
+import com.leasing.communication.service.CbWithdrawService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,22 +18,22 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Transactional
-@Service("communication.WithdrawServiceImpl")
-public class WithdrawServiceImpl implements WithdrawService {
+@Service("communication.CbWithdrawService")
+public class CbWithdrawServiceImpl implements CbWithdrawService {
     @Resource
-    private WithdrawRepo withdrawRepo;
+    private CbWithdrawRepo withdrawRepo;
 
     @Resource
-    private WithdrawDetailRepo detailRepo;
+    private CbWithdrawDetailRepo detailRepo;
 
 
     @Override
     public void gatherWithdraw(String batchNo) {
-        List<WithdrawDetailDO> list = queryDetailByBatchNo(batchNo);
+        List<CbWithdrawDetailDO> list = queryDetailByBatchNo(batchNo);
 
-        WithdrawDO mainDO = new WithdrawDO();
+        CbWithdrawDO mainDO = new CbWithdrawDO();
         if (list != null && list.size() > 0) {
-            WithdrawDetailDO firstDetailVO = list.get(0);
+            CbWithdrawDetailDO firstDetailVO = list.get(0);
 //            WithdrawDO ado = DozerUtils.convert(firstDetailVO, WithdrawDO.class);
             String mainPk = BaseBusinessUtils.getOID();
             mainDO.setPayeeName(firstDetailVO.getPayeeName());
@@ -56,7 +55,7 @@ public class WithdrawServiceImpl implements WithdrawService {
             mainDO.setPkOperator(firstDetailVO.getPkOperator());
             mainDO.setPkDept(firstDetailVO.getPkDept());
             mainDO.setPkOrg(firstDetailVO.getPkOrg());
-            for (WithdrawDetailDO detaildO : list){
+            for (CbWithdrawDetailDO detaildO : list){
                 //实际投放金额汇总
                 mainDO.setActualLoanAmount(mainDO.getActualLoanAmount().add(detaildO.getActualLoanAmount()));
                 //合同金额汇总
@@ -70,37 +69,37 @@ public class WithdrawServiceImpl implements WithdrawService {
     }
 
     @Override
-    public PageQueryData<WithdrawVO> pageQuery(Pagination pagination, WithdrawQueryVO queryVO) {
+    public PageQueryData<CbWithdrawVO> pageQuery(Pagination pagination, CbWithdrawQuery queryVO) {
         return  withdrawRepo.pageQuery(pagination, queryVO, "WithdrawPageQuery");
     }
 
     @Override
-    public List<WithdrawDetailDO> queryDetailByBatchNo(String batchNo) {
+    public List<CbWithdrawDetailDO> queryDetailByBatchNo(String batchNo) {
         return detailRepo.queryAllByPaymentBatchNo(batchNo);
     }
 
     @Override
-    public WithdrawDO save(WithdrawDO vo) {
+    public CbWithdrawDO save(CbWithdrawDO vo) {
         return withdrawRepo.saveEntity(vo);
     }
 
     @Override
-    public void save(List<WithdrawDO> list) {
+    public void save(List<CbWithdrawDO> list) {
         withdrawRepo.saveAll(list);
     }
 
     @Override
-    public void delete(WithdrawDO vo) {
+    public void delete(CbWithdrawDO vo) {
         withdrawRepo.delete(vo);
     }
 
     @Override
-    public WithdrawDO update(WithdrawDO vo) {
+    public CbWithdrawDO update(CbWithdrawDO vo) {
         return withdrawRepo.updateEntity(vo);
     }
 
     @Override
-    public WithdrawDO findOne(String pk) {
+    public CbWithdrawDO findOne(String pk) {
         return withdrawRepo.findOne(pk);
     }
 }

@@ -2,9 +2,9 @@ package com.leasing.communication.service;
 
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
-import com.leasing.communication.entity.dos.CapitalDO;
-import com.leasing.communication.entity.dos.CustomerDO;
-import com.leasing.communication.entity.query.CapitalQueryVO;
+import com.leasing.communication.entity.dos.CbCapitalDO;
+import com.leasing.communication.entity.query.CbCapitalQuery;
+import com.leasing.communication.entity.vo.CbCapitalVO;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * @author:Yjj@yonyou.com
  * @description: 2c收款信息导入
  **/
-public interface CapitalService {
+public interface CbCapitalService {
 
     /**
      * 分页查询
@@ -23,7 +23,14 @@ public interface CapitalService {
      * @param queryVO    查询条件
      * @return 分页列表
      */
-    PageQueryData<CapitalDO> pageQuery(Pagination pagination, CapitalQueryVO queryVO);
+    PageQueryData<CbCapitalVO> pageQuery(Pagination pagination, CbCapitalQuery queryVO);
+
+    /**
+     * 根据批次号汇总收款主表
+     *
+     * @param capitalBatchNo 收款批次号
+     */
+    void totalCapital(String capitalBatchNo);
 
     /**
      * 保存方法
@@ -31,34 +38,34 @@ public interface CapitalService {
      * @param vo
      * @return
      */
-    CapitalDO save(CapitalDO vo);
+    CbCapitalDO save(CbCapitalDO vo);
 
     /**
      * 批量保存方法
      *
-     * @param vo
+     * @param list
      * @return
      */
-    void save(List<CapitalDO> list);
+    void save(List<CbCapitalDO> list);
 
     /**
      * 删除方法
      *
      * @param vo
      */
-    void delete(CapitalDO vo);
+    void delete(CbCapitalDO vo);
 
     /**
      * 更新方法
      *
      * @param vo
      */
-    CapitalDO update(CapitalDO vo);
+    CbCapitalDO update(CbCapitalDO vo);
 
     /**
      * 单体查询
      *
      * @return
      */
-    CapitalDO findOne(String pk);
+    CbCapitalDO findOne(String pk);
 }

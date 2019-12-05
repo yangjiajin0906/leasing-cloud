@@ -5,8 +5,8 @@ import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.sys.ResultUtils;
-import com.leasing.communication.entity.query.WithdrawQueryVO;
-import com.leasing.communication.service.WithdrawService;
+import com.leasing.communication.entity.query.CbWithdrawQuery;
+import com.leasing.communication.service.CbWithdrawService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,11 +22,11 @@ import javax.annotation.Resource;
  **/
 @RestController
 @RequestMapping("/leasing/communication/withdraw")
-public class WithdrawController {
+public class CbWithdrawController {
 
 
     @Resource
-    private WithdrawService withdrawService;
+    private CbWithdrawService withdrawService;
     /**
      * 分页查询
      *
@@ -40,7 +40,7 @@ public class WithdrawController {
                           @RequestParam(required = false, defaultValue = "20", name = "pageSize") Integer pageSize,
                           @RequestParam(required = false, name = "data") String data) {
 
-        WithdrawQueryVO queryVO = JSON.parseObject(data, WithdrawQueryVO.class);
+        CbWithdrawQuery queryVO = JSON.parseObject(data, CbWithdrawQuery.class);
         Pagination pagination = new Pagination(page, pageSize);
         PageQueryData pageQueryData = withdrawService.pageQuery(pagination, queryVO);
         return ResultUtils.successWithData(pageQueryData);

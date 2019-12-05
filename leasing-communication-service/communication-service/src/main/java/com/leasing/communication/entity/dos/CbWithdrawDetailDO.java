@@ -16,7 +16,7 @@ import java.math.BigDecimal;
  **/
 @Entity
 @Table(name="yc_withdraw_detail")
-public class WithdrawDetailDO extends FileBaseBusinessDO {
+public class CbWithdrawDetailDO extends FileBaseBusinessDO {
 
 
     /**
@@ -487,7 +487,7 @@ public class WithdrawDetailDO extends FileBaseBusinessDO {
         this.terminalType = terminalType;
     }
 
-    public WithdrawDetailDO() {
+    public CbWithdrawDetailDO() {
 
     }
 
@@ -499,7 +499,7 @@ public class WithdrawDetailDO extends FileBaseBusinessDO {
         this.pkWithdraw = pkWithdraw;
     }
 
-    public WithdrawDetailDO(String pkWithdrawDetail, String contCode, String contName, String payeeName, String receivingAccount, String openingBank, String accountNumber, String customerName, String employerName, String dateFrom, BigDecimal contAmount, Integer leaseType, BigDecimal actualLoanAmount, String paymentAccount, String realPayDate, String pkCurrency, String companyMainBody) {
+    public CbWithdrawDetailDO(String pkWithdrawDetail, String contCode, String contName, String payeeName, String receivingAccount, String openingBank, String accountNumber, String customerName, String employerName, String dateFrom, BigDecimal contAmount, Integer leaseType, BigDecimal actualLoanAmount, String paymentAccount, String realPayDate, String pkCurrency, String companyMainBody) {
         this.pkWithdrawDetail = pkWithdrawDetail;
         this.contCode = contCode;
         this.contName = contName;

@@ -5,8 +5,8 @@ import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.sys.ResultUtils;
-import com.leasing.communication.entity.query.CapitalQueryVO;
-import com.leasing.communication.service.CapitalService;
+import com.leasing.communication.entity.query.CbCapitalQuery;
+import com.leasing.communication.service.CbCapitalService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,9 +22,9 @@ import javax.annotation.Resource;
  **/
 @RestController
 @RequestMapping("/leasing/communication/capital")
-public class CapitalController {
+public class CbCapitalController {
     @Resource
-    private CapitalService service;
+    private CbCapitalService service;
 
     /**
      * 分页列表
@@ -39,11 +39,17 @@ public class CapitalController {
                           @RequestParam(required = false, defaultValue = "20", name = "pageSize") Integer pageSize,
                           @RequestParam(required = false, name = "data") String data) {
 
-        CapitalQueryVO queryVO = JSON.parseObject(data, CapitalQueryVO.class);
+        CbCapitalQuery queryVO = JSON.parseObject(data, CbCapitalQuery.class);
         Pagination pagination = new Pagination(page, pageSize);
         PageQueryData pageQueryData = service.pageQuery(pagination, queryVO);
         return ResultUtils.successWithData(pageQueryData);
+    }
 
+
+    @PostMapping(value = "/totalCapital")
+    public ResResult totalCapital() {
+        service.totalCapital("100000001200000547836");
+        return ResultUtils.successWithData(null);
     }
 
 }

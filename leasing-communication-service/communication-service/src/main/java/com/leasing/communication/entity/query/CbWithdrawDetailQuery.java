@@ -9,7 +9,7 @@ import com.leasing.common.base.entity.BaseQuery;
  * @author:zhangzhhn@yonyou.com
  * @description:
  **/
-public class WithdrawDetailQuery extends BaseQuery {
+public class CbWithdrawDetailQuery extends BaseQuery {
 
     /**
      * 付款批次号
