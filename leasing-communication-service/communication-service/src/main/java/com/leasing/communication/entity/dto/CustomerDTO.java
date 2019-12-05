@@ -1,6 +1,5 @@
 package com.leasing.communication.entity.dto;
 
-import com.leasing.common.vo.foundation.DeptVO;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
