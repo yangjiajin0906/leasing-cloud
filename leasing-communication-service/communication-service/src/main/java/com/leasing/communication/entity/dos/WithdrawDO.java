@@ -4,7 +4,7 @@ package com.leasing.communication.entity.dos;
 import com.leasing.common.base.annotation.Excel;
 
 import com.leasing.communication.entity.base.FileBaseBusinessDO;
-import com.leasing.communication.utils.Excel;
+import com.leasing.common.base.annotation.Excel;
 
 
 import javax.persistence.Entity;

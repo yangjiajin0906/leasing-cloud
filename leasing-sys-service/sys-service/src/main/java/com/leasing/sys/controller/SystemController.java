@@ -2,13 +2,11 @@ package com.leasing.sys.controller;
 
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.entity.common.vo.SystemVO;
-import com.leasing.common.service.SystemService;
-import com.leasing.common.utils.base.ResultUtils;
+import com.leasing.common.service.sys.SystemService;
+import com.leasing.common.utils.sys.ResultUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
