@@ -1,8 +1,6 @@
 package com.leasing.sys.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONObject;
-import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.entity.common.dos.DFuncMenuDO;
 import com.leasing.common.entity.common.vo.DFuncMenuVO;
@@ -11,9 +9,6 @@ import com.leasing.common.service.sys.DFuncMenuService;
 import com.leasing.common.service.sys.SystemService;
 import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.common.utils.tools.DozerUtils;
-import org.apache.commons.lang.StringUtils;
-import com.leasing.common.service.DFuncMenuService;
-import com.leasing.common.service.SystemService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
