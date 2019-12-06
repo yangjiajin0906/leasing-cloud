@@ -20,8 +20,4 @@ import java.util.List;
 @Repository
 public interface CbEarlySettlementRepo extends BaseRepository<CbEarlySettlementDO, BaseQuery, CbEarlySettlementVO, String> {
 
-    @Query(" select a from CbEarlySettlementVO a " +
-            " left join fetch a.pkSystem b ")
-    List<CbEarlySettlementVO> pageQuery();
-
 }

@@ -1,6 +1,8 @@
 package com.leasing.communication.entity.vo;
 
 import com.leasing.common.entity.foundation.vo.CurrtypeVO;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -22,6 +24,7 @@ public class CbEarlySettlementVO {
     /**
      * 合同主键
      */
+    @Transient
     private String pkContract;
 
     /**
@@ -38,6 +41,7 @@ public class CbEarlySettlementVO {
     /**
      * 客户主键
      */
+    @Transient
     private String pkCustomer;
 
     /**
@@ -74,8 +78,9 @@ public class CbEarlySettlementVO {
      * 币种
      */
     @ManyToOne()
-    @JoinColumn(name="pkCurrtype")
-    public CurrtypeVO pkCurrtype;
+    @JoinColumn(name="pkCurrency")
+    @NotFound(action= NotFoundAction.IGNORE)
+    public CurrtypeVO pkCurrency;
 
     /**
      * 公司主体
@@ -86,8 +91,9 @@ public class CbEarlySettlementVO {
      * 来源系统
      */
     @ManyToOne
-    @JoinColumn(name = "pkSystem")
-    private SourceSystemVO pkSystem;
+    @JoinColumn(name = "pkSys")
+    @NotFound(action= NotFoundAction.IGNORE)
+    private SourceSystemVO pkSys;
 
     /**
      * 操作人
@@ -269,12 +275,12 @@ public class CbEarlySettlementVO {
         this.corpusBalance = corpusBalance;
     }
 
-    public CurrtypeVO getPkCurrtype() {
-        return pkCurrtype;
+    public CurrtypeVO getPkCurrency() {
+        return pkCurrency;
     }
 
-    public void setPkCurrtype(CurrtypeVO pkCurrtype) {
-        this.pkCurrtype = pkCurrtype;
+    public void setPkCurrency(CurrtypeVO pkCurrency) {
+        this.pkCurrency = pkCurrency;
     }
 
     /**
@@ -309,12 +315,12 @@ public class CbEarlySettlementVO {
         this.pkCustomer = pkCustomer;
     }
 
-    public SourceSystemVO getPkSystem() {
-        return pkSystem;
+    public SourceSystemVO getPkSys() {
+        return pkSys;
     }
 
-    public void setPkSystem(SourceSystemVO pkSystem) {
-        this.pkSystem = pkSystem;
+    public void setPkSys(SourceSystemVO pkSys) {
+        this.pkSys = pkSys;
     }
 
     /**

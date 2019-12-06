@@ -97,8 +97,8 @@
     <named-query name="cbOverdueContractRepo.pageQuery">
         <query>
             select a from CbOverdueContractVO a
-            left join fetch a.pkCurrtype b
-            left join fetch a.pkSystem c
+            left join fetch a.pkCurrency b
+            left join fetch a.pkSys c
         </query>
     </named-query>
 
@@ -108,30 +108,30 @@
         </query>
     </named-query>
 
-    <named-query name="cbEarlySettlementRepo.pageQuery">
-        <query>
-            select a from CbEarlySettlementVO a
-            left join fetch a.pkSystem b
-        </query>
-    </named-query>
-
-    <named-query name="cbEarlySettlementRepo.pageQuery.count">
-        <query>
-            select count(a.pkEarlySettlement) from CbEarlySettlementVO a
-        </query>
-    </named-query>
-
     <named-query name="cbBadContractRepo.pageQuery">
         <query>
             select a from CbBadContractVO a
-            left join fetch a.pkCurrtype b
-            left join fetch a.pkSystem c
+            left join fetch a.pkCurrency b
+            left join fetch a.pkSys c
         </query>
     </named-query>
 
     <named-query name="cbBadContractRepo.pageQuery.count">
         <query>
             select count(a.pkBadContract) from CbBadContractVO a
+        </query>
+    </named-query>
+
+    <named-query name="cbEarlySettlementRepo.pageQuery">
+        <query>
+            select a from CbEarlySettlementVO a
+            left join fetch a.pkSys b
+        </query>
+    </named-query>
+
+    <named-query name="cbEarlySettlementRepo.pageQuery.count">
+        <query>
+            select count(a.pkEarlySettlement) from CbEarlySettlementVO a
         </query>
     </named-query>
 

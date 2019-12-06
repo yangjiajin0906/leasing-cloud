@@ -23,7 +23,7 @@ import javax.annotation.Resource;
  * @description: 逾期合同Controller
  **/
 @RestController
-@RequestMapping(value = "/leasing/communication/CbOverdueContract")
+@RequestMapping(value = "/leasing/communication/cbOverdueContract")
 public class CbOverdueContractController {
     @Resource
     CbOverdueContractService cbOverdueContractService;
@@ -32,7 +32,7 @@ public class CbOverdueContractController {
     public ResResult pageQuery(@RequestBody(required = false) String data){
         BaseQuery baseQuery = new AccruedQuery();
         Pagination pagination = new Pagination(1, 100);
-        PageQueryData<CbOverdueContractVO> pageQueryData = cbOverdueContractService.pageQuery(pagination,baseQuery,"CbOverdueContractRepo.pageQuery");
+        PageQueryData<CbOverdueContractVO> pageQueryData = cbOverdueContractService.pageQuery(pagination,baseQuery,"cbOverdueContractRepo.pageQuery");
         return ResultUtils.successWithData(pageQueryData);
     }
 }
