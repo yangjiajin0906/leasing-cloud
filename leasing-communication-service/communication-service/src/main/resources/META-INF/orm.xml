@@ -135,5 +135,18 @@
         </query>
     </named-query>
 
+    <named-query name="cbInvoiceApplyRepo.pageQuery">
+        <query>
+            select a from CbInvoiceApplyDetailVO a
+            left join fetch a.pkSys b
+        </query>
+    </named-query>
+
+    <named-query name="cbInvoiceApplyRepo.pageQuery.count">
+        <query>
+            select count(a.pkInvoiceApplyDetail) from CbInvoiceApplyDetailVO a
+        </query>
+    </named-query>
+
 
 </entity-mappings>

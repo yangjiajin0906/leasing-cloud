@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  * @date 2019/12/5 13:44
  */
 @Entity
-@Table(name="不良合同")
+@Table(name="yc_bad_contract")
 public class CbBadContractDO extends BaseDO{
     /**
      * 主键

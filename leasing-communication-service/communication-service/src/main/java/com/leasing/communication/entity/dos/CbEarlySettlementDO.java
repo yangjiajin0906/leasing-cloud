@@ -1,5 +1,7 @@
 package com.leasing.communication.entity.dos;
 
+import com.leasing.common.base.entity.BaseDO;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -12,7 +14,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="yc_early_settlement")
-public class CbEarlySettlementDO {
+public class CbEarlySettlementDO extends BaseDO{
     /**
      * 主键
      */
@@ -114,10 +116,15 @@ public class CbEarlySettlementDO {
      */
     private BigDecimal billstatus;
 
-    /**
-     * 时间戳
-     */
-    private String ts;
+    @Override
+    public String getPk() {
+        return pkEarlySettlement;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkEarlySettlement = pk;
+    }
 
     /**
      * 主键
@@ -407,22 +414,6 @@ public class CbEarlySettlementDO {
         this.billstatus = billstatus;
     }
 
-
-    /**
-     * 时间戳
-     * @return TS 时间戳
-     */
-    public String getTs() {
-        return ts;
-    }
-
-    /**
-     * 时间戳
-     * @param ts 时间戳
-     */
-    public void setTs(String ts) {
-        this.ts = ts == null ? null : ts.trim();
-    }
 
     public String getPkContract() {
         return pkContract;

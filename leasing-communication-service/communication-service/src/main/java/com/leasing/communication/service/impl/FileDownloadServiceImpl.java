@@ -59,7 +59,7 @@ public class FileDownloadServiceImpl implements FileDownloadService {
     }
 
     @Override
-    public List<InvoiceApplyDO> downloadFileInv(String fileName) throws IOException {
+    public List<CbInvoiceApplyDetailDO> downloadFileInv(String fileName) throws IOException {
         return null;
     }
 

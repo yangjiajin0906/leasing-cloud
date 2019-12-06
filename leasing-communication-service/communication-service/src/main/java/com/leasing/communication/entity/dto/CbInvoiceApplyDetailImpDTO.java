@@ -1,7 +1,7 @@
-package com.leasing.communication.entity.dos;
+package com.leasing.communication.entity.dto;
 
-import com.leasing.communication.entity.base.FileBaseBusinessDO;
 import com.leasing.common.base.annotation.Excel;
+import com.leasing.common.base.entity.BaseDO;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,165 +9,144 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 
 /**
- * @description 2c票据信息DO
+ * @description 2C业务 导入文件对应票据信息 实体类，只用于导入，不参与前后端业务处理
  * @author Yangjiajin
  * @date 2019/11/12 10:57
  */
-@Entity
-@Table(name="yc_invoice_apply")
-public class InvoiceApplyDO extends FileBaseBusinessDO{
-    /**
-     * 票据信息主键
-     */
-    @Id
-    @Excel(titleName = "主键", orderNum = 10)
-    private String pkInvoiceApply;
+
+public class CbInvoiceApplyDetailImpDTO {
 
     /**
      * 合同编号
      */
-    @Excel(titleName = "合同编号", orderNum = 11)
+    @Excel(titleName = "合同编号", orderNum = 1)
     private String contCode;
 
     /**
      * 合同名称
      */
-    @Excel(titleName = "合同名称", orderNum = 12)
+    @Excel(titleName = "合同名称", orderNum = 2)
     private String contName;
 
     /**
      * 发票抬头
      */
-    @Excel(titleName = "发票抬头", orderNum = 13)
+    @Excel(titleName = "发票抬头", orderNum = 3)
     private String invoiceTitle;
 
     /**
      * 税号
      */
-    @Excel(titleName = "税号", orderNum = 14)
+    @Excel(titleName = "税号", orderNum = 4)
     private String ein;
 
     /**
      * 单位地址
      */
-    @Excel(titleName = "单位地址", orderNum = 15)
+    @Excel(titleName = "单位地址", orderNum = 5)
     private String employerAddress;
 
     /**
      * 电话号码
      */
-    @Excel(titleName = "电话号码", orderNum = 16)
+    @Excel(titleName = "电话号码", orderNum = 6)
     private String telephoneNumber;
 
     /**
      * 开户银行
      */
-    @Excel(titleName = "开户银行", orderNum = 17)
+    @Excel(titleName = "开户银行", orderNum = 7)
     private String openingBank;
 
     /**
      * 银行账号
      */
-    @Excel(titleName = "银行账号", orderNum = 18)
+    @Excel(titleName = "银行账号", orderNum = 8)
     private String bankAccount;
 
     /**
      * 邮寄地址
      */
-    @Excel(titleName = "邮寄地址", orderNum = 19)
+    @Excel(titleName = "邮寄地址", orderNum = 9)
     private String mailingAddress;
 
     /**
      * 客户名称
      */
-    @Excel(titleName = "客户名称", orderNum = 20)
+    @Excel(titleName = "客户名称", orderNum = 10)
     private String customerName;
 
     /**
      * 单位名称
      */
-    @Excel(titleName = "单位名称", orderNum = 21)
+    @Excel(titleName = "单位名称", orderNum = 11)
     private String employerName;
 
     /**
      * 租赁方式
      */
-    @Excel(titleName = "租赁方式", orderNum = 22)
+    @Excel(titleName = "租赁方式", orderNum = 12)
     private Integer leaseType;
 
     /**
      * 期次
      */
-    @Excel(titleName = "期次", orderNum = 23)
+    @Excel(titleName = "期次", orderNum = 13)
     private Integer leaseTime;
 
     /**
      * 应收日期
      */
-    @Excel(titleName = "应收日期", orderNum = 24)
+    @Excel(titleName = "应收日期", orderNum = 14)
     private String planDate;
 
     /**
      * 税率
      */
-    @Excel(titleName = "税率", orderNum = 25)
+    @Excel(titleName = "税率", orderNum = 15)
     private BigDecimal taxRate;
 
     /**
      * 税额
      */
-    @Excel(titleName = "税额", orderNum = 26)
+    @Excel(titleName = "税额", orderNum = 16)
     private BigDecimal leaseCashTax;
 
     /**
      * 不含税金额
      */
-    @Excel(titleName = "不含税金额", orderNum = 27)
+    @Excel(titleName = "不含税金额", orderNum = 17)
     private BigDecimal excludingTax;
 
     /**
      * 开票状态
      */
-    @Excel(titleName = "开票状态", orderNum = 28)
+    @Excel(titleName = "开票状态", orderNum = 18)
     private Integer billingStatus;
 
     /**
      * 开票内容
      */
-    @Excel(titleName = "开票内容", orderNum = 29)
+    @Excel(titleName = "开票内容", orderNum = 19)
     private Integer invoiceContents;
+
+    /**
+     * 核销状态
+     */
+    @Excel(titleName = "核销状态", orderNum = 20)
+    private Integer verificationStatus;
 
     /**
      * 公司主体
      */
-    @Excel(titleName = "公司主体", orderNum = 26)
+    @Excel(titleName = "公司主体", orderNum = 21)
     private String companyMainBody;
 
-    @Override
-    public String getPk() {
-        return pkInvoiceApply;
-    }
-
-    @Override
-    public void setPk(String pk) {
-        this.pkInvoiceApply = pk;
-    }
-
     /**
-     * 票据信息主键
-     * @return PK_INVOICE_APPLY 票据信息主键
+     * 来源系统
      */
-    public String getPkInvoiceApply() {
-        return pkInvoiceApply;
-    }
-
-    /**
-     * 票据信息主键
-     * @param pkInvoiceApply 票据信息主键
-     */
-    public void setPkInvoiceApply(String pkInvoiceApply) {
-        this.pkInvoiceApply = pkInvoiceApply == null ? null : pkInvoiceApply.trim();
-    }
+    @Excel(titleName = "来源系统", orderNum = 22)
+    private String pkSys;
 
     /**
      * 合同编号
@@ -489,30 +468,22 @@ public class InvoiceApplyDO extends FileBaseBusinessDO{
         this.companyMainBody = companyMainBody == null ? null : companyMainBody.trim();
     }
 
-    public InvoiceApplyDO() {
+    public Integer getVerificationStatus() {
+        return verificationStatus;
     }
 
-    public InvoiceApplyDO(String pkInvoiceApply, String contCode, String contName, String invoiceTitle, String ein, String employerAddress, String telephoneNumber, String openingBank, String bankAccount, String mailingAddress, String customerName, String employerName, Integer leaseType, Integer leaseTime, String planDate, BigDecimal taxRate, BigDecimal leaseCashTax, BigDecimal excludingTax, Integer billingStatus, Integer invoiceContents, String companyMainBody) {
-        this.pkInvoiceApply = pkInvoiceApply;
-        this.contCode = contCode;
-        this.contName = contName;
-        this.invoiceTitle = invoiceTitle;
-        this.ein = ein;
-        this.employerAddress = employerAddress;
-        this.telephoneNumber = telephoneNumber;
-        this.openingBank = openingBank;
-        this.bankAccount = bankAccount;
-        this.mailingAddress = mailingAddress;
-        this.customerName = customerName;
-        this.employerName = employerName;
-        this.leaseType = leaseType;
-        this.leaseTime = leaseTime;
-        this.planDate = planDate;
-        this.taxRate = taxRate;
-        this.leaseCashTax = leaseCashTax;
-        this.excludingTax = excludingTax;
-        this.billingStatus = billingStatus;
-        this.invoiceContents = invoiceContents;
-        this.companyMainBody = companyMainBody;
+    public void setVerificationStatus(Integer verificationStatus) {
+        this.verificationStatus = verificationStatus;
+    }
+
+    public String getPkSys() {
+        return pkSys;
+    }
+
+    public void setPkSys(String pkSys) {
+        this.pkSys = pkSys;
+    }
+
+    public CbInvoiceApplyDetailImpDTO() {
     }
 }
