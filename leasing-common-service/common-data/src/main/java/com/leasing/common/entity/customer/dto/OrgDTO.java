@@ -31,9 +31,13 @@ public class OrgDTO extends BaseEntity {
     private String oneLevelOrg;
     private String isSpvcorp;
 
+    @Transient
     private String refpk;
+    @Transient
     private String refname;
+    @Transient
     private String name;
+    @Transient
     private String code;
 
     public String getRefpk() {
