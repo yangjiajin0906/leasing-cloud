@@ -57,7 +57,7 @@ public interface FileDownloadService {
      * @param fileName 文件名称
      * @return CustomerDO
      */
-    List<InvoiceApplyDO> downloadFileInv(String fileName) throws IOException;
+    List<CbInvoiceApplyDetailDO> downloadFileInv(String fileName) throws IOException;
 
     /**
      * @description 处理租金计划文件

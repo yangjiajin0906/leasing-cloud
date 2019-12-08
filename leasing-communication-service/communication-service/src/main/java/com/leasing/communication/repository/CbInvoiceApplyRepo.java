@@ -3,7 +3,8 @@ package com.leasing.communication.repository;
 import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.base.repository.BaseRepository;
-import com.leasing.communication.entity.dos.InvoiceApplyDO;
+import com.leasing.communication.entity.dos.CbInvoiceApplyDetailDO;
+import com.leasing.communication.entity.vo.CbInvoiceApplyDetailVO;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,5 +14,5 @@ import org.springframework.stereotype.Repository;
  * @description: 2c票据信息导入
  **/
 @Repository
-public interface InvoiceApplyRepo extends BaseRepository<InvoiceApplyDO,BaseQuery,BaseVO,String> {
+public interface CbInvoiceApplyRepo extends BaseRepository<CbInvoiceApplyDetailDO,BaseQuery,CbInvoiceApplyDetailVO,String> {
 }
