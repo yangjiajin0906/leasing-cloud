@@ -18,6 +18,7 @@ import java.util.List;
 public interface CbWithdrawService {
 
     void gatherWithdraw(String batchNo);
+
     /**
      * 分页查询
      *
@@ -28,8 +29,8 @@ public interface CbWithdrawService {
     PageQueryData<CbWithdrawVO> pageQuery(Pagination pagination, CbWithdrawQuery queryVO);
 
     /**
-     *
      * 根据批次号查询子表
+     *
      * @return 子表列表
      */
     List<CbWithdrawDetailDO> queryDetailByBatchNo(String batchNo);

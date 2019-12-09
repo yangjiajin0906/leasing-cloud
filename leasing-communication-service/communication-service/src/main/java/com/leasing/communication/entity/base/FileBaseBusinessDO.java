@@ -12,7 +12,7 @@ import java.io.Serializable;
  * @description: 文件导入导出业务基类DO
  **/
 @MappedSuperclass
-public abstract class FileBaseBusinessDO extends BaseDO implements Serializable {
+public abstract class FileBaseBusinessDO extends BaseDO {
     /**
      * 单据状态
      */

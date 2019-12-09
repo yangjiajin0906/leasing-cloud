@@ -23,7 +23,7 @@ public class CbInvoiceApplyDO extends BaseDO{
     /**
      * 单据状态
      */
-    private BigDecimal billstatus;
+    private Short billstatus;
 
     /**
      * 开票批次号
@@ -48,7 +48,7 @@ public class CbInvoiceApplyDO extends BaseDO{
     /**
      * 开票状态
      */
-    private BigDecimal billingStatus;
+    private Short billingStatus;
 
     /**
      * 开票日期
@@ -132,7 +132,7 @@ public class CbInvoiceApplyDO extends BaseDO{
      * 单据状态
      * @return BILLSTATUS 单据状态
      */
-    public BigDecimal getBillstatus() {
+    public Short getBillstatus() {
         return billstatus;
     }
 
@@ -140,7 +140,7 @@ public class CbInvoiceApplyDO extends BaseDO{
      * 单据状态
      * @param billstatus 单据状态
      */
-    public void setBillstatus(BigDecimal billstatus) {
+    public void setBillstatus(Short billstatus) {
         this.billstatus = billstatus;
     }
 
@@ -212,7 +212,7 @@ public class CbInvoiceApplyDO extends BaseDO{
      * 开票状态
      * @return BILLING_STATUS 开票状态
      */
-    public BigDecimal getBillingStatus() {
+    public Short getBillingStatus() {
         return billingStatus;
     }
 
@@ -220,7 +220,7 @@ public class CbInvoiceApplyDO extends BaseDO{
      * 开票状态
      * @param billingStatus 开票状态
      */
-    public void setBillingStatus(BigDecimal billingStatus) {
+    public void setBillingStatus(Short billingStatus) {
         this.billingStatus = billingStatus;
     }
 

@@ -10,7 +10,7 @@ import com.leasing.common.enums.base.MatchType;
  * @author:jiaoshy@yonyou.com
  * @description:
  **/
-public class InvoiceQuery extends BaseQuery {
+public class CbInvoiceQuery extends BaseQuery {
 
     /**
      * 合同编号

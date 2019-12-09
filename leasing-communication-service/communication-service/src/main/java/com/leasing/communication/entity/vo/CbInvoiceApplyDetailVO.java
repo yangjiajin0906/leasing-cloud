@@ -1,8 +1,5 @@
 package com.leasing.communication.entity.vo;
 
-import com.leasing.common.base.annotation.Excel;
-import com.leasing.common.base.entity.BaseDO;
-import com.leasing.common.base.entity.BaseVO;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -22,6 +19,11 @@ public class CbInvoiceApplyDetailVO {
      */
     @Id
     private String pkInvoiceApplyDetail;
+
+    /**
+     * 主表主键
+     */
+    private String pkInvoiceApply;
 
     /**
      * 合同编号
@@ -177,6 +179,14 @@ public class CbInvoiceApplyDetailVO {
 
     public void setPkInvoiceApplyDetail(String pkInvoiceApplyDetail) {
         this.pkInvoiceApplyDetail = pkInvoiceApplyDetail;
+    }
+
+    public String getPkInvoiceApply() {
+        return pkInvoiceApply;
+    }
+
+    public void setPkInvoiceApply(String pkInvoiceApply) {
+        this.pkInvoiceApply = pkInvoiceApply;
     }
 
     public String getContCode() {

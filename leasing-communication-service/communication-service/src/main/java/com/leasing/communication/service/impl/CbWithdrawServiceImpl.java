@@ -5,10 +5,12 @@ import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.utils.base.BaseBusinessUtils;
 import com.leasing.communication.entity.dos.CbWithdrawDO;
 import com.leasing.communication.entity.dos.CbWithdrawDetailDO;
+import com.leasing.communication.entity.dto.CbWithdrawDetailDTO;
 import com.leasing.communication.entity.query.CbWithdrawQuery;
 import com.leasing.communication.entity.vo.CbWithdrawVO;
 import com.leasing.communication.repository.CbWithdrawDetailRepo;
 import com.leasing.communication.repository.CbWithdrawRepo;
+import com.leasing.communication.service.CbWithdrawDetailService;
 import com.leasing.communication.service.CbWithdrawService;
 import org.springframework.stereotype.Service;
 
@@ -26,10 +28,15 @@ public class CbWithdrawServiceImpl implements CbWithdrawService {
     @Resource
     private CbWithdrawDetailRepo detailRepo;
 
+    @Resource
+    private CbWithdrawDetailService detailService;
+
 
     @Override
-    public void gatherWithdraw(String batchNo) {
-        List<CbWithdrawDetailDO> list = queryDetailByBatchNo(batchNo);
+    public void gatherWithdraw(String fileName) {
+        fileName = "20191129-pay-1.xls";
+        List<CbWithdrawDetailDTO> importExcelList = detailService.getImportList(fileName);
+        List<CbWithdrawDetailDO> list = detailService.refConvert(importExcelList);
 
         CbWithdrawDO mainDO = new CbWithdrawDO();
         if (list != null && list.size() > 0) {
@@ -55,12 +62,13 @@ public class CbWithdrawServiceImpl implements CbWithdrawService {
             mainDO.setPkOperator(firstDetailVO.getPkOperator());
             mainDO.setPkDept(firstDetailVO.getPkDept());
             mainDO.setPkOrg(firstDetailVO.getPkOrg());
-            for (CbWithdrawDetailDO detaildO : list){
+            for (CbWithdrawDetailDO detaildO : list) {
                 //实际投放金额汇总
                 mainDO.setActualLoanAmount(mainDO.getActualLoanAmount().add(detaildO.getActualLoanAmount()));
                 //合同金额汇总
                 mainDO.setContAmount(mainDO.getContAmount().add(detaildO.getContAmount()));
                 detaildO.setPkWithdraw(mainPk);
+                detaildO.setPkWithdrawDetail(BaseBusinessUtils.getOID());
             }
             save(mainDO);
             detailRepo.saveAll(list);
@@ -70,7 +78,7 @@ public class CbWithdrawServiceImpl implements CbWithdrawService {
 
     @Override
     public PageQueryData<CbWithdrawVO> pageQuery(Pagination pagination, CbWithdrawQuery queryVO) {
-        return  withdrawRepo.pageQuery(pagination, queryVO, "WithdrawPageQuery");
+        return withdrawRepo.pageQuery(pagination, queryVO, "WithdrawPageQuery");
     }
 
     @Override

@@ -25,6 +25,11 @@ public class CbInvoiceApplyDetailDO extends BaseDO{
     private String pkInvoiceApplyDetail;
 
     /**
+     * 主表主键
+     */
+    private String pkInvoiceApply;
+
+    /**
      * 合同编号
      */
     @Excel(titleName = "合同编号", orderNum = 11)
@@ -130,7 +135,7 @@ public class CbInvoiceApplyDetailDO extends BaseDO{
      * 开票状态
      */
     @Excel(titleName = "开票状态", orderNum = 28)
-    private Integer billingStatus;
+    private Short billingStatus;
 
     /**
      * 开票内容
@@ -209,6 +214,14 @@ public class CbInvoiceApplyDetailDO extends BaseDO{
 
     public void setPkInvoiceApplyDetail(String pkInvoiceApplyDetail) {
         this.pkInvoiceApplyDetail = pkInvoiceApplyDetail;
+    }
+
+    public String getPkInvoiceApply() {
+        return pkInvoiceApply;
+    }
+
+    public void setPkInvoiceApply(String pkInvoiceApply) {
+        this.pkInvoiceApply = pkInvoiceApply;
     }
 
     /**
@@ -487,7 +500,7 @@ public class CbInvoiceApplyDetailDO extends BaseDO{
      * 开票状态
      * @return BILLING_STATUS 开票状态
      */
-    public Integer getBillingStatus() {
+    public Short getBillingStatus() {
         return billingStatus;
     }
 
@@ -495,7 +508,7 @@ public class CbInvoiceApplyDetailDO extends BaseDO{
      * 开票状态
      * @param billingStatus 开票状态
      */
-    public void setBillingStatus(Integer billingStatus) {
+    public void setBillingStatus(Short billingStatus) {
         this.billingStatus = billingStatus;
     }
 

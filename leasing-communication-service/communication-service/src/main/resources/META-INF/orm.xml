@@ -62,21 +62,21 @@
     </named-query>
 
     <named-query name="WithdrawPageQuery">
-        <query>select b from WithdrawVO b </query>
+        <query>select b from CbWithdrawVO b </query>
     </named-query>
 
 
     <named-query name="WithdrawPageQuery.count">
-        <query>select count(b) from WithdrawVO b </query>
+        <query>select count(b) from CbWithdrawVO b </query>
     </named-query>
 
     <named-query name="WithdrawPageDetailQuery">
-        <query>select b from WithdrawDetailVO b </query>
+        <query>select b from CbWithdrawDetailVO b </query>
     </named-query>
 
 
     <named-query name="WithdrawPageDetailQuery.count">
-        <query>select count(b) from WithdrawDetailVO b </query>
+        <query>select count(b) from CbWithdrawDetailVO b </query>
     </named-query>
 
 
@@ -156,16 +156,28 @@
 
     <named-query name="cbInvoiceApplyRepo.pageQuery">
         <query>
-            select a from CbInvoiceApplyDetailVO a
+            select a from CbInvoiceApplyVO a
             left join fetch a.pkSys b
         </query>
     </named-query>
 
     <named-query name="cbInvoiceApplyRepo.pageQuery.count">
         <query>
-            select count(a.pkInvoiceApplyDetail) from CbInvoiceApplyDetailVO a
+            select count(a.pkInvoiceApply) from CbInvoiceApplyVO a
         </query>
     </named-query>
 
+
+    <named-query name="invoiceApplyDetail.pageQuery">
+        <query>
+            select a from CbInvoiceApplyDetailVO a
+            left join fetch a.pkSys b
+        </query>
+    </named-query>
+    <named-query name="invoiceApplyDetail.pageQuery.count">
+        <query>
+            select count(a.pkInvoiceApplyDetail) from CbInvoiceApplyDetailVO a
+        </query>
+    </named-query>
 
 </entity-mappings>

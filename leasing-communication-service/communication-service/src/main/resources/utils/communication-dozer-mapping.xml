@@ -51,6 +51,12 @@
         </field-exclude>
     </mapping>
 
+
+    <mapping wildcard="true">    <!--wildcard为false时指定field域中属性赋值 -->
+        <class-a>com.leasing.communication.entity.vo.CbInvoiceApplyDetailVO</class-a>      <!-- 出现的tableName和attributeNames 均有get无需map-null -->
+        <class-b>com.leasing.communication.entity.dos.CbInvoiceApplyDO</class-b>
+    </mapping>
+
     <!--<mapping wildcard="true" map-null="false"> &lt;!&ndash;map-null指定false排除空值映射 &ndash;&gt;-->
     <!--<class-a>java.util.Map</class-a>-->
     <!--<class-b>com.leasing.sys.entity.vo.DFuncMenuVO</class-b>-->

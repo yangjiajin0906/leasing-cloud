@@ -49,12 +49,12 @@ public class FileDownloadServiceImpl implements FileDownloadService {
     }
 
     @Override
-    public List<WithdrawDO> downloadFileWit(String fileName) throws IOException {
+    public List<CbWithdrawDO> downloadFileWit(String fileName) throws IOException {
         return null;
     }
 
     @Override
-    public List<CapitalDO> downloadFileCap(String fileName) throws IOException {
+    public List<CbCapitalDO> downloadFileCap(String fileName) throws IOException {
         return null;
     }
 

@@ -39,7 +39,7 @@ public interface FileDownloadService {
      * @param fileName 文件名称
      * @return CustomerDO
      */
-    List<WithdrawDO> downloadFileWit(String fileName) throws IOException;
+    List<CbWithdrawDO> downloadFileWit(String fileName) throws IOException;
 
     /**
      * @description 处理收款文件
@@ -48,7 +48,7 @@ public interface FileDownloadService {
      * @param fileName 文件名称
      * @return CustomerDO
      */
-    List<CapitalDO> downloadFileCap(String fileName) throws IOException;
+    List<CbCapitalDO> downloadFileCap(String fileName) throws IOException;
 
     /**
      * @description 处理票据文件

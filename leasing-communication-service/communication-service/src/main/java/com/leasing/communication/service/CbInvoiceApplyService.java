@@ -5,6 +5,8 @@ import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.communication.entity.dos.CbInvoiceApplyDetailDO;
 import com.leasing.communication.entity.dto.CbInvoiceApplyDetailImpDTO;
+import com.leasing.communication.entity.query.CbInvoiceApplyDetailQuery;
+import com.leasing.communication.entity.vo.CbInvoiceApplyDetailVO;
 
 import java.io.File;
 import java.util.List;
@@ -28,7 +30,7 @@ public interface CbInvoiceApplyService {
      * @param vo
      * @return
      */
-    void save(List<CbInvoiceApplyDetailDO> list);
+    void save(List<CbInvoiceApplyDetailVO> list);
 
     /**
      * 删除方法
@@ -67,5 +69,8 @@ public interface CbInvoiceApplyService {
      * @return
      */
     List<CbInvoiceApplyDetailDO> dataConvert(List<CbInvoiceApplyDetailImpDTO> list);
+
+
+    List<CbInvoiceApplyDetailVO> querySub(CbInvoiceApplyDetailQuery query);
 
 }

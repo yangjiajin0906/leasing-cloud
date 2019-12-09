@@ -1,7 +1,9 @@
 package com.leasing.common.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Component;
+
 
 /**
  * @project:leasing-cloud
@@ -9,10 +11,17 @@ import org.springframework.context.annotation.Configuration;
  * @author:lvcna@yonyou.com
  * @description:
  **/
-@Configuration
+@Component
+@Lazy(value = false)
 public class DozerConfig {
 
-    @Value("${dozer.path:dozer not found}")
+
     public static String path;
+
+    @Value("${dozer.path:dozer not found}")
+    public void setPath( String path) {
+        DozerConfig.path = path;
+    }
+
 
 }
