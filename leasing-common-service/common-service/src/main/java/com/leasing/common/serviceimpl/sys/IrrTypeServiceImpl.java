@@ -26,7 +26,7 @@ public class IrrTypeServiceImpl implements IrrTypeService {
     @Override
     public PageQueryData<IrrTypeVO> ListIrrType(){
         Pagination pagination = new Pagination();
-        pagination.setCurPage(1);
+        pagination.setPageIndex(1);
         pagination.setPageSize(50);
 //        IrrTypeQuery queryvo =new IrrTypeQuery();
         //queryvo.setIrrTypeName(Short.parseShort("1"));

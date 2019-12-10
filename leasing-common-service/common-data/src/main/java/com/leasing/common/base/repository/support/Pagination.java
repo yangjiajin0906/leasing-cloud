@@ -1,5 +1,6 @@
 package com.leasing.common.base.repository.support;
 
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -11,16 +12,16 @@ import java.io.Serializable;
  * @author:lvcna@yonyou.com
  * @description: 分页实体类
  **/
-public class Pagination implements Serializable {
+public class Pagination<T> implements Serializable {
 
     /**
      * 分页构造方法
      * JPA分页从0开始，默认当前页 - 1;
-     * @param curPage
+     * @param pageIndex
      * @param pageSize
      */
-    public Pagination(int curPage,int pageSize){
-        this.curPage = curPage;
+    public Pagination(int pageIndex,int pageSize){
+        this.pageIndex = pageIndex;
         this.pageSize = pageSize;
     }
     public Pagination(){
@@ -32,11 +33,11 @@ public class Pagination implements Serializable {
      * @return Pageable
      */
     public Pageable toPageable(){
-        return PageRequest.of(this.curPage > 0 ?
-                this.curPage - 1 : 0, this.pageSize);
+        return PageRequest.of(this.pageIndex > 0 ?
+                this.pageIndex - 1 : 0, this.pageSize);
     }
 
-    private int curPage;
+    private int pageIndex;
 
     private int pageSize;
 
@@ -44,12 +45,12 @@ public class Pagination implements Serializable {
 
     private int total;
 
-    public int getCurPage() {
-        return curPage;
+    public int getPageIndex() {
+        return pageIndex;
     }
 
-    public void setCurPage(int curPage) {
-        this.curPage = curPage;
+    public void setPageIndex(int pageIndex) {
+        this.pageIndex = pageIndex;
     }
 
     public int getPageSize() {
@@ -81,8 +82,8 @@ public class Pagination implements Serializable {
      * @return
      */
     public int getFirstResult(){
-        int curPage = this.getCurPage()> 0 ? this.getCurPage() - 1 : 0;
+        int pageIndex = this.getPageIndex()> 0 ? this.getPageIndex() - 1 : 0;
         int pageSize = this.getPageSize();
-        return curPage * pageSize;
+        return pageIndex * pageSize;
     }
 }

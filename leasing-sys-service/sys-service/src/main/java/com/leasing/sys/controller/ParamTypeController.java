@@ -37,9 +37,7 @@ public class ParamTypeController {
      */
     @RequestMapping(value = "/pageQuery")
     public PageQueryData<ParamTypeVO> pageQuery(String data){
-        Pagination pagination = new Pagination();
-        pagination.setCurPage(1);
-        pagination.setPageSize(100);
+        Pagination pagination = new Pagination(1,100);
         ParamTypeQuery query = new ParamTypeQuery();
         PageQueryData<ParamTypeVO> pageQueryData = paramTypeService.pageQuery(pagination,query);
         return pageQueryData;
