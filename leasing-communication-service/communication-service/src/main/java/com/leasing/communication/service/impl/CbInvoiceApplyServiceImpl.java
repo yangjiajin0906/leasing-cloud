@@ -12,9 +12,9 @@ import com.leasing.common.utils.tools.ExcelUtils;
 import com.leasing.communication.entity.dos.CbInvoiceApplyDO;
 import com.leasing.communication.entity.dos.CbInvoiceApplyDetailDO;
 import com.leasing.communication.entity.dto.CbInvoiceApplyDetailImpDTO;
+import com.leasing.communication.entity.dto.SourceSystemDTO;
 import com.leasing.communication.entity.query.CbInvoiceApplyDetailQuery;
 import com.leasing.communication.entity.vo.CbInvoiceApplyDetailVO;
-import com.leasing.communication.entity.vo.SourceSystemVO;
 import com.leasing.communication.repository.CbInvoiceApplyDetailRepo;
 import com.leasing.communication.repository.CbInvoiceApplyRepo;
 import com.leasing.communication.service.CbInvoiceApplyService;
@@ -65,26 +65,27 @@ public class CbInvoiceApplyServiceImpl implements CbInvoiceApplyService {
             //开票日期
             applyDO.setBillingData(DateUtils.getCurDate());
             applyDO.setBillstatus(Billstatus.APPROVE.getShort());
-            applyDO.setInvoiceAmount(BigDecimal.ZERO);// 发票总额
-            applyDO.setLeaseCashTax(BigDecimal.ZERO);//发票税额
-            applyDO.setExcludingTax(BigDecimal.ZERO);// 不含税金额
-
 
             List<CbInvoiceApplyDetailDO> forSave = new ArrayList<>();
 
+            BigDecimal totalInvoiceAmount = BigDecimal.ZERO;
+            BigDecimal totalLeaseCashTax = BigDecimal.ZERO;
+            BigDecimal totalExcludingTax = BigDecimal.ZERO;
             for (CbInvoiceApplyDetailVO detailVO : list) {
                 CbInvoiceApplyDetailDO detailDO = DozerUtils.convert(detailVO, CbInvoiceApplyDetailDO.class);
                 detailDO.setPkInvoiceApply(pkApply);
                 detailDO.setBillingStatus(Yes_Or_No.YES.getShort());
-                //todo 子表的发票金额是什么字段？  发票总额
-                applyDO.setInvoiceAmount(applyDO.getInvoiceAmount().add(BigDecimal.ZERO));
                 //发票税额
-                applyDO.setLeaseCashTax(applyDO.getLeaseCashTax().add(detailDO.getLeaseCashTax()));
-                applyDO.setExcludingTax(applyDO.getExcludingTax().add(detailDO.getExcludingTax()));
+                totalInvoiceAmount = totalInvoiceAmount.add(detailDO.getInvoiceAmount());
 
+                totalLeaseCashTax = totalLeaseCashTax.add(detailDO.getLeaseCashTax());
 
+                totalExcludingTax = totalExcludingTax.add(detailDO.getExcludingTax());
                 forSave.add(detailDO);
             }
+            applyDO.setInvoiceAmount(totalInvoiceAmount);// 发票总额
+            applyDO.setLeaseCashTax(BigDecimal.ZERO);//发票税额
+            applyDO.setExcludingTax(BigDecimal.ZERO);// 不含税金额
             invoiceApplyRepo.save(applyDO);
             detailRepo.saveAll(forSave);
 
@@ -122,8 +123,8 @@ public class CbInvoiceApplyServiceImpl implements CbInvoiceApplyService {
 
     @Override
     public List<CbInvoiceApplyDetailDO> dataConvert(List<CbInvoiceApplyDetailImpDTO> list) {
-        Map<String, String> soruceSystemMap = EntityCacheUtils.cacheEntityField("SourceSystemVO", "systemCode",
-                "pkSourceSystem", SourceSystemVO.class);
+        Map<String, String> soruceSystemMap = EntityCacheUtils.cacheEntityField("SourceSystemDTO", "systemCode",
+                "pkSourceSystem", SourceSystemDTO.class);
         List<CbInvoiceApplyDetailDO> cList = new ArrayList<>();
         for(CbInvoiceApplyDetailImpDTO dto : list){
             CbInvoiceApplyDetailDO cbEarlySettlementDO = DozerUtils.convert(dto, CbInvoiceApplyDetailDO.class);
