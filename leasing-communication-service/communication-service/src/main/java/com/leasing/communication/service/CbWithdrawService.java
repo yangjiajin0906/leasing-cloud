@@ -4,6 +4,7 @@ import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.communication.entity.dos.CbWithdrawDO;
 import com.leasing.communication.entity.dos.CbWithdrawDetailDO;
+import com.leasing.communication.entity.dto.CbWithdrawDetailDTO;
 import com.leasing.communication.entity.query.CbWithdrawQuery;
 import com.leasing.communication.entity.vo.CbWithdrawVO;
 
@@ -15,9 +16,9 @@ import java.util.List;
  * @author:Yjj@yonyou.com
  * @description: 2c付款信息导入
  **/
-public interface CbWithdrawService {
+public interface CbWithdrawService extends CbFileImpService{
 
-    void gatherWithdraw(String batchNo);
+    void gatherWithdraw(List<CbWithdrawDetailDO> list);
 
     /**
      * 分页查询
@@ -42,6 +43,9 @@ public interface CbWithdrawService {
      * @return
      */
     CbWithdrawDO save(CbWithdrawDO vo);
+
+
+    List<CbWithdrawDetailDO> dataConvert(List<CbWithdrawDetailDTO> list);
 
     /**
      * 批量保存方法

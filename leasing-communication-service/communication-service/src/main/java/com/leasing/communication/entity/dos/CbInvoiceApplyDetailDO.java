@@ -155,6 +155,8 @@ public class CbInvoiceApplyDetailDO extends BaseDO{
     @Excel(titleName = "公司主体", orderNum = 31)
     private String companyMainBody;
 
+    private BigDecimal invoiceAmount;
+
     /**
      * 单据状态
      */
@@ -601,5 +603,13 @@ public class CbInvoiceApplyDetailDO extends BaseDO{
 
     public void setPkDept(String pkDept) {
         this.pkDept = pkDept;
+    }
+
+    public BigDecimal getInvoiceAmount() {
+        return invoiceAmount;
+    }
+
+    public void setInvoiceAmount(BigDecimal invoiceAmount) {
+        this.invoiceAmount = invoiceAmount;
     }
 }
