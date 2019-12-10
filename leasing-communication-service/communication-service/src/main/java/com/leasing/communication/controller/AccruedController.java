@@ -9,11 +9,13 @@ import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.communication.entity.dos.AccruedBDO;
 import com.leasing.communication.entity.dos.AccruedDO;
+import com.leasing.communication.entity.dto.FileOssLogDTO;
 import com.leasing.communication.entity.query.AccruedQuery;
 import com.leasing.communication.entity.vo.AccruedBVO;
 import com.leasing.communication.entity.vo.AccruedChildVO;
 import com.leasing.communication.entity.vo.AccruedVO;
 import com.leasing.communication.service.AccruedService;
+import com.leasing.communication.service.CbFileOssService;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -63,15 +65,26 @@ public class AccruedController {
     public ResResult save(@RequestBody(required = false) String data){
         AccruedVO vo = JSON.parseObject(data,AccruedVO.class);
         AccruedDO dos = DozerUtils.convert(vo,AccruedDO.class);
+        dos.setPkLeaseAccrued("1111111111111133311");
         dos.setLeaseAccruedB(null);
         List<AccruedBDO> list = new ArrayList();
         for(int i = 0; i<vo.getLeaseAccruedB().size(); i++){
             AccruedBDO accruedBDO = DozerUtils.convert(vo.getLeaseAccruedB().get(i),AccruedBDO.class);
+            accruedBDO.setPkLeaseAccruedB((i+"111111111111111111111").substring(0,20));
             list.add(accruedBDO);
         }
         dos.setLeaseAccruedB(list);
-        dos = leaseAccruedService.save(dos);
         dos.setPkOrg("1003");
+        dos = leaseAccruedService.save(dos);
         return ResultUtils.successWithData(dos);
+    }
+
+    @Resource
+    CbFileOssService cbFileOssService;
+
+    @RequestMapping(value = "/test")
+    public void test() {
+        List<FileOssLogDTO> logDTOS = cbFileOssService.fileImportByDate();
+        System.out.println(logDTOS);
     }
 }

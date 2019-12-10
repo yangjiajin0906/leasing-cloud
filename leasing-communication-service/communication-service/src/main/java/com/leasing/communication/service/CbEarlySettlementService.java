@@ -19,7 +19,7 @@ import java.util.List;
  * @author:lvcna@yonyou.com
  * @description: 2C业务提前结清接口处理
  **/
-public interface CbEarlySettlementService {
+public interface CbEarlySettlementService extends CbFileImpService{
 
     /**
      * 下载文件

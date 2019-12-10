@@ -164,7 +164,7 @@ public class AccruedServiceImpl implements AccruedService {
                 bvo.setPkCustomer(pageRefVO.getPkCustomer());// 客户
                 bvo.setAssetsClassify(pageRefVO.getAssetsClassify());// 资产五级分类
                 bvo.setAccruedMonth(pageRefVO.getMonth());// 计提月份
-                bvo.setPkCurrtype(pageRefVO.getPkCurrtype());// 币种
+                bvo.setPkCurrtype(pageRefVO.pkCurrtype);// 币种
                 bvo.setExchgRate(pageRefVO.getExchgRate());// 汇率
                 bvo.setPkGlorgbook(pageRefVO.getPkGlorgbook());// 核算主体
                 bvo.setInterestAmount(pageRefVO.getInter());// 利息计提
