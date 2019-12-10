@@ -51,18 +51,62 @@
         </field-exclude>
     </mapping>
 
+    <mapping wildcard="true">
+        <class-a>com.leasing.communication.entity.dto.CbBadContractImpDTO</class-a>
+        <class-b>com.leasing.communication.entity.dos.CbBadContractDO</class-b>
+    </mapping>
+
+    <mapping wildcard="true">
+        <class-a>com.leasing.communication.entity.dto.CbEarlySettlementImpDTO</class-a>
+        <class-b>com.leasing.communication.entity.dos.CbEarlySettlementDO</class-b>
+    </mapping>
+
+    <mapping wildcard="true">
+        <class-a>com.leasing.communication.entity.dto.CbOverdueContractImpDTO</class-a>
+        <class-b>com.leasing.communication.entity.dos.CbOverdueContractDO</class-b>
+    </mapping>
 
     <mapping wildcard="true">    <!--wildcard为false时指定field域中属性赋值 -->
         <class-a>com.leasing.communication.entity.vo.CbInvoiceApplyDetailVO</class-a>      <!-- 出现的tableName和attributeNames 均有get无需map-null -->
         <class-b>com.leasing.communication.entity.dos.CbInvoiceApplyDO</class-b>
     </mapping>
 
-    <mapping wildcard="true">    <!--wildcard为false时指定field域中属性赋值 -->
-        <class-a>com.leasing.communication.entity.vo.AccruedVO</class-a>
-        <class-b>com.leasing.communication.entity.dos.AccruedDO</class-b>
-            <field>
-                <a>pkOrg.refpk</a>
-                <b>pkOrg</b>
-            </field>
-    </mapping>
+
+    <!--<mapping wildcard="true">-->
+        <!--<class-a>com.leasing.communication.entity.vo.AccruedVO</class-a>-->
+        <!--<class-b>com.leasing.communication.entity.dos.AccruedDO</class-b>-->
+        <!--<field-exclude>-->
+            <!--<a>pkCorp.pkOrg</a>-->
+            <!--<b>pkCorp</b>-->
+        <!--</field-exclude>-->
+        <!--<field-exclude>-->
+            <!--<a>pkOrg.pkOrg</a>-->
+            <!--<b>pkOrg</b>-->
+        <!--</field-exclude>-->
+        <!--<field-exclude>-->
+            <!--<a>pkChecker.pk_user</a>-->
+            <!--<b>pkChecker</b>-->
+        <!--</field-exclude>-->
+        <!--<field-exclude>-->
+            <!--<a>pkGrantor.pk_user</a>-->
+            <!--<b>pkGrantor</b>-->
+        <!--</field-exclude>-->
+    <!--</mapping>-->
+
+    <!--<mapping wildcard="true">-->
+        <!--<class-a>com.leasing.communication.entity.vo.AccruedBVO</class-a>-->
+        <!--<class-b>com.leasing.communication.entity.dos.AccruedBDO</class-b>-->
+        <!--<field-exclude>-->
+            <!--<a>pkCustomer.pkCustomer</a>-->
+            <!--<b>pkCustomer</b>-->
+        <!--</field-exclude>-->
+        <!--<field-exclude>-->
+            <!--<a>pkContract.pkContract</a>-->
+            <!--<b>pkContract</b>-->
+        <!--</field-exclude>-->
+        <!--<field-exclude>-->
+            <!--<a>pkCurrtype.pkCurrtype</a>-->
+            <!--<b>pkCurrtype</b>-->
+        <!--</field-exclude>-->
+    <!--</mapping>-->
 </mappings>
