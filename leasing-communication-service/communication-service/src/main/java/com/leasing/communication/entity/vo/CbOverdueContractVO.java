@@ -2,6 +2,7 @@ package com.leasing.communication.entity.vo;
 
 import com.leasing.common.base.entity.BaseDTO;
 import com.leasing.common.entity.foundation.vo.CurrtypeVO;
+import com.leasing.communication.entity.dto.SourceSystemDTO;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -103,7 +104,7 @@ public class CbOverdueContractVO extends BaseDTO {
     @ManyToOne
     @JoinColumn(name = "pkSys")
     @NotFound(action= NotFoundAction.IGNORE)
-    private SourceSystemVO pkSys;
+    private SourceSystemDTO pkSys;
 
     /**
      * 操作人
@@ -342,11 +343,11 @@ public class CbOverdueContractVO extends BaseDTO {
         this.pkCurrency = pkCurrency;
     }
 
-    public SourceSystemVO getPkSys() {
+    public SourceSystemDTO getPkSys() {
         return pkSys;
     }
 
-    public void setPkSys(SourceSystemVO pkSys) {
+    public void setPkSys(SourceSystemDTO pkSys) {
         this.pkSys = pkSys;
     }
 

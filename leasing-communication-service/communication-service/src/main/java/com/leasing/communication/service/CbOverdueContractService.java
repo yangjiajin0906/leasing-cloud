@@ -19,7 +19,7 @@ import java.util.List;
  * @author:lvcna@yonyou.com
  * @description: 2C业务逾期合同接口处理
  **/
-public interface CbOverdueContractService {
+public interface CbOverdueContractService extends CbFileImpService{
 
     /**
      * 下载文件

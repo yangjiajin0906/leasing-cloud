@@ -25,8 +25,8 @@ public class AccruedBDO extends BaseDO {
      */
     @Id
     @Column(name = "PK_LEASE_ACCRUED_B")
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "project-id")
-    @GenericGenerator(name = "project-id", strategy = "com.leasing.communication.utils.IDGenerator")
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="seq_id")
+//    @SequenceGenerator(name="seq_id", sequenceName="CB_OID_SEQ")
     public String pkLeaseAccruedB;
     /**
      * 计提表主键

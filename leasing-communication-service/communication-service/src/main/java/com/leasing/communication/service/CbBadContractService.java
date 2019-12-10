@@ -22,7 +22,7 @@ import java.util.List;
  * @author:lvcna@yonyou.com
  * @description: 2C业务不良合同接口处理
  **/
-public interface CbBadContractService {
+public interface CbBadContractService  extends CbFileImpService{
 
     /**
      * 下载文件
