@@ -8,12 +8,11 @@ import com.leasing.common.exception.BaseException;
 import com.leasing.common.utils.base.DateUtils;
 import com.leasing.common.utils.base.ObjectUtil;
 import com.leasing.common.utils.base.UFDate;
+import com.leasing.communication.entity.dos.AccrualCDO;
 import com.leasing.communication.entity.dos.AccruedDO;
 import com.leasing.communication.entity.query.AccruedQuery;
-import com.leasing.communication.entity.vo.AccrualForAccruedPageRefVO;
-import com.leasing.communication.entity.vo.AccruedBVO;
-import com.leasing.communication.entity.vo.AccruedChildVO;
-import com.leasing.communication.entity.vo.AccruedVO;
+import com.leasing.communication.entity.vo.*;
+import com.leasing.communication.repository.AccrualCRepo;
 import com.leasing.communication.repository.AccruedRepo;
 import com.leasing.communication.service.AccruedService;
 import org.apache.commons.lang.StringUtils;
@@ -38,6 +37,9 @@ public class AccruedServiceImpl implements AccruedService {
 
     @Resource
     AccruedRepo leaseAccruedRepo;
+
+    @Resource
+    AccrualCRepo accrualCRepo;
 
     @Override
     public PageQueryData<AccruedVO> pageQuery(Pagination pagination, AccruedQuery leaseAccruedQuery, String queryName) {
@@ -209,12 +211,6 @@ public class AccruedServiceImpl implements AccruedService {
 
     @Override
     public AccruedDO save(AccruedDO vo) {
-        //vo.setPkLeaseAccrued("12578963254llkjgggg7");
-        vo.setBillstatus(Billstatus.INITALIZE.getShort());
-        String currentMonth = vo.getAccrualMonth().substring(0, 7);
-        vo.setAccrualMonth(currentMonth);
-        vo.setOperateTime(DateUtils.getCurDateTime());
-        vo.setOperateDate(DateUtils.getCurDate());
         return leaseAccruedRepo.saveEntity(vo);
     }
 
@@ -275,7 +271,11 @@ public class AccruedServiceImpl implements AccruedService {
      */
     private void updateAccruedFlag(AccruedVO vo, final Short if_begin){
         List<AccruedBVO> list = vo.getLeaseAccruedB();
-
+        for(AccruedBVO accruedBVO: list){
+            AccrualCDO cvo = accrualCRepo.findBySourceBillAndMonth(accruedBVO.getPkContract().getPkLeaseCalculator(), accruedBVO.getAccruedMonth());
+            cvo.setIfBegin(Short.valueOf("1"));
+            accrualCRepo.updateEntity(cvo);
+        }
     }
 
     @Override

@@ -5,6 +5,8 @@ import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.entity.customer.dto.OrgDTO;
+import com.leasing.common.enums.base.Billstatus;
+import com.leasing.common.utils.base.DateUtils;
 import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.communication.entity.dos.AccruedBDO;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @project:leasing-cloud
@@ -65,12 +68,19 @@ public class AccruedController {
     public ResResult save(@RequestBody(required = false) String data){
         AccruedVO vo = JSON.parseObject(data,AccruedVO.class);
         AccruedDO dos = DozerUtils.convert(vo,AccruedDO.class);
-        dos.setPkLeaseAccrued("1111111111111133311");
-        dos.setLeaseAccruedB(null);
+        dos.setPkLeaseAccrued(UUID.randomUUID().toString().replace("-","").substring(0, 20));
+        dos.setBillstatus(Billstatus.INITALIZE.getShort());
+        String currentMonth = vo.getAccrualMonth().substring(0, 7);
+        dos.setAccrualMonth(currentMonth);
+        dos.setOperateTime(DateUtils.getCurDateTime());
+        dos.setOperateDate(DateUtils.getCurDate());
         List<AccruedBDO> list = new ArrayList();
         for(int i = 0; i<vo.getLeaseAccruedB().size(); i++){
             AccruedBDO accruedBDO = DozerUtils.convert(vo.getLeaseAccruedB().get(i),AccruedBDO.class);
-            accruedBDO.setPkLeaseAccruedB((i+"111111111111111111111").substring(0,20));
+            accruedBDO.setPkLeaseAccruedB(UUID.randomUUID().toString().replace("-","").substring(0, 20));
+            accruedBDO.setPkCustomer("0001MG00000000029119");
+            accruedBDO.setPkCurrtype("00010000000000000001");
+            accruedBDO.setPkContract("0001MG00000000062839");
             list.add(accruedBDO);
         }
         dos.setLeaseAccruedB(list);

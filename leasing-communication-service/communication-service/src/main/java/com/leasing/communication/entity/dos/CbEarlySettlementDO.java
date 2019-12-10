@@ -5,6 +5,7 @@ import com.leasing.common.base.entity.BaseDO;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 
 /**
@@ -24,6 +25,7 @@ public class CbEarlySettlementDO extends BaseDO{
     /**
      * 合同主键
      */
+    @Transient
     private String pkContract;
 
     /**
@@ -39,6 +41,7 @@ public class CbEarlySettlementDO extends BaseDO{
     /**
      * 客户主键
      */
+    @Transient
     private String pkCustomer;
 
     /**

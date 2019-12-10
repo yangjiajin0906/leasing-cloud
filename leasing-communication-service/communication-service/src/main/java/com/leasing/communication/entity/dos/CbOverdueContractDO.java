@@ -1,10 +1,12 @@
 package com.leasing.communication.entity.dos;
 
+import com.leasing.common.base.entity.BaseDO;
 import com.leasing.common.base.entity.BaseDTO;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 
 /**
@@ -14,7 +16,7 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="yc_overdue_contract")
-public class CbOverdueContractDO extends BaseDTO {
+public class CbOverdueContractDO extends BaseDO {
     /**
      * 主键
      */
@@ -29,6 +31,7 @@ public class CbOverdueContractDO extends BaseDTO {
     /**
      * 合同主键
      */
+    @Transient
     private String pkContract;
 
     /**
@@ -44,6 +47,7 @@ public class CbOverdueContractDO extends BaseDTO {
     /**
      * 客户主键
      */
+    @Transient
     private String pkCustomer;
 
     /**
@@ -126,11 +130,16 @@ public class CbOverdueContractDO extends BaseDTO {
      */
     private BigDecimal billstatus;
 
-    /**
-     * 时间戳
-     */
-    private String ts;
 
+    @Override
+    public String getPk() {
+        return pkOverdueContract;
+    }
+
+    @Override
+    public void setPk(String pk) {
+        this.pkOverdueContract = pk;
+    }
 
     /**
      * 主键
@@ -402,14 +411,6 @@ public class CbOverdueContractDO extends BaseDTO {
 
     public void setBillstatus(BigDecimal billstatus) {
         this.billstatus = billstatus;
-    }
-
-    public String getTs() {
-        return ts;
-    }
-
-    public void setTs(String ts) {
-        this.ts = ts;
     }
 
     public String getPkContract() {

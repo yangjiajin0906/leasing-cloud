@@ -8,6 +8,7 @@ import com.leasing.common.entity.foundation.vo.CurrtypeVO;
 import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.common.utils.tools.ExcelUtils;
 import com.leasing.communication.entity.dos.CbBadContractDO;
+import com.leasing.communication.entity.dos.CbContractDO;
 import com.leasing.communication.entity.dos.CbEarlySettlementDO;
 import com.leasing.communication.entity.dto.CbBadContractImpDTO;
 import com.leasing.communication.entity.dto.CbEarlySettlementImpDTO;
@@ -52,16 +53,15 @@ public class CbEarlySettlementServiceImpl implements CbEarlySettlementService {
 
     @Override
     public List<CbEarlySettlementDO> dataConvert(List<CbEarlySettlementImpDTO> list) {
-        Map<String, String> soruceSystemMap = EntityCacheUtils.cacheEntityField("SourceSystemVO", "systemCode",
+        Map<String, String> soruceSystemMap = EntityCacheUtils.cacheEntityField("SourceSystemDTO", "systemCode",
                 "pkSourceSystem", SourceSystemDTO.class);
         Map<String, String> currtypeMap = EntityCacheUtils.cacheEntityField("CurrtypeVO", "currtypecode",
                 "pkCurrtype", CurrtypeVO.class);
         List<CbEarlySettlementDO> cList = new ArrayList<>();
         for(CbEarlySettlementImpDTO dto : list){
             CbEarlySettlementDO cbEarlySettlementDO = DozerUtils.convert(dto, CbEarlySettlementDO.class);
-            cbEarlySettlementDO.setPkContract(UUID.randomUUID().toString().replace("-","").substring(0,20));
-            cbEarlySettlementDO.setPkSys(soruceSystemMap.get(dto.getPkSys()));
-            cbEarlySettlementDO.setPkCurrency(soruceSystemMap.get(dto.getPkCurrency()));
+            cbEarlySettlementDO.setPkSys(soruceSystemMap.get(dto.getPkSys()));//来源系统
+            cbEarlySettlementDO.setPkCurrency(currtypeMap.get(dto.getPkCurrency()));//币种
             cList.add(cbEarlySettlementDO);
         }
         return cList;
@@ -69,6 +69,9 @@ public class CbEarlySettlementServiceImpl implements CbEarlySettlementService {
 
     @Override
     public void save(List<CbEarlySettlementDO> list) {
+        for(CbEarlySettlementDO dos: list){
+            dos.setPkEarlySettlement(UUID.randomUUID().toString().replace("-","").substring(0, 20));
+        }
         cbEarlySettlementRepo.saveAll(list);
     }
 

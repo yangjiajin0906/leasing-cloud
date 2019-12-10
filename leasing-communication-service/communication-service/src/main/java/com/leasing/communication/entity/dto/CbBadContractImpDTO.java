@@ -39,69 +39,75 @@ public class CbBadContractImpDTO {
     private String customerName;
 
     /**
+     * 客户名称
+     */
+    @Excel(titleName = "客户编号",orderNum = 4)
+    private String customerCode;
+
+    /**
      * 单位名称
      */
-    @Excel(titleName = "单位名称",orderNum = 4)
+    @Excel(titleName = "单位名称",orderNum = 5)
     private String employerName;
 
     /**
      * 起租日期
      */
-    @Excel(titleName = "起租日期",orderNum = 5)
+    @Excel(titleName = "起租日期",orderNum = 6)
     private String rentDate;
 
     /**
      * 租赁方式
      */
-    @Excel(titleName = "租赁方式",orderNum = 5)
+    @Excel(titleName = "租赁方式",orderNum = 7)
     private Integer leaseType;
 
     /**
      * 应收租金
      */
-    @Excel(titleName = "应收租金",orderNum = 6)
+    @Excel(titleName = "应收租金",orderNum = 8)
     private BigDecimal receivableRent;
 
     /**
      * 实收租金
      */
-    @Excel(titleName = "实收租金",orderNum = 7)
+    @Excel(titleName = "实收租金",orderNum = 9)
     private BigDecimal paidinRent;
 
     /**
      * 应收本金
      */
-    @Excel(titleName = "应收本金",orderNum = 7)
+    @Excel(titleName = "应收本金",orderNum = 10)
     private BigDecimal receivableCorpus;
 
     /**
      * 实收本金
      */
-    @Excel(titleName = "实收本金",orderNum = 8)
+    @Excel(titleName = "实收本金",orderNum = 11)
     private BigDecimal paidinCorpus;
 
     /**
      * 剩余本金
      */
-    @Excel(titleName = "剩余本金",orderNum = 9)
+    @Excel(titleName = "剩余本金",orderNum = 12)
     private BigDecimal corpusBalance;
 
     /**
      * 币种
      */
-    @Excel(titleName = "币种",orderNum = 10)
+    @Excel(titleName = "币种",orderNum = 13)
     private String pkCurrency;
 
     /**
      * 公司主体
      */
-    @Excel(titleName = "公司主体",orderNum = 11)
+    @Excel(titleName = "公司主体",orderNum = 14)
     private String companyBody;
 
     /**
      * 来源系统
      */
-    @Excel(titleName = "来源系统",orderNum = 12)
+    @Excel(titleName = "来源系统",orderNum = 15)
     private String pkSys;
 
     /**

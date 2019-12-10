@@ -7,6 +7,7 @@ import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.entity.foundation.vo.CurrtypeVO;
 import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.common.utils.tools.ExcelUtils;
+import com.leasing.communication.entity.dos.CbBadContractDO;
 import com.leasing.communication.entity.dos.CbEarlySettlementDO;
 import com.leasing.communication.entity.dos.CbOverdueContractDO;
 import com.leasing.communication.entity.dto.*;
@@ -49,16 +50,15 @@ public class CbOverdueContractServiceImpl implements CbOverdueContractService {
 
     @Override
     public List<CbOverdueContractDO> dataConvert(List<CbOverdueContractImpDTO> list) {
-        Map<String, String> soruceSystemMap = EntityCacheUtils.cacheEntityField("SourceSystemVO", "systemCode",
+        Map<String, String> soruceSystemMap = EntityCacheUtils.cacheEntityField("SourceSystemDTO", "systemCode",
                 "pkSourceSystem", SourceSystemDTO.class);
         Map<String, String> currtypeMap = EntityCacheUtils.cacheEntityField("CurrtypeVO", "currtypecode",
                 "pkCurrtype", CurrtypeVO.class);
         List<CbOverdueContractDO> cList = new ArrayList<>();
         for(CbOverdueContractImpDTO dto : list){
             CbOverdueContractDO cbOverdueContractDO = DozerUtils.convert(dto, CbOverdueContractDO.class);
-            cbOverdueContractDO.setPkContract(UUID.randomUUID().toString().replace("-","").substring(0,20));
             cbOverdueContractDO.setPkSys(soruceSystemMap.get(dto.getPkSys()));
-            cbOverdueContractDO.setPkCurrency(soruceSystemMap.get(dto.getPkCurrency()));
+            cbOverdueContractDO.setPkCurrency(currtypeMap.get(dto.getPkCurrency()));
             cList.add(cbOverdueContractDO);
         }
         return cList;
@@ -66,6 +66,9 @@ public class CbOverdueContractServiceImpl implements CbOverdueContractService {
 
     @Override
     public void save(List<CbOverdueContractDO> list) {
+        for(CbOverdueContractDO dos: list){
+            dos.setPkOverdueContract(UUID.randomUUID().toString().replace("-","").substring(0, 20));
+        }
         cbOverdueContractRepo.saveAll(list);
     }
 

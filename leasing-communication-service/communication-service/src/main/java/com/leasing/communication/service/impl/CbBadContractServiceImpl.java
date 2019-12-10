@@ -53,16 +53,15 @@ public class CbBadContractServiceImpl implements CbBadContractService {
 
     @Override
     public List<CbBadContractDO> dataConvert(List<CbBadContractImpDTO> list) {
-        Map<String, String> soruceSystemMap = EntityCacheUtils.cacheEntityField("SourceSystemVO", "systemCode",
+        Map<String, String> soruceSystemMap = EntityCacheUtils.cacheEntityField("SourceSystemDTO", "systemCode",
                 "pkSourceSystem", SourceSystemDTO.class);
         Map<String, String> currtypeMap = EntityCacheUtils.cacheEntityField("CurrtypeVO", "currtypecode",
                 "pkCurrtype", CurrtypeVO.class);
         List<CbBadContractDO> cList = new ArrayList<>();
         for(CbBadContractImpDTO dto : list){
             CbBadContractDO cbBadContractDO = DozerUtils.convert(dto, CbBadContractDO.class);
-            cbBadContractDO.setPkContract(UUID.randomUUID().toString().replace("-","").substring(0,20));
-            cbBadContractDO.setPkSys(soruceSystemMap.get(dto.getPkSys()));
-            cbBadContractDO.setPkCurrency(soruceSystemMap.get(dto.getPkCurrency()));
+            cbBadContractDO.setPkSys(soruceSystemMap.get(dto.getPkSys()));//来源系统
+            cbBadContractDO.setPkCurrency(currtypeMap.get(dto.getPkCurrency()));//币种
             cList.add(cbBadContractDO);
         }
         return cList;
@@ -70,6 +69,9 @@ public class CbBadContractServiceImpl implements CbBadContractService {
 
     @Override
     public void save(List<CbBadContractDO> list) {
+        for(CbBadContractDO dos: list){
+            dos.setPkBadContract(UUID.randomUUID().toString().replace("-","").substring(0, 20));
+        }
         cbBadContractRepo.saveAll(list);
     }
 

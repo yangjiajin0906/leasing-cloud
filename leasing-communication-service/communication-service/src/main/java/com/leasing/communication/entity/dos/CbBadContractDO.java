@@ -5,6 +5,7 @@ import com.leasing.common.base.entity.BaseDO;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 
 /**
@@ -29,6 +30,7 @@ public class CbBadContractDO extends BaseDO{
     /**
      * 合同主键
      */
+    @Transient
     private String pkContract;
 
     /**
@@ -44,6 +46,7 @@ public class CbBadContractDO extends BaseDO{
     /**
      * 客户主键
      */
+    @Transient
     private String pkCustomer;
 
     /**
@@ -135,11 +138,6 @@ public class CbBadContractDO extends BaseDO{
      * 单据状态
      */
     private BigDecimal billstatus;
-
-    /**
-     * 时间戳
-     */
-    private String ts;
 
     /**
      * 主键
@@ -491,14 +489,6 @@ public class CbBadContractDO extends BaseDO{
      */
     public void setBillstatus(BigDecimal billstatus) {
         this.billstatus = billstatus;
-    }
-
-    /**
-     * 时间戳
-     * @param ts 时间戳
-     */
-    public void setTs(String ts) {
-        this.ts = ts == null ? null : ts.trim();
     }
 
     public String getPkContract() {
