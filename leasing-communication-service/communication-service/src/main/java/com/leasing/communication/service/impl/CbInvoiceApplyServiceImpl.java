@@ -1,5 +1,6 @@
 package com.leasing.communication.service.impl;
 
+import com.aliyun.oss.model.OSSObject;
 import com.leasing.common.base.entity.BaseQuery;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
@@ -12,6 +13,7 @@ import com.leasing.common.utils.tools.ExcelUtils;
 import com.leasing.communication.entity.dos.CbInvoiceApplyDO;
 import com.leasing.communication.entity.dos.CbInvoiceApplyDetailDO;
 import com.leasing.communication.entity.dto.CbInvoiceApplyDetailImpDTO;
+import com.leasing.communication.entity.dto.FileOssLogDTO;
 import com.leasing.communication.entity.dto.SourceSystemDTO;
 import com.leasing.communication.entity.query.CbInvoiceApplyDetailQuery;
 import com.leasing.communication.entity.vo.CbInvoiceApplyDetailVO;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -138,5 +141,29 @@ public class CbInvoiceApplyServiceImpl implements CbInvoiceApplyService {
     @Override
     public List<CbInvoiceApplyDetailVO> querySub(CbInvoiceApplyDetailQuery query) {
         return detailRepo.pageQuery(query, "invoiceApplyDetail.pageQuery");
+    }
+
+    @Override
+    public FileOssLogDTO dataImp(OSSObject param) {
+        FileOssLogDTO logDTO = new FileOssLogDTO(param.getKey());
+        try {
+            List<CbInvoiceApplyDetailImpDTO> contList = ExcelUtils.convertExcel(param.getObjectContent(), param.getKey(),
+                    CbInvoiceApplyDetailImpDTO.class);
+            detailRepo.saveAll(dataConvert(contList));
+            logDTO.setDataNum(Long.valueOf(contList.size()));
+        } catch (IOException e) {
+            e.printStackTrace();
+            logDTO.setLogMsg(e.getMessage());
+            logDTO.setFlag(false);
+        } finally {
+            try {
+                param.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+                logDTO.setLogMsg(e.getMessage());
+                logDTO.setFlag(false);
+            }
+        }
+        return logDTO;
     }
 }

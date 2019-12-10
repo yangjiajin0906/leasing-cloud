@@ -35,5 +35,4 @@ public interface CbWithdrawDetailService {
     List<CbWithdrawDetailDO> refConvert(List<CbWithdrawDetailDTO> list);
 
 
-    List<CbWithdrawDetailDTO> getImportList(String fileName);
 }

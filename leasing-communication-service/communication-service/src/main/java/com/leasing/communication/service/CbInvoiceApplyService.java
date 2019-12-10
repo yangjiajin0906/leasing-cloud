@@ -17,7 +17,7 @@ import java.util.List;
  * @author:Yjj@yonyou.com
  * @description: 2c票据信息导入
  **/
-public interface CbInvoiceApplyService {
+public interface CbInvoiceApplyService extends CbFileImpService {
     /**
      * 保存方法
      * @param vo

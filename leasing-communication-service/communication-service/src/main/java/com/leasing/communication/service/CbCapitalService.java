@@ -3,6 +3,8 @@ package com.leasing.communication.service;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.communication.entity.dos.CbCapitalDO;
+import com.leasing.communication.entity.dos.CbCapitalDetailDO;
+import com.leasing.communication.entity.dos.CbCapitalDetailImpDTO;
 import com.leasing.communication.entity.query.CbCapitalQuery;
 import com.leasing.communication.entity.vo.CbCapitalVO;
 
@@ -14,7 +16,7 @@ import java.util.List;
  * @author:Yjj@yonyou.com
  * @description: 2c收款信息导入
  **/
-public interface CbCapitalService {
+public interface CbCapitalService extends CbFileImpService{
 
     /**
      * 分页查询
@@ -28,9 +30,9 @@ public interface CbCapitalService {
     /**
      * 根据批次号汇总收款主表
      *
-     * @param capitalBatchNo 收款批次号
+     * @param list 收款批次号
      */
-    void totalCapital(String capitalBatchNo);
+    void totalCapital(List<CbCapitalDetailDO> list);
 
     /**
      * 保存方法
@@ -68,4 +70,6 @@ public interface CbCapitalService {
      * @return
      */
     CbCapitalDO findOne(String pk);
+
+    List<CbCapitalDetailDO> dataConvert(List<CbCapitalDetailImpDTO> list);
 }

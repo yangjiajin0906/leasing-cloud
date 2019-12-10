@@ -1,5 +1,6 @@
 package com.leasing.communication.entity.vo;
 
+import com.leasing.communication.entity.dto.SourceSystemDTO;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
@@ -136,7 +137,7 @@ public class CbInvoiceApplyDetailVO {
     @ManyToOne
     @JoinColumn(name = "pkSys")
     @NotFound(action= NotFoundAction.IGNORE)
-    private SourceSystemVO pkSys;
+    private SourceSystemDTO pkSys;
 
     /**
      * 单据状态
@@ -357,11 +358,11 @@ public class CbInvoiceApplyDetailVO {
         this.companyMainBody = companyMainBody;
     }
 
-    public SourceSystemVO getPkSys() {
+    public SourceSystemDTO getPkSys() {
         return pkSys;
     }
 
-    public void setPkSys(SourceSystemVO pkSys) {
+    public void setPkSys(SourceSystemDTO pkSys) {
         this.pkSys = pkSys;
     }
 
