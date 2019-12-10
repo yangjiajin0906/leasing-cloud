@@ -1,6 +1,7 @@
 package com.leasing.common.entity.foundation.vo;
 
 import com.leasing.common.base.entity.BaseEntity;
+import com.leasing.common.entity.customer.dto.DeptDTO;
 import com.leasing.common.entity.customer.dto.OrgDTO;
 
 import javax.persistence.*;
@@ -33,8 +34,13 @@ public class UserVO extends BaseEntity {
     private String telNo;
     private String psnname;
     private String deptname;
+    @ManyToOne
+    @JoinColumn(name = "pkDeptdoc")
+    private DeptDTO pkDeptdoc;
     private String pkUserdeCode;
     private String pkUserdeUser;
+    @Transient
+    private String tokenid;
 
     public String getTableName() {
         return "sm_user_view";
@@ -176,6 +182,14 @@ public class UserVO extends BaseEntity {
         this.pkUserdeUser = pkUserdeUser;
     }
 
+    public DeptDTO getPkDeptdoc() {
+        return pkDeptdoc;
+    }
+
+    public void setPkDeptdoc(DeptDTO pkDeptdoc) {
+        this.pkDeptdoc = pkDeptdoc;
+    }
+
     @Override
     public String getPk() {
         return pkUser;
@@ -184,5 +198,13 @@ public class UserVO extends BaseEntity {
     @Override
     public void setPk(String pk) {
         this.pkUser = pk;
+    }
+
+    public String getTokenid() {
+        return tokenid;
+    }
+
+    public void setTokenid(String tokenid) {
+        this.tokenid = tokenid;
     }
 }

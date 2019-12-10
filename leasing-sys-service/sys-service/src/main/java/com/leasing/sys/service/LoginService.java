@@ -74,7 +74,7 @@ public interface LoginService {
      * @param [data]
      * @return com.leasing.common.entity.foundation.vo.UserVO
      */
-    UserVO login(String data, HttpServletRequest request);
+    UserVO login(String data);
 
     /**
      * @description 系统注销
@@ -83,5 +83,5 @@ public interface LoginService {
      * @param [data]
      * @return void
      */
-    void logout(String data, HttpServletRequest request);
+    void logout(String data);
 }

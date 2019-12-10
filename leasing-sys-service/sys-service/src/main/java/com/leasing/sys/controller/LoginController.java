@@ -34,8 +34,8 @@ public class LoginController {
      * @return com.leasing.common.entity.foundation.vo.UserVO
      */
     @RequestMapping(value = "/login")
-    public ResResult login(@RequestBody String data, HttpServletRequest request){
-        UserVO userVO = loginClientService.login(data,request);
+    public ResResult login(@RequestBody String data){
+        UserVO userVO = loginClientService.login(data);
         return ResultUtils.successWithData(userVO);
     }
 
@@ -47,8 +47,8 @@ public class LoginController {
      * @return void
      */
     @RequestMapping(value = "/logout")
-    public void logout(@RequestBody String data, HttpServletRequest request){
-        loginClientService.logout(data,request);
+    public void logout(@RequestBody String data){
+        loginClientService.logout(data);
     }
 
 }

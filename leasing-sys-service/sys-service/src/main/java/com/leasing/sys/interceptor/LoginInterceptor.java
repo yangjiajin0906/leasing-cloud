@@ -1,8 +1,7 @@
 package com.leasing.sys.interceptor;
 
-import com.leasing.common.exception.BaseException;
-import com.leasing.sys.repository.DiySessionRepo;
-import com.leasing.sys.util.DiySession;
+import com.leasing.common.repository.sys.DiySessionRepo;
+import com.leasing.common.entity.common.vo.DiySession;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,13 +39,57 @@ public class LoginInterceptor implements HandlerInterceptor {
         arg1.setContentType("text/html;charset=utf-8");
         ServletOutputStream resultWriter = arg1.getOutputStream();
         //判断session中是否存在当前登录用户  无则重定向回登录页
-        Object object = arg0.getSession().getAttribute("user");
-        if (null == object) {
-            resultWriter.write("306".getBytes());
+        final String headerToken=arg0.getHeader("token");
+        //判断请求信息
+        if(null==headerToken||headerToken.trim().equals("")){
+            resultWriter.write("你没有token,需要登录".getBytes());
             resultWriter.flush();
             resultWriter.close();
             return false;
         }
+        //解析Token信息
+        try {
+            //根据前台传过来的Token查找数据库Token
+            DiySession session = diySessionRepo.getSession(headerToken);
+
+            //数据库没有Token记录
+            if(null == session) {
+                resultWriter.write("我没有你的token？,需要登录".getBytes());
+                resultWriter.flush();
+                resultWriter.close();
+                return false;
+            }
+            //数据库Token与客户Token比较
+            if( !headerToken.equals(session.getToken()) ){
+                resultWriter.print("你的token修改过？,需要登录");
+                resultWriter.flush();
+                resultWriter.close();
+                return false;
+            }
+            //判断Token过期
+            Long tokenDate= session.getCreationTime();//session创建时间
+            int overTime=(int)(new Date().getTime()-tokenDate)/1000;
+            int maxInactiveInterval=session.getMaxInactiveInterval(); //过期时间
+            if(overTime > maxInactiveInterval){
+                resultWriter.write("你的token过期了？,需要登录".getBytes());
+                resultWriter.flush();
+                resultWriter.close();
+                return false;
+            }
+
+        } catch (Exception e) {
+            resultWriter.write("反正token不对,需要登录".getBytes());
+            resultWriter.flush();
+            resultWriter.close();
+            return false;
+        }
+//        Object object = arg0.getSession().getAttribute("user");
+//        if (null == object) {
+//            resultWriter.write("306".getBytes());
+//            resultWriter.flush();
+//            resultWriter.close();
+//            return false;
+//        }
         return true;
     }
 }
