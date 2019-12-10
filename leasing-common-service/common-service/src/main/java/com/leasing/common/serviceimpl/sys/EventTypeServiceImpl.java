@@ -30,7 +30,7 @@ public class EventTypeServiceImpl implements EventTypeService {
     @Override
     public PageQueryData<EventTypeVO> ListEventType(){
         Pagination pagination = new Pagination();
-        pagination.setCurPage(1);
+        pagination.setPageIndex(1);
         pagination.setPageSize(50);
         EventTypeQuery queryvo =new EventTypeQuery();
         //queryvo.setEventClassName("投放");

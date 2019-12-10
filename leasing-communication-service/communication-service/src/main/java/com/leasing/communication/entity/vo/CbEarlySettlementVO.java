@@ -79,7 +79,7 @@ public class CbEarlySettlementVO {
      */
     @ManyToOne()
     @JoinColumn(name="pkCurrency")
-    @NotFound(action= NotFoundAction.IGNORE)
+    //@NotFound(action= NotFoundAction.IGNORE)
     public CurrtypeVO pkCurrency;
 
     /**
@@ -92,7 +92,7 @@ public class CbEarlySettlementVO {
      */
     @ManyToOne
     @JoinColumn(name = "pkSys")
-    @NotFound(action= NotFoundAction.IGNORE)
+    //@NotFound(action= NotFoundAction.IGNORE)
     private SourceSystemVO pkSys;
 
     /**

@@ -2,11 +2,9 @@ package com.leasing.communication.entity.dos;
 
 
 import com.leasing.common.base.entity.BaseDO;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
@@ -27,6 +25,8 @@ public class AccruedBDO extends BaseDO {
      */
     @Id
     @Column(name = "PK_LEASE_ACCRUED_B")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "project-id")
+    @GenericGenerator(name = "project-id", strategy = "com.leasing.communication.utils.IDGenerator")
     public String pkLeaseAccruedB;
     /**
      * 计提表主键
@@ -44,8 +44,7 @@ public class AccruedBDO extends BaseDO {
     /**
      * 合同
      */
-    @Column(name = "PK_CONTRACT_C")
-    public String pkContractC;
+    public String pkContract;
     /**
      * 资产状态
      */
@@ -125,12 +124,12 @@ public class AccruedBDO extends BaseDO {
         this.pkCustomer = pkCustomer;
     }
 
-    public String getPkContractC() {
-        return pkContractC;
+    public String getPkContract() {
+        return pkContract;
     }
 
-    public void setPkContractC(String pkContractC) {
-        this.pkContractC = pkContractC;
+    public void setPkContract(String pkContract) {
+        this.pkContract = pkContract;
     }
 
     public String getAssetStatus() {

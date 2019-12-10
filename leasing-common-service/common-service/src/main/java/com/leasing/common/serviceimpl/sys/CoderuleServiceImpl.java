@@ -36,7 +36,7 @@ public class CoderuleServiceImpl implements CoderuleService {
     @Override
     public PageQueryData<CoderuleVO> ListCoderule(){
         Pagination pagination = new Pagination();
-        pagination.setCurPage(1);
+        pagination.setPageIndex(1);
         pagination.setPageSize(50);
 //        CoderuleQuery queryvo =new CoderuleQuery();
 //        queryvo.setBusinessPoint("10082406");

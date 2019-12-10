@@ -57,81 +57,12 @@
         <class-b>com.leasing.communication.entity.dos.CbInvoiceApplyDO</class-b>
     </mapping>
 
-    <!--<mapping wildcard="true" map-null="false"> &lt;!&ndash;map-null指定false排除空值映射 &ndash;&gt;-->
-    <!--<class-a>java.util.Map</class-a>-->
-    <!--<class-b>com.leasing.sys.entity.vo.DFuncMenuVO</class-b>-->
-    <!--<field>-->
-    <!--<a>pkParent</a>-->
-    <!--<b>pkParent.pkFuncmenu</b>-->
-    <!--</field>-->
-    <!--<field>-->
-    <!--<a>pkSystem</a>-->
-    <!--<b>pkSystem.pkSystem</b>-->
-    <!--</field>-->
-    <!--<field>-->
-    <!--<a>pkOperator</a>-->
-    <!--<b>pkOperator.pkUser</b>-->
-    <!--</field>-->
-    <!--<field>-->
-    <!--<a>pkDept</a>-->
-    <!--<b>pkDept.pkDeptdoc</b>-->
-    <!--</field>-->
-    <!--<field>-->
-    <!--<a>pkOrg</a>-->
-    <!--<b>pkOrg.pkOrg</b>-->
-    <!--</field>-->
-    <!--<field>-->
-    <!--<a>deptCode</a>-->
-    <!--<b>pkDept.deptCode</b>-->
-    <!--</field>-->
-    <!--<field>-->
-    <!--<a>deptName</a>-->
-    <!--<b>pkDept.deptName</b>-->
-    <!--</field>-->
-    <!--<field>-->
-    <!--<a>orgCode</a>-->
-    <!--<b>pkOrg.orgCode</b>-->
-    <!--</field>-->
-    <!--<field>-->
-    <!--<a>orgName</a>-->
-    <!--<b>pkOrg.orgName</b>-->
-    <!--</field>-->
-    <!--<field-exclude>-->
-    <!--<a>tableName</a>-->
-    <!--<b>tableName</b>-->
-    <!--</field-exclude>-->
-    <!--<field-exclude>-->
-    <!--<a>attributeNames</a>-->
-    <!--<b>attributeNames</b>-->
-    <!--</field-exclude>-->
-    <!--</mapping>-->
-
-    <!--<mapping wildcard="true">    &lt;!&ndash;wildcard为false时指定field域中属性赋值 &ndash;&gt;-->
-    <!--<class-a>com.leasing.sys.entity.vo.DFuncMenuVO</class-a>-->
-    <!--<class-b>com.leasing.sys.entity.dos.DFuncMenuDO</class-b>-->
-    <!--<field>-->
-    <!--<a>pkParent.pkFuncmenu</a>-->
-    <!--<b>pkParent</b>-->
-    <!--</field>-->
-    <!--<field>-->
-    <!--<a>pkSystem.pkSystem</a>-->
-    <!--<b>pkSystem</b>-->
-    <!--</field>-->
-    <!--<field>-->
-    <!--<a>pkOperator.pkUser</a>-->
-    <!--<b>pkOperator</b>-->
-    <!--</field>-->
-    <!--<field>-->
-    <!--<a>pkDept</a>-->
-    <!--<b>pkOrg</b>-->
-    <!--</field>-->
-    <!--<field>-->
-    <!--<a>pkOrg.pkOrg</a>-->
-    <!--<b>pkDept</b>-->
-    <!--</field>-->
-    <!--<field>-->
-    <!--<a>pkDept.deptcode</a>-->
-    <!--<b>pkOrg.orgCode</b>-->
-    <!--</field>-->
-    <!--</mapping>-->
+    <mapping wildcard="true">    <!--wildcard为false时指定field域中属性赋值 -->
+        <class-a>com.leasing.communication.entity.vo.AccruedVO</class-a>
+        <class-b>com.leasing.communication.entity.dos.AccruedDO</class-b>
+            <field>
+                <a>pkOrg.refpk</a>
+                <b>pkOrg</b>
+            </field>
+    </mapping>
 </mappings>

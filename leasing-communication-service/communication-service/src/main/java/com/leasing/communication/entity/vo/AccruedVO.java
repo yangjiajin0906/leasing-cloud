@@ -5,6 +5,8 @@ import com.leasing.common.base.entity.BaseBusinessVO;
 import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.entity.customer.dto.OrgDTO;
 import com.leasing.common.entity.foundation.vo.UserVO;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;

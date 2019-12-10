@@ -145,6 +145,7 @@
         <query>
             select a from CbEarlySettlementVO a
             left join fetch a.pkSys b
+            left join fetch a.pkCurrency b
         </query>
     </named-query>
 
