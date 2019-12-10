@@ -7,8 +7,10 @@ import com.leasing.common.base.web.ResResult;
 import com.leasing.common.entity.customer.dto.OrgDTO;
 import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.common.utils.tools.DozerUtils;
+import com.leasing.communication.entity.dos.AccruedBDO;
 import com.leasing.communication.entity.dos.AccruedDO;
 import com.leasing.communication.entity.query.AccruedQuery;
+import com.leasing.communication.entity.vo.AccruedBVO;
 import com.leasing.communication.entity.vo.AccruedChildVO;
 import com.leasing.communication.entity.vo.AccruedVO;
 import com.leasing.communication.service.AccruedService;
@@ -61,6 +63,13 @@ public class AccruedController {
     public ResResult save(@RequestBody(required = false) String data){
         AccruedVO vo = JSON.parseObject(data,AccruedVO.class);
         AccruedDO dos = DozerUtils.convert(vo,AccruedDO.class);
+        dos.setLeaseAccruedB(null);
+        List<AccruedBDO> list = new ArrayList();
+        for(int i = 0; i<vo.getLeaseAccruedB().size(); i++){
+            AccruedBDO accruedBDO = DozerUtils.convert(vo.getLeaseAccruedB().get(i),AccruedBDO.class);
+            list.add(accruedBDO);
+        }
+        dos.setLeaseAccruedB(list);
         dos = leaseAccruedService.save(dos);
         dos.setPkOrg("1003");
         return ResultUtils.successWithData(dos);

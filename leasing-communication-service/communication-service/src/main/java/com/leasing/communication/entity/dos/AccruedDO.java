@@ -3,6 +3,7 @@ package com.leasing.communication.entity.dos;
 
 import com.leasing.common.base.entity.BaseBusinessDO;
 import com.leasing.common.base.entity.BaseDO;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -18,12 +19,14 @@ import java.util.List;
  */
 @Entity
 @Table(name="yls_lease_accrued")
-public class AccruedDO extends BaseBusinessDO {
+public class AccruedDO extends BaseDO {
 
     /**
      * 主键
      */
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "project-id")
+    @GenericGenerator(name = "project-id", strategy = "com.leasing.communication.utils.IDGenerator")
     public String pkLeaseAccrued;
 
 
@@ -104,6 +107,28 @@ public class AccruedDO extends BaseBusinessDO {
     @OneToMany(orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="pkLeaseAccrued")
     public List<AccruedBDO> leaseAccruedB;
+
+    /**
+     * 单据状态
+     */
+    public Short billstatus;
+    /**
+     * 操作人
+     */
+    public String pkOperator;
+    /**
+     * 操作日期
+     */
+    public String operateDate;
+    /**
+     * 操作时间
+     */
+    public String operateTime;
+    /**
+     * 机构
+     */
+    public String pkOrg;
+
     /**
      * 类LeaseAccruedVO的构造方法
      */
@@ -238,6 +263,46 @@ public class AccruedDO extends BaseBusinessDO {
 
     public void setLeaseAccruedB(List<AccruedBDO> leaseAccruedB) {
         this.leaseAccruedB = leaseAccruedB;
+    }
+
+    public Short getBillstatus() {
+        return billstatus;
+    }
+
+    public void setBillstatus(Short billstatus) {
+        this.billstatus = billstatus;
+    }
+
+    public String getPkOperator() {
+        return pkOperator;
+    }
+
+    public void setPkOperator(String pkOperator) {
+        this.pkOperator = pkOperator;
+    }
+
+    public String getOperateDate() {
+        return operateDate;
+    }
+
+    public void setOperateDate(String operateDate) {
+        this.operateDate = operateDate;
+    }
+
+    public String getOperateTime() {
+        return operateTime;
+    }
+
+    public void setOperateTime(String operateTime) {
+        this.operateTime = operateTime;
+    }
+
+    public String getPkOrg() {
+        return pkOrg;
+    }
+
+    public void setPkOrg(String pkOrg) {
+        this.pkOrg = pkOrg;
     }
 }
 

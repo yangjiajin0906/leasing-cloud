@@ -209,6 +209,7 @@ public class AccruedServiceImpl implements AccruedService {
 
     @Override
     public AccruedDO save(AccruedDO vo) {
+        //vo.setPkLeaseAccrued("12578963254llkjgggg7");
         vo.setBillstatus(Billstatus.INITALIZE.getShort());
         String currentMonth = vo.getAccrualMonth().substring(0, 7);
         vo.setAccrualMonth(currentMonth);
