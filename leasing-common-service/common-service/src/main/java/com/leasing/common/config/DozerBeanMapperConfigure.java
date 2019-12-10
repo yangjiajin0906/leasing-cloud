@@ -13,7 +13,7 @@ import java.util.List;
  * @description:
  **/
 
-public enum  DozerBeanMapperConfigure {
+public enum DozerBeanMapperConfigure {
     BEANMAPPER;
 
     private DozerBeanMapper mapper = null;

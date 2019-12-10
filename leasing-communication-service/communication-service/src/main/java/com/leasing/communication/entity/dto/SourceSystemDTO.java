@@ -1,5 +1,7 @@
-package com.leasing.communication.entity.vo;
+package com.leasing.communication.entity.dto;
 
+import com.leasing.common.base.entity.BaseBusinessDTO;
+import com.leasing.common.base.entity.BaseDTO;
 import com.leasing.common.base.entity.BaseVO;
 
 import javax.persistence.Entity;
@@ -14,7 +16,7 @@ import javax.persistence.Table;
  **/
 @Entity
 @Table(name="yc_source_system")
-public class SourceSystemVO extends BaseVO {
+public class SourceSystemDTO extends BaseDTO {
 
     @Id
     private String pkSourceSystem;
@@ -48,13 +50,4 @@ public class SourceSystemVO extends BaseVO {
         this.systemCode = systemCode;
     }
 
-    @Override
-    public String getPk() {
-        return null;
-    }
-
-    @Override
-    public void setPk(String pk) {
-
-    }
 }

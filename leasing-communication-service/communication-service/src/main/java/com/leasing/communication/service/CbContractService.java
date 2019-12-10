@@ -13,7 +13,7 @@ import java.util.List;
  * @author:lvcna@yonyou.com
  * @description: 2C业务合同接口处理
  **/
-public interface CbContractService {
+public interface CbContractService extends CbFileImpService{
 
     List<CbContractImpDTO> dataImp(MultipartFile file);
 

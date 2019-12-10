@@ -2,6 +2,7 @@ package com.leasing.communication.entity.vo;
 
 import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.entity.foundation.vo.AreaclVO;
+import com.leasing.communication.entity.dto.SourceSystemDTO;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -214,7 +215,7 @@ public class CbContractVO extends BaseVO {
      */
     @ManyToOne
     @JoinColumn(name = "pkSystem")
-    private SourceSystemVO pkSystem;
+    private SourceSystemDTO pkSystem;
 
     /**
      * 资产五级分类
@@ -223,12 +224,12 @@ public class CbContractVO extends BaseVO {
 
     @Override
     public String getPk() {
-        return null;
+        return pkContract;
     }
 
     @Override
     public void setPk(String pk) {
-
+        this.pkContract = pk;
     }
 
     public String getPkContract() {
@@ -535,11 +536,11 @@ public class CbContractVO extends BaseVO {
         this.docUrl = docUrl;
     }
 
-    public SourceSystemVO getPkSystem() {
+    public SourceSystemDTO getPkSystem() {
         return pkSystem;
     }
 
-    public void setPkSystem(SourceSystemVO pkSystem) {
+    public void setPkSystem(SourceSystemDTO pkSystem) {
         this.pkSystem = pkSystem;
     }
 

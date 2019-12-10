@@ -1,20 +1,18 @@
-package com.leasing.communication.utils;
+package com.leasing.common.utils.frame;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 /**
  * @project:leasing-cloud
- * @date:2019/10/21
- * @author:jiaoshy@yonyou.com
- * @description: spring 取上下文工具
+ * @date:2019-12-8
+ * @author:lvcna@yonyou.com
+ * @description: Spring 工具类
  **/
 @Component
 public class SpringUtils implements ApplicationContextAware {
-    private static String JDBCTEMPLATE = "jdbcTemplate";
 
     /**
      * 当前IOC
@@ -25,8 +23,6 @@ public class SpringUtils implements ApplicationContextAware {
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         SpringUtils.applicationContext = applicationContext;
     }
-
-
     /**
      * 获取bean
      */
@@ -34,11 +30,5 @@ public class SpringUtils implements ApplicationContextAware {
         Object object = applicationContext.getBean(id);
         return object;
     }
-
-    /**
-     * 获取JDBC
-     */
-    public static JdbcTemplate getJdbcTemplate() {
-        return (JdbcTemplate) SpringUtils.getBean(JDBCTEMPLATE);
-    }
 }
+

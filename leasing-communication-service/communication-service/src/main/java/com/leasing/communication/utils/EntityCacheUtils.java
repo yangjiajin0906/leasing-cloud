@@ -1,6 +1,6 @@
 package com.leasing.communication.utils;
 
-import com.leasing.common.base.entity.BaseEntity;
+import com.leasing.common.base.entity.AbstractBaseEntity;
 import com.leasing.common.utils.base.BaseBusinessUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -28,8 +28,8 @@ public class EntityCacheUtils {
      * @param <S>
      * @return
      */
-    public static <T extends BaseEntity,S>  Map cacheEntityField(String entityName, String key, String value, Map where,
-                                                                            Class<T> clazz, Class<S> fiedClazz){
+    public static <T extends AbstractBaseEntity,S>  Map cacheEntityField(String entityName, String key, String value, Map where,
+                                                                         Class<T> clazz, Class<S> fiedClazz){
         Map returnMap = new HashMap();
         StringBuffer sql = new StringBuffer();
         sql.append(" select a from ").append(entityName).append(" a");
@@ -62,7 +62,7 @@ public class EntityCacheUtils {
      * @param <S>
      * @return
      */
-    public static <T extends BaseEntity,S>  Map cacheEntityField(String entityName, String key, String value,
+    public static <T extends AbstractBaseEntity,S>  Map cacheEntityField(String entityName, String key, String value,
                                                                  Class<T> clazz, Class<S> fiedClazz){
         return cacheEntityField(entityName, key, value, null, clazz, fiedClazz);
     }
@@ -76,7 +76,7 @@ public class EntityCacheUtils {
      * @param <T>
      * @return
      */
-    public static <T extends BaseEntity>  Map cacheEntityField(String entityName, String key, String value,
+    public static <T extends AbstractBaseEntity>  Map cacheEntityField(String entityName, String key, String value,
                                                                  Class<T> clazz){
         return cacheEntityField(entityName, key, value, null, clazz, String.class);
     }

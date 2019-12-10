@@ -11,8 +11,10 @@ import org.springframework.context.annotation.Configuration;
  **/
 @Configuration
 public class DozerConfig {
-
-    @Value("${dozer.path:dozer not found}")
     public static String path;
 
+    @Value("${dozer.path:dozer not found}")
+    public void setPath(String path) {
+        DozerConfig.path = path;
+    }
 }

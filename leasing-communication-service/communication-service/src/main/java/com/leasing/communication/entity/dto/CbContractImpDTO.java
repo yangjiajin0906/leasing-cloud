@@ -247,7 +247,7 @@ public class CbContractImpDTO extends BaseDTO {
      * 资产五级分类
      */
     @Excel(titleName = "资产五级分类",orderNum = 37)
-    private Integer assetsClassify;
+    private String assetsClassify;
 
     /**
      * 终端型号
@@ -552,11 +552,11 @@ public class CbContractImpDTO extends BaseDTO {
         this.docUrl = docUrl;
     }
 
-    public Integer getAssetsClassify() {
+    public String getAssetsClassify() {
         return assetsClassify;
     }
 
-    public void setAssetsClassify(Integer assetsClassify) {
+    public void setAssetsClassify(String assetsClassify) {
         this.assetsClassify = assetsClassify;
     }
 

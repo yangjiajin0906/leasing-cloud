@@ -2,11 +2,10 @@ package com.leasing.communication.entity.dos;
 
 import com.leasing.common.base.entity.BaseDO;
 import com.leasing.common.entity.foundation.vo.AreaclVO;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
@@ -20,6 +19,8 @@ import java.math.BigDecimal;
 public class CbContractDO extends BaseDO {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="seq_id")
+    @SequenceGenerator(name="seq_id", sequenceName="CB_OID_SEQ")
     private String pkContract;
 
     /**
@@ -210,7 +211,7 @@ public class CbContractDO extends BaseDO {
     /**
      * 资产五级分类
      */
-    private Integer assetsClassify;
+    private String assetsClassify;
 
     /**
      * 来源系统
@@ -529,6 +530,14 @@ public class CbContractDO extends BaseDO {
 
     public void setDocUrl(String docUrl) {
         this.docUrl = docUrl;
+    }
+
+    public String getAssetsClassify() {
+        return assetsClassify;
+    }
+
+    public void setAssetsClassify(String assetsClassify) {
+        this.assetsClassify = assetsClassify;
     }
 
     public String getPkSystem() {

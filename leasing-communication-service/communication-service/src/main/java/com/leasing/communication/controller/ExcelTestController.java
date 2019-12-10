@@ -1,19 +1,13 @@
 package com.leasing.communication.controller;
 
-import com.aliyun.oss.OSSClient;
-import com.aliyun.oss.model.GetObjectRequest;
-import com.aliyun.oss.model.OSSObject;
 import com.leasing.common.enums.excel.ExcelMatchType;
 import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.common.utils.tools.ExcelUtils;
 import com.leasing.communication.entity.dos.CbContractDO;
-import com.leasing.communication.entity.dos.CustomerDO;
 import com.leasing.communication.entity.dto.CbContractImpDTO;
 import com.leasing.communication.entity.vo.CbContractVO;
 import com.leasing.communication.service.CbContractService;
-import com.leasing.communication.utils.AliyunOssUtil;
-import com.leasing.communication.utils.EasyPoiUtils;
-import com.netflix.ribbon.proxy.annotation.ClientProperties;
+import com.leasing.communication.service.CbFileOssService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +35,7 @@ public class ExcelTestController {
     @Value("${test:default_name}")
     String test;
 
-    @Value("${my.test.aaa:default_name}")
+    @Value("${aliyun.oss.endPoint:default_name}")
     String mytest;
 
     @RequestMapping("import")
@@ -197,16 +191,14 @@ public class ExcelTestController {
     }
 
 
-    @RequestMapping("importZ")
-    public void importCustomerZ(){
-
-        OSSClient ossClient = AliyunOssUtil.getOSSClient();
-        // 下载OSS文件到本地文件。如果指定的本地文件存在会覆盖，不存在则新建。
-        OSSObject object = ossClient.getObject(new GetObjectRequest("jicl-test", "temp" + "/" + "20191120-CONTRACT-1.xlsx"));
-        object.getBucketName();
-        object.getKey();
-        System.out.println(test);
+    @Resource
+    CbFileOssService cbFileOssService;
+    @RequestMapping("importY")
+    public void importCustomerY(){
         System.out.println(mytest);
+        cbFileOssService.fileImportByDate();
 
     }
+
+
 }
