@@ -40,7 +40,7 @@ public class CbWithdrawDetailServiceImpl implements CbWithdrawDetailService {
     @Override
     public List<CbWithdrawDetailDO> refConvert(List<CbWithdrawDetailDTO> list) {
         //系统来源
-        Map<String, String> sourceSys = EntityCacheUtils.cacheEntityField("SourceSystemVO", "sourceSys",
+        Map<String, String> sourceSys = EntityCacheUtils.cacheEntityField("SourceSystemDTO", "sourceSys",
                 "pkSourceSystem", SourceSystemDTO.class);
 
         // 币种

@@ -19,14 +19,14 @@ public enum DozerBeanMapperConfigure {
     private DozerBeanMapper mapper = null;
 
     private DozerBeanMapperConfigure(){
-        mapper=new DozerBeanMapper();
-        List<String> mappingfiles=new ArrayList<>();
+        mapper = new DozerBeanMapper();
+        List<String> mappingfiles = new ArrayList<>();
         mappingfiles.add(DozerConfig.path);
         mapper.setMappingFiles(mappingfiles);
     }
 
     public DozerBeanMapper getMapper(){
-        return  mapper;
+        return mapper;
     }
 
 

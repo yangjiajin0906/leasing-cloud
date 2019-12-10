@@ -13,8 +13,6 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-//import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-
 /**
  * @project:leasing-cloud
  * @date:2019/9/27

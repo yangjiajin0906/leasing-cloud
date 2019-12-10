@@ -3,6 +3,8 @@ package com.leasing.communication.controller;
 import com.leasing.common.enums.excel.ExcelMatchType;
 import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.common.utils.tools.ExcelUtils;
+import com.leasing.common.utils.frame.OIDGenerator;
+import com.leasing.common.utils.tools.OIDUtils;
 import com.leasing.communication.entity.dos.CbContractDO;
 import com.leasing.communication.entity.dto.CbContractImpDTO;
 import com.leasing.communication.entity.vo.CbContractVO;
@@ -193,12 +195,16 @@ public class ExcelTestController {
 
     @Resource
     CbFileOssService cbFileOssService;
-    @RequestMapping("importY")
+    @RequestMapping("test/y")
     public void importCustomerY(){
         System.out.println(mytest);
         cbFileOssService.fileImportByDate();
 
     }
+    @RequestMapping("test/x")
+    public void importX(){
+        System.out.println(mytest);
+        OIDUtils.getOid();
 
-
+    }
 }

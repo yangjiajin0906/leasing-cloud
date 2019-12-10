@@ -35,6 +35,10 @@ public class CbInterceptor implements HandlerInterceptor {
 //                || arg0.getRequestURI().contains("/error") || arg0.getRequestURI().contains("/static")) {
 //            return true;
 //        }
+        //临时测试加的!!!!!!
+        if(arg0.getRequestURI().contains("/test")){
+            return true;
+        }
         arg1.setContentType("text/html;charset=utf-8");
         ServletOutputStream resultWriter = arg1.getOutputStream();
         //判断session中是否存在当前登录用户  无则重定向回登录页

@@ -120,7 +120,7 @@ public class TestController {
     public List testPageLike() {
         //测试全查
         Pagination pagination = new Pagination();
-        pagination.setCurPage(1);
+//        pagination.setCurPage(1);
         pagination.setPageSize(20);
         ProjectQueryVO projectInfoVO = new ProjectQueryVO();
         //PageQueryData list = testRepository.pageQuery(pagination,projectInfoVO);
@@ -144,7 +144,7 @@ public class TestController {
             testRepository.findOne(pk,ProjectInfoDO.class);
             testRepository.findOne(pk);
         Pagination pagination = new Pagination();
-        pagination.setCurPage(1);
+//        pagination.setCurPage(1);
         pagination.setPageSize(20);
         ProjectQueryVO projectInfoVO = new ProjectQueryVO();
         ProjectInfoDO projectInfoDO = new ProjectInfoDO();
@@ -158,7 +158,7 @@ public class TestController {
     @RequestMapping("testPageJQ")
     public List testPageJQ(){
         Pagination pagination = new Pagination();
-        pagination.setCurPage(1);
+//        pagination.setCurPage(1);
         pagination.setPageSize(20);
         ProjectQueryVO projectInfoVO = new ProjectQueryVO();
         String jq = "select p from ProjectInfoVO p order by case billstatus when 20 then 1 when 36 then 2 when 204 then 3 when 8 then 4 when 9 then 5 end,ts desc";

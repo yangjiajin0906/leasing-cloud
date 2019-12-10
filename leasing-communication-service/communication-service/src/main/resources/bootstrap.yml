@@ -1,8 +1,8 @@
 spring:
     cloud:
         config:
-             name: application,bootstrap,test
-             profile: communication,db,abc
+             name: application,bootstrap
+             profile: communication,db,oid
              discovery:
                   enabled: true
                   serviceId: leasing-config-server
@@ -11,8 +11,6 @@ spring:
       hibernate:
         enable_lazy_load_no_trans: true
         ddl-auto: none
-        naming:
-          physical-strategy: com.leasing.communication.utils.JpaNamingStrategy # 自己定义的加载策略
 
 eureka:
   port:

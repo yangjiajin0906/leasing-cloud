@@ -19,8 +19,8 @@ import java.math.BigDecimal;
 public class CbContractDO extends BaseDO {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="seq_id")
-    @SequenceGenerator(name="seq_id", sequenceName="CB_OID_SEQ")
+    @GeneratedValue(generator = "yl_oid")
+    @GenericGenerator(name = "yl_oid", strategy = "com.leasing.common.utils.frame.OIDGenerator")
     private String pkContract;
 
     /**

@@ -121,6 +121,10 @@ public class CbFileOssServiceImpl implements CbFileOssService {
         }
         Map<Integer,String> impMap = CbImpType.cacheType();
         for(CbImpDetailDTO detailDTO : detailDTOS){
+            //如果当日没有导入文件,不需要封装导入参数
+            if(!fileMap.containsKey(impMap.get(detailDTO.getImpType()))){
+                continue;
+            }
             FileImpParam param = FileImpParam.initInstance();
             param.setBusinessType(impMap.get(detailDTO.getImpType()));
             param.setBeanName(detailDTO.getBeanName());

@@ -19,11 +19,7 @@ import java.util.List;
 @Repository
 public interface SourceSystemRepo extends BaseRepository<SourceSystemDO, BaseQuery, BaseVO, String> {
 
-
     @Query(value = " select a from SourceSystemDTO a ")
     List<SourceSystemDTO> findAllDTO();
-
-
-
 
 }
