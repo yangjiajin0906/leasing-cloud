@@ -48,7 +48,7 @@ public class CbCapitalController {
 
     @PostMapping(value = "/totalCapital")
     public ResResult totalCapital() {
-        service.totalCapital("100000001200000547836");
+        //service.totalCapital("100000001200000547836");
         return ResultUtils.successWithData(null);
     }
 
