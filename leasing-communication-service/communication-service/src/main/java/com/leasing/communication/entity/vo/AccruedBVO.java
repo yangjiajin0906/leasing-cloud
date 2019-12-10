@@ -4,6 +4,8 @@ package com.leasing.communication.entity.vo;
 import com.leasing.common.base.entity.BaseDO;
 import com.leasing.common.entity.foundation.vo.CurrtypeVO;
 import com.leasing.communication.entity.dto.CustomerDTO;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -35,21 +37,22 @@ public class AccruedBVO extends BaseDO {
     /**
      * 主表主键
      */
-    @ManyToOne()
-    @JoinColumn(name="pkLeaseAccrued")
-    public AccruedVO pkLeaseAccrued; //主表主键
+//    @ManyToOne
+//    @JoinColumn(name="pkLeaseAccrued")
+    public String pkLeaseAccrued; //主表主键
     /**
      * 客户
      */
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name="pkCustomer")
     public CustomerDTO pkCustomer;
     /**
      * 合同
      */
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "pkContract")
-    public ContractCRefVO pkContract;
+    @NotFound(action= NotFoundAction.IGNORE)
+    public ContractDTO pkContract;
 
     /**
      * 资产状态
@@ -116,11 +119,11 @@ public class AccruedBVO extends BaseDO {
         this.pkAccrualC = pkAccrualC;
     }
 
-    public AccruedVO getPkLeaseAccrued() {
+    public String getPkLeaseAccrued() {
         return pkLeaseAccrued;
     }
 
-    public void setPkLeaseAccrued(AccruedVO pkLeaseAccrued) {
+    public void setPkLeaseAccrued(String pkLeaseAccrued) {
         this.pkLeaseAccrued = pkLeaseAccrued;
     }
 
@@ -132,11 +135,11 @@ public class AccruedBVO extends BaseDO {
         this.pkCustomer = pkCustomer;
     }
 
-    public ContractCRefVO getPkContract() {
+    public ContractDTO getPkContract() {
         return pkContract;
     }
 
-    public void setPkContract(ContractCRefVO pkContract) {
+    public void setPkContract(ContractDTO pkContract) {
         this.pkContract = pkContract;
     }
 

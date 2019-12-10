@@ -4,6 +4,7 @@ import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.communication.entity.dos.AccruedDO;
 import com.leasing.communication.entity.query.AccruedQuery;
+import com.leasing.communication.entity.vo.AccruedChildVO;
 import com.leasing.communication.entity.vo.AccruedVO;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public interface AccruedService {
      * @param queryName JPQL名称
      * @return
      */
-    PageQueryData<AccruedDO> pageQuery(Pagination pagination, AccruedQuery leaseAccruedQuery, String queryName);
+    PageQueryData<AccruedVO> pageQuery(Pagination pagination, AccruedQuery leaseAccruedQuery, String queryName);
 
     /**
      * @description 根据机构和月份生产计提
@@ -60,9 +61,26 @@ public interface AccruedService {
     AccruedDO findOne(String pk);
 
     /**
-     * 查询单个VO（包含子表）
+     * 查询单个子表VO
      * @return
      */
-    AccruedVO findByPk(String pk);
+    AccruedChildVO findByPk(String pk);
 
+    /**
+     * 提交
+     * @return
+     */
+    AccruedVO submit(AccruedVO vo);
+
+    /**
+     * 审核
+     * @return
+     */
+    AccruedVO exeCheck(AccruedVO vo);
+
+    /**
+     * 联查凭证
+     * @return
+     */
+    AccruedVO queryVoucher(AccruedVO vo);
 }

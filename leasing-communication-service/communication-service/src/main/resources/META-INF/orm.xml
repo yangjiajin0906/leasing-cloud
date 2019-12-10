@@ -18,13 +18,24 @@
 
     <named-query name="accruedRepo.pageQuery">
         <query>
-            select c from AccruedDO c
+            select c from AccruedVO c
+            left join fetch c.pkCorp
+            left join fetch c.pkOrg
+            left join fetch c.pkChecker
+            left join fetch c.pkGrantor
         </query>
     </named-query>
 
     <named-query name="accruedRepo.pageQuery.count">
         <query>
-            select count(c.pkLeaseAccrued) from AccruedDO c
+            select count(c.pkLeaseAccrued) from AccruedVO c
+        </query>
+    </named-query>
+
+    <named-query name="accruedRepo.findByPk">
+        <query>
+            select c from AccruedChildVO c
+            where c.pkLeaseAccrued =: pk
         </query>
     </named-query>
 
@@ -37,8 +48,8 @@
             where vo.pkLesseeProtocol is null
             and (vo.assetsClassify is null or vo.assetsClassify in (0,1))
             and (vo.month &lt;=?1 and vo.month >= vo.mon and vo.ifBegin = 1 )
-            <!--and (vo.pkContract.contStatus = 2 or vo.pkContract.contStatus = 3)-->
-            <!--and vo.pkContract.pkAcctOrg = ?2-->
+            and (vo.pkContract.contStatus = 2 or vo.pkContract.contStatus = 3)
+            and vo.pkContract.pkAcctOrg = ?2
         </query>
     </named-query>
 
@@ -51,21 +62,40 @@
     </named-query>
 
     <named-query name="WithdrawPageQuery">
-        <query>select b from WithdrawVO b </query>
+        <query>select b from CbWithdrawVO b </query>
     </named-query>
 
 
     <named-query name="WithdrawPageQuery.count">
-        <query>select count(b) from WithdrawVO b </query>
+        <query>select count(b) from CbWithdrawVO b </query>
     </named-query>
 
     <named-query name="WithdrawPageDetailQuery">
-        <query>select b from WithdrawDetailVO b </query>
+        <query>select b from CbWithdrawDetailVO b </query>
     </named-query>
 
 
     <named-query name="WithdrawPageDetailQuery.count">
-        <query>select count(b) from WithdrawDetailVO b </query>
+        <query>select count(b) from CbWithdrawDetailVO b </query>
+    </named-query>
+
+
+    <named-query name="capitalPageQuery">
+        <query>select b from CbCapitalVO b </query>
+    </named-query>
+
+
+    <named-query name="capitalPageQuery.count">
+        <query>select count(b) from CbCapitalVO b </query>
+    </named-query>
+
+    <named-query name="capitalDetailPageQuery">
+        <query>select b from CbCapitalDetailVO b </query>
+    </named-query>
+
+
+    <named-query name="capitalDetailPageQuery.count">
+        <query>select count(b) from CbCapitalDetailVO b </query>
     </named-query>
 
     <named-native-query name="accruedRepo.getGlSyssettledYearMonth" result-set-mapping="getGlSyssettledYearMonth">
@@ -82,5 +112,72 @@
         <column-result name="settledyear" />
         <column-result name="settledperiod" />
     </sql-result-set-mapping>
+
+    <named-query name="cbOverdueContractRepo.pageQuery">
+        <query>
+            select a from CbOverdueContractVO a
+            left join fetch a.pkCurrency b
+            left join fetch a.pkSys c
+        </query>
+    </named-query>
+
+    <named-query name="cbOverdueContractRepo.pageQuery.count">
+        <query>
+            select count(a.pkOverdueContract) from CbOverdueContractVO a
+        </query>
+    </named-query>
+
+    <named-query name="cbBadContractRepo.pageQuery">
+        <query>
+            select a from CbBadContractVO a
+            left join fetch a.pkCurrency b
+            left join fetch a.pkSys c
+        </query>
+    </named-query>
+
+    <named-query name="cbBadContractRepo.pageQuery.count">
+        <query>
+            select count(a.pkBadContract) from CbBadContractVO a
+        </query>
+    </named-query>
+
+    <named-query name="cbEarlySettlementRepo.pageQuery">
+        <query>
+            select a from CbEarlySettlementVO a
+            left join fetch a.pkSys b
+        </query>
+    </named-query>
+
+    <named-query name="cbEarlySettlementRepo.pageQuery.count">
+        <query>
+            select count(a.pkEarlySettlement) from CbEarlySettlementVO a
+        </query>
+    </named-query>
+
+    <named-query name="cbInvoiceApplyRepo.pageQuery">
+        <query>
+            select a from CbInvoiceApplyVO a
+            left join fetch a.pkSys b
+        </query>
+    </named-query>
+
+    <named-query name="cbInvoiceApplyRepo.pageQuery.count">
+        <query>
+            select count(a.pkInvoiceApply) from CbInvoiceApplyVO a
+        </query>
+    </named-query>
+
+
+    <named-query name="invoiceApplyDetail.pageQuery">
+        <query>
+            select a from CbInvoiceApplyDetailVO a
+            left join fetch a.pkSys b
+        </query>
+    </named-query>
+    <named-query name="invoiceApplyDetail.pageQuery.count">
+        <query>
+            select count(a.pkInvoiceApplyDetail) from CbInvoiceApplyDetailVO a
+        </query>
+    </named-query>
 
 </entity-mappings>

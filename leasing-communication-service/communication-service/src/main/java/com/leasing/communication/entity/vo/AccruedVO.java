@@ -2,6 +2,7 @@ package com.leasing.communication.entity.vo;
 
 
 import com.leasing.common.base.entity.BaseBusinessVO;
+import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.entity.customer.dto.OrgDTO;
 import com.leasing.common.entity.foundation.vo.UserVO;
 import javax.persistence.*;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="yls_lease_accrued")
-public class AccruedVO extends BaseBusinessVO {
+public class AccruedVO extends BaseVO {
 
     /**
      * 主键
@@ -106,10 +107,34 @@ public class AccruedVO extends BaseBusinessVO {
     public String grantTime;
 
     /**
+     * 单据状态
+     */
+    public Short billstatus;
+    /**
+     * 操作人
+     */
+    public String pkOperator;
+    /**
+     * 操作日期
+     */
+    public String operateDate;
+    /**
+     * 操作时间
+     */
+    public String operateTime;
+    /**
+     * 机构
+     */
+    @ManyToOne
+    @JoinColumn(name = "pkOrg")
+    public OrgDTO pkOrg;
+
+    /**
      * 计提子表(中投)
      */
-    @OneToMany(orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="leaseAccruedB")
+//    @OneToMany(orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name="pkLeaseAccrued")
+    @Transient
     public List<AccruedBVO> leaseAccruedB;
 
     @Override
@@ -246,6 +271,46 @@ public class AccruedVO extends BaseBusinessVO {
 
     public void setLeaseAccruedB(List<AccruedBVO> leaseAccruedB) {
         this.leaseAccruedB = leaseAccruedB;
+    }
+
+    public Short getBillstatus() {
+        return billstatus;
+    }
+
+    public void setBillstatus(Short billstatus) {
+        this.billstatus = billstatus;
+    }
+
+    public String getPkOperator() {
+        return pkOperator;
+    }
+
+    public void setPkOperator(String pkOperator) {
+        this.pkOperator = pkOperator;
+    }
+
+    public String getOperateDate() {
+        return operateDate;
+    }
+
+    public void setOperateDate(String operateDate) {
+        this.operateDate = operateDate;
+    }
+
+    public String getOperateTime() {
+        return operateTime;
+    }
+
+    public void setOperateTime(String operateTime) {
+        this.operateTime = operateTime;
+    }
+
+    public OrgDTO getPkOrg() {
+        return pkOrg;
+    }
+
+    public void setPkOrg(OrgDTO pkOrg) {
+        this.pkOrg = pkOrg;
     }
 }
 
