@@ -185,6 +185,7 @@
         <query>
             select u from UserVO u
             left join fetch u.pkOrg
+            lett join fetch u.pkDeptdoc
             where u.pkUserdeCode = ?1 and u.pkOrg.pkOrg = ?2 and u.password = ?3
         </query>
     </named-query>

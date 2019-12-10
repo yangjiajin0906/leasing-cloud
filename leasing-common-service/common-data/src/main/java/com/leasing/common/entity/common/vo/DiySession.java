@@ -1,4 +1,4 @@
-package com.leasing.sys.util;
+package com.leasing.common.entity.common.vo;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import org.slf4j.Logger;

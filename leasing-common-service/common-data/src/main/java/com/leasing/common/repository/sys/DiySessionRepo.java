@@ -1,7 +1,7 @@
-package com.leasing.sys.repository;
+package com.leasing.common.repository.sys;
 
 import com.alibaba.fastjson.JSON;
-import com.leasing.sys.util.DiySession;
+import com.leasing.common.entity.common.vo.DiySession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.session.SessionProperties;
@@ -36,6 +36,15 @@ public class DiySessionRepo implements SessionRepository<DiySession> {
     @Override
     public DiySession createSession() {
         DiySession tokenSession = new DiySession();
+        tokenSession.setMaxInactiveIntervalInSeconds((int)sessionProperties.getTimeout().getSeconds());
+        if (logger.isDebugEnabled()) {
+            logger.debug("create session: value = " + JSON.toJSONString(tokenSession));
+        }
+        return tokenSession;
+    }
+
+    public DiySession createSession(String token) {
+        DiySession tokenSession = new DiySession(token);
         tokenSession.setMaxInactiveIntervalInSeconds((int)sessionProperties.getTimeout().getSeconds());
         if (logger.isDebugEnabled()) {
             logger.debug("create session: value = " + JSON.toJSONString(tokenSession));

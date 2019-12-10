@@ -5,6 +5,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
+import com.leasing.common.entity.customer.dto.DeptDTO;
+import com.leasing.common.entity.customer.dto.OrgDTO;
+import com.leasing.common.entity.foundation.vo.UserVO;
+import com.leasing.common.utils.base.ClientUtils;
+import com.leasing.common.utils.base.DataParseUtils;
 import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.communication.entity.dos.CustomerDO;
 import com.leasing.communication.entity.query.CustomerQuery;
@@ -33,15 +38,8 @@ public class CustomerController {
 
     @RequestMapping(value = "/ListCustomerDO")
     public ResResult ListCustomerDO(@RequestBody(required = false) String data){
-        JSONObject json = JSONObject.parseObject(data);
-        CustomerQuery customerQuery = new CustomerQuery();
-        Pagination pagination = new Pagination(1, 100);
-        if(json!=null && json.get("wherecondition") != null && !StringUtils.isEmpty(json.get("wherecondition").toString())){
-            customerQuery = JSON.parseObject(json.get("wherecondition").toString(),CustomerQuery.class);
-        }
-        if(json!=null && json.get("pagination") != null && !StringUtils.isEmpty(json.get("pagination").toString())) {
-            pagination = JSON.parseObject(json.get("pagination").toString(),Pagination.class);
-        }
+        CustomerQuery customerQuery = DataParseUtils.jsonToBean(data,"wherecondition",CustomerQuery.class);
+        Pagination pagination = DataParseUtils.jsonToBean(data,"pagination",Pagination.class);
         PageQueryData<CustomerDO> pageQueryData = customerService.ListCustomerDO(pagination,customerQuery,"getCustomerDOList");
         return ResultUtils.successWithData(pageQueryData);
     }
