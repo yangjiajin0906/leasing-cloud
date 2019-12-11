@@ -31,6 +31,7 @@ public enum CbImpType {
     BADCONTRACT(8, "BADCONTRACT", "不良合同类型"),
     //提前结清
     EARLYSETTLEMENT(9, "EARLYSETTLEMENT", "合同类型"),
+    RECEIVE(10, "RECEIVE", "收款业务")
     ;
 
     private Integer type;

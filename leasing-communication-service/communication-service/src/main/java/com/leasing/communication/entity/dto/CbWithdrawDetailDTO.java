@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class CbWithdrawDetailDTO {
 
     @Excel(titleName = "合同编号",orderNum = 0)
-    private String contNo;
+    private String contCode;
 
     @Excel(titleName = "合同名称", orderNum = 1)
     private String contName;
@@ -137,12 +137,12 @@ public class CbWithdrawDetailDTO {
     @Excel(titleName = "来源系统", orderNum = 21)
     private String sourceSys;
 
-    public String getContNo() {
-        return contNo;
+    public String getContCode() {
+        return contCode;
     }
 
-    public void setContNo(String contNo) {
-        this.contNo = contNo;
+    public void setContCode(String contCode) {
+        this.contCode = contCode;
     }
 
     public String getContName() {

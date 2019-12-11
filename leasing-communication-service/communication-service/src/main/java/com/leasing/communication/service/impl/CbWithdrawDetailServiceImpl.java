@@ -4,7 +4,9 @@ import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.entity.foundation.vo.CurrtypeVO;
 import com.leasing.common.utils.base.BaseBusinessUtils;
+import com.leasing.common.utils.frame.OIDGenerator;
 import com.leasing.common.utils.tools.DozerUtils;
+import com.leasing.common.utils.tools.OIDUtils;
 import com.leasing.communication.entity.dos.CbWithdrawDetailDO;
 import com.leasing.communication.entity.dto.CbWithdrawDetailDTO;
 import com.leasing.communication.entity.dto.SourceSystemDTO;
@@ -38,21 +40,23 @@ public class CbWithdrawDetailServiceImpl implements CbWithdrawDetailService {
     }
 
     @Override
-    public List<CbWithdrawDetailDO> refConvert(List<CbWithdrawDetailDTO> list) {
+    public List<CbWithdrawDetailDO> refConvert(List<CbWithdrawDetailDTO> list, String batchNo) {
         //系统来源
-        Map<String, String> sourceSys = EntityCacheUtils.cacheEntityField("SourceSystemDTO", "sourceSys",
+        Map<String, String> sourceSys = EntityCacheUtils.cacheEntityField("SourceSystemDTO", "systemCode",
                 "pkSourceSystem", SourceSystemDTO.class);
 
         // 币种
-        Map<String, String> currency = EntityCacheUtils.cacheEntityField("CurrtypeVO", "pkCurrtype",
-                "pkCurrency", CurrtypeVO.class);
+        Map<String, String> currency = EntityCacheUtils.cacheEntityField("CurrtypeVO", "currtypecode",
+                "pkCurrtype", CurrtypeVO.class);
 
         List<CbWithdrawDetailDO> cbWithdrawDOS = new ArrayList<>();
         for (CbWithdrawDetailDTO dto : list) {
+
             CbWithdrawDetailDO drawDO = DozerUtils.convert(dto, CbWithdrawDetailDO.class);
-            drawDO.setPkWithdraw(BaseBusinessUtils.getOID());
-            drawDO.setPkSys(sourceSys.get("pkSourceSystem"));
-            drawDO.setPkCurrency(currency.get("pkCurrency"));
+            drawDO.setPkWithdrawDetail(OIDUtils.getOid());
+            drawDO.setPaymentBatchNo(batchNo);
+            drawDO.setPkSys(sourceSys.get(dto.getSourceSys()));
+            drawDO.setPkCurrency(currency.get(dto.getPkCurrency()));
             cbWithdrawDOS.add(drawDO);
         }
         return cbWithdrawDOS;

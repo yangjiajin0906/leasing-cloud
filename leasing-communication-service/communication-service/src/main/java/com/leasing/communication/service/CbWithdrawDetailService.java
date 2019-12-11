@@ -32,7 +32,7 @@ public interface CbWithdrawDetailService {
      * @param list EXCEL导入数据
      * @return 转换参照后的数据
      */
-    List<CbWithdrawDetailDO> refConvert(List<CbWithdrawDetailDTO> list);
+    List<CbWithdrawDetailDO> refConvert(List<CbWithdrawDetailDTO> list, String batchNo);
 
 
 }

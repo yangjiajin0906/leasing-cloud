@@ -4,6 +4,9 @@ import com.leasing.common.base.repository.BaseRepository;
 import com.leasing.communication.entity.dos.CbInvoiceApplyDetailDO;
 import com.leasing.communication.entity.query.CbInvoiceApplyDetailQuery;
 import com.leasing.communication.entity.vo.CbInvoiceApplyDetailVO;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 
 /**
@@ -14,5 +17,8 @@ import com.leasing.communication.entity.vo.CbInvoiceApplyDetailVO;
  **/
 public interface CbInvoiceApplyDetailRepo extends BaseRepository<CbInvoiceApplyDetailDO, CbInvoiceApplyDetailQuery,
         CbInvoiceApplyDetailVO, String> {
+
+    @Query(value = "select b  from CbInvoiceApplyDetailVO b where b.pkInvoiceApply is null")
+    List<CbInvoiceApplyDetailVO> queryAllByPkInvoiceApplyIsNull();
 
 }

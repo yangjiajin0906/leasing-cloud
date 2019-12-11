@@ -93,8 +93,9 @@ public class CbWithdrawVO extends BaseBusinessVO {
     /**
      * 付款子表
      */
-    @OneToMany(orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="pkWithdraw")
+//    @OneToMany(orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinColumn(name="pkWithdraw")
+    @Transient
     private List<CbWithdrawDetailVO> pkWithdrawDetail;
 
 

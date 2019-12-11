@@ -5,14 +5,14 @@ import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.sys.ResultUtils;
+import com.leasing.communication.entity.query.CbWithdrawDetailQuery;
 import com.leasing.communication.entity.query.CbWithdrawQuery;
+import com.leasing.communication.entity.vo.CbWithdrawDetailVO;
 import com.leasing.communication.service.CbWithdrawService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @project:leasing-cloud
@@ -21,7 +21,7 @@ import javax.annotation.Resource;
  * @description: 付款处理
  **/
 @RestController
-@RequestMapping("/leasing/communication/withdraw")
+@RequestMapping("/leasing/communication/cbWithdraw")
 public class CbWithdrawController {
 
 
@@ -30,28 +30,32 @@ public class CbWithdrawController {
     /**
      * 分页查询
      *
-     * @param page     当前页
-     * @param pageSize 页面
      * @param data     数据
      * @return 分页列表
      */
     @PostMapping(value = "/list")
-    public ResResult list(@RequestParam(required = false, defaultValue = "1", name = "page") Integer page,
-                          @RequestParam(required = false, defaultValue = "20", name = "pageSize") Integer pageSize,
-                          @RequestParam(required = false, name = "data") String data) {
+    public ResResult list(@RequestBody  String data) {
 
         CbWithdrawQuery queryVO = JSON.parseObject(data, CbWithdrawQuery.class);
-        Pagination pagination = new Pagination(page, pageSize);
+        Pagination pagination = JSON.parseObject(data, Pagination.class);
         PageQueryData pageQueryData = withdrawService.pageQuery(pagination, queryVO);
         return ResultUtils.successWithData(pageQueryData);
 
     }
 
 
-    @PostMapping(value = "/gatherWithdraw")
-    public ResResult gatherWithdraw() {
-        //withdrawService.gatherWithdraw("0000000000000001");
-        return ResultUtils.successWithData(null);
+    @PostMapping(value = "/subList")
+    public ResResult subList(@RequestBody String data) {
+        CbWithdrawDetailQuery query = JSON.parseObject(data, CbWithdrawDetailQuery.class);
+        List<CbWithdrawDetailVO> list = withdrawService.queryDetailByPkWithdraw(query.getPkWithdraw());
+        return ResultUtils.successWithData(list);
     }
+
+
+//    @PostMapping(value = "/gatherWithdraw")
+//    public ResResult gatherWithdraw() {
+//        withdrawService.gatherWithdraw("0000000000000001");
+//        return ResultUtils.successWithData(null);
+//    }
 
 }

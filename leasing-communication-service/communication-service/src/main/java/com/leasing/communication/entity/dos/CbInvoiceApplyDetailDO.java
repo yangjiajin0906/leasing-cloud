@@ -21,7 +21,6 @@ public class CbInvoiceApplyDetailDO extends BaseDO{
      * 票据信息主键
      */
     @Id
-    @Excel(titleName = "主键", orderNum = 10)
     private String pkInvoiceApplyDetail;
 
     /**
@@ -32,130 +31,117 @@ public class CbInvoiceApplyDetailDO extends BaseDO{
     /**
      * 合同编号
      */
-    @Excel(titleName = "合同编号", orderNum = 11)
     private String contCode;
 
     /**
      * 合同名称
      */
-    @Excel(titleName = "合同名称", orderNum = 12)
     private String contName;
 
     /**
      * 发票抬头
      */
-    @Excel(titleName = "发票抬头", orderNum = 13)
     private String invoiceTitle;
 
     /**
      * 税号
      */
-    @Excel(titleName = "税号", orderNum = 14)
     private String ein;
 
     /**
      * 单位地址
      */
-    @Excel(titleName = "单位地址", orderNum = 15)
     private String employerAddress;
 
     /**
      * 电话号码
      */
-    @Excel(titleName = "电话号码", orderNum = 16)
     private String telephoneNumber;
 
     /**
      * 开户银行
      */
-    @Excel(titleName = "开户银行", orderNum = 17)
     private String openingBank;
 
     /**
      * 银行账号
      */
-    @Excel(titleName = "银行账号", orderNum = 18)
     private String bankAccount;
 
     /**
      * 邮寄地址
      */
-    @Excel(titleName = "邮寄地址", orderNum = 19)
     private String mailingAddress;
 
     /**
      * 客户名称
      */
-    @Excel(titleName = "客户名称", orderNum = 20)
     private String customerName;
 
     /**
      * 单位名称
      */
-    @Excel(titleName = "单位名称", orderNum = 21)
     private String employerName;
 
     /**
      * 租赁方式
      */
-    @Excel(titleName = "租赁方式", orderNum = 22)
     private Integer leaseType;
 
     /**
      * 期次
      */
-    @Excel(titleName = "期次", orderNum = 23)
     private Integer leaseTime;
 
     /**
      * 应收日期
      */
-    @Excel(titleName = "应收日期", orderNum = 24)
     private String planDate;
 
     /**
      * 税率
      */
-    @Excel(titleName = "税率", orderNum = 25)
     private BigDecimal taxRate;
 
     /**
      * 税额
      */
-    @Excel(titleName = "税额", orderNum = 26)
     private BigDecimal leaseCashTax;
 
     /**
      * 不含税金额
      */
-    @Excel(titleName = "不含税金额", orderNum = 27)
     private BigDecimal excludingTax;
 
     /**
      * 开票状态
      */
-    @Excel(titleName = "开票状态", orderNum = 28)
     private Short billingStatus;
 
     /**
      * 开票内容
      */
-    @Excel(titleName = "开票内容", orderNum = 29)
     private Integer invoiceContents;
 
     /**
      * 核销状态
      */
-    @Excel(titleName = "核销状态", orderNum = 30)
     private Integer verificationStatus;
 
     /**
      * 公司主体
      */
-    @Excel(titleName = "公司主体", orderNum = 31)
     private String companyMainBody;
 
+    /**
+     * 开票金额
+     */
     private BigDecimal invoiceAmount;
+
+    /**
+     * 开票日期
+     */
+    private String billingData;
 
     /**
      * 单据状态
@@ -448,6 +434,14 @@ public class CbInvoiceApplyDetailDO extends BaseDO{
      */
     public void setPlanDate(String planDate) {
         this.planDate = planDate == null ? null : planDate.trim();
+    }
+
+    public String getBillingData() {
+        return billingData;
+    }
+
+    public void setBillingData(String billingData) {
+        this.billingData = billingData;
     }
 
     /**

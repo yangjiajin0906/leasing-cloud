@@ -2,10 +2,9 @@ package com.leasing.communication.entity.dos;
 
 
 import com.leasing.communication.entity.base.FileBaseBusinessDO;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
@@ -93,6 +92,9 @@ public class CbWithdrawDO extends FileBaseBusinessDO {
         this.pkWithdraw = pk;
     }
 
+    @Column(name = "pk_withdraw")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "custom-id")
+    @GenericGenerator(name = "custom-id", strategy = "com.leasing.common.utils.frame.OIDGenerator")
     public String getPkWithdraw() {
         return pkWithdraw;
     }

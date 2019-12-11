@@ -7,6 +7,7 @@ import com.leasing.common.base.web.ResResult;
 import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.communication.entity.query.CbCapitalQuery;
 import com.leasing.communication.service.CbCapitalService;
+import com.leasing.communication.service.CbFileOssService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +26,8 @@ import javax.annotation.Resource;
 public class CbCapitalController {
     @Resource
     private CbCapitalService service;
+    @Resource
+    CbFileOssService cbFileOssService;
 
     /**
      * 分页列表
@@ -48,7 +51,7 @@ public class CbCapitalController {
 
     @PostMapping(value = "/totalCapital")
     public ResResult totalCapital() {
-        //service.totalCapital("100000001200000547836");
+        cbFileOssService.fileImportByDate();
         return ResultUtils.successWithData(null);
     }
 

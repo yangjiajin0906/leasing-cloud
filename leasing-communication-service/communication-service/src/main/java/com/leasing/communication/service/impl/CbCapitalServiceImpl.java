@@ -9,7 +9,7 @@ import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.common.utils.tools.ExcelUtils;
 import com.leasing.communication.entity.dos.CbCapitalDO;
 import com.leasing.communication.entity.dos.CbCapitalDetailDO;
-import com.leasing.communication.entity.dos.CbCapitalDetailImpDTO;
+import com.leasing.communication.entity.dto.CbCapitalDetailImpDTO;
 import com.leasing.communication.entity.dto.FileOssLogDTO;
 import com.leasing.communication.entity.dto.SourceSystemDTO;
 import com.leasing.communication.entity.query.CbCapitalQuery;
@@ -90,21 +90,22 @@ public class CbCapitalServiceImpl implements CbCapitalService {
     }
 
     @Override
-    public List<CbCapitalDetailDO> dataConvert(List<CbCapitalDetailImpDTO> list) {
+    public List<CbCapitalDetailDO> dataConvert(List<CbCapitalDetailImpDTO> list, String batchNo) {
         //系统来源
-        Map<String, String> sourceSys = EntityCacheUtils.cacheEntityField("SourceSystemVO", "sourceSys",
+        Map<String, String> sourceSys = EntityCacheUtils.cacheEntityField("SourceSystemDTO", "systemCode",
                 "pkSourceSystem", SourceSystemDTO.class);
 
         // 币种
-        Map<String, String> currency = EntityCacheUtils.cacheEntityField("CurrtypeVO", "pkCurrtype",
-                "pkCurrency", CurrtypeVO.class);
+        Map<String, String> currency = EntityCacheUtils.cacheEntityField("CurrtypeVO", "currtypecode",
+                "pkCurrtype", CurrtypeVO.class);
 
         List<CbCapitalDetailDO> capitalDetailDOS = new ArrayList<>();
         for (CbCapitalDetailImpDTO dto : list) {
             CbCapitalDetailDO drawDO = DozerUtils.convert(dto, CbCapitalDetailDO.class);
-            drawDO.setPkCapital(BaseBusinessUtils.getOID());
-            drawDO.setPkSys(sourceSys.get("pkSourceSystem"));
-            drawDO.setPkCurrency(currency.get("pkCurrency"));
+            drawDO.setPkCapitalDetail(BaseBusinessUtils.getOID());
+            drawDO.setPkSys(sourceSys.get(dto.getPkSys()));
+            drawDO.setCapitalBatchNo(batchNo);
+            drawDO.setPkCurrency(currency.get(dto.getPkCurrency()));
             capitalDetailDOS.add(drawDO);
         }
         return capitalDetailDOS;
@@ -116,7 +117,10 @@ public class CbCapitalServiceImpl implements CbCapitalService {
         try {
             List<CbCapitalDetailImpDTO> contList = ExcelUtils.convertExcel(param.getObjectContent(), param.getKey(),
                     CbCapitalDetailImpDTO.class);
-            totalCapital(dataConvert(contList));
+            //批次号
+            String batchNo = param.getKey().substring(param.getKey().lastIndexOf("/") + 1,
+                    param.getKey().lastIndexOf("."));
+            totalCapital(dataConvert(contList, batchNo));
             logDTO.setDataNum(Long.valueOf(contList.size()));
         } catch (IOException e) {
             e.printStackTrace();

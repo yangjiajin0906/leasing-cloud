@@ -4,7 +4,7 @@ import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.communication.entity.dos.CbCapitalDO;
 import com.leasing.communication.entity.dos.CbCapitalDetailDO;
-import com.leasing.communication.entity.dos.CbCapitalDetailImpDTO;
+import com.leasing.communication.entity.dto.CbCapitalDetailImpDTO;
 import com.leasing.communication.entity.query.CbCapitalQuery;
 import com.leasing.communication.entity.vo.CbCapitalVO;
 
@@ -71,5 +71,5 @@ public interface CbCapitalService extends CbFileImpService{
      */
     CbCapitalDO findOne(String pk);
 
-    List<CbCapitalDetailDO> dataConvert(List<CbCapitalDetailImpDTO> list);
+    List<CbCapitalDetailDO> dataConvert(List<CbCapitalDetailImpDTO> list, String batchNo);
 }

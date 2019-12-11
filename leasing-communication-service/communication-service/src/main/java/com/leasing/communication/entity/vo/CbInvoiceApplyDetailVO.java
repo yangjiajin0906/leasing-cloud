@@ -97,6 +97,11 @@ public class CbInvoiceApplyDetailVO {
     private String planDate;
 
     /**
+     * 开票金额
+     */
+    private BigDecimal invoiceAmount;
+
+    /**
      * 税率
      */
     private BigDecimal taxRate;
@@ -300,6 +305,14 @@ public class CbInvoiceApplyDetailVO {
 
     public void setPlanDate(String planDate) {
         this.planDate = planDate;
+    }
+
+    public BigDecimal getInvoiceAmount() {
+        return invoiceAmount;
+    }
+
+    public void setInvoiceAmount(BigDecimal invoiceAmount) {
+        this.invoiceAmount = invoiceAmount;
     }
 
     public BigDecimal getTaxRate() {

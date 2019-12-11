@@ -11,6 +11,7 @@ import com.leasing.communication.entity.dos.CbWithdrawDetailDO;
 import com.leasing.communication.entity.dto.CbWithdrawDetailDTO;
 import com.leasing.communication.entity.dto.FileOssLogDTO;
 import com.leasing.communication.entity.query.CbWithdrawQuery;
+import com.leasing.communication.entity.vo.CbWithdrawDetailVO;
 import com.leasing.communication.entity.vo.CbWithdrawVO;
 import com.leasing.communication.repository.CbWithdrawDetailRepo;
 import com.leasing.communication.repository.CbWithdrawRepo;
@@ -53,7 +54,7 @@ public class CbWithdrawServiceImpl implements CbWithdrawService {
                 //合同金额汇总
                 totalContAmount = totalContAmount.add(detaildO.getContAmount());
                 detaildO.setPkWithdraw(mainPk);
-                detaildO.setPkWithdrawDetail(BaseBusinessUtils.getOID());
+
             }
 
             mainDO.setActualLoanAmount(totalActualLoanAmount);
@@ -70,8 +71,8 @@ public class CbWithdrawServiceImpl implements CbWithdrawService {
     }
 
     @Override
-    public List<CbWithdrawDetailDO> queryDetailByBatchNo(String batchNo) {
-        return detailRepo.queryAllByPaymentBatchNo(batchNo);
+    public List<CbWithdrawDetailVO> queryDetailByPkWithdraw(String pkWithdraw) {
+        return detailRepo.queryAllByPkWithdraw(pkWithdraw);
     }
 
     @Override
@@ -110,7 +111,10 @@ public class CbWithdrawServiceImpl implements CbWithdrawService {
         try {
             List<CbWithdrawDetailDTO> contList = ExcelUtils.convertExcel(param.getObjectContent(), param.getKey(),
                     CbWithdrawDetailDTO.class);
-            gatherWithdraw(detailService.refConvert(contList));
+            //批次号
+            String batchNo = param.getKey().substring(param.getKey().lastIndexOf("/") + 1,
+                    param.getKey().lastIndexOf("."));
+            gatherWithdraw(detailService.refConvert(contList, batchNo));
             logDTO.setDataNum(Long.valueOf(contList.size()));
         } catch (IOException e) {
             e.printStackTrace();

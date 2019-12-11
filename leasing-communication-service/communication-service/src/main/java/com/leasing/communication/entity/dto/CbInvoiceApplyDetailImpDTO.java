@@ -19,86 +19,92 @@ public class CbInvoiceApplyDetailImpDTO {
     /**
      * 合同编号
      */
-    @Excel(titleName = "合同编号", orderNum = 1)
+    @Excel(titleName = "合同编号", orderNum = 0)
     private String contCode;
 
     /**
      * 合同名称
      */
-    @Excel(titleName = "合同名称", orderNum = 2)
+    @Excel(titleName = "合同名称", orderNum = 1)
     private String contName;
 
     /**
      * 发票抬头
      */
-    @Excel(titleName = "发票抬头", orderNum = 3)
+    @Excel(titleName = "发票抬头", orderNum = 2)
     private String invoiceTitle;
 
     /**
      * 税号
      */
-    @Excel(titleName = "税号", orderNum = 4)
+    @Excel(titleName = "税号", orderNum = 3)
     private String ein;
 
     /**
      * 单位地址
      */
-    @Excel(titleName = "单位地址", orderNum = 5)
+    @Excel(titleName = "单位地址", orderNum = 4)
     private String employerAddress;
 
     /**
      * 电话号码
      */
-    @Excel(titleName = "电话号码", orderNum = 6)
+    @Excel(titleName = "电话号码", orderNum = 5)
     private String telephoneNumber;
 
     /**
      * 开户银行
      */
-    @Excel(titleName = "开户银行", orderNum = 7)
+    @Excel(titleName = "开户银行", orderNum = 6)
     private String openingBank;
 
     /**
      * 银行账号
      */
-    @Excel(titleName = "银行账号", orderNum = 8)
+    @Excel(titleName = "银行账号", orderNum = 7)
     private String bankAccount;
 
     /**
      * 邮寄地址
      */
-    @Excel(titleName = "邮寄地址", orderNum = 9)
+    @Excel(titleName = "邮寄地址", orderNum = 8)
     private String mailingAddress;
 
     /**
      * 客户名称
      */
-    @Excel(titleName = "客户名称", orderNum = 10)
+    @Excel(titleName = "客户名称", orderNum = 9)
     private String customerName;
 
     /**
      * 单位名称
      */
-    @Excel(titleName = "单位名称", orderNum = 11)
+    @Excel(titleName = "单位名称", orderNum = 10)
     private String employerName;
 
     /**
      * 租赁方式
      */
-    @Excel(titleName = "租赁方式", orderNum = 12)
+    @Excel(titleName = "租赁方式", orderNum = 11)
     private Integer leaseType;
 
     /**
      * 期次
      */
-    @Excel(titleName = "期次", orderNum = 13)
+    @Excel(titleName = "期次", orderNum = 12)
     private Integer leaseTime;
 
     /**
      * 应收日期
      */
-    @Excel(titleName = "应收日期", orderNum = 14)
+    @Excel(titleName = "应收日期", orderNum = 13)
     private String planDate;
+
+    /**
+     * 开票金额
+     */
+    @Excel(titleName = "开票金额", orderNum = 14)
+    private BigDecimal invoiceAmount;
 
     /**
      * 税率
@@ -370,6 +376,15 @@ public class CbInvoiceApplyDetailImpDTO {
      */
     public void setPlanDate(String planDate) {
         this.planDate = planDate == null ? null : planDate.trim();
+    }
+
+
+    public BigDecimal getInvoiceAmount() {
+        return invoiceAmount;
+    }
+
+    public void setInvoiceAmount(BigDecimal invoiceAmount) {
+        this.invoiceAmount = invoiceAmount;
     }
 
     /**

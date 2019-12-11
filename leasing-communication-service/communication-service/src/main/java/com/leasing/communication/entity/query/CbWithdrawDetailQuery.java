@@ -11,11 +11,22 @@ import com.leasing.common.base.entity.BaseQuery;
  **/
 public class CbWithdrawDetailQuery extends BaseQuery {
 
+    @QueryCondition
+    private String pkWithdraw;
+
     /**
      * 付款批次号
      */
     @QueryCondition
     private String paymentBatchNo;
+
+    public String getPkWithdraw() {
+        return pkWithdraw;
+    }
+
+    public void setPkWithdraw(String pkWithdraw) {
+        this.pkWithdraw = pkWithdraw;
+    }
 
     public String getPaymentBatchNo() {
         return paymentBatchNo;

@@ -78,6 +78,8 @@ public class CbInvoiceApplyServiceImpl implements CbInvoiceApplyService {
                 CbInvoiceApplyDetailDO detailDO = DozerUtils.convert(detailVO, CbInvoiceApplyDetailDO.class);
                 detailDO.setPkInvoiceApply(pkApply);
                 detailDO.setBillingStatus(Yes_Or_No.YES.getShort());
+                //开票日期
+                detailDO.setBillingData(DateUtils.getCurDate());
                 //发票税额
                 totalInvoiceAmount = totalInvoiceAmount.add(detailDO.getInvoiceAmount());
 
@@ -87,8 +89,8 @@ public class CbInvoiceApplyServiceImpl implements CbInvoiceApplyService {
                 forSave.add(detailDO);
             }
             applyDO.setInvoiceAmount(totalInvoiceAmount);// 发票总额
-            applyDO.setLeaseCashTax(BigDecimal.ZERO);//发票税额
-            applyDO.setExcludingTax(BigDecimal.ZERO);// 不含税金额
+            applyDO.setLeaseCashTax(totalLeaseCashTax);//发票税额
+            applyDO.setExcludingTax(totalExcludingTax);// 不含税金额
             invoiceApplyRepo.save(applyDO);
             detailRepo.saveAll(forSave);
 
@@ -141,6 +143,11 @@ public class CbInvoiceApplyServiceImpl implements CbInvoiceApplyService {
     @Override
     public List<CbInvoiceApplyDetailVO> querySub(CbInvoiceApplyDetailQuery query) {
         return detailRepo.pageQuery(query, "invoiceApplyDetail.pageQuery");
+    }
+
+    @Override
+    public List<CbInvoiceApplyDetailVO> queryNotInvoiceSubList() {
+        return detailRepo.queryAllByPkInvoiceApplyIsNull();
     }
 
     @Override

@@ -2,10 +2,9 @@ package com.leasing.communication.entity.dos;
 
 import com.leasing.communication.entity.base.FileBaseBusinessDO;
 import com.leasing.common.base.annotation.Excel;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
@@ -23,103 +22,86 @@ public class CbWithdrawDetailDO extends FileBaseBusinessDO {
      * 付款信息主键
      */
     @Id
-    @Excel(titleName = "主键", orderNum = 10)
     private String pkWithdrawDetail;
 
     /**
      * 合同编号
      */
-    @Excel(titleName = "合同编号", orderNum = 11)
     private String contCode;
 
     /**
      * 合同名称
      */
-    @Excel(titleName = "合同名称", orderNum = 12)
     private String contName;
 
     /**
      * 收款人
      */
-    @Excel(titleName = "收款人", orderNum = 13)
     private String payeeName;
 
     /**
      * 收款账号
      */
-    @Excel(titleName = "收款账号", orderNum = 14)
     private String receivingAccount;
 
     /**
      * 银行开户行
      */
-    @Excel(titleName = "银行开户行", orderNum = 15)
     private String openingBank;
 
     /**
      * 行号
      */
-    @Excel(titleName = "行号", orderNum = 16)
     private String accountNumber;
 
     /**
      * 客户名称
      */
-    @Excel(titleName = "客户名称", orderNum = 17)
     private String customerName;
 
     /**
      * 单位名称
      */
-    @Excel(titleName = "单位名称", orderNum = 18)
     private String employerName;
 
     /**
      * 起租日期
      */
-    @Excel(titleName = "起租日期", orderNum = 19)
     private String dateFrom;
 
     /**
      * 合同金额
      */
-    @Excel(titleName = "合同金额", orderNum = 20)
     private BigDecimal contAmount;
 
     /**
      * 租赁方式
      */
-    @Excel(titleName = "租赁方式", orderNum = 21)
     private Integer leaseType;
 
     /**
      * 实际放款金额
      */
-    @Excel(titleName = "实际放款金额", orderNum = 22)
     private BigDecimal actualLoanAmount;
 
     /**
      * 付款账号
      */
-    @Excel(titleName = "付款账号", orderNum = 23)
     private String paymentAccount;
 
     /**
      * 实付日期
      */
-    @Excel(titleName = "实付日期", orderNum = 24)
     private String realPayDate;
 
     /**
      * 币种 (参照)
      */
-    @Excel(titleName = "币种", orderNum = 25)
     private String pkCurrency;
 
     /**
      * 公司主体
      */
-    @Excel(titleName = "公司主体", orderNum = 26)
     private String companyMainBody;
 
     /**
@@ -171,6 +153,9 @@ public class CbWithdrawDetailDO extends FileBaseBusinessDO {
      * 付款信息主键
      * @return PK_WITHDRAW_REPAYMENT_C 付款信息主键
      */
+    @Column(name = "pk_withdraw_detail")
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "custom-id")
+    @GenericGenerator(name = "custom-id", strategy = "com.leasing.common.utils.frame.OIDGenerator")
     public String getPkWithdrawDetail() {
         return pkWithdrawDetail;
     }

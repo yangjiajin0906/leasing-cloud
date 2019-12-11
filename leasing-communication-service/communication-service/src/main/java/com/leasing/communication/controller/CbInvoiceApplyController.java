@@ -46,13 +46,24 @@ public class CbInvoiceApplyController {
 
     /**
      * 查询子表
-     * @param data
+     * @param query
      * @return
      */
     @PostMapping(value = "/subList")
-    public ResResult subList(String data){
-        CbInvoiceApplyDetailQuery query = JSON.parseObject(data, CbInvoiceApplyDetailQuery.class);
+    public ResResult subList(@RequestBody CbInvoiceApplyDetailQuery query){
+//        CbInvoiceApplyDetailQuery query = JSON.parseObject(data, CbInvoiceApplyDetailQuery.class);
         List<CbInvoiceApplyDetailVO> list = invoiceApplyService.querySub(query);
+        return ResultUtils.successWithData(list);
+    }
+
+    /**
+     * 查查询未开票子表
+     * @return
+     */
+    @PostMapping(value = "/subNotInvoice")
+    public ResResult subNotInvoice(){
+//        CbInvoiceApplyDetailQuery query = JSON.parseObject(data, CbInvoiceApplyDetailQuery.class);
+        List<CbInvoiceApplyDetailVO> list = invoiceApplyService.queryNotInvoiceSubList();
         return ResultUtils.successWithData(list);
     }
 

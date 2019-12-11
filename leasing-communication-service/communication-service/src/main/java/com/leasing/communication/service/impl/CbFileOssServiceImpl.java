@@ -52,7 +52,7 @@ public class CbFileOssServiceImpl implements CbFileOssService {
     @Override
     public List<OSSObject> loadFileListByDate(SourceSystemDTO sourceSystemDO) {
         String date = DateUtils.getCurDate();
-        return AliyunOssUtils.loadFileByDir(date);
+        return AliyunOssUtils.loadFileByDir("zhang");
     }
 
     @Override
@@ -125,15 +125,18 @@ public class CbFileOssServiceImpl implements CbFileOssService {
             if(!fileMap.containsKey(impMap.get(detailDTO.getImpType()))){
                 continue;
             }
-            FileImpParam param = FileImpParam.initInstance();
-            param.setBusinessType(impMap.get(detailDTO.getImpType()));
-            param.setBeanName(detailDTO.getBeanName());
-            param.setImpType(detailDTO.getImpType());
-            param.setOrder(detailDTO.getImpOrder());
-            param.setSystemVO(cbImpSetDTO.getPkSystem());
-            //处理文件相关
-            param.setFileList(fileMap.get(impMap.get(detailDTO.getImpType())));
-            params.add(param);
+            if (detailDTO.getImpType() == 10 || detailDTO.getImpType() == 2 || detailDTO.getImpType() == 4) {
+                FileImpParam param = FileImpParam.initInstance();
+                param.setBusinessType(impMap.get(detailDTO.getImpType()));
+                param.setBeanName(detailDTO.getBeanName());
+                param.setImpType(detailDTO.getImpType());
+                param.setOrder(detailDTO.getImpOrder());
+                param.setSystemVO(cbImpSetDTO.getPkSystem());
+                //处理文件相关
+                param.setFileList(fileMap.get(impMap.get(detailDTO.getImpType())));
+                params.add(param);
+            }
+
         }
         return params;
     }

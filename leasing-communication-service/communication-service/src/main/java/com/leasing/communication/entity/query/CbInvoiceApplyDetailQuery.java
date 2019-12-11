@@ -2,7 +2,6 @@ package com.leasing.communication.entity.query;
 
 import com.leasing.common.base.annotation.QueryCondition;
 import com.leasing.common.base.entity.BaseQuery;
-
 /**
  * @project:leasing-cloud
  * @date:2019-12-08
@@ -11,11 +10,11 @@ import com.leasing.common.base.entity.BaseQuery;
  **/
 public class CbInvoiceApplyDetailQuery  extends BaseQuery {
 
-    @QueryCondition(field = "pk_invoice_apply")
+    @QueryCondition(field = "a.pkInvoiceApply")
     private String pkInvoiceApply;
 
-    @QueryCondition(field = "billing_status")
-    private String billingStatus;
+    @QueryCondition(field = "a.billingStatus")
+    private Integer billingStatus;
 
     public String getPkInvoiceApply() {
         return pkInvoiceApply;
@@ -25,11 +24,11 @@ public class CbInvoiceApplyDetailQuery  extends BaseQuery {
         this.pkInvoiceApply = pkInvoiceApply;
     }
 
-    public String getBillingStatus() {
+    public Integer getBillingStatus() {
         return billingStatus;
     }
 
-    public void setBillingStatus(String billingStatus) {
+    public void setBillingStatus(Integer billingStatus) {
         this.billingStatus = billingStatus;
     }
 }

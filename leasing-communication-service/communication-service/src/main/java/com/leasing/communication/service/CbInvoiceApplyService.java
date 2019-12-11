@@ -73,4 +73,6 @@ public interface CbInvoiceApplyService extends CbFileImpService {
 
     List<CbInvoiceApplyDetailVO> querySub(CbInvoiceApplyDetailQuery query);
 
+    List<CbInvoiceApplyDetailVO> queryNotInvoiceSubList();
+
 }

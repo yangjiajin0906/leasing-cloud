@@ -6,6 +6,7 @@ import com.leasing.communication.entity.dos.CbWithdrawDO;
 import com.leasing.communication.entity.dos.CbWithdrawDetailDO;
 import com.leasing.communication.entity.dto.CbWithdrawDetailDTO;
 import com.leasing.communication.entity.query.CbWithdrawQuery;
+import com.leasing.communication.entity.vo.CbWithdrawDetailVO;
 import com.leasing.communication.entity.vo.CbWithdrawVO;
 
 import java.util.List;
@@ -34,9 +35,9 @@ public interface CbWithdrawService extends CbFileImpService{
      *
      * @return 子表列表
      */
-    List<CbWithdrawDetailDO> queryDetailByBatchNo(String batchNo);
-
+    List<CbWithdrawDetailVO> queryDetailByPkWithdraw(String pkWithdraw);
     /**
+
      * 保存方法
      *
      * @param vo
