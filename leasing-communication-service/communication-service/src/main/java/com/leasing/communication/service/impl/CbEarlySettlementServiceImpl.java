@@ -69,9 +69,6 @@ public class CbEarlySettlementServiceImpl implements CbEarlySettlementService {
 
     @Override
     public void save(List<CbEarlySettlementDO> list) {
-        for(CbEarlySettlementDO dos: list){
-            dos.setPkEarlySettlement(UUID.randomUUID().toString().replace("-","").substring(0, 20));
-        }
         cbEarlySettlementRepo.saveAll(list);
     }
 

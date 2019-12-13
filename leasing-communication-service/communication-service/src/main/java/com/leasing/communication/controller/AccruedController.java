@@ -9,15 +9,17 @@ import com.leasing.common.enums.base.Billstatus;
 import com.leasing.common.utils.base.DateUtils;
 import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.common.utils.tools.DozerUtils;
-import com.leasing.communication.entity.dos.AccruedBDO;
+import com.leasing.communication.entity.dos.AccruedDetailDO;
 import com.leasing.communication.entity.dos.AccruedDO;
+import com.leasing.communication.entity.dos.CbCapitalDetailDO;
 import com.leasing.communication.entity.dto.FileOssLogDTO;
 import com.leasing.communication.entity.query.AccruedQuery;
-import com.leasing.communication.entity.vo.AccruedBVO;
 import com.leasing.communication.entity.vo.AccruedChildVO;
 import com.leasing.communication.entity.vo.AccruedVO;
+import com.leasing.communication.repository.CbCapitalDetailRepo;
 import com.leasing.communication.service.AccruedService;
 import com.leasing.communication.service.CbFileOssService;
+import com.leasing.communication.test.DemoForOutSysClient;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @project:leasing-cloud
@@ -68,33 +69,38 @@ public class AccruedController {
     public ResResult save(@RequestBody(required = false) String data){
         AccruedVO vo = JSON.parseObject(data,AccruedVO.class);
         AccruedDO dos = DozerUtils.convert(vo,AccruedDO.class);
-        dos.setPkLeaseAccrued(UUID.randomUUID().toString().replace("-","").substring(0, 20));
         dos.setBillstatus(Billstatus.INITALIZE.getShort());
         String currentMonth = vo.getAccrualMonth().substring(0, 7);
         dos.setAccrualMonth(currentMonth);
         dos.setOperateTime(DateUtils.getCurDateTime());
         dos.setOperateDate(DateUtils.getCurDate());
-        List<AccruedBDO> list = new ArrayList();
-        for(int i = 0; i<vo.getLeaseAccruedB().size(); i++){
-            AccruedBDO accruedBDO = DozerUtils.convert(vo.getLeaseAccruedB().get(i),AccruedBDO.class);
-            accruedBDO.setPkLeaseAccruedB(UUID.randomUUID().toString().replace("-","").substring(0, 20));
-            accruedBDO.setPkCustomer("0001MG00000000029119");
-            accruedBDO.setPkCurrtype("00010000000000000001");
-            accruedBDO.setPkContract("0001MG00000000062839");
+        List<AccruedDetailDO> list = new ArrayList();
+        for(int i = 0; i<vo.getPkAccruedDetail().size(); i++){
+            AccruedDetailDO accruedBDO = DozerUtils.convert(vo.getPkAccruedDetail().get(i),AccruedDetailDO.class);
             list.add(accruedBDO);
         }
-        dos.setLeaseAccruedB(list);
+        dos.setPkAccruedDetail(list);
         dos.setPkOrg("1003");
         dos = leaseAccruedService.save(dos);
+        leaseAccruedService.updateAccruedFlag(dos,Short.valueOf("0"));
         return ResultUtils.successWithData(dos);
     }
 
-    @Resource
-    CbFileOssService cbFileOssService;
+//    @Resource
+//    CbFileOssService cbFileOssService;
+//
+//    @RequestMapping(value = "/test")
+//    public void test() {
+//        List<FileOssLogDTO> logDTOS = cbFileOssService.fileImportByDate();
+//        System.out.println(logDTOS);
+//    }
 
+    @Resource
+    CbCapitalDetailRepo cbCapitalDetailRepo;
     @RequestMapping(value = "/test")
     public void test() {
-        List<FileOssLogDTO> logDTOS = cbFileOssService.fileImportByDate();
-        System.out.println(logDTOS);
+        CbCapitalDetailDO detailDO = cbCapitalDetailRepo.findOne("5de967023ab847d9b74b");
+        detailDO.setCurrtypecode("CNY");
+        DemoForOutSysClient.addFlow(detailDO);
     }
 }

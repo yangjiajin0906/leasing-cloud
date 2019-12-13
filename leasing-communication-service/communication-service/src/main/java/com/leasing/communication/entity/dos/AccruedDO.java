@@ -1,33 +1,27 @@
 package com.leasing.communication.entity.dos;
 
 
-import com.leasing.common.base.entity.BaseBusinessDO;
 import com.leasing.common.base.entity.BaseDO;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
+
 /**
- * Title: 租赁账户管理系统<br>
- * Description: 计提主表(中投)类<br>
- * Copyright: Copyright (c) 2010<br>
- * Company: UFIDA<br>
- *
- * @author
- * @version
+ * Description: 计提主表
  */
 @Entity
-@Table(name="yls_lease_accrued")
+@Table(name="yc_accrued")
 public class AccruedDO extends BaseDO {
 
     /**
      * 主键
      */
     @Id
-//    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="seq_id")
-//    @SequenceGenerator(name="seq_id", sequenceName="CB_OID_SEQ")
-    public String pkLeaseAccrued;
+    @GeneratedValue(generator = "yl_oid")
+    @GenericGenerator(name = "yl_oid", strategy = "com.leasing.common.utils.frame.OIDGenerator")
+    public String pkAccrued;
 
 
     /**
@@ -105,8 +99,8 @@ public class AccruedDO extends BaseDO {
      * 计提子表(中投)
      */
     @OneToMany(orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="pkLeaseAccrued")
-    public List<AccruedBDO> leaseAccruedB;
+    @JoinColumn(name="pkAccrued")
+    public List<AccruedDetailDO> pkAccruedDetail;
 
     /**
      * 单据状态
@@ -137,20 +131,20 @@ public class AccruedDO extends BaseDO {
 
     @Override
     public String getPk() {
-        return pkLeaseAccrued;
+        return pkAccrued;
     }
 
     @Override
     public void setPk(String pk) {
-        this.pkLeaseAccrued = pk;
+        this.pkAccrued = pk;
     }
 
-    public String getPkLeaseAccrued() {
-        return pkLeaseAccrued;
+    public String getPkAccrued() {
+        return pkAccrued;
     }
 
-    public void setPkLeaseAccrued(String pkLeaseAccrued) {
-        this.pkLeaseAccrued = pkLeaseAccrued;
+    public void setPkAccrued(String pkAccrued) {
+        this.pkAccrued = pkAccrued;
     }
 
     public String getAccrualMonth() {
@@ -257,12 +251,12 @@ public class AccruedDO extends BaseDO {
         this.grantTime = grantTime;
     }
 
-    public List<AccruedBDO> getLeaseAccruedB() {
-        return leaseAccruedB;
+    public List<AccruedDetailDO> getPkAccruedDetail() {
+        return pkAccruedDetail;
     }
 
-    public void setLeaseAccruedB(List<AccruedBDO> leaseAccruedB) {
-        this.leaseAccruedB = leaseAccruedB;
+    public void setPkAccruedDetail(List<AccruedDetailDO> pkAccruedDetail) {
+        this.pkAccruedDetail = pkAccruedDetail;
     }
 
     public Short getBillstatus() {

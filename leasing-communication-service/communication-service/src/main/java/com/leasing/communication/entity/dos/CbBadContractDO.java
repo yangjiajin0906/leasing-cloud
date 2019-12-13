@@ -1,11 +1,9 @@
 package com.leasing.communication.entity.dos;
 
 import com.leasing.common.base.entity.BaseDO;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
@@ -20,6 +18,8 @@ public class CbBadContractDO extends BaseDO{
      * 主键
      */
     @Id
+    @GeneratedValue(generator = "yl_oid")
+    @GenericGenerator(name = "yl_oid", strategy = "com.leasing.common.utils.frame.OIDGenerator")
     private String pkBadContract;
 
     /**

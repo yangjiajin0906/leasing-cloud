@@ -1,59 +1,52 @@
-package com.leasing.communication.entity.vo;
+package com.leasing.communication.entity.dos;
 
 
 import com.leasing.common.base.entity.BaseDO;
-import com.leasing.common.entity.foundation.vo.CurrtypeVO;
-import com.leasing.communication.entity.dto.CustomerDTO;
-import org.hibernate.annotations.NotFound;
-import org.hibernate.annotations.NotFoundAction;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
- * Title: 租赁账户管理系统<br>
- * Description: 计提主表(中投)VO类<br>
- * Copyright: Copyright (c) 2010<br>
- * Company: UFIDA<br>
- *
- * @author
- * @version 1.0
+ * Description: 计提子表
  */
 @Entity
-@Table(name="yls_lease_accrued_b")
-public class AccruedBVO extends BaseDO {
+@Table(name="yc_accrued_detail")
+public class AccruedDetailDO extends BaseDO {
 
     /**
      * 主键
      */
     @Id
-    @Column(name = "PK_LEASE_ACCRUED_B")
-    public String pkLeaseAccruedB;
+    @GeneratedValue(generator = "yl_oid")
+    @GenericGenerator(name = "yl_oid", strategy = "com.leasing.common.utils.frame.OIDGenerator")
+    public String pkAccruedDetail;
     /**
      * 计提表主键
      */
-    @Column(name = "PK_ACCRUAL_C")
-    public String pkAccrualC;
+    public String pkAccrual;
     /**
      * 主表主键
      */
-//    @ManyToOne
-//    @JoinColumn(name="pkLeaseAccrued")
-    public String pkLeaseAccrued; //主表主键
+    public String pkAccrued; //主表主键
     /**
      * 客户
      */
-    @ManyToOne
-    @JoinColumn(name="pkCustomer")
-    public CustomerDTO pkCustomer;
+    public String pkCustomer;
+    /**
+     * 客户code
+     */
+    @Transient
+    public String customerCode;
     /**
      * 合同
      */
-    @ManyToOne
-    @JoinColumn(name = "pkContract")
-    @NotFound(action= NotFoundAction.IGNORE)
-    public ContractDTO pkContract;
-
+    public String pkContract;
+    /**
+     * 合同code
+     */
+    @Transient
+    public String contractCode;
     /**
      * 资产状态
      */
@@ -85,9 +78,12 @@ public class AccruedBVO extends BaseDO {
     /**
      * 币种
      */
-    @ManyToOne()
-    @JoinColumn(name="pkCurrtype")
-    public CurrtypeVO pkCurrtype;
+    public String pkCurrtype;
+    /**
+     * 币种code
+     */
+    @Transient
+    public String currtypecode;
     /**
      * 汇率
      */
@@ -97,49 +93,64 @@ public class AccruedBVO extends BaseDO {
      */
     public String pkGlorgbook;
 
+    public AccruedDetailDO(String customerCode, String contractCode, String assetStatus, Short assetsClassify, String accruedMonth, BigDecimal interestAmount, BigDecimal feeAmount, BigDecimal otherIncomeAmount, BigDecimal otherExpensesAmount, String currtypecode, BigDecimal exchgRate, String pkGlorgbook) {
+        this.customerCode = customerCode;
+        this.contractCode = contractCode;
+        this.assetStatus = assetStatus;
+        this.assetsClassify = assetsClassify;
+        this.accruedMonth = accruedMonth;
+        this.interestAmount = interestAmount;
+        this.feeAmount = feeAmount;
+        this.otherIncomeAmount = otherIncomeAmount;
+        this.otherExpensesAmount = otherExpensesAmount;
+        this.currtypecode = currtypecode;
+        this.exchgRate = exchgRate;
+        this.pkGlorgbook = pkGlorgbook;
+    }
+
     /**
      * 类LeaseAccruedBVO的构造方法
      */
-    public AccruedBVO() {
+    public AccruedDetailDO() {
     }
 
-    public String getPkLeaseAccruedB() {
-        return pkLeaseAccruedB;
+    public String getPkAccruedDetail() {
+        return pkAccruedDetail;
     }
 
-    public void setPkLeaseAccruedB(String pkLeaseAccruedB) {
-        this.pkLeaseAccruedB = pkLeaseAccruedB;
+    public void setPkAccruedDetail(String pkAccruedDetail) {
+        this.pkAccruedDetail = pkAccruedDetail;
     }
 
-    public String getPkAccrualC() {
-        return pkAccrualC;
+    public String getPkAccrual() {
+        return pkAccrual;
     }
 
-    public void setPkAccrualC(String pkAccrualC) {
-        this.pkAccrualC = pkAccrualC;
+    public void setPkAccrual(String pkAccrual) {
+        this.pkAccrual = pkAccrual;
     }
 
-    public String getPkLeaseAccrued() {
-        return pkLeaseAccrued;
+    public String getPkAccrued() {
+        return pkAccrued;
     }
 
-    public void setPkLeaseAccrued(String pkLeaseAccrued) {
-        this.pkLeaseAccrued = pkLeaseAccrued;
+    public void setPkAccrued(String pkAccrued) {
+        this.pkAccrued = pkAccrued;
     }
 
-    public CustomerDTO getPkCustomer() {
+    public String getPkCustomer() {
         return pkCustomer;
     }
 
-    public void setPkCustomer(CustomerDTO pkCustomer) {
+    public void setPkCustomer(String pkCustomer) {
         this.pkCustomer = pkCustomer;
     }
 
-    public ContractDTO getPkContract() {
+    public String getPkContract() {
         return pkContract;
     }
 
-    public void setPkContract(ContractDTO pkContract) {
+    public void setPkContract(String pkContract) {
         this.pkContract = pkContract;
     }
 
@@ -199,11 +210,11 @@ public class AccruedBVO extends BaseDO {
         this.otherExpensesAmount = otherExpensesAmount;
     }
 
-    public CurrtypeVO getPkCurrtype() {
+    public String getPkCurrtype() {
         return pkCurrtype;
     }
 
-    public void setPkCurrtype(CurrtypeVO pkCurrtype) {
+    public void setPkCurrtype(String pkCurrtype) {
         this.pkCurrtype = pkCurrtype;
     }
 
@@ -225,12 +236,12 @@ public class AccruedBVO extends BaseDO {
 
     @Override
     public String getPk() {
-        return pkLeaseAccruedB;
+        return pkAccruedDetail;
     }
 
     @Override
     public void setPk(String pk) {
-        this.pkLeaseAccruedB = pk;
+        this.pkAccruedDetail = pk;
     }
 }
 

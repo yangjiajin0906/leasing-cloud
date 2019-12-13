@@ -83,4 +83,13 @@ public interface AccruedService {
      * @return
      */
     AccruedVO queryVoucher(AccruedVO vo);
+
+    /**
+     * @description
+     * @author Yangjiajin
+     * @date 2019/12/12 16:39
+     * @param
+     * @return
+     */
+    void updateAccruedFlag(AccruedDO dos, final Short if_begin);
 }

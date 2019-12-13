@@ -69,9 +69,6 @@ public class CbBadContractServiceImpl implements CbBadContractService {
 
     @Override
     public void save(List<CbBadContractDO> list) {
-        for(CbBadContractDO dos: list){
-            dos.setPkBadContract(UUID.randomUUID().toString().replace("-","").substring(0, 20));
-        }
         cbBadContractRepo.saveAll(list);
     }
 

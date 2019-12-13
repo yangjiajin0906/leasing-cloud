@@ -66,9 +66,6 @@ public class CbOverdueContractServiceImpl implements CbOverdueContractService {
 
     @Override
     public void save(List<CbOverdueContractDO> list) {
-        for(CbOverdueContractDO dos: list){
-            dos.setPkOverdueContract(UUID.randomUUID().toString().replace("-","").substring(0, 20));
-        }
         cbOverdueContractRepo.saveAll(list);
     }
 

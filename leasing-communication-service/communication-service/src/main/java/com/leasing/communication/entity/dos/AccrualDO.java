@@ -1,9 +1,11 @@
-package com.leasing.communication.entity.vo;
+package com.leasing.communication.entity.dos;
 
-import com.leasing.common.base.entity.BaseVO;
+
+import com.leasing.common.base.entity.BaseDO;
 import com.leasing.common.entity.customer.dto.OrgDTO;
 import com.leasing.common.entity.foundation.vo.DeptVO;
 import com.leasing.common.entity.foundation.vo.UserVO;
+import com.leasing.communication.entity.vo.ContractDTO;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -17,7 +19,7 @@ import java.math.BigDecimal;
  **/
 @Entity
 @Table(name="yc_accrual")
-public class AccrualVO extends BaseVO{
+public class AccrualDO extends BaseDO{
     /**
      * 主键
      */
@@ -69,12 +71,17 @@ public class AccrualVO extends BaseVO{
     /**
      * 收支计划
      */
-    //public InoutPlanRentRefVO pkInoutPlan;
+    //public String pkInoutPlan;
 
     /**
      * 折分标识
      */
     public String caclTag;
+
+    /**
+     * 计提标识
+     */
+    public Short ifBegin;
 
     /**
      * 备注
@@ -84,9 +91,7 @@ public class AccrualVO extends BaseVO{
     /**
      * 部门主键
      */
-    @ManyToOne
-    @JoinColumn(name="pkDept")
-    public DeptVO pkDept;
+    public String pkDept;
 
     /**
      * 单据状态
@@ -96,9 +101,7 @@ public class AccrualVO extends BaseVO{
     /**
      * 操作人
      */
-    @ManyToOne
-    @JoinColumn(name="pkOperator")
-    public UserVO pkOperator;
+    public String pkOperator;
 
     /**
      * 操作日期
@@ -113,9 +116,7 @@ public class AccrualVO extends BaseVO{
     /**
      * 复核人
      */
-    @ManyToOne
-    @JoinColumn(name="pkChecker")
-    public UserVO pkChecker;
+    public String pkChecker;
 
     /**
      * 复核日期
@@ -130,9 +131,7 @@ public class AccrualVO extends BaseVO{
     /**
      * 授权人
      */
-    @ManyToOne
-    @JoinColumn(name="pkGrantor")
-    public UserVO pkGrantor;
+    public String pkGrantor;
 
     /**
      * 授权日期
@@ -147,9 +146,7 @@ public class AccrualVO extends BaseVO{
     /**
      * 机构
      */
-    @ManyToOne
-    @JoinColumn(name="pkOrg")
-    public OrgDTO pkOrg;
+    public String pkOrg;
 
 
     //[合同变更-合同信息更正] wangjj@2016/06/17 ADD START
@@ -190,10 +187,9 @@ public class AccrualVO extends BaseVO{
     }
 
     //[合同变更-合同信息更正] wangjj@2016/06/17 ADD END
-    /**
-     * 类AccrualVO的构造方法
-     */
-    public AccrualVO() {
+
+
+    public AccrualDO() {
     }
 
     /**
@@ -281,6 +277,30 @@ public class AccrualVO extends BaseVO{
         return cash;
     }
 
+    public Short getIfBegin() {
+        return ifBegin;
+    }
+
+    public void setIfBegin(Short ifBegin) {
+        this.ifBegin = ifBegin;
+    }
+
+    public String getPkOperator() {
+        return pkOperator;
+    }
+
+    public String getPkChecker() {
+        return pkChecker;
+    }
+
+    public String getPkGrantor() {
+        return pkGrantor;
+    }
+
+    public String getPkOrg() {
+        return pkOrg;
+    }
+
     /**
      * 计提金额的setter方法
      *
@@ -329,27 +349,27 @@ public class AccrualVO extends BaseVO{
         this.memo = memo;
     }
 
-    public DeptVO getPkDept() {
+    public String getPkDept() {
         return pkDept;
     }
 
-    public void setPkDept(DeptVO pkDept) {
+    public void setPkDept(String pkDept) {
         this.pkDept = pkDept;
     }
 
-    public void setPkOperator(UserVO pkOperator) {
+    public void setPkOperator(String pkOperator) {
         this.pkOperator = pkOperator;
     }
 
-    public void setPkChecker(UserVO pkChecker) {
+    public void setPkChecker(String pkChecker) {
         this.pkChecker = pkChecker;
     }
 
-    public void setPkGrantor(UserVO pkGrantor) {
+    public void setPkGrantor(String pkGrantor) {
         this.pkGrantor = pkGrantor;
     }
 
-    public void setPkOrg(OrgDTO pkOrg) {
+    public void setPkOrg(String pkOrg) {
         this.pkOrg = pkOrg;
     }
 
@@ -485,6 +505,7 @@ public class AccrualVO extends BaseVO{
     public void setGrantTime(String grantTime) {
         this.grantTime = grantTime;
     }
+
 
     /**
      * Description: 来源单据<br>

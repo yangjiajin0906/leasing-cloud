@@ -2,10 +2,13 @@ package com.leasing.communication.entity.vo;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.leasing.common.base.entity.BaseBusinessVO;
 import com.leasing.common.entity.foundation.vo.CurrtypeVO;
 import com.leasing.common.base.entity.BaseVO;
 import com.leasing.common.entity.foundation.vo.CurrtypeVO;
 import com.leasing.communication.entity.dto.CustomerDTO;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 
@@ -21,158 +24,32 @@ import java.math.BigDecimal;
  *
  */
 @Entity
-@Table(name="(select a.month," +
-        "       nvl(decode(f.pk_lessee_protocol," +
-        "                  null," +
-        "                  a.cash," +
-        "                  decode(a.month," +
-        "                         substr(h.real_pay_date, 1, 7)," +
-        "                         x.inter," +
-        "                         a.cash))," +
-        "           0) inter," +
-        "       nvl(decode(f.pk_lessee_protocol," +
-        "                  null," +
-        "                  b.cash," +
-        "                  decode(a.month," +
-        "                         substr(h.real_pay_date, 1, 7)," +
-        "                         x.srv," +
-        "                         b.cash))," +
-        "           0) srv," +
-        "       nvl(decode(f.pk_lessee_protocol," +
-        "                  null," +
-        "                  c.cash," +
-        "                  decode(a.month," +
-        "                         substr(h.real_pay_date, 1, 7)," +
-        "                         x.pri," +
-        "                         c.cash))," +
-        "           0) pri," +
-        "       nvl(decode(f.pk_lessee_protocol," +
-        "                  null," +
-        "                  e.cash," +
-        "                  decode(a.month," +
-        "                         substr(h.real_pay_date, 1, 7)," +
-        "                         x.bus," +
-        "                         e.cash))," +
-        "           0) bus," +
-        "       a.source_bill," +
-        "       a.pk_accrual," +
-        "       f.pk_contract," +
-        "       f.pk_customer_lessee as pk_customer," +
-        "       f.pk_lessee_protocol," +
-        "       f.assets_classify," +
-        "       f.pk_currency as pk_currtype," +
-        "       f.exchg_rate," +
-        "       f.pk_glorgbook," +
-        "       h.real_pay_date," +
-        "       f.lease_flow," +
-        "       f.appoint_rent_date," +
-        "       p.mon," +
-        "       nvl(a.if_begin, 1) if_begin," +
-        "       aa.cash inter_actual" +
-        "  from yls_accrual_c a" +
-        " inner join yls_accrual_c aa" +
-        "    on aa.pk_accrual = a.pk_accrual" +
-        " inner join yls_lease_calculator_c g" +
-        "    on a.source_bill = g.pk_lease_calculator" +
-        " inner join yls_contract_c f" +
-        "    on g.pk_contract = f.pk_contract" +
-        " left join (select fc.pk_contract," +
-        "                    decode(substr(max(month), 6, 2)," +
-        "                           12," +
-        "                           substr(max(month), 1, 4) + 1 || '-01'," +
-        "                           substr(max(month), 1, 4) ||" +
-        "                           decode(substr(max(month), 7, 1), 9, '-', '-0') ||" +
-        "                           (substr(max(month), 7, 1) + 1)) mon" +
-        "               from yls_accrual_c ac" +
-        "              inner join yls_lease_calculator_c gc" +
-        "                 on ac.source_bill = gc.pk_lease_calculator" +
-        "              inner join yls_contract_c fc" +
-        "                 on gc.pk_contract = fc.pk_contract" +
-        "              where ac.if_begin = 0" +
-        "              group by fc.pk_contract" +
-        "             union all" +
-        "             select fc.pk_contract, min(month) mon" +
-        "               from yls_accrual_c ac" +
-        "              inner join yls_lease_calculator_c gc" +
-        "                 on ac.source_bill = gc.pk_lease_calculator" +
-        "              inner join yls_contract_c fc" +
-        "                 on gc.pk_contract = fc.pk_contract" +
-        "              inner join (select pk_contract" +
-        "                            from (select fc.pk_contract," +
-        "                                         sum(decode(ac.if_begin, 0, 1, 0)) cou" +
-        "                                    from yls_accrual_c ac" +
-        "                                   inner join yls_lease_calculator_c gc" +
-        "                                      on ac.source_bill =" +
-        "                                         gc.pk_lease_calculator" +
-        "                                   inner join yls_contract_c fc" +
-        "                                      on gc.pk_contract = fc.pk_contract" +
-        "                                   group by fc.pk_contract) vv" +
-        "                           where vv.cou = 0) tem" +
-        "                 on tem.pk_contract = fc.pk_contract" +
-        "              group by fc.pk_contract) p" +
-        "    on f.pk_contract = p.pk_contract" +
-        "  left join (select g.pk_contract," +
-        "                    nvl(sum(a.cash), 0) inter," +
-        "                    nvl(sum(b.cash), 0) srv," +
-        "                    nvl(sum(c.cash), 0) pri," +
-        "                    nvl(sum(e.cash), 0) bus" +
-        "               from yls_lease_calculator_c g" +
-        "              inner join (select ip.pk_contract," +
-        "                                substr(min(t1.real_pay_date), 1, 7) real_pay_date" +
-        "                           from yls_loan_deal t1" +
-        "                          inner join yls_loan_plan t2" +
-        "                             on t1.pk_loan_deal = t2.pk_loan_deal" +
-        "                          inner join (select pk_inout_plan,pk_contract" +
-        "                                       from yls_inout_plan_c t3" +
-        "                                      inner join yls_event_type et" +
-        "                                         on t3.trans_type = et.pk_event_type" +
-        "                                      where et.event_code in" +
-        "                                            ('10101', '10102')) ip" +
-        "                             on t2.pk_inout_plan = ip.pk_inout_plan" +
-        "                          group by ip.pk_contract) h" +
-        "                 on g.pk_contract = h.pk_contract" +
-        "               left join yls_accrual_c a" +
-        "                 on a.source_bill = g.pk_lease_calculator" +
-        "               left join yls_accrual_c b" +
-        "                 on a.source_bill = b.source_bill" +
-        "                and a.month = b.month" +
-        "                and b.busi_type = 11" +
-        "               left join yls_accrual_c c" +
-        "                 on a.source_bill = c.source_bill" +
-        "                and a.month = c.month" +
-        "                and c.busi_type = 12" +
-        "               left join yls_accrual_c e" +
-        "                 on a.source_bill = e.source_bill" +
-        "                and a.month = e.month" +
-        "                and e.busi_type = 13" +
-        "              where a.busi_type = 0" +
-        "                and a.month <= h.real_pay_date" +
-        "              group by g.pk_contract) x" +
-        "    on x.pk_contract = f.pk_contract" +
-        " inner join (select t4.pk_contract, min(t1.real_pay_date) real_pay_date" +
-        "               from yls_loan_deal t1" +
-        "              inner join yls_loan_plan t2" +
-        "                 on t1.pk_loan_deal = t2.pk_loan_deal" +
-        "              inner join yls_inout_plan_c t3" +
-        "                 on t2.pk_inout_plan = t3.pk_inout_plan" +
-        "              inner join yls_contract_c t4" +
-        "                 on t3.pk_contract = t4.pk_contract" +
-        "              group by t4.pk_contract) h" +
-        "    on f.pk_contract = h.pk_contract" +
-        "  left join yls_accrual_c b" +
-        "    on a.source_bill = b.source_bill" +
-        "   and a.month = b.month" +
-        "   and b.busi_type = 11" +
-        "  left join yls_accrual_c c" +
-        "    on a.source_bill = c.source_bill" +
-        "   and a.month = c.month" +
-        "   and c.busi_type = 12" +
-        "  left join yls_accrual_c e" +
-        "    on a.source_bill = e.source_bill" +
-        "   and a.month = e.month" +
-        "   and e.busi_type = 13" +
-        " where a.busi_type = 0 and f.cont_status != 8" +
-        "        )")
+@Table(name="(SELECT\n" +
+        "        A.MONTH,\n" +
+        "        NVL(A.CASH,0.00) INTER, -- 利息计提\n" +
+        "        NVL(B.CASH,0.00) SRV, --手续费计提\n" +
+        "        NVL(C.CASH,0.00) PRI, --其他收入\n" +
+        "        NVL(E.CASH,0.00) BUS, --其他支出\n" +
+        "        A.SOURCE_BILL, --单据主键\n" +
+        "        A.PK_ACCRUAL, --计提表主键\n" +
+        "        A.PK_CURRENCY pk_currtype, --币种主键\n" +
+        "        A.IF_BEGIN,\n" +
+        "        A.CAL_DATE,\n" +
+        "        A.pk_org,\n" +
+        "        A.BUSI_TYPE,\n" +
+        "        \n" +
+        "        G.Pk_Contract, --合同主键\n" +
+        "        G.assets_classify, --资产五级分类\n" +
+        "        G.Customer_Name,\n" +
+        "        G.lease_Flow,\n" +
+        "        --G.PK_CUSTOMER, --客户主键\n" +
+        "        G.EXCHG_RATE, --汇率\n" +
+        "        G.CONT_STATUS        \n" +
+        "        FROM YC_ACCRUAL A\n" +
+        "        LEFT JOIN YC_ACCRUAL B ON A.SOURCE_BILL = B.SOURCE_BILL AND A.MONTH = B.MONTH AND B.BUSI_TYPE = 11\n" +
+        "        LEFT JOIN YC_ACCRUAL C ON A.SOURCE_BILL = C.SOURCE_BILL AND A.MONTH = C.MONTH AND C.BUSI_TYPE = 12\n" +
+        "        LEFT JOIN YC_ACCRUAL E ON A.SOURCE_BILL = E.SOURCE_BILL AND A.MONTH = E.MONTH AND E.BUSI_TYPE = 13\n" +
+        "        LEFT JOIN YC_CONTRACT G ON G.PK_CONTRACT = A.PK_CONTRACT)")
 @JsonIgnoreProperties(value = { "hibernateLazyInitializer","handler"})
 public class AccrualForAccruedPageRefVO {
     private static final long serialVersionUID = 334579052232820078L;
@@ -196,6 +73,7 @@ public class AccrualForAccruedPageRefVO {
     /**
      * 上次计提月份
      */
+    @Transient
     public String mon;
 
     /**
@@ -220,11 +98,15 @@ public class AccrualForAccruedPageRefVO {
      */
     @ManyToOne()
     @JoinColumn(name="pkCustomer")
+    @Transient
     public CustomerDTO pkCustomer;
+
+    //public String pkCustomer;
+    public String customerName;
     /**
      * 合同
      */
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name="pkContract")
     public ContractDTO pkContract;
 
@@ -246,6 +128,7 @@ public class AccrualForAccruedPageRefVO {
     /**
      * 核算主体
      */
+    @Transient
     public String pkGlorgbook;
 //    @ManyToOne()
 //    @JoinColumn(name="pkGlorgbook")
@@ -254,6 +137,7 @@ public class AccrualForAccruedPageRefVO {
     /**
      * 实际付款日期
      */
+    @Transient
     public String realPayDate;
 
     /**
@@ -264,7 +148,7 @@ public class AccrualForAccruedPageRefVO {
     /**
      * 子合同主键
      */
-
+    @Transient
     public String pkLesseeProtocol;
 
     /**
@@ -275,12 +159,32 @@ public class AccrualForAccruedPageRefVO {
     /**
      * 约定起租日
      */
+    @Transient
     public String appointRentDate;
 
     /**
      * 实际本月计提利息(用来解决月末计提)
      */
+    @Transient
     public BigDecimal interActual;
+
+    /**
+     * 机构
+     */
+    public String pkOrg;
+    /**
+     * 类型
+     */
+    public String busiType;
+    /**
+     * 合同类型
+     */
+    @Transient
+    public String contType;
+    /**
+     * 合同状态
+     */
+    public String contStatus;
 
     @Transient
     public String pk;
@@ -489,4 +393,53 @@ public class AccrualForAccruedPageRefVO {
     public void setIfBegin(Short ifBegin) {
         this.ifBegin = ifBegin;
     }
+
+    public String getPkOrg() {
+        return pkOrg;
+    }
+
+    public void setPkOrg(String pkOrg) {
+        this.pkOrg = pkOrg;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+//    public String getPkCustomer() {
+//        return pkCustomer;
+//    }
+//
+//    public void setPkCustomer(String pkCustomer) {
+//        this.pkCustomer = pkCustomer;
+//    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getBusiType() {
+        return busiType;
+    }
+
+    public void setBusiType(String busiType) {
+        this.busiType = busiType;
+    }
+
+    public String getContType() {
+        return contType;
+    }
+
+    public void setContType(String contType) {
+        this.contType = contType;
+    }
+
+    public String getContStatus() {
+        return contStatus;
+    }
+
+    public void setContStatus(String contStatus) {
+        this.contStatus = contStatus;
+    }
+
 }

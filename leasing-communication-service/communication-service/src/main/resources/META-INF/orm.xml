@@ -28,28 +28,25 @@
 
     <named-query name="accruedRepo.pageQuery.count">
         <query>
-            select count(c.pkLeaseAccrued) from AccruedVO c
+            select count(c.pkAccrued) from AccruedVO c
         </query>
     </named-query>
 
     <named-query name="accruedRepo.findByPk">
         <query>
             select c from AccruedChildVO c
-            where c.pkLeaseAccrued =: pk
+            where c.pkAccrued =: pk
         </query>
     </named-query>
 
     <named-query name="accruedRepo.findAccrualForAccrued">
         <query>
             select vo from AccrualForAccruedPageRefVO vo
-            left join fetch vo.pkCustomer c
+            <!--left join fetch vo.pkCustomer c-->
             left join fetch vo.pkContract co
             left join fetch vo.pkCurrtype cu
-            where vo.pkLesseeProtocol is null
-            and (vo.assetsClassify is null or vo.assetsClassify in (0,1))
-            and (vo.month &lt;=?1 and vo.month >= vo.mon and vo.ifBegin = 1 )
-            and (vo.pkContract.contStatus = 2 or vo.pkContract.contStatus = 3)
-            and vo.pkContract.pkAcctOrg = ?2
+            where vo.assetsClassify in (0,1) and vo.month &lt;= ?1 AND vo.pkOrg = ?2
+            and (vo.ifBegin = 1 OR vo.ifBegin is null)
         </query>
     </named-query>
 
@@ -58,6 +55,13 @@
             select max(accrualMonth) as accrualMonth
             from AccruedDO
             where pkCorp = ?1 and billstatus = ?2 and contractType = ?3
+        </query>
+    </named-query>
+
+    <named-query name="accrualCRepo.findByPkAndMonth">
+        <query>
+            select a from AccrualDO a
+            where a.pkAccrual = ?1 and a.month = ?2
         </query>
     </named-query>
 

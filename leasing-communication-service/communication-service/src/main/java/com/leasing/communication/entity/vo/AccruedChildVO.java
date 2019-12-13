@@ -4,44 +4,37 @@ package com.leasing.communication.entity.vo;
 import com.leasing.common.base.entity.BaseVO;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * Title: 租赁账户管理系统<br>
- * Description: 计提主表(中投)类<br>
- * Copyright: Copyright (c) 2010<br>
- * Company: UFIDA<br>
- *
- * @author
- * @version
+ * Description: 计提主表 共前台单独查询子表数据用 为了减少不必要的字段查询
  */
 @Entity
-@Table(name="yls_lease_accrued")
+@Table(name="yc_accrued")
 public class AccruedChildVO extends BaseVO {
 
     /**
      * 主键
      */
     @Id
-    public String pkLeaseAccrued;
+    public String pkAccrued;
 
 
     /**
      * 计提子表(中投)
      */
     @OneToMany(orphanRemoval=true, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name="pkLeaseAccrued")
-    public List<AccruedBVO> leaseAccruedB;
+    @JoinColumn(name="pkAccrued")
+    public List<AccruedDetailVO> pkAccruedDetail;
 
     @Override
     public String getPk() {
-        return pkLeaseAccrued;
+        return pkAccrued;
     }
 
     @Override
     public void setPk(String pk) {
-        this.pkLeaseAccrued = pk;
+        this.pkAccrued = pk;
     }
 
     /**
@@ -50,20 +43,20 @@ public class AccruedChildVO extends BaseVO {
     public AccruedChildVO() {
     }
 
-    public String getPkLeaseAccrued() {
-        return pkLeaseAccrued;
+    public String getPkAccrued() {
+        return pkAccrued;
     }
 
-    public void setPkLeaseAccrued(String pkLeaseAccrued) {
-        this.pkLeaseAccrued = pkLeaseAccrued;
+    public void setPkAccrued(String pkAccrued) {
+        this.pkAccrued = pkAccrued;
     }
 
-    public List<AccruedBVO> getLeaseAccruedB() {
-        return leaseAccruedB;
+    public List<AccruedDetailVO> getPkAccruedDetail() {
+        return pkAccruedDetail;
     }
 
-    public void setLeaseAccruedB(List<AccruedBVO> leaseAccruedB) {
-        this.leaseAccruedB = leaseAccruedB;
+    public void setPkAccruedDetail(List<AccruedDetailVO> pkAccruedDetail) {
+        this.pkAccruedDetail = pkAccruedDetail;
     }
 }
 

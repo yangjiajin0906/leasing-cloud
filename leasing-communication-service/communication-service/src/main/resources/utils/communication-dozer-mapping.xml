@@ -72,41 +72,41 @@
     </mapping>
 
 
-    <!--<mapping wildcard="true">-->
-        <!--<class-a>com.leasing.communication.entity.vo.AccruedVO</class-a>-->
-        <!--<class-b>com.leasing.communication.entity.dos.AccruedDO</class-b>-->
-        <!--<field-exclude>-->
-            <!--<a>pkCorp.pkOrg</a>-->
-            <!--<b>pkCorp</b>-->
-        <!--</field-exclude>-->
-        <!--<field-exclude>-->
-            <!--<a>pkOrg.pkOrg</a>-->
-            <!--<b>pkOrg</b>-->
-        <!--</field-exclude>-->
-        <!--<field-exclude>-->
-            <!--<a>pkChecker.pk_user</a>-->
-            <!--<b>pkChecker</b>-->
-        <!--</field-exclude>-->
-        <!--<field-exclude>-->
-            <!--<a>pkGrantor.pk_user</a>-->
-            <!--<b>pkGrantor</b>-->
-        <!--</field-exclude>-->
-    <!--</mapping>-->
+    <mapping wildcard="true" map-null="false">
+        <class-a>com.leasing.communication.entity.vo.AccruedVO</class-a>
+        <class-b>com.leasing.communication.entity.dos.AccruedDO</class-b>
+        <field-exclude>
+            <a>pkCorp.pkOrg</a>
+            <b>pkCorp</b>
+        </field-exclude>
+        <field-exclude>
+            <a>pkChecker.pk_user</a>
+            <b>pkChecker</b>
+        </field-exclude>
+        <field-exclude>
+            <a>pkGrantor.pk_user</a>
+            <b>pkGrantor</b>
+        </field-exclude>
+        <field-exclude>
+            <a>pkOrg.pkOrg</a>
+            <b>pkOrg</b>
+        </field-exclude>
+    </mapping>
 
-    <!--<mapping wildcard="true">-->
-        <!--<class-a>com.leasing.communication.entity.vo.AccruedBVO</class-a>-->
-        <!--<class-b>com.leasing.communication.entity.dos.AccruedBDO</class-b>-->
-        <!--<field-exclude>-->
-            <!--<a>pkCustomer.pkCustomer</a>-->
-            <!--<b>pkCustomer</b>-->
-        <!--</field-exclude>-->
-        <!--<field-exclude>-->
-            <!--<a>pkContract.pkContract</a>-->
-            <!--<b>pkContract</b>-->
-        <!--</field-exclude>-->
-        <!--<field-exclude>-->
-            <!--<a>pkCurrtype.pkCurrtype</a>-->
-            <!--<b>pkCurrtype</b>-->
-        <!--</field-exclude>-->
-    <!--</mapping>-->
+    <mapping wildcard="true" map-null="false">
+        <class-a>com.leasing.communication.entity.vo.AccruedDetailVO</class-a>
+        <class-b>com.leasing.communication.entity.dos.AccruedDetailDO</class-b>
+        <field-exclude>
+            <a>pkCustomer.pkCustomer</a>
+            <b>pkCustomer</b>
+        </field-exclude>
+        <field-exclude>
+            <a>pkContract.pkContract</a>
+            <b>pkContract</b>
+        </field-exclude>
+        <field-exclude>
+            <a>pkCurrtype.pkCurrtype</a>
+            <b>pkCurrtype</b>
+        </field-exclude>
+    </mapping>
 </mappings>

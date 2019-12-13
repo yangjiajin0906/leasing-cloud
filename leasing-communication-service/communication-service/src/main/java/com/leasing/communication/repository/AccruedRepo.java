@@ -64,6 +64,6 @@ public interface AccruedRepo extends BaseRepository<AccruedDO,AccruedQuery,Accru
 
 //    @Modifying
 //    @Transactional
-//    @Query(value = "update AccrualCDO set ifBegin = :ifBegin where sourceBill = :sourceBill and month= : month")
-//    void batchUpdate(List<AccrualCDO> accrualCVOList);
+//    @Query(value = "update AccrualDO set ifBegin = :ifBegin where sourceBill = :sourceBill and month= : month")
+//    void batchUpdate(List<AccrualDO> accrualCVOList);
 }
