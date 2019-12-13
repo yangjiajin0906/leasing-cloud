@@ -742,7 +742,7 @@ public class CalculatorVO extends BaseBusinessVO {
      * 投放计划（子表）
      */
     @Transient
-    public List<LeaseLoanPlanDO> leaseLoanPlan;
+    public List<LeaseLoanPlanVO> leaseLoanPlan;
 
     /**
      * 收支计划（子表）市场  --存储
@@ -2066,11 +2066,11 @@ public class CalculatorVO extends BaseBusinessVO {
         this.grantTime = grantTime;
     }
 
-    public List<LeaseLoanPlanDO> getLeaseLoanPlan() {
+    public List<LeaseLoanPlanVO> getLeaseLoanPlan() {
         return leaseLoanPlan;
     }
 
-    public void setLeaseLoanPlan(List<LeaseLoanPlanDO> leaseLoanPlan) {
+    public void setLeaseLoanPlan(List<LeaseLoanPlanVO> leaseLoanPlan) {
         this.leaseLoanPlan = leaseLoanPlan;
     }
 

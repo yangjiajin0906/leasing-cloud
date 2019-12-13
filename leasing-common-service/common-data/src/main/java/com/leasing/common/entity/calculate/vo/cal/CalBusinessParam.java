@@ -1577,4 +1577,17 @@ public class CalBusinessParam {
         this.pk_fixed_chose = pk_fixed_chose;
     }
 
+    /**
+     * 报价类型（0：租赁;1 保理）
+     */
+    public Short cal_type;
+
+    public Short getCal_type() {
+        return cal_type;
+    }
+
+    public void setCal_type(Short cal_type) {
+        this.cal_type = cal_type;
+    }
+
 }

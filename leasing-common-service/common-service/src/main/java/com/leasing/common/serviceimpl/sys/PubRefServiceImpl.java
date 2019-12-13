@@ -1,10 +1,14 @@
 package com.leasing.common.serviceimpl.sys;
 
+import com.leasing.common.base.repository.refpository.EventTypeRefRepo;
 import com.leasing.common.base.repository.refpository.OrgRefRepo;
 import com.leasing.common.base.repository.support.PageQueryRefData;
 import com.leasing.common.base.repository.support.Pagination;
+import com.leasing.common.entity.common.query.EventTypeQuery;
 import com.leasing.common.entity.common.query.OrgQuery;
+import com.leasing.common.entity.common.ref.EventTypeRefVO;
 import com.leasing.common.refvo.base.OrgrefVO;
+import com.leasing.common.repository.sys.EventTypeRepo;
 import com.leasing.common.service.sys.PubRefService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,8 @@ import java.util.List;
 public class PubRefServiceImpl implements PubRefService {
     @Autowired
     OrgRefRepo orgRefRepo;
+    @Autowired
+    EventTypeRefRepo eventTypeRepo;
 
     @Override
     public PageQueryRefData<OrgrefVO> findOrgTableRef(Pagination pagination, OrgQuery orgQuery,String queryName){
@@ -46,6 +52,13 @@ public class PubRefServiceImpl implements PubRefService {
         resultlist = new ArrayList<>();
         resultlist.add(root);
         return resultlist;
+    }
+
+    @Override
+    public List<EventTypeRefVO> listEventTypeRef(String queryName){
+        EventTypeQuery query = new EventTypeQuery();
+        EventTypeRefVO vo = new EventTypeRefVO();
+        return eventTypeRepo.pageQueryRefData(query, queryName, vo);
     }
 
     //建立树节点参照树

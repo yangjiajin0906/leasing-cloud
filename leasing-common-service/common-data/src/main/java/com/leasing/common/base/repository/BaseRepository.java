@@ -111,4 +111,6 @@ public interface BaseRepository<T, Q, V, ID> extends JpaRepositoryImplementation
 
     <S extends BaseRefVO> PageQueryRefData<S> pageQueryRefData(Pagination pagination, Q query, String queryName, S entity);
 
+    <S extends BaseRefVO> List<S> pageQueryRefData(Q query, String queryName, S entity);
+
 }

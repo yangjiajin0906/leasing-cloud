@@ -1,8 +1,8 @@
 spring:
   cloud:
     config:
-      name: application,bootstrap
-      profile: sys,db
+      name: application,bootstrap,bootstrap
+      profile: sys,db,oid
       discovery:
         enabled: true
         serviceId: leasing-config-server
