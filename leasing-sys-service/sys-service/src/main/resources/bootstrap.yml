@@ -1,7 +1,7 @@
 spring:
   cloud:
     config:
-      name: application,bootstrap
+      name: application,bootstrap,bootstrap
       profile: sys,db,oid
       discovery:
         enabled: true

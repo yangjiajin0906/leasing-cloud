@@ -1,6 +1,11 @@
 package com.leasing.common.utils.tools;
 
+import com.leasing.common.entity.sys.vo.ParameterVO;
+import com.leasing.common.enums.base.EnumType;
+import com.leasing.common.utils.sys.ParamTypeUtils;
+
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @project:leasing-cloud
@@ -74,4 +79,26 @@ public class DocumentConvertUtil {
         }
         return chineseNumber.toString();
     }
+
+    /**
+     * Description: 转换枚举值到名称<br>  因目前无法获取系统参数
+     * nc.util.lease.DocumentConvertUtil.convertEnum(java.lang.Short,java.lang.
+     * @param type
+     * @param val
+     */
+    public static String convertEnum(Short val, String type) {
+        if (val == null) {
+            return "";
+        }
+        List<ParameterVO> list = ParamTypeUtils.findByParamCode(type);
+        if(list != null){
+            for(ParameterVO vo : list){
+                if(Integer.parseInt(vo.getParamValue()) == val.intValue()){
+                    return vo.getParamName();
+                }
+            }
+        }
+        return val.toString();
+    }
+
 }

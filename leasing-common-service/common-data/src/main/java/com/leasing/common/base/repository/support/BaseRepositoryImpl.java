@@ -221,4 +221,12 @@ public class BaseRepositoryImpl<T extends BaseEntity, Q extends BaseQuery, V ext
         pageQueryRefData.setPageCount(pageQueryData.getPageCount());
         return pageQueryRefData;
     }
+
+    @Override
+    public <S extends BaseRefVO> List<S> pageQueryRefData(Q query, String queryName, S entity){
+        PageQueryData<V> pageQueryData = this.pageQuerySupport(null, query, queryName, false);
+        List<S> resultlist = pageQueryData.getPageData();
+        return resultlist;
+    }
+
 }

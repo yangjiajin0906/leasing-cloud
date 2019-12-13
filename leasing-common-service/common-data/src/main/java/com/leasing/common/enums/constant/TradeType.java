@@ -230,4 +230,17 @@ public class TradeType {
 
     /** 保理-融资本金 编号*/
     public static final String FINANCING_PRINCIPAL = "51306";
+
+    /** 保理-保证金冲抵 编号*/
+    public static final String FACTORING_TRADETYPE_DEPOSIT_RENT = "51307";
+
+    /** 保理-保证金退回 编号*/
+    public static final String FACTORING_TRADETYPE_DEPOSIT_BACK = "51308";
+
+    /** 保理-保证金 编号*/
+    public static final String FACTORING_TRADETYPE_DEPOSIT_INCOME = "51304";
+
+    /** 保理-中间业务费 编号*/
+    public static final String MIDDLE_SERVICE_CHARGE = "51305";
+
 }

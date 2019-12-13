@@ -2,7 +2,9 @@ package com.leasing.common.service.sys;
 
 import com.leasing.common.base.repository.support.PageQueryRefData;
 import com.leasing.common.base.repository.support.Pagination;
+import com.leasing.common.entity.common.query.EventTypeQuery;
 import com.leasing.common.entity.common.query.OrgQuery;
+import com.leasing.common.entity.common.ref.EventTypeRefVO;
 import com.leasing.common.refvo.base.OrgrefVO;
 
 import java.util.List;
@@ -31,5 +33,10 @@ public interface PubRefService {
      * @return
      */
     List<OrgrefVO> findOrgTreeRef(OrgQuery orgQuery, String queryName);
+
+    /**
+     * 查询事件类别参照
+     */
+    List<EventTypeRefVO> listEventTypeRef(String queryName);
 
 }

@@ -205,5 +205,33 @@
         </query>
     </named-query>
 
+    <named-native-query name="getIrrEventInfo" result-set-mapping="IrrEventMapping">
+        <query>
+            SELECT DISTINCT M.IRR_TYPE_NAME, T.EVENT_CODE, SUB.VAL
+            FROM YLS_IRR_EVENT_SET SUB
+            INNER JOIN YLS_IRR_TYPE M ON M.PK_IRR_TYPE = SUB.PK_IRR_TYPE
+            INNER JOIN YLS_EVENT_TYPE T ON SUB.PK_EVENT_TYPE = T.PK_EVENT_TYPE
+            ORDER BY M.IRR_TYPE_NAME
+        </query>
+    </named-native-query>
+
+    <sql-result-set-mapping name="IrrEventMapping">
+        <column-result name="IRR_TYPE_NAME" />
+        <column-result name="EVENT_CODE" />
+        <column-result name="VAL" />
+    </sql-result-set-mapping>
+
+    <named-query name="EventRefQuery">
+        <query>
+            select p from EventTypeRefVO p
+        </query>
+    </named-query>
+
+    <named-query name="EventRefQuery.count">
+        <query>
+            select count(p.pkEventType) from EventTypeRefVO p
+        </query>
+    </named-query>
+
 
 </entity-mappings>

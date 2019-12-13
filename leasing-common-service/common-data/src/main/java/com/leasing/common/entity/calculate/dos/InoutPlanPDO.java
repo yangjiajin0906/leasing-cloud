@@ -761,4 +761,27 @@ public class InoutPlanPDO extends BaseDO {
     public void setPk(String pk) {
         this.pkInoutPlan = pk;
     }
+
+    /**
+     * 会计分摊表显示事件
+     *
+     */
+    public String rentMemo;
+    public String rentEventType;
+
+    public String getRentMemo() {
+        return rentMemo;
+    }
+
+    public void setRentMemo(String rentMemo) {
+        this.rentMemo = rentMemo;
+    }
+
+    public String getRentEventType() {
+        return rentEventType;
+    }
+
+    public void setRentEventType(String rentEventType) {
+        this.rentEventType = rentEventType;
+    }
 }

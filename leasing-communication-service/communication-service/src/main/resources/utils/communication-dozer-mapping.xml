@@ -109,4 +109,42 @@
             <b>pkCurrtype</b>
         </field-exclude>
     </mapping>
+
+
+    <mapping wildcard="true" map-null="false">
+        <class-a>java.util.LinkedHashMap</class-a>
+        <class-b>com.leasing.communication.entity.vo.AccrualVO</class-b>
+        <field>
+            <a>pk_accrual</a>
+            <b>pkAccrual</b>
+        </field>
+        <field>
+            <a>busi_type</a>
+            <b>busiType</b>
+        </field>
+        <field>
+            <a>service_date</a>
+            <b>serviceDate</b>
+        </field>
+        <field>
+            <a>service_cash</a>
+            <b>serviceCash</b>
+        </field>
+        <field>
+            <a>source_bill</a>
+            <b>sourceBill</b>
+        </field>
+        <field>
+            <a>source_billtype</a>
+            <b>sourceBilltype</b>
+        </field>
+        <field>
+            <a>cal_date</a>
+            <b>calDate</b>
+        </field>
+        <field-exclude>
+            <a>ts</a>
+            <b>ts</b>
+        </field-exclude>
+    </mapping>
 </mappings>

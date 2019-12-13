@@ -1,14 +1,14 @@
-package com.leasing.communication.calculate.utils;
+package com.leasing.common.utils.arithmetic;
 
-import com.leasing.communication.common.entity.calculate.vo.cal.ArithmeticCoreDayParam;
-import com.leasing.communication.common.entity.calculate.vo.cal.ArithmeticCoreParam;
-import com.leasing.communication.common.entity.calculate.vo.cal.CalArithmeticVO;
-import com.leasing.communication.common.entity.calculate.vo.base.LeaseLoanPlanVO;
-import com.leasing.communication.common.enums.arithmetic.Lease_Cal_Method;
-import com.leasing.communication.common.enums.arithmetic.Payment_Frequency;
-import com.leasing.communication.common.enums.arithmetic.Year_Days;
-import com.leasing.communication.common.enums.base.Direction;
-import com.leasing.communication.common.utils.base.UFDate;
+import com.leasing.common.entity.calculate.vo.base.LeaseLoanPlanVO;
+import com.leasing.common.entity.calculate.vo.cal.ArithmeticCoreDayParam;
+import com.leasing.common.entity.calculate.vo.cal.ArithmeticCoreParam;
+import com.leasing.common.entity.calculate.vo.cal.CalArithmeticVO;
+import com.leasing.common.enums.arithmetic.Lease_Cal_Method;
+import com.leasing.common.enums.arithmetic.Payment_Frequency;
+import com.leasing.common.enums.arithmetic.Year_Days;
+import com.leasing.common.enums.base.Direction;
+import com.leasing.common.utils.base.UFDate;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
