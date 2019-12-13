@@ -7,6 +7,7 @@ import com.leasing.common.base.web.ResResult;
 import com.leasing.common.entity.customer.dto.OrgDTO;
 import com.leasing.common.enums.base.Billstatus;
 import com.leasing.common.utils.base.DateUtils;
+import com.leasing.common.utils.base.ObjectUtil;
 import com.leasing.common.utils.sys.ResultUtils;
 import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.communication.entity.dos.AccruedDetailDO;
@@ -14,6 +15,7 @@ import com.leasing.communication.entity.dos.AccruedDO;
 import com.leasing.communication.entity.dos.CbCapitalDetailDO;
 import com.leasing.communication.entity.dto.FileOssLogDTO;
 import com.leasing.communication.entity.query.AccruedQuery;
+import com.leasing.communication.entity.query.CbOverdueContractQuery;
 import com.leasing.communication.entity.vo.AccruedChildVO;
 import com.leasing.communication.entity.vo.AccruedVO;
 import com.leasing.communication.repository.CbCapitalDetailRepo;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @project:leasing-cloud
@@ -42,9 +45,15 @@ public class AccruedController {
 
     @RequestMapping(value = "/queryForGrid")
     public ResResult pageQuery(@RequestBody(required = false) String data){
-        AccruedQuery leaseAccruedQuery = new AccruedQuery();
-        Pagination pagination = new Pagination(1, 50);
-        PageQueryData<AccruedVO> pageQueryData = leaseAccruedService.pageQuery(pagination,leaseAccruedQuery,"accruedRepo.pageQuery");
+        Map<String,Object> map = JSON.parseObject(data,Map.class);
+        Pagination pagination = JSON.parseObject(data,Pagination.class);
+        Object queryData = map.get("queryData");
+        AccruedQuery accruedQuery = new AccruedQuery();
+        if(!ObjectUtil.isEmpty(queryData)){
+            accruedQuery = JSON.parseObject(map.get("queryData").toString(),AccruedQuery.class);
+            accruedQuery.setAccrualMonth(accruedQuery.getAccrualMonth().substring(0, 7));
+        }
+        PageQueryData<AccruedVO> pageQueryData = leaseAccruedService.pageQuery(pagination,accruedQuery,"accruedRepo.pageQuery");
         return ResultUtils.successWithData(pageQueryData);
     }
 
@@ -68,7 +77,9 @@ public class AccruedController {
     @RequestMapping(value = "/save")
     public ResResult save(@RequestBody(required = false) String data){
         AccruedVO vo = JSON.parseObject(data,AccruedVO.class);
-        AccruedDO dos = DozerUtils.convert(vo,AccruedDO.class);
+        AccruedDO dos = JSON.parseObject(JSON.toJSONString(vo),AccruedDO.class);
+        dos.setPkOrg(vo.getPkOrg().getRefpk());
+        dos.setPkCorp(vo.getPkOrg().getRefpk());
         dos.setBillstatus(Billstatus.INITALIZE.getShort());
         String currentMonth = vo.getAccrualMonth().substring(0, 7);
         dos.setAccrualMonth(currentMonth);
@@ -76,7 +87,9 @@ public class AccruedController {
         dos.setOperateDate(DateUtils.getCurDate());
         List<AccruedDetailDO> list = new ArrayList();
         for(int i = 0; i<vo.getPkAccruedDetail().size(); i++){
-            AccruedDetailDO accruedBDO = DozerUtils.convert(vo.getPkAccruedDetail().get(i),AccruedDetailDO.class);
+            AccruedDetailDO accruedBDO = dos.getPkAccruedDetail().get(i);
+            accruedBDO.setPkContract(vo.getPkAccruedDetail().get(i).getPkContract().getPkContract());
+            accruedBDO.setPkCurrtype(vo.getPkAccruedDetail().get(i).getPkCurrtype().getPkCurrtype());
             list.add(accruedBDO);
         }
         dos.setPkAccruedDetail(list);
@@ -101,6 +114,8 @@ public class AccruedController {
     public void test() {
         CbCapitalDetailDO detailDO = cbCapitalDetailRepo.findOne("5de967023ab847d9b74b");
         detailDO.setCurrtypecode("CNY");
-        DemoForOutSysClient.addFlow(detailDO);
+        detailDO.setCustomerCode("01166");
+        detailDO.setContCode("003-ZL-DX-2009001");
+        DemoForOutSysClient.addFlow(detailDO,"6");
     }
 }

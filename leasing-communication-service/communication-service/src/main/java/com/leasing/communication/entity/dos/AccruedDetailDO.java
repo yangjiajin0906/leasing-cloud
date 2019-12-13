@@ -36,8 +36,10 @@ public class AccruedDetailDO extends BaseDO {
     /**
      * 客户code
      */
-    @Transient
     public String customerCode;
+
+    public String customerName;
+
     /**
      * 合同
      */
@@ -51,6 +53,11 @@ public class AccruedDetailDO extends BaseDO {
      * 资产状态
      */
     public String assetStatus;
+
+    /**
+     * 起租流程
+     */
+    public Short leaseFlow;
     /**
      * 资产五级分类
      */
@@ -92,21 +99,6 @@ public class AccruedDetailDO extends BaseDO {
      * 核算主体
      */
     public String pkGlorgbook;
-
-    public AccruedDetailDO(String customerCode, String contractCode, String assetStatus, Short assetsClassify, String accruedMonth, BigDecimal interestAmount, BigDecimal feeAmount, BigDecimal otherIncomeAmount, BigDecimal otherExpensesAmount, String currtypecode, BigDecimal exchgRate, String pkGlorgbook) {
-        this.customerCode = customerCode;
-        this.contractCode = contractCode;
-        this.assetStatus = assetStatus;
-        this.assetsClassify = assetsClassify;
-        this.accruedMonth = accruedMonth;
-        this.interestAmount = interestAmount;
-        this.feeAmount = feeAmount;
-        this.otherIncomeAmount = otherIncomeAmount;
-        this.otherExpensesAmount = otherExpensesAmount;
-        this.currtypecode = currtypecode;
-        this.exchgRate = exchgRate;
-        this.pkGlorgbook = pkGlorgbook;
-    }
 
     /**
      * 类LeaseAccruedBVO的构造方法
@@ -242,6 +234,46 @@ public class AccruedDetailDO extends BaseDO {
     @Override
     public void setPk(String pk) {
         this.pkAccruedDetail = pk;
+    }
+
+    public String getCustomerCode() {
+        return customerCode;
+    }
+
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getContractCode() {
+        return contractCode;
+    }
+
+    public void setContractCode(String contractCode) {
+        this.contractCode = contractCode;
+    }
+
+    public Short getLeaseFlow() {
+        return leaseFlow;
+    }
+
+    public void setLeaseFlow(Short leaseFlow) {
+        this.leaseFlow = leaseFlow;
+    }
+
+    public String getCurrtypecode() {
+        return currtypecode;
+    }
+
+    public void setCurrtypecode(String currtypecode) {
+        this.currtypecode = currtypecode;
     }
 }
 

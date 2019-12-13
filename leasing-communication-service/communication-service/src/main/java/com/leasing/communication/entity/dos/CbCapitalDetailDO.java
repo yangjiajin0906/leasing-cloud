@@ -6,6 +6,7 @@ import com.leasing.communication.entity.base.FileBaseBusinessDO;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 
 /**
@@ -48,6 +49,12 @@ public class CbCapitalDetailDO extends FileBaseBusinessDO {
      * 客户名称
      */
     private String customerName;
+
+    /**
+     * 客户编号
+     */
+    @Transient
+    private String customerCode;
 
     /**
      * 单位名称
@@ -172,6 +179,19 @@ public class CbCapitalDetailDO extends FileBaseBusinessDO {
      * 公司主体
      */
     private String companyBody;
+
+    @Transient
+    private String currtypecode;
+
+    public String getCurrtypecode() {
+        return currtypecode;
+    }
+
+    public void setCurrtypecode(String currtypecode) {
+        this.currtypecode = currtypecode;
+    }
+
+
 
     @Override
     public String getPk() {
@@ -430,5 +450,13 @@ public class CbCapitalDetailDO extends FileBaseBusinessDO {
 
     public void setCompanyBody(String companyBody) {
         this.companyBody = companyBody;
+    }
+
+    public String getCustomerCode() {
+        return customerCode;
+    }
+
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
     }
 }

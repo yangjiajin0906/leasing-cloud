@@ -43,6 +43,7 @@ import java.math.BigDecimal;
         "        G.Customer_Name,\n" +
         "        G.lease_Flow,\n" +
         "        --G.PK_CUSTOMER, --客户主键\n" +
+        "        G.CUSTOMER_CODE, --客户编码\n" +
         "        G.EXCHG_RATE, --汇率\n" +
         "        G.CONT_STATUS        \n" +
         "        FROM YC_ACCRUAL A\n" +
@@ -94,14 +95,14 @@ public class AccrualForAccruedPageRefVO {
     public BigDecimal bus;
 
     /**
-     * 客户
+     * 客户code
      */
-    @ManyToOne()
-    @JoinColumn(name="pkCustomer")
-    @Transient
-    public CustomerDTO pkCustomer;
+    public String customerCode;
 
-    //public String pkCustomer;
+//    @ManyToOne()
+//    @JoinColumn(name="pkCustomer")
+//    public String pkCustomer;
+
     public String customerName;
     /**
      * 合同
@@ -314,12 +315,12 @@ public class AccrualForAccruedPageRefVO {
         this.mon = mon;
     }
 
-    public CustomerDTO getPkCustomer() {
-        return pkCustomer;
+    public String getCustomerCode() {
+        return customerCode;
     }
 
-    public void setPkCustomer(CustomerDTO pkCustomer) {
-        this.pkCustomer = pkCustomer;
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
     }
 
     public ContractDTO getPkContract() {

@@ -43,7 +43,6 @@ public class CbBadContractController {
         if(!ObjectUtil.isEmpty(queryData)){
             baseQuery = JSON.parseObject(map.get("queryData").toString(),CbOverdueContractQuery.class);
         }
-        //Pagination pagination = new Pagination(Integer.valueOf(map.get("pageIndex").toString()), Integer.valueOf(map.get("pageSize").toString()));
         PageQueryData<CbBadContractVO> pageQueryData = cbBadContractService.pageQuery(pagination,baseQuery,"cbBadContractRepo.pageQuery");
         return ResultUtils.successWithData(pageQueryData);
     }

@@ -153,12 +153,14 @@ public class CbFileOssServiceImpl implements CbFileOssService {
             String beanName = fileImpParam.getBeanName();
             String busiType = busyTypeMap.get(fileImpParam.getImpType());
             CbFileImpService cbFileImpService = (CbFileImpService)SpringUtils.getBean(beanName);
-            for(OSSObject ossObject : fileImpParam.getFileList()){
-                FileOssLogDTO logDTO = cbFileImpService.dataImp(ossObject);
-                if(logDTO.getFlag()){
-                    logDTO.setLogMsg("业务类型" + busiType + ",导入文件名称为" + ossObject.getKey() + "文件导入成功!");
+            if(fileImpParam.getFileList() != null){
+                for(OSSObject ossObject : fileImpParam.getFileList()){
+                    FileOssLogDTO logDTO = cbFileImpService.dataImp(ossObject);
+                    if(logDTO.getFlag()){
+                        logDTO.setLogMsg("业务类型" + busiType + ",导入文件名称为" + ossObject.getKey() + "文件导入成功!");
+                    }
+                    logDTOS.add(logDTO);
                 }
-                logDTOS.add(logDTO);
             }
         }
         return logDTOS;

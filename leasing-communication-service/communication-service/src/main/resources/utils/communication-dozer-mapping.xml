@@ -80,11 +80,11 @@
             <b>pkCorp</b>
         </field-exclude>
         <field-exclude>
-            <a>pkChecker.pk_user</a>
+            <a>pkChecker.pkUser</a>
             <b>pkChecker</b>
         </field-exclude>
         <field-exclude>
-            <a>pkGrantor.pk_user</a>
+            <a>pkGrantor.pkUser</a>
             <b>pkGrantor</b>
         </field-exclude>
         <field-exclude>

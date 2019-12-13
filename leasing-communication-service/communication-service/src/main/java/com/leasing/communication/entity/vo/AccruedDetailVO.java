@@ -37,7 +37,11 @@ public class AccruedDetailVO extends BaseDO {
     @JoinColumn(name="pkCustomer")
     public CustomerDTO pkCustomer;
 
-    @Transient
+    /**
+     * 客户编码
+     */
+    public String customerCode;
+
     public String customerName;
 
     /**
@@ -56,7 +60,6 @@ public class AccruedDetailVO extends BaseDO {
     /**
      * 起租流程
      */
-    @Transient
     public Short leaseFlow;
 
     /**
@@ -248,6 +251,14 @@ public class AccruedDetailVO extends BaseDO {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public String getCustomerCode() {
+        return customerCode;
+    }
+
+    public void setCustomerCode(String customerCode) {
+        this.customerCode = customerCode;
     }
 }
 

@@ -162,37 +162,35 @@ public class AccruedServiceImpl implements AccruedService {
         BigDecimal other_income_amount = BigDecimal.ZERO;// 其他收入
         BigDecimal other_expenses_amount = BigDecimal.ZERO;// 其他支出
         for (AccrualForAccruedPageRefVO pageRefVO : list) {
-            if (vo.getAccrualMonth().equals(pageRefVO.getMonth())) {
-                AccruedDetailVO bvo = new AccruedDetailVO();
-                bvo.setPkAccrual(pageRefVO.getPkAccrual());
-                bvo.setPkAccrued(vo.getPkAccrued());
-                bvo.setPkContract(pageRefVO.getPkContract());// 合同
-                bvo.setPkCustomer(pageRefVO.getPkCustomer());// 客户
-                bvo.setCustomerName(pageRefVO.getCustomerName());// 客户名字
-                bvo.setLeaseFlow(pageRefVO.getLeaseFlow());//起租流程
-                bvo.setAssetsClassify(pageRefVO.getAssetsClassify());// 资产五级分类
-                bvo.setAccruedMonth(pageRefVO.getMonth());// 计提月份
-                bvo.setPkCurrtype(pageRefVO.pkCurrtype);// 币种
-                bvo.setExchgRate(pageRefVO.getExchgRate());// 汇率
-                bvo.setPkGlorgbook(pageRefVO.getPkGlorgbook());// 核算主体
-                bvo.setInterestAmount(pageRefVO.getInter());// 利息计提
-                bvo.setFeeAmount(pageRefVO.getSrv());// 手续费计提
-                bvo.setOtherIncomeAmount(pageRefVO.getPri());// 其他收入
-                bvo.setOtherExpensesAmount(pageRefVO.getBus());// 其他支出
-                resultList.add(bvo);
-                //把字表数据相加
-                if (bvo.getInterestAmount() != null) {
-                    interest_amount = interest_amount.add(bvo.getInterestAmount());
-                }
-                if (bvo.getFeeAmount() != null) {
-                    fee_amount = fee_amount.add(bvo.getFeeAmount());
-                }
-                if (bvo.getOtherIncomeAmount() != null) {
-                    other_income_amount = other_income_amount.add(bvo.getOtherIncomeAmount());
-                }
-                if (bvo.getOtherExpensesAmount() != null) {
-                    other_expenses_amount = other_expenses_amount.add(bvo.getOtherExpensesAmount());
-                }
+            AccruedDetailVO bvo = new AccruedDetailVO();
+            bvo.setPkAccrual(pageRefVO.getPkAccrual());
+            bvo.setPkAccrued(vo.getPkAccrued());
+            bvo.setPkContract(pageRefVO.getPkContract());// 合同
+            bvo.setCustomerCode(pageRefVO.getCustomerCode());// 客户
+            bvo.setCustomerName(pageRefVO.getCustomerName());// 客户名字
+            bvo.setLeaseFlow(pageRefVO.getLeaseFlow());//起租流程
+            bvo.setAssetsClassify(pageRefVO.getAssetsClassify());// 资产五级分类
+            bvo.setAccruedMonth(pageRefVO.getMonth());// 计提月份
+            bvo.setPkCurrtype(pageRefVO.pkCurrtype);// 币种
+            bvo.setExchgRate(pageRefVO.getExchgRate());// 汇率
+            bvo.setPkGlorgbook(pageRefVO.getPkGlorgbook());// 核算主体
+            bvo.setInterestAmount(pageRefVO.getInter());// 利息计提
+            bvo.setFeeAmount(pageRefVO.getSrv());// 手续费计提
+            bvo.setOtherIncomeAmount(pageRefVO.getPri());// 其他收入
+            bvo.setOtherExpensesAmount(pageRefVO.getBus());// 其他支出
+            resultList.add(bvo);
+            //把字表数据相加
+            if (bvo.getInterestAmount() != null) {
+                interest_amount = interest_amount.add(bvo.getInterestAmount());
+            }
+            if (bvo.getFeeAmount() != null) {
+                fee_amount = fee_amount.add(bvo.getFeeAmount());
+            }
+            if (bvo.getOtherIncomeAmount() != null) {
+                other_income_amount = other_income_amount.add(bvo.getOtherIncomeAmount());
+            }
+            if (bvo.getOtherExpensesAmount() != null) {
+                other_expenses_amount = other_expenses_amount.add(bvo.getOtherExpensesAmount());
             }
         }
         vo.setPkAccruedDetail(resultList);

@@ -64,11 +64,11 @@
         </dependency>
         <!-- springbott 集成redis的依赖-->
         <!-- 自添加oracle的依赖-->
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
-            <version>11.2.0.1.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.oracle</groupId>-->
+            <!--<artifactId>ojdbc6</artifactId>-->
+            <!--<version>11.2.0.1.0</version>-->
+        <!--</dependency>-->
         <!--自动生成getter setter方法-->
         <dependency>
             <groupId>org.projectlombok</groupId>
