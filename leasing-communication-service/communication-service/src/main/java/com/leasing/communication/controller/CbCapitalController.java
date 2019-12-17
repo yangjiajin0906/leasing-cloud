@@ -4,16 +4,16 @@ import com.alibaba.fastjson.JSON;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
+import com.leasing.common.utils.base.ObjectUtil;
 import com.leasing.common.utils.sys.ResultUtils;
+import com.leasing.communication.entity.query.AccruedQuery;
 import com.leasing.communication.entity.query.CbCapitalQuery;
 import com.leasing.communication.service.CbCapitalService;
 import com.leasing.communication.service.CbFileOssService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Map;
 
 /**
  * @project:leasing-cloud
@@ -38,12 +38,14 @@ public class CbCapitalController {
      * @return 分页列表
      */
     @PostMapping(value = "/list")
-    public ResResult list(@RequestParam(required = false, defaultValue = "1", name = "page") Integer page,
-                          @RequestParam(required = false, defaultValue = "20", name = "pageSize") Integer pageSize,
-                          @RequestParam(required = false, name = "data") String data) {
-
-        CbCapitalQuery queryVO = JSON.parseObject(data, CbCapitalQuery.class);
-        Pagination pagination = new Pagination(page, pageSize);
+    public ResResult list(@RequestBody(required = false) String data) {
+        Map<String,Object> map = JSON.parseObject(data,Map.class);
+        Pagination pagination = JSON.parseObject(data,Pagination.class);
+        Object queryData = map.get("queryData");
+        CbCapitalQuery queryVO = new CbCapitalQuery();
+        if(!ObjectUtil.isEmpty(queryData)){
+            queryVO = JSON.parseObject(map.get("queryData").toString(),CbCapitalQuery.class);
+        }
         PageQueryData pageQueryData = service.pageQuery(pagination, queryVO);
         return ResultUtils.successWithData(pageQueryData);
     }

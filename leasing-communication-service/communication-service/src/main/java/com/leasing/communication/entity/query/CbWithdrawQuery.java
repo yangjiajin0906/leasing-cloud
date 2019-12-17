@@ -13,16 +13,16 @@ import com.leasing.common.enums.base.MatchType;
 public class CbWithdrawQuery extends BaseQuery {
 
     /**
-     * 合同编号
+     * 批次号
      */
-    @QueryCondition(func = MatchType.like,field = "contCode")
-    private String contCode;
+    @QueryCondition(func = MatchType.like,field = "payment_batch_no")
+    private String paymentBatchNo;
 
-    public String getContCode() {
-        return contCode;
+    public String getPaymentBatchNo() {
+        return paymentBatchNo;
     }
 
-    public void setContCode(String contCode) {
-        this.contCode = contCode;
+    public void setPaymentBatchNo(String paymentBatchNo) {
+        this.paymentBatchNo = paymentBatchNo;
     }
 }

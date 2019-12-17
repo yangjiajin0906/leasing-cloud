@@ -61,7 +61,7 @@ public class AccruedServiceImpl implements AccruedService {
         UserVO userVO = ClientUtils.getCurUser();//获得当前登录人
         vo.setPkOrg(userVO.getPkOrg());
         vo.setPkCorp(userVO.getPkOrg());
-        vo.setPkOperator(userVO.getPk());
+        vo.setPkOperator(userVO.getPkUser());
         vo.setOperateDate(DateUtils.getCurDate());
         vo.setOperateTime(DateUtils.getCurDateTime());
         vo.setContractType(Short.valueOf("1"));//非电信

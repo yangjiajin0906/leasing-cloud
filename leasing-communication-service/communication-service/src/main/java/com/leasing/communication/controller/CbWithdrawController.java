@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.leasing.common.base.repository.support.PageQueryData;
 import com.leasing.common.base.repository.support.Pagination;
 import com.leasing.common.base.web.ResResult;
+import com.leasing.common.utils.base.ObjectUtil;
 import com.leasing.common.utils.sys.ResultUtils;
+import com.leasing.communication.entity.query.CbCapitalQuery;
 import com.leasing.communication.entity.query.CbWithdrawDetailQuery;
 import com.leasing.communication.entity.query.CbWithdrawQuery;
 import com.leasing.communication.entity.vo.CbWithdrawDetailVO;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @project:leasing-cloud
@@ -35,9 +38,13 @@ public class CbWithdrawController {
      */
     @PostMapping(value = "/list")
     public ResResult list(@RequestBody  String data) {
-
-        CbWithdrawQuery queryVO = JSON.parseObject(data, CbWithdrawQuery.class);
-        Pagination pagination = JSON.parseObject(data, Pagination.class);
+        Map<String,Object> map = JSON.parseObject(data,Map.class);
+        Pagination pagination = JSON.parseObject(data,Pagination.class);
+        Object queryData = map.get("queryData");
+        CbWithdrawQuery queryVO = new CbWithdrawQuery();
+        if(!ObjectUtil.isEmpty(queryData)){
+            queryVO = JSON.parseObject(map.get("queryData").toString(),CbWithdrawQuery.class);
+        }
         PageQueryData pageQueryData = withdrawService.pageQuery(pagination, queryVO);
         return ResultUtils.successWithData(pageQueryData);
 
