@@ -70,4 +70,9 @@ public interface EventTypeService {
      * 根据业务模块及现金流方向获取事件类别列表DTO
      */
     List<EventTypeDTO> ListEventTypeDTOByModuleAndCashDeriction(Short moudle,Short cashDeriction);
+
+    /**
+     * 根据事件类主键获取事件类别
+     */
+    EventTypeDTO eventTypeDTOByPk(String pk);
 }

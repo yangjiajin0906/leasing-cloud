@@ -83,4 +83,13 @@ public class EventTypeUtil {
         return list;
     }
 
+    /**
+     * 根据事件类主键获取事件类别
+     */
+    public static EventTypeDTO eventTypeDTOByPk(String pk){
+        Assert.notNull(pk, "事件类别主键不能为空!");
+        EventTypeDTO eventTypeDTO = eventTypeUtil.eventTypeService.eventTypeDTOByPk(pk);
+        return eventTypeDTO;
+    }
+
 }

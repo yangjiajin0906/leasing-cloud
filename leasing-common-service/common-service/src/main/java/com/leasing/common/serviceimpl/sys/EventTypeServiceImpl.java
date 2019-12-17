@@ -94,5 +94,9 @@ public class EventTypeServiceImpl implements EventTypeService {
         return result;
     }
 
-
+    @Override
+    public EventTypeDTO eventTypeDTOByPk(String pk) {
+        EventTypeDTO eventTypeDTO = eventTypeRepo.eventTypeDTOByPk(pk);
+        return eventTypeDTO;
+    }
 }

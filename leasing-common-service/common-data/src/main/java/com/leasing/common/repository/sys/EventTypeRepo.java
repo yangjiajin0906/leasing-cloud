@@ -40,6 +40,7 @@ public interface EventTypeRepo extends BaseRepository<EventTypeDO, BaseQuery, Ev
     @Query(value = "select e from EventTypeDTO e where e.module = :module and e.cashDeriction = :cashDeriction")
     List<EventTypeDTO> ListEventTypeDTOByModuleAndCashDeriction(@Param("module")Short module,@Param("cashDeriction")Short cashDeriction);
 
-
+    @Query(value = "select e from EventTypeDTO e where e.pkEventType = :pkEventType")
+    EventTypeDTO eventTypeDTOByPk(@Param("pkEventType")String pkEventType);
 
 }
