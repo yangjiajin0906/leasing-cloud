@@ -1,7 +1,6 @@
 package com.leasing.communication.service;
 
-import com.leasing.communication.entity.dos.ContractDO;
-import com.leasing.communication.entity.dos.InoutPlanDO;
+import com.leasing.communication.entity.dos.CbInoutPlanDO;
 
 import java.util.List;
 
@@ -17,30 +16,30 @@ public interface InoutPlanService {
      * @param vo
      * @return
      */
-    InoutPlanDO save(InoutPlanDO vo);
+    CbInoutPlanDO save(CbInoutPlanDO vo);
 
     /**
      * 批量保存方法
      * @param vo
      * @return
      */
-    void save(List<InoutPlanDO> list);
+    void save(List<CbInoutPlanDO> list);
 
     /**
      * 删除方法
      * @param vo
      */
-    void delete(InoutPlanDO vo);
+    void delete(CbInoutPlanDO vo);
 
     /**
      * 更新方法
      * @param vo
      */
-    InoutPlanDO update(InoutPlanDO vo);
+    CbInoutPlanDO update(CbInoutPlanDO vo);
 
     /**
      * 单体查询
      * @return
      */
-    InoutPlanDO findOne(String pk);
+    CbInoutPlanDO findOne(String pk);
 }

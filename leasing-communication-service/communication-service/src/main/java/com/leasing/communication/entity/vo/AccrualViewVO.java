@@ -24,35 +24,8 @@ import java.math.BigDecimal;
  *
  */
 @Entity
-@Table(name="(SELECT\n" +
-        "        A.MONTH,\n" +
-        "        NVL(A.CASH,0.00) INTER, -- 利息计提\n" +
-        "        NVL(B.CASH,0.00) SRV, --手续费计提\n" +
-        "        NVL(C.CASH,0.00) PRI, --其他收入\n" +
-        "        NVL(E.CASH,0.00) BUS, --其他支出\n" +
-        "        A.SOURCE_BILL, --单据主键\n" +
-        "        A.PK_ACCRUAL, --计提表主键\n" +
-        "        A.PK_CURRENCY pk_currtype, --币种主键\n" +
-        "        A.IF_BEGIN,\n" +
-        "        A.CAL_DATE,\n" +
-        "        A.pk_org,\n" +
-        "        A.BUSI_TYPE,\n" +
-        "        \n" +
-        "        G.Pk_Contract, --合同主键\n" +
-        "        G.assets_classify, --资产五级分类\n" +
-        "        G.Customer_Name,\n" +
-        "        G.lease_Flow,\n" +
-        "        --G.PK_CUSTOMER, --客户主键\n" +
-        "        G.CUSTOMER_CODE, --客户编码\n" +
-        "        G.EXCHG_RATE, --汇率\n" +
-        "        G.CONT_STATUS        \n" +
-        "        FROM YC_ACCRUAL A\n" +
-        "        LEFT JOIN YC_ACCRUAL B ON A.SOURCE_BILL = B.SOURCE_BILL AND A.MONTH = B.MONTH AND B.BUSI_TYPE = 11\n" +
-        "        LEFT JOIN YC_ACCRUAL C ON A.SOURCE_BILL = C.SOURCE_BILL AND A.MONTH = C.MONTH AND C.BUSI_TYPE = 12\n" +
-        "        LEFT JOIN YC_ACCRUAL E ON A.SOURCE_BILL = E.SOURCE_BILL AND A.MONTH = E.MONTH AND E.BUSI_TYPE = 13\n" +
-        "        LEFT JOIN YC_CONTRACT G ON G.PK_CONTRACT = A.PK_CONTRACT)")
-@JsonIgnoreProperties(value = { "hibernateLazyInitializer","handler"})
-public class AccrualForAccruedPageRefVO {
+@Table(name = "V_ACCRUAL")
+public class AccrualViewVO {
     private static final long serialVersionUID = 334579052232820078L;
 
     /**

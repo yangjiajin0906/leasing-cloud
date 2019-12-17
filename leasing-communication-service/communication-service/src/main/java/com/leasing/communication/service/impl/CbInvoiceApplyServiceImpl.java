@@ -81,7 +81,7 @@ public class CbInvoiceApplyServiceImpl implements CbInvoiceApplyService {
                 //开票日期
                 detailDO.setBillingData(DateUtils.getCurDate());
                 //发票税额
-                totalInvoiceAmount = totalInvoiceAmount.add(detailDO.getInvoiceAmount());
+                //totalInvoiceAmount = totalInvoiceAmount.add(detailDO.getInvoiceAmount());
 
                 totalLeaseCashTax = totalLeaseCashTax.add(detailDO.getLeaseCashTax());
 

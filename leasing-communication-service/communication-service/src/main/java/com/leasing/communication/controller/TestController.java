@@ -249,7 +249,7 @@
 ////        List<WithdrawDO> personList3 = EasyPoiUtils.importExcel(filePath3,1,1,WithdrawDO.class);
 //        List<InvoiceApplyDO> personList4 = EasyPoiUtils.importExcel(filePath4,1,1,InvoiceApplyDO.class);
 ////        List<ContractDO> personList5 = EasyPoiUtils.importExcel(filePath5,1,1,ContractDO.class);
-////        List<InoutPlanDO> personList6 = EasyPoiUtils.importExcel(filePath6,1,1,InoutPlanDO.class);
+////        List<CbInoutPlanDO> personList6 = EasyPoiUtils.importExcel(filePath6,1,1,CbInoutPlanDO.class);
 //        //也可以使用MultipartFile,使用 FileUtil.importExcel(MultipartFile file, Integer titleRows, Integer headerRows, Class<T> pojoClass)导入
 //        System.out.println("导入数据一共【"+personList4.size()+"】行");
 //    }

@@ -30,12 +30,13 @@ public class AccruedDetailVO extends BaseDO {
      * 主表主键
      */
     public String pkAccrued; //主表主键
-    /**
-     * 客户
-     */
-    @ManyToOne
-    @JoinColumn(name="pkCustomer")
-    public CustomerDTO pkCustomer;
+
+//    /**
+//     * 客户
+//     */
+//    @ManyToOne
+//    @JoinColumn(name="pkCustomer")
+//    public CustomerDTO pkCustomer;
 
     /**
      * 客户编码
@@ -139,13 +140,13 @@ public class AccruedDetailVO extends BaseDO {
         this.pkAccrued = pkAccrued;
     }
 
-    public CustomerDTO getPkCustomer() {
-        return pkCustomer;
-    }
-
-    public void setPkCustomer(CustomerDTO pkCustomer) {
-        this.pkCustomer = pkCustomer;
-    }
+//    public CustomerDTO getPkCustomer() {
+//        return pkCustomer;
+//    }
+//
+//    public void setPkCustomer(CustomerDTO pkCustomer) {
+//        this.pkCustomer = pkCustomer;
+//    }
 
     public ContractDTO getPkContract() {
         return pkContract;

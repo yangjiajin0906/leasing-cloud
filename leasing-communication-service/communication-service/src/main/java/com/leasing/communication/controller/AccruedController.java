@@ -13,6 +13,7 @@ import com.leasing.common.utils.tools.DozerUtils;
 import com.leasing.communication.entity.dos.AccruedDetailDO;
 import com.leasing.communication.entity.dos.AccruedDO;
 import com.leasing.communication.entity.dos.CbCapitalDetailDO;
+import com.leasing.communication.entity.dos.CbContractDO;
 import com.leasing.communication.entity.dto.FileOssLogDTO;
 import com.leasing.communication.entity.query.AccruedQuery;
 import com.leasing.communication.entity.query.CbOverdueContractQuery;
@@ -20,6 +21,7 @@ import com.leasing.communication.entity.vo.AccruedChildVO;
 import com.leasing.communication.entity.vo.AccruedVO;
 import com.leasing.communication.repository.CbCapitalDetailRepo;
 import com.leasing.communication.service.AccruedService;
+import com.leasing.communication.service.CbContractService;
 import com.leasing.communication.service.CbFileOssService;
 import com.leasing.communication.test.DemoForOutSysClient;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -118,4 +120,15 @@ public class AccruedController {
         detailDO.setContCode("003-ZL-DX-2009001");
         DemoForOutSysClient.addFlow(detailDO,"6");
     }
+
+    @Resource
+    CbContractService cbContractService;
+    @RequestMapping(value = "/test2")
+    public void test2(){
+        CbContractDO dos = cbContractService.findOne("CB654703295561990143");
+        List<CbContractDO> list = new ArrayList<>();
+        list.add(dos);
+        cbContractService.updateInoutPlan(list);
+    }
+
 }

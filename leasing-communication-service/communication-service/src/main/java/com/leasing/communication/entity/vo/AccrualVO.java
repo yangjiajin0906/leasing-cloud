@@ -32,6 +32,11 @@ public class AccrualVO extends BaseVO{
     public String sourceBill;
 
     /**
+     * 合同主键
+     */
+    public String pkContract;
+
+    /**
      * 来源单据类型
      */
     public String sourceBilltype;
@@ -84,9 +89,9 @@ public class AccrualVO extends BaseVO{
     /**
      * 部门主键
      */
-    @ManyToOne
-    @JoinColumn(name="pkDept")
-    public DeptVO pkDept;
+//    @ManyToOne
+//    @JoinColumn(name="pkDept")
+    public String pkDept;
 
     /**
      * 单据状态
@@ -96,9 +101,9 @@ public class AccrualVO extends BaseVO{
     /**
      * 操作人
      */
-    @ManyToOne
-    @JoinColumn(name="pkOperator")
-    public UserVO pkOperator;
+//    @ManyToOne
+//    @JoinColumn(name="pkOperator")
+    public String pkOperator;
 
     /**
      * 操作日期
@@ -113,9 +118,9 @@ public class AccrualVO extends BaseVO{
     /**
      * 复核人
      */
-    @ManyToOne
-    @JoinColumn(name="pkChecker")
-    public UserVO pkChecker;
+//    @ManyToOne
+//    @JoinColumn(name="pkChecker")
+    public String pkChecker;
 
     /**
      * 复核日期
@@ -130,9 +135,9 @@ public class AccrualVO extends BaseVO{
     /**
      * 授权人
      */
-    @ManyToOne
-    @JoinColumn(name="pkGrantor")
-    public UserVO pkGrantor;
+//    @ManyToOne
+//    @JoinColumn(name="pkGrantor")
+    public String pkGrantor;
 
     /**
      * 授权日期
@@ -147,9 +152,9 @@ public class AccrualVO extends BaseVO{
     /**
      * 机构
      */
-    @ManyToOne
-    @JoinColumn(name="pkOrg")
-    public OrgDTO pkOrg;
+//    @ManyToOne
+//    @JoinColumn(name="pkOrg")
+    public String pkOrg;
 
 
     //[合同变更-合同信息更正] wangjj@2016/06/17 ADD START
@@ -329,27 +334,51 @@ public class AccrualVO extends BaseVO{
         this.memo = memo;
     }
 
-    public DeptVO getPkDept() {
+    public String getPkContract() {
+        return pkContract;
+    }
+
+    public void setPkContract(String pkContract) {
+        this.pkContract = pkContract;
+    }
+
+    public String getPkDept() {
         return pkDept;
     }
 
-    public void setPkDept(DeptVO pkDept) {
+    public void setPkDept(String pkDept) {
         this.pkDept = pkDept;
     }
 
-    public void setPkOperator(UserVO pkOperator) {
+    public String getPkOperator() {
+        return pkOperator;
+    }
+
+    public void setPkOperator(String pkOperator) {
         this.pkOperator = pkOperator;
     }
 
-    public void setPkChecker(UserVO pkChecker) {
+    public String getPkChecker() {
+        return pkChecker;
+    }
+
+    public void setPkChecker(String pkChecker) {
         this.pkChecker = pkChecker;
     }
 
-    public void setPkGrantor(UserVO pkGrantor) {
+    public String getPkGrantor() {
+        return pkGrantor;
+    }
+
+    public void setPkGrantor(String pkGrantor) {
         this.pkGrantor = pkGrantor;
     }
 
-    public void setPkOrg(OrgDTO pkOrg) {
+    public String getPkOrg() {
+        return pkOrg;
+    }
+
+    public void setPkOrg(String pkOrg) {
         this.pkOrg = pkOrg;
     }
 
@@ -505,6 +534,8 @@ public class AccrualVO extends BaseVO{
     public void setSourceBill(String sourceBill) {
         this.sourceBill = sourceBill;
     }
+
+
 
     /**
      * Description: 来源单据类型.<br>

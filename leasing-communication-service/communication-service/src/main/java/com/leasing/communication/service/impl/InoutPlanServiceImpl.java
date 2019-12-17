@@ -1,6 +1,6 @@
 package com.leasing.communication.service.impl;
 
-import com.leasing.communication.entity.dos.InoutPlanDO;
+import com.leasing.communication.entity.dos.CbInoutPlanDO;
 import com.leasing.communication.repository.InoutPlanRepo;
 import com.leasing.communication.service.InoutPlanService;
 import org.springframework.stereotype.Service;
@@ -17,27 +17,27 @@ public class InoutPlanServiceImpl implements InoutPlanService {
 
 
     @Override
-    public InoutPlanDO save(InoutPlanDO vo) {
+    public CbInoutPlanDO save(CbInoutPlanDO vo) {
         return inoutPlanRepo.saveEntity(vo);
     }
 
     @Override
-    public void save(List<InoutPlanDO> list) {
+    public void save(List<CbInoutPlanDO> list) {
         inoutPlanRepo.saveAll(list);
     }
 
     @Override
-    public void delete(InoutPlanDO vo) {
+    public void delete(CbInoutPlanDO vo) {
         inoutPlanRepo.delete(vo);
     }
 
     @Override
-    public InoutPlanDO update(InoutPlanDO vo) {
+    public CbInoutPlanDO update(CbInoutPlanDO vo) {
         return inoutPlanRepo.updateEntity(vo);
     }
 
     @Override
-    public InoutPlanDO findOne(String pk) {
+    public CbInoutPlanDO findOne(String pk) {
         return inoutPlanRepo.findOne(pk);
     }
 }

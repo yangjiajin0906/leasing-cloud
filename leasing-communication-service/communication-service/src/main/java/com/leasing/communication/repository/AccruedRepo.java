@@ -11,12 +11,10 @@ import com.leasing.common.base.repository.BaseRepository;
 import com.leasing.communication.entity.dos.AccruedDO;
 import com.leasing.communication.entity.query.AccruedQuery;
 import com.leasing.communication.entity.vo.*;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 
@@ -44,10 +42,10 @@ public interface AccruedRepo extends BaseRepository<AccruedDO,AccruedQuery,Accru
      * @author Yangjiajin
      * @date 2019/11/29 14:04
      * @param currentMonth 计提月份
-     * @return java.util.List<com.leasing.communication.entity.vo.AccrualForAccruedPageRefVO>
+     * @return java.util.List<com.leasing.communication.entity.vo.AccrualViewVO>
      */
     @Query(name="accruedRepo.findAccrualForAccrued")
-    List<AccrualForAccruedPageRefVO> findAccrualForAccrued(String currentMonth, String pkOrg);
+    List<AccrualViewVO> findAccrualForAccrued(String currentMonth, String pkOrg);
 
     /**
      * @description 获取制定公司的最后计提月份

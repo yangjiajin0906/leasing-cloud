@@ -41,7 +41,7 @@
 
     <named-query name="accruedRepo.findAccrualForAccrued">
         <query>
-            select vo from AccrualForAccruedPageRefVO vo
+            select vo from AccrualViewVO vo
             <!--left join fetch vo.pkCustomer c-->
             left join fetch vo.pkContract co
             left join fetch vo.pkCurrtype cu
@@ -58,7 +58,7 @@
         </query>
     </named-query>
 
-    <named-query name="accrualCRepo.findByPkAndMonth">
+    <named-query name="accrualRepo.findByPkAndMonth">
         <query>
             select a from AccrualDO a
             where a.pkAccrual = ?1 and a.month = ?2

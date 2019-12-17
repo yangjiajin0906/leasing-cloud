@@ -14,8 +14,8 @@ import org.springframework.stereotype.Repository;
  * @description: 2c月末计提 当前表
  **/
 @Repository
-public interface AccrualCRepo extends BaseRepository<AccrualDO,BaseQuery,AccrualVO,String> {
+public interface AccrualRepo extends BaseRepository<AccrualDO,BaseQuery,AccrualVO,String> {
 
-    @Query(name="accrualCRepo.findByPkAndMonth")
+    @Query(name="accrualRepo.findByPkAndMonth")
     AccrualDO findByPkAndMonth(String pkAccrual, String month);
 }

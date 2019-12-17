@@ -15,7 +15,7 @@ import com.leasing.communication.entity.dos.AccruedDO;
 import com.leasing.communication.entity.dos.AccruedDetailDO;
 import com.leasing.communication.entity.query.AccruedQuery;
 import com.leasing.communication.entity.vo.*;
-import com.leasing.communication.repository.AccrualCRepo;
+import com.leasing.communication.repository.AccrualRepo;
 import com.leasing.communication.repository.AccruedRepo;
 import com.leasing.communication.service.AccruedService;
 import org.apache.commons.lang.StringUtils;
@@ -42,7 +42,7 @@ public class AccruedServiceImpl implements AccruedService {
     AccruedRepo leaseAccruedRepo;
 
     @Resource
-    AccrualCRepo accrualCRepo;
+    AccrualRepo accrualCRepo;
 
     @Override
     public PageQueryData<AccruedVO> pageQuery(Pagination pagination, AccruedQuery leaseAccruedQuery, String queryName) {
@@ -54,14 +54,14 @@ public class AccruedServiceImpl implements AccruedService {
         //校验
         //this.checkData(pkOrg, currentData, list);
         String currentMonth = currentData.substring(0, 7);
-        List<AccrualForAccruedPageRefVO> listRef = leaseAccruedRepo.findAccrualForAccrued(currentMonth, pkOrg);
+        List<AccrualViewVO> listRef = leaseAccruedRepo.findAccrualForAccrued(currentMonth, pkOrg);
         //构造计提vo
         AccruedVO vo = new AccruedVO();
         vo.setBillstatus(Short.valueOf("20"));//暂存
-        //UserVO userVO = ClientUtils.getCurUser();//获得当前登录人
-        vo.setPkOrg(null);
-        vo.setPkCorp(null);
-        vo.setPkOperator("1003A910000000008X5P");
+        UserVO userVO = ClientUtils.getCurUser();//获得当前登录人
+        vo.setPkOrg(userVO.getPkOrg());
+        vo.setPkCorp(userVO.getPkOrg());
+        vo.setPkOperator(userVO.getPk());
         vo.setOperateDate(DateUtils.getCurDate());
         vo.setOperateTime(DateUtils.getCurDateTime());
         vo.setContractType(Short.valueOf("1"));//非电信
@@ -155,13 +155,13 @@ public class AccruedServiceImpl implements AccruedService {
      * @param list
      * @return
      */
-    private AccruedVO convertVO(AccruedVO vo, List<AccrualForAccruedPageRefVO> list){
+    private AccruedVO convertVO(AccruedVO vo, List<AccrualViewVO> list){
         List<AccruedDetailVO> resultList = new ArrayList<AccruedDetailVO>();//子表数据
         BigDecimal interest_amount = BigDecimal.ZERO;// 利息
         BigDecimal fee_amount = BigDecimal.ZERO;// 手续费
         BigDecimal other_income_amount = BigDecimal.ZERO;// 其他收入
         BigDecimal other_expenses_amount = BigDecimal.ZERO;// 其他支出
-        for (AccrualForAccruedPageRefVO pageRefVO : list) {
+        for (AccrualViewVO pageRefVO : list) {
             AccruedDetailVO bvo = new AccruedDetailVO();
             bvo.setPkAccrual(pageRefVO.getPkAccrual());
             bvo.setPkAccrued(vo.getPkAccrued());

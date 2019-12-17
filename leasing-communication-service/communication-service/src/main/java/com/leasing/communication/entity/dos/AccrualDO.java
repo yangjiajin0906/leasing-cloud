@@ -34,9 +34,19 @@ public class AccrualDO extends BaseDO{
     public String sourceBill;
 
     /**
+     * 合同主键
+     */
+    public String pkContract;
+
+    /**
      * 来源单据类型
      */
     public String sourceBilltype;
+
+    /**
+     * 币种
+     */
+    public String pkCurrency;
 
     /**
      * 业务类型
@@ -625,5 +635,21 @@ public class AccrualDO extends BaseDO{
      */
     public void setCaclTag(String caclTag) {
         this.caclTag = caclTag;
+    }
+
+    public String getPkContract() {
+        return pkContract;
+    }
+
+    public void setPkContract(String pkContract) {
+        this.pkContract = pkContract;
+    }
+
+    public String getPkCurrency() {
+        return pkCurrency;
+    }
+
+    public void setPkCurrency(String pkCurrency) {
+        this.pkCurrency = pkCurrency;
     }
 }
