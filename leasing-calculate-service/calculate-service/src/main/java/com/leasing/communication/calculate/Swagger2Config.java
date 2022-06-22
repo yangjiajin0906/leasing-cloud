@@ -28,8 +28,8 @@ public class Swagger2Config {
     public Docket controllerApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(new ApiInfoBuilder()
-                        .title("标题：中建投_核心业务租赁系统_接口文档")
-                        .description("描述：用于管理中建投租赁业务系统,具体包括XXX,XXX模块...")
+                        .title("标题：XXX_核心业务租赁系统_接口文档")
+                        .description("描述：用于管理XXX租赁业务系统,具体包括XXX,XXX模块...")
                         .contact(new Contact("用友金融", null, null))
                         .version("版本号:1.0")
                         .build())
